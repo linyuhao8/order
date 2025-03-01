@@ -17,7 +17,6 @@ const sequelize = new Sequelize(
     },
   }
 );
-
 // 測試資料庫連線
 async function connectionSql() {
   try {
@@ -28,5 +27,12 @@ async function connectionSql() {
   }
 }
 
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// 匯入模型
+db.User = require("../models/user-model")(sequelize, Sequelize);
+
 // 匯出 sequelize 實例
-module.exports = { sequelize, connectionSql };
+module.exports = { sequelize, connectionSql, db };

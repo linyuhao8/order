@@ -1,11 +1,12 @@
 const swaggerAutogen = require("swagger-autogen")();
+require("dotenv").config();
 
 const doc = {
   info: {
     title: "My API",
     description: "Description",
   },
-  host: "localhost:3000",
+  host: `localhost:${process.env.SERVER_PORT_ENV}`,
 };
 
 const outputFile = "./swagger-output.json";

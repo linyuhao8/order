@@ -1,4 +1,4 @@
-const db = require("../config/mysql").db;
+const db = require("../config/postgreSql").db;
 
 // 創建用戶
 const createUser = async (req, res) => {

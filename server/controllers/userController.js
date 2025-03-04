@@ -1,4 +1,4 @@
-const db = require("../config/postgreSql").db;
+const User = require("../config/postgreSql").db.User;
 
 // 創建用戶
 const createUser = async (req, res) => {
@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     }
 
     // 創建用戶
-    const user = await db.User.create({
+    const user = await User.create({
       name,
       email,
       password, // 注意，實際應該加密密碼
@@ -33,7 +33,7 @@ const createUser = async (req, res) => {
 // 讀取所有用戶
 const getAllUsers = async (req, res) => {
   try {
-    const users = await db.User.findAll();
+    const users = await User.findAll();
     return res.status(200).json(users);
   } catch (err) {
     console.error("Error fetching users:", err);
@@ -48,7 +48,7 @@ const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
 
-    const user = await db.User.findByPk(userId);
+    const user = await User.findByPk(userId);
     if (!user) {
       return res
         .status(404)
@@ -70,7 +70,7 @@ const updateUser = async (req, res) => {
     const userId = req.params.id;
     const { name, email, password, phoneNumber, address } = req.body;
     // 檢查是否存在用戶
-    const user = await db.User.findByPk(userId);
+    const user = await User.findByPk(userId);
     if (!user) {
       return res
         .status(404)
@@ -99,7 +99,7 @@ const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
 
-    const user = await db.User.findByPk(userId);
+    const user = await User.findByPk(userId);
     if (!user) {
       return res
         .status(404)

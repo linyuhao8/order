@@ -37,8 +37,8 @@ db.sequelize = sequelize;
 
 // 匯入模型
 db.User = require("../models/UserModels")(sequelize, Sequelize.DataTypes);
-// const Product = require("../models/product-model")(sequelize);
-
+db.Product = require("../models/ProductModels")(sequelize, Sequelize.DataTypes);
+db.Menu = require("../models/MenuModels")(sequelize, Sequelize.DataTypes);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }
@@ -56,5 +56,15 @@ async function syncDatabase() {
 }
 
 syncDatabase();
+
+// 遍歷 db 物件中的每個模型
+Object.keys(db).forEach((modelName) => {
+    // 檢查該模型是否有定義 `associate` 方法
+    if (db[modelName].associate) {
+      // 如果有，則呼叫 `associate` 方法來建立關聯，並將整個 db 物件傳入
+      db[modelName].associate(db);
+    }
+  });
+  
 
 module.exports = { sequelize, db };

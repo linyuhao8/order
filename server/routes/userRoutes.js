@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // 引入 UserController
-const userController = require("../controllers/user-controller");
+const userController = require("../controllers/userController");
 
 // 創建用戶
 router.post(

@@ -12,7 +12,9 @@ app.use(
   })
 );
 
-const userRoutes = require("./routers/userRoutes");
+const userRoutes = require("./routes/userRoutes");
+const menuRoutes = require("./routes/menuRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 // 設置 JSON 解析和 URL 編碼解析
 app.use(express.json());
@@ -26,5 +28,7 @@ app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // 路由設定
 app.use("/api", userRoutes);
+app.use("/api", menuRoutes);
+app.use("/api", productRoutes);
 
 module.exports = app;

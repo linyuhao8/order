@@ -36,10 +36,9 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // 匯入模型
-db.User = require("../models/user-model")(sequelize, Sequelize.DataTypes); // 注意這裡
+db.User = require("../models/UserModels")(sequelize, Sequelize.DataTypes);
 // const Product = require("../models/product-model")(sequelize);
 
-// 這裡可以再加入其他模型
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

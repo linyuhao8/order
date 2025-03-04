@@ -1,6 +1,7 @@
 const app = require("./app");
-const connectMongo = require("./config/mongodb");
-const connectionPostgre = require("./config/postgreSql");
+require("./config/mongodb");
+require("./config/postgreSql");
+
 require("dotenv").config();
 
 const port = process.env.SERVER_PORT_ENV;

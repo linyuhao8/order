@@ -13,28 +13,42 @@
   "paths": {
     "/api/users": {
       "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "創建用戶",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "role可填入(customer, merchant, admin)",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "John Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "lin@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "aaa123"
                 },
                 "phoneNumber": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "0923213422"
                 },
                 "address": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "台中市"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "customer"
                 }
               }
             }
@@ -53,6 +67,10 @@
         }
       },
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "查詢所有用戶",
         "description": "",
         "responses": {
           "200": {
@@ -66,6 +84,10 @@
     },
     "/api/users/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "查詢單獨用戶",
         "description": "",
         "parameters": [
           {
@@ -88,6 +110,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "修改用戶資料",
         "description": "",
         "parameters": [
           {
@@ -99,23 +125,29 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Some description...",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "John Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "lin@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "aaa123"
                 },
                 "phoneNumber": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "0923213422"
                 },
                 "address": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "台中市"
                 }
               }
             }
@@ -134,6 +166,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "刪除單獨用戶",
         "description": "",
         "parameters": [
           {

@@ -39,6 +39,7 @@ db.sequelize = sequelize;
 db.User = require("../models/UserModels")(sequelize, Sequelize.DataTypes);
 db.Product = require("../models/ProductModels")(sequelize, Sequelize.DataTypes);
 db.Menu = require("../models/MenuModels")(sequelize, Sequelize.DataTypes);
+db.Merchant = require("../models/MerchantModels")(sequelize, Sequelize.DataTypes);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

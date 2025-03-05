@@ -197,7 +197,7 @@
         "tags": [
           "Menus"
         ],
-        "summary": "創建用戶",
+        "summary": "新增菜單",
         "description": "",
         "parameters": [
           {
@@ -556,6 +556,215 @@
           "Porduct"
         ],
         "summary": "刪除單獨商品",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant/{merchant_id}/products/details": {
+      "get": {
+        "tags": [
+          "Porduct"
+        ],
+        "summary": "查詢某個商家的所有菜單跟產品",
+        "description": "",
+        "parameters": [
+          {
+            "name": "merchant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchants/": {
+      "post": {
+        "tags": [
+          "Merchant"
+        ],
+        "summary": "創建商家",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "商家資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "uuid"
+                },
+                "business_name": {
+                  "type": "string",
+                  "example": "l排骨酥東海商圈"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "一段說明"
+                },
+                "feature": {
+                  "type": "string",
+                  "example": "好吃又健康"
+                },
+                "merchant_logo": {
+                  "type": "string",
+                  "example": "url"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "台中市西屯區xx路128號"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Merchant"
+        ],
+        "summary": "獲取所有商家",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchants/{id}": {
+      "get": {
+        "tags": [
+          "Merchant"
+        ],
+        "summary": "取得單獨商家資料",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Merchant"
+        ],
+        "summary": "修改商家訊息",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "example": "any"
+                },
+                "business_name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "feature": {
+                  "example": "any"
+                },
+                "merchant_logo": {
+                  "example": "any"
+                },
+                "location": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Merchant"
+        ],
+        "summary": "刪除商家",
         "description": "",
         "parameters": [
           {

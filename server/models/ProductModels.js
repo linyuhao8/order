@@ -23,13 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       menu_id: {
-        type: DataTypes.UUID, // 關聯到商家
+        type: DataTypes.UUID, // 關聯到菜單
         allowNull: true,
         references: {
           model: "menus",
           key: "id",
         },
-        onDelete: "CASCADE", // 商家刪除時，相關產品刪除
+        onDelete: "CASCADE", // 菜單刪除時，相關產品刪除
       },
     },
     {

@@ -7,7 +7,7 @@ const menuController = require("../controllers/menuControllers");
 router.post(
   "/menus",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '創建用戶'
+  // #swagger.summary = '新增菜單'
   /*  #swagger.parameters['body'] = {
             in: 'body',
             description: '新增菜單',

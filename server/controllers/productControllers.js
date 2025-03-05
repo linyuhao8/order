@@ -117,6 +117,52 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// 查詢商家的所有菜單、產品及相關資料
+const getMerchantDetails = async (req, res) => {
+  try {
+    const merchantId = req.params.merchant_id; // 從 URL 中獲取商家 ID
+
+    // 查詢商家的所有菜單，並加載每個菜單的產品、圖片、分類、特徵
+    const menus = await Menu.findAll({
+      where: { merchant_id: merchantId }, // 只查詢該商家的菜單
+      include: [
+        {
+          model: Product,
+          as: "products", // 關聯的產品
+          //連同img categories feature
+          //   include: [
+          //     {
+          //       model: ProductImage,
+          //       as: "productImages", // 產品圖片
+          //       attributes: ["url"], // 只返回圖片的 URL
+          //     },
+          //     {
+          //       model: ProductCategory,
+          //       as: "productCategories", // 產品分類
+          //       attributes: ["name"], // 只返回分類名稱
+          //     },
+          //     {
+          //       model: ProductFeature,
+          //       as: "productFeatures", // 產品特徵
+          //       attributes: ["feature"], // 只返回特徵
+          //     },
+          //   ],
+        },
+      ],
+    });
+
+    if (!menus || menus.length === 0) {
+      return res.status(404).json({ message: "未找到菜單或產品資料" });
+    }
+
+    // 返回菜單及其所有相關資料
+    return res.status(200).json(menus);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -124,4 +170,5 @@ module.exports = {
   getProductById,
   updateProduct,
   deleteProduct,
+  getMerchantDetails,
 };

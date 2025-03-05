@@ -61,5 +61,11 @@ router.delete(
   // #swagger.summary = '刪除單獨商品'
   productController.deleteProduct
 );
+router.get(
+  "/merchant/:merchant_id/products/details",
+  // #swagger.tags = ['Porduct']
+  // #swagger.summary = '查詢某個商家的所有菜單跟產品'
+  productController.getMerchantDetails
+);
 
 module.exports = router;

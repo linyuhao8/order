@@ -1,6 +1,15 @@
 const Merchant = require("../config/postgreSql").db.Merchant;
+const User = require("../config/postgreSql").db.User;
+const merchantSchema = require("../validations/merchantValidation");
 // 新增商家
 const createMerchant = async (req, res) => {
+  const { error } = merchantSchema.validate(req.body, { abortEarly: false });
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const {
       user_id,
@@ -11,11 +20,13 @@ const createMerchant = async (req, res) => {
       location,
     } = req.body;
 
-    // 檢查必填欄位
-    if (!user_id || !business_name) {
-      return res.status(400).json({ message: "User ID 和商家名稱為必填" });
+    // **手動檢查 user_id 是否存在**
+    const user = await User.findByPk(user_id);
+    if (!user) {
+      return res.status(400).json({
+        message: "無效的 user_id，該用戶不存在",
+      });
     }
-
     // 創建商家
     const newMerchant = await Merchant.create({
       user_id,
@@ -68,6 +79,13 @@ const getMerchantById = async (req, res) => {
 
 // 更新商家資料
 const updateMerchant = async (req, res) => {
+  const { error } = merchantSchema.validate(req.body, { abortEarly: false });
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { id } = req.params;
     const {
@@ -79,6 +97,13 @@ const updateMerchant = async (req, res) => {
       location,
     } = req.body;
 
+    // **手動檢查 user_id 是否存在**
+    const user = await User.findByPk(user_id);
+    if (!user) {
+      return res.status(400).json({
+        message: "無效的 user_id，該用戶不存在",
+      });
+    }
     // 檢查商家是否存在
     const merchant = await Merchant.findOne({
       where: { id },

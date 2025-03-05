@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         validate: {
-          isEmail: true, // 確保是有效的 Email 格式
+          isEmail: true,
         },
       },
       password: {

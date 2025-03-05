@@ -1,9 +1,12 @@
 const User = require("../config/postgreSql").db.User;
-const { USE } = require("sequelize/lib/index-hints");
+require("dotenv").config();
 const userSchema = require("../validations/userValidation");
-
+const loginSchema = require("../validations/loginValidation");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 // 創建用戶
 const allowedRoles = ["customer", "merchant"]; // 允許的角色
+
 const createUser = async (req, res) => {
   // Joi 驗證輸入
   const { error, value } = userSchema.validate(req.body, { abortEarly: false });
@@ -17,7 +20,7 @@ const createUser = async (req, res) => {
 
   try {
     const { name, email, password, phoneNumber, address, role } = value;
-
+    const hashedPassword = await bcrypt.hash(password, 10);
     const checkEmail = await User.findOne({ where: { email } });
     console.log(checkEmail);
     if (checkEmail) {
@@ -30,7 +33,7 @@ const createUser = async (req, res) => {
     const user = await User.create({
       name,
       email,
-      password, // 注意，實際應該加密密碼
+      password: hashedPassword,
       phoneNumber,
       address,
       role,
@@ -143,10 +146,75 @@ const deleteUser = async (req, res) => {
   }
 };
 
+//登入
+const login = async (req, res) => {
+  // Joi 驗證輸入
+  const { error, value } = loginSchema.validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
+
+  try {
+    const { email, password } = req.body;
+    // 查詢資料庫中是否有該 Email 的用戶
+    const user = await User.findOne({ where: { email } });
+    // 如果找不到用戶
+    if (!user) {
+      return res.status(400).json({ message: "用戶不存在" });
+    }
+    // 比對用戶輸入的密碼和資料庫中的加密密碼
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // 密碼不正確
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "密碼錯誤" });
+    }
+    // 密碼正確，生成 JWT Token
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    // 將 JWT Token 儲存到 Cookie 中，並設置 HttpOnly 和 Secure 屬性
+    res.cookie("token", token, {
+      httpOnly: true, // 防止 JavaScript 存取該 Cookie
+      secure: process.env.NODE_ENV === "production", // 只有在生產環境下才會啟用 Secure
+      maxAge: 60 * 60 * 1000, // Token 存活 1 小時
+    });
+    // 回傳登入成功的訊息
+    return res.json({ message: "登入成功" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "伺服器錯誤" });
+  }
+};
+
+// 登出路由
+const logout = async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({
+      message: "您沒有登入",
+    });
+  }
+  // 清除存儲在 Cookie 中的 JWT Token
+  res.clearCookie("token");
+
+  // 返回登出成功訊息
+  res.json({ message: "登出成功" });
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
+  login,
+  logout,
 };

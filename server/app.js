@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors"); // 確保引入 cors
-
+var cookieParser = require("cookie-parser");
 const app = express();
-
+app.use(cookieParser());
 // 啟用 CORS，允許所有來源訪問 API
 app.use(
   cors({
@@ -11,7 +11,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"], // 允許的 headers
   })
 );
-
+const authenticateToken = require("./middlewares/authMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const productRoutes = require("./routes/productRoutes");
@@ -32,5 +32,10 @@ app.use("/api", userRoutes);
 app.use("/api", menuRoutes);
 app.use("/api", productRoutes);
 app.use("/api/merchants", merchantRoutes);
-
+app.get("/", function (req, res) {
+  return res.json({ Cookies: req.cookie, SignedCookies: req.signedCookies });
+});
+app.get("/profile", authenticateToken, (req, res) => {
+  res.json({ message: "這是受保護的路由", user: req.user });
+});
 module.exports = app;

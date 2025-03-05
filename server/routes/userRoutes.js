@@ -23,6 +23,7 @@ router.post(
     } */
   userController.createUser
 );
+
 // 讀取所有用戶
 router.get(
   "/users",
@@ -30,6 +31,7 @@ router.get(
   // #swagger.summary = '查詢所有用戶'
   userController.getAllUsers
 );
+
 // 讀取單一用戶
 router.get(
   "/users/:id",
@@ -37,6 +39,7 @@ router.get(
   // #swagger.summary = '查詢單獨用戶'
   userController.getUserById
 );
+
 // 更新用戶
 router.put(
   "/users/:id",
@@ -55,12 +58,29 @@ router.put(
     } */
   userController.updateUser
 );
+
 // 刪除用戶
 router.delete(
   "/users/:id",
   // #swagger.tags = ['Users']
   // #swagger.summary = '刪除單獨用戶'
   userController.deleteUser
+);
+
+//login
+router.post(
+  "/login",
+  // #swagger.tags = ['Users']
+  // #swagger.summary = '登入'
+  userController.login
+);
+
+//logout
+router.post(
+  "/logout",
+  // #swagger.tags = ['Users']
+  // #swagger.summary = '登出'
+  userController.logout
 );
 
 module.exports = router;

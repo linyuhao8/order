@@ -157,6 +157,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -723,26 +726,33 @@
           {
             "name": "body",
             "in": "body",
+            "description": "商家資料",
             "schema": {
               "type": "object",
               "properties": {
                 "user_id": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "uuid"
                 },
                 "business_name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "排骨酥東海商圈"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "一段說明"
                 },
                 "feature": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "好吃又健康"
                 },
                 "merchant_logo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "url"
                 },
                 "location": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "台中市西屯區xx路128號"
                 }
               }
             }
@@ -751,6 +761,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"

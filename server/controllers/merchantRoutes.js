@@ -3,7 +3,9 @@ const User = require("../config/postgreSql").db.User;
 const merchantSchema = require("../validations/merchantValidation");
 // 新增商家
 const createMerchant = async (req, res) => {
-  const { error } = merchantSchema.validate(req.body, { abortEarly: false });
+  const { error, value } = merchantSchema.validate(req.body, {
+    abortEarly: false,
+  });
   if (error) {
     return res.status(400).json({
       message: "資料格式錯誤",
@@ -18,7 +20,7 @@ const createMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
-    } = req.body;
+    } = value ;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);
@@ -79,7 +81,9 @@ const getMerchantById = async (req, res) => {
 
 // 更新商家資料
 const updateMerchant = async (req, res) => {
-  const { error } = merchantSchema.validate(req.body, { abortEarly: false });
+  const { error, value } = merchantSchema.validate(req.body, {
+    abortEarly: false,
+  });
   if (error) {
     return res.status(400).json({
       message: "資料格式錯誤",
@@ -95,7 +99,7 @@ const updateMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
-    } = req.body;
+    } = value;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);

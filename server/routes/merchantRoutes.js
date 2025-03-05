@@ -43,6 +43,18 @@ router.put(
   "/:id",
   // #swagger.tags = ['Merchant']
   // #swagger.summary = '修改商家訊息'
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            description: '商家資料',
+            schema: {
+            "user_id": "uuid",
+            "business_name": "排骨酥東海商圈",
+            "description": "一段說明",
+            "feature": "好吃又健康",
+            "merchant_logo": "url",
+            "location": "台中市西屯區xx路128號"
+}
+    } */
   merchantController.updateMerchant
 );
 

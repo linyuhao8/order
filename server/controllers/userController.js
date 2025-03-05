@@ -1,15 +1,29 @@
 const User = require("../config/postgreSql").db.User;
+const { USE } = require("sequelize/lib/index-hints");
+const userSchema = require("../validations/userValidation");
 
 // 創建用戶
+const allowedRoles = ["customer", "merchant"]; // 允許的角色
 const createUser = async (req, res) => {
-  try {
-    const { name, email, password, phoneNumber, address } = req.body;
+  // Joi 驗證輸入
+  const { error, value } = userSchema.validate(req.body, { abortEarly: false });
 
-    // 檢查必填欄位
-    if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({ message: "Name, email, and password are required" });
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
+
+  try {
+    const { name, email, password, phoneNumber, address, role } = value;
+
+    const checkEmail = await User.findOne({ where: { email } });
+    console.log(checkEmail);
+    if (checkEmail) {
+      return res.status(400).json({
+        message: "此信箱已被使用",
+      });
     }
 
     // 創建用戶
@@ -19,6 +33,7 @@ const createUser = async (req, res) => {
       password, // 注意，實際應該加密密碼
       phoneNumber,
       address,
+      role,
     });
 
     return res.status(201).json({ message: "User created successfully", user });
@@ -66,9 +81,18 @@ const getUserById = async (req, res) => {
 
 // 更新用戶
 const updateUser = async (req, res) => {
+  // Joi 驗證輸入
+  const { error, value } = userSchema.validate(req.body, { abortEarly: false });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const userId = req.params.id;
-    const { name, email, password, phoneNumber, address } = req.body;
+    const { name, password, phoneNumber, address } = value;
     // 檢查是否存在用戶
     const user = await User.findByPk(userId);
     if (!user) {
@@ -80,7 +104,6 @@ const updateUser = async (req, res) => {
     // 更新用戶
     await user.update({
       name: name || user.name,
-      email: email || user.email,
       password: password || user.password,
       phoneNumber: phoneNumber || user.phoneNumber,
       address: address || user.address, // 同樣需要處理密碼加密

@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 // 用戶註冊/更新資料的 Joi 驗證
-const userSchema = Joi.object({
+const registerUserSchema = Joi.object({
   name: Joi.string().min(2).max(50).required().messages({
     "string.empty": "姓名不可為空",
     "string.min": "姓名至少要有 2 個字",
@@ -35,4 +35,4 @@ const userSchema = Joi.object({
     }),
 });
 
-module.exports = userSchema;
+module.exports = registerUserSchema;

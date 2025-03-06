@@ -1,15 +1,16 @@
 const User = require("../config/postgreSql").db.User;
 require("dotenv").config();
-const userSchema = require("../validations/userValidation");
+const registerUserSchema = require("../validations/registerUserValidation");
+const updateUserSchema = require("../validations/updateUserValidation");
 const loginSchema = require("../validations/loginValidation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// 創建用戶
-const allowedRoles = ["customer", "merchant"]; // 允許的角色
 
 const createUser = async (req, res) => {
   // Joi 驗證輸入
-  const { error, value } = userSchema.validate(req.body, { abortEarly: false });
+  const { error, value } = registerUserSchema.validate(req.body, {
+    abortEarly: false,
+  });
 
   if (error) {
     return res.status(400).json({
@@ -22,7 +23,6 @@ const createUser = async (req, res) => {
     const { name, email, password, phoneNumber, address, role } = value;
     const hashedPassword = await bcrypt.hash(password, 10);
     const checkEmail = await User.findOne({ where: { email } });
-    console.log(checkEmail);
     if (checkEmail) {
       return res.status(400).json({
         message: "此信箱已被使用",
@@ -85,7 +85,9 @@ const getUserById = async (req, res) => {
 // 更新用戶
 const updateUser = async (req, res) => {
   // Joi 驗證輸入
-  const { error, value } = userSchema.validate(req.body, { abortEarly: false });
+  const { error, value } = updateUserSchema.validate(req.body, {
+    abortEarly: false,
+  });
 
   if (error) {
     return res.status(400).json({
@@ -95,7 +97,7 @@ const updateUser = async (req, res) => {
   }
   try {
     const userId = req.params.id;
-    const { name, password, phoneNumber, address } = value;
+    const { name, password, phoneNumber, address, email } = value;
     // 檢查是否存在用戶
     const user = await User.findByPk(userId);
     if (!user) {
@@ -103,11 +105,27 @@ const updateUser = async (req, res) => {
         .status(404)
         .json({ message: `User with id ${userId} not found` });
     }
+    //檢查是否有一樣的信箱
+    const checkEmail = await User.findOne({ where: { email } });
 
+    if (checkEmail && checkEmail.id !== userId) {
+      return res
+        .status(400)
+        .json({ message: "此信箱被使用", email: checkEmail });
+    }
+
+    // 如果有提供新密碼，則進行加密
+    let hashedPassword = user.password; // 預設為原來的密碼
+    console.log("befroe", hashedPassword);
+    if (password) {
+      hashedPassword = await bcrypt.hash(password, 10); // 加密新的密碼
+    }
+    console.log("after", hashedPassword);
     // 更新用戶
     await user.update({
+      email: email || user.email,
       name: name || user.name,
-      password: password || user.password,
+      password: hashedPassword,
       phoneNumber: phoneNumber || user.phoneNumber,
       address: address || user.address, // 同樣需要處理密碼加密
     });

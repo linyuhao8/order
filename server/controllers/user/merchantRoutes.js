@@ -1,6 +1,6 @@
-const Merchant = require("../config/postgreSql").db.Merchant;
-const User = require("../config/postgreSql").db.User;
-const merchantSchema = require("../validations/merchantValidation");
+const Merchant = require("../../config/postgreSql").db.Merchant;
+const User = require("../../config/postgreSql").db.User;
+const merchantSchema = require("../../validations/user/merchantValidation");
 // 新增商家
 const createMerchant = async (req, res) => {
   const { error, value } = merchantSchema.validate(req.body, {
@@ -20,7 +20,7 @@ const createMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
-    } = value ;
+    } = value;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);

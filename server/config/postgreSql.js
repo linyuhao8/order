@@ -36,14 +36,14 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // 匯入模型
-db.User = require("../models/UserModels")(sequelize, Sequelize.DataTypes);
+db.User = require("../models/user/UserModels")(sequelize, Sequelize.DataTypes);
 db.Product = require("../models/ProductModels")(sequelize, Sequelize.DataTypes);
 db.Menu = require("../models/MenuModels")(sequelize, Sequelize.DataTypes);
-db.Merchant = require("../models/MerchantModels")(
+db.Merchant = require("../models/user/MerchantModels")(
   sequelize,
   Sequelize.DataTypes
 );
-db.Admin = require("../models/AdminModels")(sequelize, Sequelize.DataTypes);
+db.Admin = require("../models/user/AdminModels")(sequelize, Sequelize.DataTypes);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

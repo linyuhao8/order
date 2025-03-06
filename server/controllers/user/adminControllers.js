@@ -1,7 +1,7 @@
-const { message } = require("../validations/merchantValidation");
+const { message } = require("../../validations/user/merchantValidation");
 
-const Admin = require("../config/postgreSql").db.Admin;
-const User = require("../config/postgreSql").db.User;
+const Admin = require("../../config/postgreSql").db.Admin;
+const User = require("../../config/postgreSql").db.User;
 
 // 📌 創建管理員
 const createAdmin = async (req, res) => {

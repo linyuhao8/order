@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 // 引入 UserController
-const userController = require("../controllers/userController");
-const { authenticateToken } = require("../middlewares/authMiddleware");
+const userController = require("../../controllers/user/userController");
+const { authenticateToken } = require("../../middlewares/authMiddleware");
 
 // 創建用戶
 router.post(

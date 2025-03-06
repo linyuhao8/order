@@ -15,11 +15,11 @@ const {
   authenticateToken,
   verifyAdmin,
 } = require("./middlewares/authMiddleware");
-const adminRoutes = require("./routes/adminRoutes");
-const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/user/adminRoutes");
+const userRoutes = require("./routes/user/userRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const productRoutes = require("./routes/productRoutes");
-const merchantRoutes = require("./routes/merchantRoutes");
+const merchantRoutes = require("./routes/user/merchantRoutes");
 
 // 設置 JSON 解析和 URL 編碼解析
 app.use(express.json());

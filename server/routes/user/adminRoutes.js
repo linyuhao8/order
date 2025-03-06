@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // 引入 UserController
-const adminController = require("../controllers/adminControllers");
+const adminController = require("../../controllers/user/adminControllers");
 
 // 創建管理員
 router.post(

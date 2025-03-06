@@ -46,6 +46,14 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-
+  //一個User只能配一個admin
+  User.associate = (models) => {
+    User.hasOne(models.Merchant, {
+      foreignKey: "user_id",
+      as: "Admins",
+      onDelete: "CASCADE",
+    });
+  };
+  //一個User可以有多個merchant
   return User;
 };

@@ -1,5 +1,5 @@
-const Product = require("../config/postgreSql").db.Product;
-const Menu = require("../config/postgreSql").db.Menu;
+const Product = require("../../config/postgreSql").db.Product;
+const Menu = require("../../config/postgreSql").db.Menu;
 const { Op } = require("sequelize");
 
 // 創建產品

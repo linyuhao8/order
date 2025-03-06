@@ -2,7 +2,7 @@ const User = require("../../config/postgreSql").db.User;
 require("dotenv").config();
 const registerUserSchema = require("../../validations/user/registerUserValidation");
 const updateUserSchema = require("../../validations/user/updateUserValidation");
-const loginSchema = require("../../validations/user/loginValidation");
+const loginSchema = require("../../validations/user/loginUserValidation");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

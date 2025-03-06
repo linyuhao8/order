@@ -37,8 +37,8 @@ db.sequelize = sequelize;
 
 // 匯入模型
 db.User = require("../models/user/UserModels")(sequelize, Sequelize.DataTypes);
-db.Product = require("../models/ProductModels")(sequelize, Sequelize.DataTypes);
-db.Menu = require("../models/MenuModels")(sequelize, Sequelize.DataTypes);
+db.Product = require("../models/product/ProductModels")(sequelize, Sequelize.DataTypes);
+db.Menu = require("../models/product/MenuModels")(sequelize, Sequelize.DataTypes);
 db.Merchant = require("../models/user/MerchantModels")(
   sequelize,
   Sequelize.DataTypes

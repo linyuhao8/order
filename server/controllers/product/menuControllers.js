@@ -1,4 +1,4 @@
-const Menu = require("../config/postgreSql").db.Menu;
+const Menu = require("../../config/postgreSql").db.Menu;
 
 // 創建菜單
 const createMenu = async (req, res) => {
@@ -78,7 +78,7 @@ const updateMenu = async (req, res) => {
     menu.name = name || menu.name;
     menu.description = description || menu.description;
     menu.merchant_id = merchant_id || menu.merchant_id;
-console.log(merchant_id)
+    console.log(merchant_id);
     await menu.save();
     return res.status(200).json(menu);
   } catch (error) {

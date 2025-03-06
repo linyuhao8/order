@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const menuController = require("../controllers/menuControllers");
+const menuController = require("../../controllers/product/menuControllers");
 
 // 菜單路由
 router.post(

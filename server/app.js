@@ -11,7 +11,11 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"], // 允許的 headers
   })
 );
-const authenticateToken = require("./middlewares/authMiddleware");
+const {
+  authenticateToken,
+  verifyAdmin,
+} = require("./middlewares/authMiddleware");
+const adminRoutes = require("./routes/adminRoutes");
 const userRoutes = require("./routes/userRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const productRoutes = require("./routes/productRoutes");
@@ -32,6 +36,8 @@ app.use("/api", userRoutes);
 app.use("/api", menuRoutes);
 app.use("/api", productRoutes);
 app.use("/api/merchants", merchantRoutes);
+app.use("/api/admin", verifyAdmin, adminRoutes);
+
 app.get("/", function (req, res) {
   return res.json({ Cookies: req.cookie, SignedCookies: req.signedCookies });
 });

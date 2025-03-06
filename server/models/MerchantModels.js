@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     Merchant.belongsTo(models.User, {
       foreignKey: "user_id", // 外鍵名稱
       as: "user", // 關聯名稱
+      onDelete: "CASCADE",
     });
   };
 

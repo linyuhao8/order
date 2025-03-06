@@ -1,9 +1,13 @@
 const Merchant = require("../../config/postgreSql").db.Merchant;
 const User = require("../../config/postgreSql").db.User;
-const merchantSchema = require("../../validations/user/merchantValidation");
+const {
+  createMerchantValidation,
+  updateMerchantValidation,
+} = require("../../validations/user/merchantValidation");
+
 // 新增商家
 const createMerchant = async (req, res) => {
-  const { error, value } = merchantSchema.validate(req.body, {
+  const { error, value } = createMerchantValidation.validate(req.body, {
     abortEarly: false,
   });
   if (error) {
@@ -81,7 +85,7 @@ const getMerchantById = async (req, res) => {
 
 // 更新商家資料
 const updateMerchant = async (req, res) => {
-  const { error, value } = merchantSchema.validate(req.body, {
+  const { error, value } = updateMerchantValidation.validate(req.body, {
     abortEarly: false,
   });
   if (error) {

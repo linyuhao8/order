@@ -7,15 +7,15 @@ const productController = require("../controllers/productControllers");
 router.post(
   "/products",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '新增商品'
+  // #swagger.summary = 'add product'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '新增菜單',
+            description: 'add product',
             schema: {
            "name": "肉燥便當",
            "description": "",
            "price": "100",
-           "menu_id": "1"
+           "menu_id": ""
 }
     } */
   productController.createProduct
@@ -23,34 +23,34 @@ router.post(
 router.get(
   "/products",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '查詢所有商品'
+  // #swagger.summary = 'Get all products'
   productController.getAllProducts
 );
 
 router.get(
   "/menu/:menu_id/products",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '查詢包含menu_id的所有產品'
+  // #swagger.summary = 'Query all products containing menu_id,Enter menu_id'
   productController.getProductsWithMenuId
 );
 router.get(
   "/products/:id",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '查詢單獨商品'
+  // #swagger.summary = 'Find single product'
   productController.getProductById
 );
 router.put(
   "/products/:id",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '修改商品'
+  // #swagger.summary = 'modify product'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '新增菜單',
+            description: 'modify product',
             schema: {
            "name": "肉燥便當",
            "description": "",
            "price": "80",
-           "menu_id": "1"
+           "menu_id": ""
 }
     } */
   productController.updateProduct
@@ -58,13 +58,13 @@ router.put(
 router.delete(
   "/products/:id",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '刪除單獨商品'
+  // #swagger.summary = 'deleta single product'
   productController.deleteProduct
 );
 router.get(
   "/merchant/:merchant_id/products/details",
   // #swagger.tags = ['Porduct']
-  // #swagger.summary = '查詢某個商家的所有菜單跟產品'
+  // #swagger.summary = 'Check all the menus and products of a particular merchant. Enter merchant_id'
   productController.getMerchantDetails
 );
 

@@ -7,14 +7,14 @@ const menuController = require("../controllers/menuControllers");
 router.post(
   "/menus",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '新增菜單'
+  // #swagger.summary = 'Add menu,Enter mercant_id'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '新增菜單',
+            description: 'add menu',
             schema: {
                 "name": "飲料",
                 "description": "這是一個菜單的說明",
-                "merchant_id": "weejwoihweohqw"
+                "merchant_id": ""
             }
     } */
   menuController.createMenu
@@ -22,35 +22,35 @@ router.post(
 router.get(
   "/menus",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '查詢所有菜單'
+  // #swagger.summary = 'Get all menu'
   menuController.getAllMenus
 );
 // 查詢某個商家的所有菜單
 router.get(
   "/merchant/:merchant_id/menus",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '查詢某個商家的所有菜單'
+  // #swagger.summary = 'Find all the menus of a merchant, Enter merchant_id'
   menuController.getMenusByMerchant
 );
 
 router.get(
   "/menus/:id",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '查詢單獨菜單'
+  // #swagger.summary = 'Find single menu'
   menuController.getMenuById
 );
 router.put(
   "/menus/:id",
 
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '編輯單獨菜單'
+  // #swagger.summary = 'edit menu'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '新增菜單',
+            description: 'edit menu',
             schema: {
                 "name": "飲料",
                 "description": "這是一個菜單的說明",
-                "merchant_id": "weejwoihweohqw"
+                "merchant_id": ""
             }
     } */
   menuController.updateMenu
@@ -58,7 +58,7 @@ router.put(
 router.delete(
   "/menus/:id",
   // #swagger.tags = ['Menus']
-  // #swagger.summary = '刪除單獨菜單'
+  // #swagger.summary = 'Delete menu,Enter menu_id,All data related to the product will be deleted.'
   menuController.deleteMenu
 );
 

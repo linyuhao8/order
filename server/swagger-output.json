@@ -11,51 +11,23 @@
     "http"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/profile": {
-      "get": {
+    "/api/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "create user",
         "description": "",
         "parameters": [
           {
             "name": "Authorization",
             "in": "header",
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/api/users": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "創建用戶",
-        "description": "",
-        "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "role可填入(customer, merchant, admin)",
+            "description": "role Can be filled in(customer, merchant, admin)",
             "schema": {
               "type": "object",
               "properties": {
@@ -94,6 +66,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -103,11 +81,24 @@
         "tags": [
           "Users"
         ],
-        "summary": "查詢所有用戶",
+        "summary": "get all users",
         "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -120,7 +111,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "查詢單獨用戶",
+        "summary": "fing single user",
         "description": "",
         "parameters": [
           {
@@ -128,11 +119,22 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -146,13 +148,18 @@
         "tags": [
           "Users"
         ],
-        "summary": "修改用戶資料",
+        "summary": "Modify User Information",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
             "type": "string"
           },
           {
@@ -193,6 +200,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -205,7 +218,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "刪除單獨用戶",
+        "summary": "delete single user",
         "description": "",
         "parameters": [
           {
@@ -213,11 +226,22 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -233,20 +257,23 @@
         "tags": [
           "Users"
         ],
-        "summary": "登入",
+        "summary": "login",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Some description...",
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "lin@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "aaa123"
                 }
               }
             }
@@ -270,7 +297,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "登出",
+        "summary": "logout",
         "description": "",
         "responses": {
           "200": {
@@ -282,18 +309,32 @@
         }
       }
     },
+    "/api/checkCookies": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get cookies token",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/menus": {
       "post": {
         "tags": [
           "Menus"
         ],
-        "summary": "新增菜單",
+        "summary": "Add menu,Enter mercant_id",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "新增菜單",
+            "description": "add menu",
             "schema": {
               "type": "object",
               "properties": {
@@ -307,7 +348,7 @@
                 },
                 "merchant_id": {
                   "type": "string",
-                  "example": "weejwoihweohqw"
+                  "example": ""
                 }
               }
             }
@@ -316,6 +357,12 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -326,11 +373,17 @@
         "tags": [
           "Menus"
         ],
-        "summary": "查詢所有菜單",
+        "summary": "Get all menu",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -346,7 +399,7 @@
         "tags": [
           "Menus"
         ],
-        "summary": "查詢某個商家的所有菜單",
+        "summary": "Find all the menus of a merchant, Enter merchant_id",
         "description": "",
         "parameters": [
           {
@@ -359,6 +412,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -374,7 +433,7 @@
         "tags": [
           "Menus"
         ],
-        "summary": "查詢單獨菜單",
+        "summary": "Find single menu",
         "description": "",
         "parameters": [
           {
@@ -387,6 +446,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -400,7 +465,7 @@
         "tags": [
           "Menus"
         ],
-        "summary": "編輯單獨菜單",
+        "summary": "edit menu",
         "description": "",
         "parameters": [
           {
@@ -412,7 +477,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "新增菜單",
+            "description": "edit menu",
             "schema": {
               "type": "object",
               "properties": {
@@ -426,7 +491,7 @@
                 },
                 "merchant_id": {
                   "type": "string",
-                  "example": "weejwoihweohqw"
+                  "example": ""
                 }
               }
             }
@@ -435,6 +500,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -448,7 +519,7 @@
         "tags": [
           "Menus"
         ],
-        "summary": "刪除單獨菜單",
+        "summary": "Delete menu,Enter menu_id,All data related to the product will be deleted.",
         "description": "",
         "parameters": [
           {
@@ -461,6 +532,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -476,13 +553,13 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "新增商品",
+        "summary": "add product",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "新增菜單",
+            "description": "add product",
             "schema": {
               "type": "object",
               "properties": {
@@ -500,7 +577,7 @@
                 },
                 "menu_id": {
                   "type": "string",
-                  "example": "1"
+                  "example": ""
                 }
               }
             }
@@ -509,6 +586,12 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -519,11 +602,17 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "查詢所有商品",
+        "summary": "Get all products",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -539,7 +628,7 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "查詢包含menu_id的所有產品",
+        "summary": "Query all products containing menu_id,Enter menu_id",
         "description": "",
         "parameters": [
           {
@@ -552,6 +641,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -567,7 +662,7 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "查詢單獨商品",
+        "summary": "Find single product",
         "description": "",
         "parameters": [
           {
@@ -581,6 +676,12 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -593,7 +694,7 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "修改商品",
+        "summary": "modify product",
         "description": "",
         "parameters": [
           {
@@ -605,7 +706,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "新增菜單",
+            "description": "modify product",
             "schema": {
               "type": "object",
               "properties": {
@@ -623,7 +724,7 @@
                 },
                 "menu_id": {
                   "type": "string",
-                  "example": "1"
+                  "example": ""
                 }
               }
             }
@@ -632,6 +733,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -645,7 +752,7 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "刪除單獨商品",
+        "summary": "deleta single product",
         "description": "",
         "parameters": [
           {
@@ -658,6 +765,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -673,7 +786,7 @@
         "tags": [
           "Porduct"
         ],
-        "summary": "查詢某個商家的所有菜單跟產品",
+        "summary": "Check all the menus and products of a particular merchant. Enter merchant_id",
         "description": "",
         "parameters": [
           {
@@ -686,6 +799,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -701,13 +820,13 @@
         "tags": [
           "Merchant"
         ],
-        "summary": "創建商家",
+        "summary": "create merchant",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "商家資料",
+            "description": "merchant info",
             "schema": {
               "type": "object",
               "properties": {
@@ -717,7 +836,7 @@
                 },
                 "business_name": {
                   "type": "string",
-                  "example": "l排骨酥東海商圈"
+                  "example": "好吃排骨酥東海商圈"
                 },
                 "description": {
                   "type": "string",
@@ -729,7 +848,7 @@
                 },
                 "merchant_logo": {
                   "type": "string",
-                  "example": "url"
+                  "example": "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 },
                 "location": {
                   "type": "string",
@@ -746,6 +865,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -755,11 +880,17 @@
         "tags": [
           "Merchant"
         ],
-        "summary": "獲取所有商家",
+        "summary": "find all merchant",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -775,7 +906,7 @@
         "tags": [
           "Merchant"
         ],
-        "summary": "取得單獨商家資料",
+        "summary": "find single merchant",
         "description": "",
         "parameters": [
           {
@@ -789,6 +920,12 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -801,7 +938,7 @@
         "tags": [
           "Merchant"
         ],
-        "summary": "修改商家訊息",
+        "summary": "modify merchant info",
         "description": "",
         "parameters": [
           {
@@ -852,6 +989,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -864,7 +1007,7 @@
         "tags": [
           "Merchant"
         ],
-        "summary": "刪除商家",
+        "summary": "delete merchant",
         "description": "",
         "parameters": [
           {
@@ -878,6 +1021,12 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -887,13 +1036,13 @@
         }
       }
     },
-    "/api/admin/users": {
+    "/api/admin/create": {
       "post": {
         "tags": [
           "Admin"
         ],
-        "summary": "創建管理員",
-        "description": "",
+        "summary": "create admin,set user role to admin(Originally for customer),enter user_id",
+        "description": "before create you need to login by admin user",
         "parameters": [
           {
             "name": "body",
@@ -928,12 +1077,14 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/admin/getAll": {
       "get": {
         "tags": [
           "Admin"
         ],
-        "summary": "查詢所有管理員",
+        "summary": "get all Admin",
         "description": "",
         "responses": {
           "200": {
@@ -956,7 +1107,7 @@
         "tags": [
           "Admin"
         ],
-        "summary": "查詢單獨管理員",
+        "summary": "get single admin data(return user date),enter user_id",
         "description": "",
         "parameters": [
           {
@@ -988,7 +1139,7 @@
         "tags": [
           "Admin"
         ],
-        "summary": "刪除單獨管理員",
+        "summary": "delete admin and set user role to customer(Originally for admin),enter user_id",
         "description": "",
         "parameters": [
           {

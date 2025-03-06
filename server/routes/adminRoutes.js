@@ -8,8 +8,8 @@ const adminController = require("../controllers/adminControllers");
 router.post(
   "/create",
   // #swagger.tags = ['Admin']
-  // #swagger.summary = '創建管理員，輸入user_id'
-
+  // #swagger.summary = 'create admin,set user role to admin(Originally for customer),enter user_id'
+  // #swagger.description = 'before create you need to login by admin user'
   adminController.createAdmin
 );
 
@@ -17,7 +17,7 @@ router.post(
 router.get(
   "/getAll",
   // #swagger.tags = ['Admin']
-  // #swagger.summary = '查詢所有管理員'
+  // #swagger.summary = 'get all Admin'
   adminController.getAllAdmin
 );
 
@@ -25,7 +25,7 @@ router.get(
 router.get(
   "/users/:id",
   // #swagger.tags = ['Admin']
-  // #swagger.summary = '查詢單獨管理員，輸入user_id'
+  // #swagger.summary = 'get single admin data(return user date),enter user_id'
   adminController.getAdmin
 );
 
@@ -33,7 +33,7 @@ router.get(
 router.delete(
   "/users/:id",
   // #swagger.tags = ['Admin']
-  // #swagger.summary = '刪除單獨管理員，輸入user_id'
+  // #swagger.summary = 'delete admin and set user role to customer(Originally for admin),enter user_id'
   adminController.deleteAdmin
 );
 

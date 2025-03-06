@@ -33,15 +33,9 @@ app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // 路由設定
 app.use("/api", userRoutes);
-app.use("/api", menuRoutes);
-app.use("/api", productRoutes);
-app.use("/api/merchants", merchantRoutes);
+app.use("/api", authenticateToken, menuRoutes);
+app.use("/api", authenticateToken, productRoutes);
+app.use("/api/merchants", authenticateToken, merchantRoutes);
 app.use("/api/admin", verifyAdmin, adminRoutes);
 
-app.get("/", function (req, res) {
-  return res.json({ Cookies: req.cookie, SignedCookies: req.signedCookies });
-});
-app.get("/profile", authenticateToken, (req, res) => {
-  res.json({ message: "這是受保護的路由", user: req.user });
-});
 module.exports = app;

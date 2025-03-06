@@ -3,15 +3,16 @@ const router = express.Router();
 
 // 引入 UserController
 const userController = require("../controllers/userController");
+const { authenticateToken } = require("../middlewares/authMiddleware");
 
 // 創建用戶
 router.post(
   "/users",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '創建用戶'
+  // #swagger.summary = 'create user'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: 'role可填入(customer, merchant, admin)',
+            description: 'role Can be filled in(customer, merchant, admin)',
             schema: {
                 name: 'John Doe',
                 email: "lin@gmail.com",
@@ -21,6 +22,7 @@ router.post(
                 role: "customer"
             }
     } */
+  authenticateToken,
   userController.createUser
 );
 
@@ -28,7 +30,8 @@ router.post(
 router.get(
   "/users",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '查詢所有用戶'
+  // #swagger.summary = 'get all users'
+  authenticateToken,
   userController.getAllUsers
 );
 
@@ -36,7 +39,8 @@ router.get(
 router.get(
   "/users/:id",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '查詢單獨用戶'
+  // #swagger.summary = 'fing single user'
+  authenticateToken,
   userController.getUserById
 );
 
@@ -44,7 +48,7 @@ router.get(
 router.put(
   "/users/:id",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '修改用戶資料'
+  // #swagger.summary = 'Modify User Information'
   /*  #swagger.parameters['body'] = {
             in: 'body',
             description: 'Some description...',
@@ -56,6 +60,7 @@ router.put(
                 address: "台中市"
             }
     } */
+  authenticateToken,
   userController.updateUser
 );
 
@@ -63,7 +68,8 @@ router.put(
 router.delete(
   "/users/:id",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '刪除單獨用戶'
+  // #swagger.summary = 'delete single user'
+  authenticateToken,
   userController.deleteUser
 );
 
@@ -71,7 +77,15 @@ router.delete(
 router.post(
   "/login",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '登入'
+  // #swagger.summary = 'login'
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Some description...',
+            schema: {
+                email: "lin@gmail.com",
+                password: "aaa123",
+            }
+    } */
   userController.login
 );
 
@@ -79,8 +93,16 @@ router.post(
 router.post(
   "/logout",
   // #swagger.tags = ['Users']
-  // #swagger.summary = '登出'
+  // #swagger.summary = 'logout'
   userController.logout
+);
+
+//check cookies
+router.get(
+  "/checkCookies",
+  // #swagger.tags = ['Users']
+  // #swagger.summary = 'Get cookies token'
+  userController.checkCookies
 );
 
 module.exports = router;

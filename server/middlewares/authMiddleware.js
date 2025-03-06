@@ -6,7 +6,7 @@ const authenticateToken = (req, res, next) => {
   const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "請先登入，才能查看此頁面" });
+    return res.status(401).json({ message: "請先登入" });
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {

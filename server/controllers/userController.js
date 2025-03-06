@@ -209,6 +209,10 @@ const logout = async (req, res) => {
   res.json({ message: "登出成功" });
 };
 
+const checkCookies = (req, res) => {
+  return res.json({ Cookies: req.cookies, SignedCookies: req.signedCookies });
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -217,4 +221,5 @@ module.exports = {
   deleteUser,
   login,
   logout,
+  checkCookies,
 };

@@ -6,16 +6,16 @@ const merchantController = require("../controllers/merchantRoutes");
 router.post(
   "/",
   // #swagger.tags = ['Merchant']
-  // #swagger.summary = '創建商家'
+  // #swagger.summary = 'create merchant'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '商家資料',
+            description: 'merchant info',
             schema: {
             "user_id": "uuid",
-            "business_name": "l排骨酥東海商圈",
+            "business_name": "好吃排骨酥東海商圈",
             "description": "一段說明",
             "feature": "好吃又健康",
-            "merchant_logo": "url",
+            "merchant_logo": "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             "location": "台中市西屯區xx路128號"
 }
     } */
@@ -26,7 +26,7 @@ router.post(
 router.get(
   "/",
   // #swagger.tags = ['Merchant']
-  // #swagger.summary = '獲取所有商家'
+  // #swagger.summary = 'find all merchant'
   merchantController.getAllMerchants
 );
 
@@ -34,7 +34,7 @@ router.get(
 router.get(
   "/:id",
   // #swagger.tags = ['Merchant']
-  // #swagger.summary = '取得單獨商家資料'
+  // #swagger.summary = 'find single merchant'
   merchantController.getMerchantById
 );
 
@@ -42,7 +42,7 @@ router.get(
 router.put(
   "/:id",
   // #swagger.tags = ['Merchant']
-  // #swagger.summary = '修改商家訊息'
+  // #swagger.summary = 'modify merchant info'
   /*  #swagger.parameters['body'] = {
             in: 'body',
             description: '商家資料',
@@ -62,7 +62,7 @@ router.put(
 router.delete(
   "/:id",
   // #swagger.tags = ['Merchant']
-  // #swagger.summary = '刪除商家'
+  // #swagger.summary = 'delete merchant'
   merchantController.deleteMerchant
 );
 

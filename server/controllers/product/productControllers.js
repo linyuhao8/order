@@ -1,7 +1,6 @@
 const Product = require("../../config/postgreSql").db.Product;
 const Menu = require("../../config/postgreSql").db.Menu;
-const { Op } = require("sequelize");
-
+const ProductImg = require("../../config/postgreSql").db.ProductImg;
 // 創建產品
 const createProduct = async (req, res) => {
   try {
@@ -130,23 +129,22 @@ const getMerchantDetails = async (req, res) => {
           model: Product,
           as: "products", // 關聯的產品
           //連同img categories feature
-          //   include: [
-          //     {
-          //       model: ProductImage,
-          //       as: "productImages", // 產品圖片
-          //       attributes: ["url"], // 只返回圖片的 URL
-          //     },
-          //     {
-          //       model: ProductCategory,
-          //       as: "productCategories", // 產品分類
-          //       attributes: ["name"], // 只返回分類名稱
-          //     },
-          //     {
-          //       model: ProductFeature,
-          //       as: "productFeatures", // 產品特徵
-          //       attributes: ["feature"], // 只返回特徵
-          //     },
-          //   ],
+          include: [
+            {
+              model: ProductImg,
+              as: "images", // 產品圖片
+            },
+            //     {
+            //       model: ProductCategory,
+            //       as: "productCategories", // 產品分類
+            //       attributes: ["name"], // 只返回分類名稱
+            //     },
+            //     {
+            //       model: ProductFeature,
+            //       as: "productFeatures", // 產品特徵
+            //       attributes: ["feature"], // 只返回特徵
+            //     },
+          ],
         },
       ],
     });

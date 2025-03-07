@@ -1167,6 +1167,238 @@
           }
         }
       }
+    },
+    "/api/productimg/": {
+      "post": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "Add ProductImg ,enter product_id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "add menu",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "type": "string",
+                  "example": "67c01da4-6c1e-434d-a909-6f8bbcfdcf9c"
+                },
+                "image_url": {
+                  "type": "string",
+                  "example": "https://images.deliveryhero.io/image/fd-tw/Products/3524648.jpg??width=400"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "青茶"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "說明"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "Get All ProductImg",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/productimg/{id}": {
+      "get": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "find single productImg ,enter productImg_id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "edit productImg info,enter product_id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "add menu",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image_url": {
+                  "type": "string",
+                  "example": "https://images.deliveryhero.io/image/fd-tw/Products/3524648.jpg??width=400"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "青茶"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "說明"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "Delete ProductImg",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/productimg/product/{id}/images": {
+      "get": {
+        "tags": [
+          "ProductImg"
+        ],
+        "summary": "Photo of the Product taken with the product_id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }

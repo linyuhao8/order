@@ -1,5 +1,3 @@
-const { message } = require("../../validations/user/merchantValidation");
-
 const Admin = require("../../config/postgreSql").db.Admin;
 const User = require("../../config/postgreSql").db.User;
 

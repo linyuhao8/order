@@ -20,7 +20,7 @@ const userRoutes = require("./routes/user/userRoutes");
 const menuRoutes = require("./routes/product/menuRoutes");
 const productRoutes = require("./routes/product/productRoutes");
 const merchantRoutes = require("./routes/user/merchantRoutes");
-
+const ProductImageRoutes = require("./routes/product/productImgRoutes");
 // 設置 JSON 解析和 URL 編碼解析
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,5 +37,5 @@ app.use("/api", authenticateToken, menuRoutes);
 app.use("/api", authenticateToken, productRoutes);
 app.use("/api/merchants", authenticateToken, merchantRoutes);
 app.use("/api/admin", verifyAdmin, adminRoutes);
-
+app.use("/api/productimg", authenticateToken, ProductImageRoutes);
 module.exports = app;

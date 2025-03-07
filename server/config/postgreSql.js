@@ -17,18 +17,24 @@ const sequelize = new Sequelize(DATABASE_URL, {
 });
 
 // 測試連線
-async function connectionSql() {
-  try {
-    await sequelize.authenticate(); // 測試連線
-    console.log(
-      "✅ PostgreSQL Connected Successfully! Now node is " +
-        process.env.NODE_ENV
-    );
-  } catch (err) {
-    console.error("❌ PostgreSQL Connection Failed:", err.message);
-  }
-}
-connectionSql();
+// sequelize
+//   .authenticate()
+//   .then(function (err) {
+//     console.log("✅ Connection has been established successfully.");
+//   })
+//   .catch(function (err) {
+//     console.log("Unable to connect to the database:", err);
+//   });
+sequelize
+  .authenticate()
+  .then(function () {
+    console.log("✅ Connection has been established successfully.");
+  })
+  .catch(function (e) {
+    console.log("Unable to connect to the database:", e.message);
+    console.log("Full error:", e);
+  });
+
 // 匯入模型
 
 const db = {};
@@ -37,13 +43,26 @@ db.sequelize = sequelize;
 
 // 匯入模型
 db.User = require("../models/user/UserModels")(sequelize, Sequelize.DataTypes);
-db.Product = require("../models/product/ProductModels")(sequelize, Sequelize.DataTypes);
-db.Menu = require("../models/product/MenuModels")(sequelize, Sequelize.DataTypes);
+db.Product = require("../models/product/ProductModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.ProductImg = require("../models/product/ProductImgModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Menu = require("../models/product/MenuModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
 db.Merchant = require("../models/user/MerchantModels")(
   sequelize,
   Sequelize.DataTypes
 );
-db.Admin = require("../models/user/AdminModels")(sequelize, Sequelize.DataTypes);
+db.Admin = require("../models/user/AdminModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

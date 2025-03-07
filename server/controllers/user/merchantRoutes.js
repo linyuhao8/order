@@ -7,7 +7,7 @@ const {
 
 // 新增商家
 const createMerchant = async (req, res) => {
-  const { error, value } = createMerchantValidation.validate(req.body, {
+  const { error} = createMerchantValidation.validate(req.body, {
     abortEarly: false,
   });
   if (error) {
@@ -16,6 +16,7 @@ const createMerchant = async (req, res) => {
       errors: error.details.map((err) => err.message),
     });
   }
+
   try {
     const {
       user_id,
@@ -24,7 +25,7 @@ const createMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
-    } = value;
+    } = req.body;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);
@@ -94,6 +95,7 @@ const updateMerchant = async (req, res) => {
       errors: error.details.map((err) => err.message),
     });
   }
+  value = requestAnimationFrame.body;
   try {
     const { id } = req.params;
     const {
@@ -103,7 +105,7 @@ const updateMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
-    } = value;
+    } = req.body;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);

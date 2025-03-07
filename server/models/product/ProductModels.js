@@ -46,6 +46,11 @@ module.exports = (sequelize, DataTypes) => {
       as: "menu", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
       onDelete: "CASCADE",
     });
+    Product.hasMany(models.ProductImg, {
+      foreignKey: "product_id",
+      as: "images",
+      onDelete: "CASCADE",
+    });
   };
 
   return Product;

@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
   // Joi 驗證輸入
-  const { error, value } = registerUserSchema.validate(req.body, {
+  let { error } = registerUserSchema.validate(req.body, {
     abortEarly: false,
   });
 
@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
   }
 
   try {
-    const { name, email, password, phoneNumber, address, role } = value;
+    const { name, email, password, phoneNumber, address, role } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const checkEmail = await User.findOne({ where: { email } });
     if (checkEmail) {
@@ -85,7 +85,7 @@ const getUserById = async (req, res) => {
 // 更新用戶
 const updateUser = async (req, res) => {
   // Joi 驗證輸入
-  const { error, value } = updateUserSchema.validate(req.body, {
+  let { error } = updateUserSchema.validate(req.body, {
     abortEarly: false,
   });
 
@@ -95,9 +95,10 @@ const updateUser = async (req, res) => {
       errors: error.details.map((err) => err.message),
     });
   }
+
   try {
     const userId = req.params.id;
-    const { name, password, phoneNumber, address, email } = value;
+    const { name, password, phoneNumber, address, email } = req.body;
     // 檢查是否存在用戶
     const user = await User.findByPk(userId);
     if (!user) {
@@ -167,7 +168,7 @@ const deleteUser = async (req, res) => {
 //登入
 const login = async (req, res) => {
   // Joi 驗證輸入
-  const { error, value } = loginSchema.validate(req.body, {
+  let { error } = loginSchema.validate(req.body, {
     abortEarly: false,
   });
 
@@ -177,7 +178,6 @@ const login = async (req, res) => {
       errors: error.details.map((err) => err.message),
     });
   }
-
   try {
     const { email, password } = req.body;
     // 查詢資料庫中是否有該 Email 的用戶

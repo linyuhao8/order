@@ -1,7 +1,22 @@
 const Menu = require("../../config/postgreSql").db.Menu;
+const {
+  createMenuSchema,
+  updateMenuSchema,
+} = require("../../validations/product/menuValidation");
 
 // 創建菜單
 const createMenu = async (req, res) => {
+  // Joi 驗證輸入資料
+  const { error } = createMenuSchema.validate(req.body, {
+    abortEarly: false, // 允許顯示所有錯誤
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { name, description, merchant_id } = req.body;
     const newMenu = await Menu.create({ name, description, merchant_id });
@@ -66,6 +81,17 @@ const getMenuById = async (req, res) => {
 
 // 更新菜單
 const updateMenu = async (req, res) => {
+  // Joi 驗證輸入資料
+  const { error } = updateMenuSchema.validate(req.body, {
+    abortEarly: false, // 允許顯示所有錯誤
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { id } = req.params;
     const { name, description, merchant_id } = req.body;

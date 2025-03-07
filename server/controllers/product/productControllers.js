@@ -1,10 +1,31 @@
 const Product = require("../../config/postgreSql").db.Product;
 const Menu = require("../../config/postgreSql").db.Menu;
 const ProductImg = require("../../config/postgreSql").db.ProductImg;
+const {
+  createProductSchema,
+  updateProductSchema,
+} = require("../../validations/product/productValidation");
+const { message } = require("../../validations/user/registerUserValidation");
+
 // 創建產品
 const createProduct = async (req, res) => {
+  // Joi 驗證
+  const { error } = createProductSchema.validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { name, description, price, menu_id } = req.body;
+    const menu = await Menu.findByPk(menu_id);
+    if (!menu) {
+      return res.status(400).json({ message: "找不到該菜單" });
+    }
     const newProduct = await Product.create({
       name,
       description,
@@ -77,15 +98,30 @@ const getProductById = async (req, res) => {
 
 // 更新產品
 const updateProduct = async (req, res) => {
+  // Joi 驗證
+  const { error } = updateProductSchema.validate(req.body, {
+    abortEarly: false,
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
+
   try {
     const { id } = req.params;
     const { name, description, price, menu_id } = req.body;
 
     const product = await Product.findByPk(id);
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({ message: "找不到該產品" });
     }
-
+    const menu = await Menu.findByPk(menu_id);
+    if (!menu) {
+      return res.status(400).json({ message: "找不到該菜單" });
+    }
     product.name = name || product.name;
     product.description = description || product.description;
     product.price = price || product.price;

@@ -66,4 +66,12 @@ router.delete(
   merchantController.deleteMerchant
 );
 
+//取得某個user id的所有商家
+router.get(
+  "/user/:id/merchants",
+  // #swagger.tags = ['Merchant']
+  // #swagger.summary = 'Get All Merchant by User Id'
+  merchantController.getAllMerchantByUserId
+);
+
 module.exports = router;

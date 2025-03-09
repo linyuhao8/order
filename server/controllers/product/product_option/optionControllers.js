@@ -1,8 +1,10 @@
 const Option = require("../../../config/postgreSql").db.Option;
+const CategoryModels = require("../../../models/product/category/CategoryModels");
 const {
   createOptionSchema,
   updateOptionSchema,
 } = require("../../../validations/product/product_option/optionValidation");
+const { message } = require("../../../validations/user/registerUserValidation");
 
 // Create a new Option
 async function createOption(req, res) {
@@ -19,12 +21,10 @@ async function createOption(req, res) {
   }
   try {
     const { name, category_id, type } = req.body;
-
-    // Validate input (you can add more validation as needed)
-    if (!name || !type) {
-      return res.status(400).json({ message: "Name and type are required." });
+    const checkCategory = await Category.findByPk(category_id);
+    if (!checkCategory) {
+      return res.status(400).json({ message: "can't not find category" });
     }
-
     const option = await Option.create({ name, category_id, type });
     return res.status(201).json(option);
   } catch (error) {
@@ -78,10 +78,9 @@ async function updateOption(req, res) {
     }
 
     const { name, category_id, type } = req.body;
-
-    // Validate input (optional, you can expand this check)
-    if (!name || !type) {
-      return res.status(400).json({ message: "Name and type are required." });
+    const checkCategory = await Category.findByPk(category_id);
+    if (!checkCategory) {
+      return res.status(400).json({ message: "can't not find category" });
     }
 
     const updatedOption = await option.update({ name, category_id, type });

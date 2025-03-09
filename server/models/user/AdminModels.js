@@ -24,8 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // 關聯設定 (可選，如果需要與 User 模型建立關聯)
+  // 關聯設定
   Admin.associate = (models) => {
+    //屬於User
     Admin.belongsTo(models.User, {
       foreignKey: "user_id", // 外鍵名稱
       as: "user", // 關聯名稱

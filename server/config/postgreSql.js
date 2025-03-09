@@ -42,19 +42,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // 匯入模型
+// Use Related
 db.User = require("../models/user/UserModels")(sequelize, Sequelize.DataTypes);
-db.Product = require("../models/product/ProductModels")(
-  sequelize,
-  Sequelize.DataTypes
-);
-db.ProductImg = require("../models/product/ProductImgModels")(
-  sequelize,
-  Sequelize.DataTypes
-);
-db.Menu = require("../models/product/MenuModels")(
-  sequelize,
-  Sequelize.DataTypes
-);
 db.Merchant = require("../models/user/MerchantModels")(
   sequelize,
   Sequelize.DataTypes
@@ -63,6 +52,28 @@ db.Admin = require("../models/user/AdminModels")(
   sequelize,
   Sequelize.DataTypes
 );
+//Product Related
+db.Menu = require("../models/product/MenuModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Product = require("../models/product/ProductModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.ProductImg = require("../models/product/ProductImgModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Category = require("../models/product/category/CategoryModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.ProductCategory =
+  require("../models/product/category/ProdcutCategoryModels")(
+    sequelize,
+    Sequelize.DataTypes
+  );
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

@@ -15,12 +15,16 @@ const {
   authenticateToken,
   verifyAdmin,
 } = require("./middlewares/authMiddleware");
-const adminRoutes = require("./routes/user/adminRoutes");
+//User
 const userRoutes = require("./routes/user/userRoutes");
+const adminRoutes = require("./routes/user/adminRoutes");
+const merchantRoutes = require("./routes/user/merchantRoutes");
+//Product
 const menuRoutes = require("./routes/product/menuRoutes");
 const productRoutes = require("./routes/product/productRoutes");
-const merchantRoutes = require("./routes/user/merchantRoutes");
-const ProductImageRoutes = require("./routes/product/productImgRoutes");
+const productImageRoutes = require("./routes/product/productImgRoutes");
+const categoryRoutes = require("./routes/product/category/categoryRoutes");
+
 // 設置 JSON 解析和 URL 編碼解析
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,10 +36,14 @@ const swaggerFile = require("./swagger-output.json");
 app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // 路由設定
-app.use("/api", userRoutes);
-app.use("/api", authenticateToken, menuRoutes);
-app.use("/api", authenticateToken, productRoutes);
-app.use("/api/merchants", authenticateToken, merchantRoutes);
+//User
+app.use("/api/user", userRoutes);
+app.use("/api/merchant", authenticateToken, merchantRoutes);
 app.use("/api/admin", verifyAdmin, adminRoutes);
-app.use("/api/productimg", authenticateToken, ProductImageRoutes);
+//Product
+app.use("/api/menu", authenticateToken, menuRoutes);
+app.use("/api/product", authenticateToken, productRoutes);
+app.use("/api/productimg", authenticateToken, productImageRoutes);
+app.use("/api/category", authenticateToken, categoryRoutes);
+
 module.exports = app;

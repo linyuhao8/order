@@ -1,5 +1,5 @@
 const app = require("./app");
-require("./config/mongodb");
+// require("./config/mongodb");
 require("./config/postgreSql");
 
 require("dotenv").config();

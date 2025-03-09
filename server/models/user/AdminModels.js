@@ -24,12 +24,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // 關聯設定
+  // Association setup
   Admin.associate = (models) => {
-    //屬於User
+    // An Admin belongs to one User, linked by the user_id foreign key
+    // Each admin is associated with a specific user.
     Admin.belongsTo(models.User, {
-      foreignKey: "user_id", // 外鍵名稱
-      as: "users", // 關聯名稱
+      foreignKey: "user_id", // Foreign key name that links to the User model
+      as: "users", // Alias for accessing the associated User from the Admin model
     });
   };
 

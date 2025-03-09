@@ -49,18 +49,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // 關聯設定 (可選，如果需要與 User 模型建立關聯)
+  // Association setup (optional, if you need to establish a relationship with the User model)
   Merchant.associate = (models) => {
+    // A Merchant belongs to one User, linked by the user_id foreign key
+    // If the associated User is deleted, the related Merchant will also be deleted.
     Merchant.belongsTo(models.User, {
-      foreignKey: "user_id", // 外鍵名稱
-      as: "user", // 關聯名稱
-      onDelete: "CASCADE",
+      foreignKey: "user_id", // Foreign key name that links to the User model
+      as: "user", // Alias for accessing the associated User from the Merchant model
+      onDelete: "CASCADE", // Ensures that when a User is deleted, the associated Merchant will be deleted
     });
-    //merchant可以有多個ProductOption中間表
+
+    // A Merchant can have multiple ProductOptions through the ProductOption table
+    // If a Merchant is deleted, all associated ProductOptions will also be deleted.
     Merchant.hasMany(models.ProductOption, {
-      foreignKey: "merchant_id",
-      as: "productOptions", // 🔹 這裡設定別名，之後查詢時用
-      onDelete: "CASCADE",
+      foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
+      as: "productOptions", // Alias for accessing the associated ProductOptions from the Merchant model
+      onDelete: "CASCADE", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
     });
   };
 

@@ -46,19 +46,25 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-  //一個User只能有一個merchant
+  // A User can only have one Merchant
   User.associate = (models) => {
+    // A User can have many Merchants, but each Merchant is associated with only one User.
+    // If the User is deleted, all associated Merchants will also be deleted.
     User.hasMany(models.Merchant, {
       foreignKey: "user_id",
-      as: "merchants",
-      onDelete: "CASCADE",
+      as: "merchants", // Alias for accessing the associated Merchants from the User model
+      onDelete: "CASCADE", // Ensures that when a User is deleted, all associated Merchants will be deleted
     });
+
+    // A User can have one Admin, and each Admin is associated with only one User.
+    // If the User is deleted, the associated Admin will also be deleted.
     User.hasOne(models.Admin, {
       foreignKey: "user_id",
-      as: "admins",
-      onDelete: "CASCADE",
+      as: "admins", // Alias for accessing the associated Admin from the User model
+      onDelete: "CASCADE", // Ensures that when a User is deleted, the associated Admin will be deleted
     });
   };
-  //一個User可以有多個merchant
+
+
   return User;
 };

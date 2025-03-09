@@ -65,6 +65,7 @@ db.ProductImg = require("../models/product/ProductImgModels")(
   sequelize,
   Sequelize.DataTypes
 );
+//Product Category
 db.Category = require("../models/product/category/CategoryModels")(
   sequelize,
   Sequelize.DataTypes
@@ -74,6 +75,20 @@ db.ProductCategory =
     sequelize,
     Sequelize.DataTypes
   );
+//Product Option
+db.ProductOption =
+  require("../models/product/product_option/productOptionModel")(
+    sequelize,
+    Sequelize.DataTypes
+  );
+db.Option = require("../models/product/product_option/optionModel")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.OptionValue = require("../models/product/product_option/optionValueModel")(
+  sequelize,
+  Sequelize.DataTypes
+);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

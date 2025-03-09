@@ -35,6 +35,13 @@ module.exports = (sequelize, DataTypes) => {
       as: "products", // 在關聯查詢時，這個關係將被命名為 "products"
       onDelete: "CASCADE", // 當 Category 被刪除時，相關的 ProductCategory 資料也會被刪除
     });
+    //一個標籤可以被多個option綁定
+    Category.hasMany(models.Option, {
+      //category will point here
+      foreignKey: "category_id",
+      as: "options",
+      onDelete: "SET NULL", // 當 Category 被刪除時，Option 的 category_id 設為 NULL
+    });
   };
 
   return Category;

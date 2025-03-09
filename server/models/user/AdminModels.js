@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     //屬於User
     Admin.belongsTo(models.User, {
       foreignKey: "user_id", // 外鍵名稱
-      as: "user", // 關聯名稱
+      as: "users", // 關聯名稱
     });
   };
 

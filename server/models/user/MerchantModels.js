@@ -56,6 +56,12 @@ module.exports = (sequelize, DataTypes) => {
       as: "user", // 關聯名稱
       onDelete: "CASCADE",
     });
+    //merchant可以有多個ProductOption中間表
+    Merchant.hasMany(models.ProductOption, {
+      foreignKey: "merchant_id",
+      as: "productOptions", // 🔹 這裡設定別名，之後查詢時用
+      onDelete: "CASCADE",
+    });
   };
 
   return Merchant;

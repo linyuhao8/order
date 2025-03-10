@@ -8,9 +8,14 @@ const doc = {
   },
   tags: [
     {
+      name: "User",
+      description:
+        "1.hasOne(Admin),hasMany(Merchant) 2.id, name, email, password, phoneNumber, address, role",
+    },
+    {
       name: "OptionValue",
       description:
-        "1.belongto Option. 2.save id, option_id, option_values, extra_price.",
+        "1.belongto Option. 2.id, option_id, option_values, extra_price.",
     },
   ],
   host: `localhost:${process.env.SERVER_PORT_ENV}`,

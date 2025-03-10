@@ -8,7 +8,7 @@ const { authenticateToken } = require("../../middlewares/authMiddleware");
 // 創建用戶
 router.post(
   "/users",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'create user'
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -29,7 +29,7 @@ router.post(
 // 讀取所有用戶
 router.get(
   "/users",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'get all users'
   authenticateToken,
   userController.getAllUsers
@@ -38,7 +38,7 @@ router.get(
 // 讀取單一用戶
 router.get(
   "/users/:id",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'fing single user'
   authenticateToken,
   userController.getUserById
@@ -47,7 +47,7 @@ router.get(
 // 更新用戶
 router.put(
   "/users/:id",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'Modify User Information'
   /*  #swagger.parameters['body'] = {
             in: 'body',
@@ -92,7 +92,7 @@ router.post(
 //logout
 router.post(
   "/logout",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'logout'
   userController.logout
 );
@@ -100,7 +100,7 @@ router.post(
 //check cookies
 router.get(
   "/checkCookies",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'Get cookies token'
   userController.checkCookies
 );

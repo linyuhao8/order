@@ -9,8 +9,12 @@
   "basePath": "/",
   "tags": [
     {
+      "name": "User",
+      "description": "1.hasOne(Admin),hasMany(Merchant) 2.id, name, email, password, phoneNumber, address, role"
+    },
+    {
       "name": "OptionValue",
-      "description": "1.belongto Option. 2.save id, option_id, option_values, extra_price."
+      "description": "1.belongto Option. 2.id, option_id, option_values, extra_price."
     }
   ],
   "schemes": [
@@ -20,7 +24,7 @@
     "/api/user/users": {
       "post": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "create user",
         "description": "",
@@ -85,7 +89,7 @@
       },
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "get all users",
         "description": "",
@@ -115,7 +119,7 @@
     "/api/user/users/{id}": {
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "fing single user",
         "description": "",
@@ -152,7 +156,7 @@
       },
       "put": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "Modify User Information",
         "description": "",
@@ -301,7 +305,7 @@
     "/api/user/logout": {
       "post": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "logout",
         "description": "",
@@ -318,7 +322,7 @@
     "/api/user/checkCookies": {
       "get": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "Get cookies token",
         "description": "",

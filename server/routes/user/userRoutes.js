@@ -67,7 +67,7 @@ router.put(
 // 刪除用戶
 router.delete(
   "/users/:id",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'delete single user'
   authenticateToken,
   userController.deleteUser
@@ -76,7 +76,7 @@ router.delete(
 //login
 router.post(
   "/login",
-  // #swagger.tags = ['Users']
+  // #swagger.tags = ['User']
   // #swagger.summary = 'login'
   /*  #swagger.parameters['body'] = {
             in: 'body',

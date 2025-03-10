@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "option_id",
       as: "options",
       onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   };
 

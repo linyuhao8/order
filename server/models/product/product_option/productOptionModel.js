@@ -61,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     ProductOption.belongsTo(models.Merchant, {
       foreignKey: "merchant_id", // 外鍵欄位名稱是 "merchant_id"
       as: "merchants", // 給關聯起個別名，這裡使用 "merchants"
-      onDelete: "CASCADE", // 當 Merchant 被刪除時，對應的 ProductOption 也會被刪除
+      onDelete: "SET NULL", // 當 Merchant 被刪除時，對應的 ProductOption 也會被刪除
+      onUpdate: "CASCADE",
     });
   };
 

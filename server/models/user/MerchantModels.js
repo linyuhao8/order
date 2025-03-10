@@ -56,15 +56,22 @@ module.exports = (sequelize, DataTypes) => {
     Merchant.belongsTo(models.User, {
       foreignKey: "user_id", // Foreign key name that links to the User model
       as: "user", // Alias for accessing the associated User from the Merchant model
-      onDelete: "CASCADE", // Ensures that when a User is deleted, the associated Merchant will be deleted
+      onDelete: "SET NULL", // Ensures that when a User is deleted, the associated Merchant will be deleted
+      onUpdate: "CASCADE",
     });
-
+    Merchant.hasMany(models.Menu, {
+      foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
+      as: "menus", // Alias for accessing the associated ProductOptions from the Merchant model
+      onDelete: "CASCADE", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
+      onUpdate: "CASCADE",
+    });
     // A Merchant can have multiple ProductOptions through the ProductOption table
     // If a Merchant is deleted, all associated ProductOptions will also be deleted.
     Merchant.hasMany(models.ProductOption, {
       foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
       as: "productOptions", // Alias for accessing the associated ProductOptions from the Merchant model
-      onDelete: "CASCADE", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
+      onDelete: "SET NULL", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
+      onUpdate: "CASCADE",
     });
   };
 

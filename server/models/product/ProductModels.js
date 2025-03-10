@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
           model: "menus",
           key: "id",
         },
-        onDelete: "CASCADE", // 菜單刪除時，相關產品刪除
       },
     },
     {
@@ -43,14 +42,16 @@ module.exports = (sequelize, DataTypes) => {
     // 設定 Product 與 Menu 的一對多關聯 (Product 會有一個 menu_id 指向 Menu)
     Product.belongsTo(models.Menu, {
       foreignKey: "menu_id", // 在 Product 模型中，使用 "menu_id" 作為外鍵
-      as: "menu", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
+      as: "menus", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
       onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
     // Product 與 ProductImg 建立 一對多 關聯 (一個 Product 可能有多張圖片)
     Product.hasMany(models.ProductImg, {
       foreignKey: "product_id", // 外鍵對應到 ProductImg 表中的 product_id
-      as: "images", // 在關聯查詢時，這個關係將被命名為 "images"
+      as: "product_imgs", // 在關聯查詢時，這個關係將被命名為 "images"
       onDelete: "CASCADE", // 當 Product 被刪除時，相關的 ProductImg 也會被刪除
+      onUpdate: "CASCADE",
     });
 
     // Product 與 Category 建立 多對多 關聯 (一個 Product 可能屬於多個 Category)
@@ -60,6 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: "category_id", // 對應的另一個外鍵指向 Category 表
       as: "categories", // 在關聯查詢時，這個關係將被命名為 "categories"
       onDelete: "CASCADE", // 當 Product 被刪除時，相關的 ProductCategory 記錄也會被刪除
+      onUpdate: "CASCADE",
     });
 
     // Product和Option的多對多關聯
@@ -68,8 +70,10 @@ module.exports = (sequelize, DataTypes) => {
       through: models.ProductOption,
       //中間表有一個product_id指向這邊
       foreignKey: "product_id",
+      otherKey: "option_id",
       as: "options",
       onDelete: "CASCADE", // 當 Product 被刪除時，所有關聯的 ProductOption 會被刪除
+      onUpdate: "CASCADE",
     });
   };
 

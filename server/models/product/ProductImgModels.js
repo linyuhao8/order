@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
           model: "products",
           key: "id",
         },
-        onDelete: "CASCADE",
       },
       image_url: {
         type: DataTypes.TEXT,
@@ -41,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "product_id",
       as: "products",
       onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   };
 

@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
           model: "merchants", // 關聯到 Merchants 表
           key: "id", // 外鍵指向 Merchant 表的 id 欄位
         },
-        onDelete: "CASCADE", // 商家刪除時，相關菜單也會刪除
       },
     },
     {
@@ -36,12 +35,10 @@ module.exports = (sequelize, DataTypes) => {
   Menu.associate = (models) => {
     Menu.belongsTo(models.Merchant, {
       foreignKey: "merchant_id",
-      as: "merchant",
+      as: "merchants",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
-  };
-
-  // 設定關聯：這段程式碼是用來定義 Menu 和 Product 之間的關聯
-  Menu.associate = (models) => {
     // **Menu** 是「一方」，這裡我們告訴 Sequelize 一個 Menu 可以擁有多個 Product
     Menu.hasMany(models.Product, {
       // `foreignKey` 這個屬性定義了關聯的外鍵，即 Product 表中的欄位名稱
@@ -50,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       // 在這裡我們設置為 "products"，之後在 include 查詢時會使用這個別名來獲取所有對應的產品
       as: "products", // 這個 "products" 是用來在查詢中載入所有對應的 Product 資料
       onDelete: "CASCADE", // 刪除 Menu 時，刪除關聯的 Product
+      onUpdate: "CASCADE",
     });
   };
 

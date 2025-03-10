@@ -31,19 +31,19 @@ router.get(
 // 產品與分類關聯 API
 router.post(
   "/product-categories",
-  // #swagger.tags = ['Product Category']
+  // #swagger.tags = ['ProductCategory']
   // #swagger.summary = 'Add ProductCategory'
   categoryController.addCategoryToProduct
 );
 router.delete(
   "/product-categories",
-  // #swagger.tags = ['Product Category']
+  // #swagger.tags = ['ProductCategory']
   // #swagger.summary = 'Delete ProductCategory'
   categoryController.removeCategoryFromProduct
 );
 router.get(
   "/products/:productId/categories",
-  // #swagger.tags = ['Product Category']
+  // #swagger.tags = ['ProductCategory']
   // #swagger.summary = 'Get All Categories by Product_id'
   categoryController.getProductCategories
 );

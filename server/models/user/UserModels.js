@@ -53,18 +53,19 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Merchant, {
       foreignKey: "user_id",
       as: "merchants", // Alias for accessing the associated Merchants from the User model
-      onDelete: "CASCADE", // Ensures that when a User is deleted, all associated Merchants will be deleted
+      onDelete: "SET NULL", // Ensures that when a User is deleted, all associated Merchants will be deleted
+      onUpdate: "CASCADE",
     });
 
     // A User can have one Admin, and each Admin is associated with only one User.
     // If the User is deleted, the associated Admin will also be deleted.
     User.hasOne(models.Admin, {
       foreignKey: "user_id",
-      as: "admins", // Alias for accessing the associated Admin from the User model
+      as: "admin", // Alias for accessing the associated Admin from the User model
       onDelete: "CASCADE", // Ensures that when a User is deleted, the associated Admin will be deleted
+      onUpdate: "CASCADE",
     });
   };
-
 
   return User;
 };

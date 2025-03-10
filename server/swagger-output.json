@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "My API",
-    "description": "Description",
+    "description": "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql.",
     "version": "1.0.0"
   },
   "host": "localhost:8080",
@@ -13,8 +13,44 @@
       "description": "1.hasOne(Admin),hasMany(Merchant) 2.id, name, email, password, phoneNumber, address, role"
     },
     {
+      "name": "Admin",
+      "description": "1.belongsto(User) 2.id, user_id"
+    },
+    {
+      "name": "Merchant",
+      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption) 2.id, user_id, business_name, description, feature, merchant_logo, location"
+    },
+    {
+      "name": "Menu",
+      "description": "1.belongsto(Merchant),hasMany(Product) 2.id, name, description, merchat_id"
+    },
+    {
+      "name": "Product",
+      "description": "1.belongsto(Menu), hasMany(ProductImg), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id"
+    },
+    {
+      "name": "ProductImg",
+      "description": "1.belongsto(Product) 2.id, product_id, image_url, title, description"
+    },
+    {
+      "name": "ProductOption",
+      "description": "Middle table 1.belongsto(Product), belongsTo(option), belongsTo(Merchant), belongsTo() 2.id, product_id, option_id, is_custom, merchant_id"
+    },
+    {
+      "name": "Option",
+      "description": "1.belongstoMany(ProductOption), hasMany(OptionValue), belongsToMany(Category), belongsTo(Category) 2.id, name, category_id, type"
+    },
+    {
       "name": "OptionValue",
-      "description": "1.belongto Option. 2.id, option_id, option_values, extra_price."
+      "description": "1.belongto(Option) 2.id, option_id, option_values, extra_price."
+    },
+    {
+      "name": "ProductCategory",
+      "description": "1.belongto(Product), belongsTo(Category) 2.product_id, category_id"
+    },
+    {
+      "name": "Category",
+      "description": "1.belongtoMany(ProductCategory) 2.id, name, description, img"
     }
   ],
   "schemes": [
@@ -226,7 +262,7 @@
       },
       "delete": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "delete single user",
         "description": "",
@@ -265,7 +301,7 @@
     "/api/user/login": {
       "post": {
         "tags": [
-          "Users"
+          "User"
         ],
         "summary": "login",
         "description": "",
@@ -726,7 +762,7 @@
     "/api/menu/menus": {
       "post": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "Add menu,Enter mercant_id",
         "description": "",
@@ -774,7 +810,7 @@
       },
       "get": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "Get all menu",
         "description": "",
@@ -800,7 +836,7 @@
     "/api/menu/merchant/{merchant_id}/menus": {
       "get": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "Find all the menus of a merchant, Enter merchant_id",
         "description": "",
@@ -834,7 +870,7 @@
     "/api/menu/menus/{id}": {
       "get": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "Find single menu",
         "description": "",
@@ -866,7 +902,7 @@
       },
       "put": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "edit menu",
         "description": "",
@@ -923,7 +959,7 @@
       },
       "delete": {
         "tags": [
-          "Menus"
+          "Menu"
         ],
         "summary": "Delete menu,Enter menu_id,All data related to the product will be deleted.",
         "description": "",
@@ -957,7 +993,7 @@
     "/api/product/products": {
       "post": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "add product",
         "description": "",
@@ -1009,7 +1045,7 @@
       },
       "get": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "Get all products",
         "description": "",
@@ -1035,7 +1071,7 @@
     "/api/product/menu/{menu_id}/products": {
       "get": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "Query all products containing menu_id,Enter menu_id",
         "description": "",
@@ -1069,7 +1105,7 @@
     "/api/product/products/{id}": {
       "get": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "Find single product",
         "description": "",
@@ -1101,7 +1137,7 @@
       },
       "put": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "modify product",
         "description": "",
@@ -1162,7 +1198,7 @@
       },
       "delete": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "deleta single product",
         "description": "",
@@ -1196,7 +1232,7 @@
     "/api/product/merchant/{merchant_id}/products/details": {
       "get": {
         "tags": [
-          "Porduct"
+          "Product"
         ],
         "summary": "Check all the menus and products of a particular merchant. Enter merchant_id",
         "description": "",
@@ -1619,7 +1655,7 @@
     "/api/category/product-categories": {
       "post": {
         "tags": [
-          "Product Category"
+          "ProductCategory"
         ],
         "summary": "Add ProductCategory",
         "description": "",
@@ -1663,7 +1699,7 @@
       },
       "delete": {
         "tags": [
-          "Product Category"
+          "ProductCategory"
         ],
         "summary": "Delete ProductCategory",
         "description": "",
@@ -1706,7 +1742,7 @@
     "/api/category/products/{productId}/categories": {
       "get": {
         "tags": [
-          "Product Category"
+          "ProductCategory"
         ],
         "summary": "Get All Categories by Product_id",
         "description": "",

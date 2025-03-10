@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true, 
         references: {
           model: "Products",
           key: "id",
@@ -13,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true, 
         references: {
           model: "Categories",
           key: "id",
@@ -22,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       tableName: "product_categories",
       timestamps: false,
-      primaryKey: ["product_id", "category_id"], // 設定複合主鍵
     }
   );
   ProductCategory.associate = (models) => {

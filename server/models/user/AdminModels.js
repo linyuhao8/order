@@ -30,7 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     // Each admin is associated with a specific user.
     Admin.belongsTo(models.User, {
       foreignKey: "user_id", // Foreign key name that links to the User model
-      as: "users", // Alias for accessing the associated User from the Admin model
+      as: "user", // Alias for accessing the associated User from the Admin model
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   };
 

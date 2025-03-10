@@ -1,4 +1,5 @@
-const { Category, Option } = require("../../../config/postgreSql").db;
+const { Category, Option, OptionValue } =
+  require("../../../config/postgreSql").db;
 
 const {
   createOptionSchema,
@@ -50,7 +51,14 @@ async function getAllOptions(req, res) {
 // Get Option by ID
 async function getOptionById(req, res) {
   try {
-    const option = await Option.findByPk(req.params.id);
+    const option = await Option.findByPk(req.params.id, {
+      include: [
+        {
+          model: OptionValue,
+          as: "option_values",
+        },
+      ],
+    });
     if (!option) {
       return res.status(404).json({ message: "Option not found." });
     }

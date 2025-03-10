@@ -27,6 +27,7 @@ const productImageRoutes = require("./routes/product/productImgRoutes");
 const categoryRoutes = require("./routes/product/category/categoryRoutes");
 //Product Option
 const optionRoutes = require("./routes/product/product_option/optionRoutes");
+const optionValueRoutes = require("./routes/product/product_option/optionValueRoutes");
 
 // 設置 JSON 解析和 URL 編碼解析
 app.use(express.json());
@@ -51,5 +52,6 @@ app.use("/api/productimg", authenticateToken, productImageRoutes);
 app.use("/api/category", authenticateToken, categoryRoutes);
 //Product Option
 app.use("/api/option", authenticateToken, optionRoutes);
+app.use("/api/optionvalue", authenticateToken, optionValueRoutes);
 
 module.exports = app;

@@ -6,6 +6,13 @@ const doc = {
     title: "My API",
     description: "Description",
   },
+  tags: [
+    {
+      name: "OptionValue",
+      description:
+        "1.belongto Option. 2.save id, option_id, option_values, extra_price.",
+    },
+  ],
   host: `localhost:${process.env.SERVER_PORT_ENV}`,
 };
 

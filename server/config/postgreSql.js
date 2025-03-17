@@ -10,30 +10,27 @@ const DATABASE_URL = isProduction
 // 建立 Sequelize 連線
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
-  dialectOptions: isProduction
-    ? { ssl: { require: true, rejectUnauthorized: false } } // Supabase 需要 SSL
-    : {}, // 本地開發不需要 SSL
   logging: false, // 關閉 SQL 日誌（可開啟進行 Debug）
 });
 
 // 測試連線
-// sequelize
-//   .authenticate()
-//   .then(function (err) {
-//     console.log("✅ Connection has been established successfully.");
-//   })
-//   .catch(function (err) {
-//     console.log("Unable to connect to the database:", err);
-//   });
 sequelize
   .authenticate()
-  .then(function () {
+  .then(function (err) {
     console.log("✅ Connection has been established successfully.");
   })
-  .catch(function (e) {
-    console.log("Unable to connect to the database:", e.message);
-    console.log("Full error:", e);
+  .catch(function (err) {
+    console.log("Unable to connect to the database:", err);
   });
+// sequelize
+//   .authenticate()
+//   .then(function () {
+//     console.log("✅ Connection has been established successfully.");
+//   })
+//   .catch(function (e) {
+//     console.log("Unable to connect to the database:", e.message);
+//     console.log("Full error:", e);
+//   });
 
 // 匯入模型
 

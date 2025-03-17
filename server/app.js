@@ -9,6 +9,7 @@ app.use(
     origin: "http://localhost:3000", // 允許的前端網址
     methods: ["GET", "POST", "PUT", "DELETE"], // 允許的 HTTP 方法
     allowedHeaders: ["Content-Type", "Authorization"], // 允許的 headers
+    credentials: true, // 允許攜帶 cookies
   })
 );
 const {
@@ -26,6 +27,7 @@ const productImageRoutes = require("./routes/product/productImgRoutes");
 //Product Category
 const categoryRoutes = require("./routes/product/category/categoryRoutes");
 //Product Option
+const ProductOptionRoutes = require("./routes/product/product_option/productOptionRoutes");
 const optionRoutes = require("./routes/product/product_option/optionRoutes");
 const optionValueRoutes = require("./routes/product/product_option/optionValueRoutes");
 
@@ -51,6 +53,7 @@ app.use("/api/productimg", authenticateToken, productImageRoutes);
 //Porudct Category
 app.use("/api/category", authenticateToken, categoryRoutes);
 //Product Option
+app.use("/api/productoption", authenticateToken, ProductOptionRoutes);
 app.use("/api/option", authenticateToken, optionRoutes);
 app.use("/api/optionvalue", authenticateToken, optionValueRoutes);
 

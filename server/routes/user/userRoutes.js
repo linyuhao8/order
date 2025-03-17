@@ -7,7 +7,7 @@ const { authenticateToken } = require("../../middlewares/authMiddleware");
 
 // 創建用戶
 router.post(
-  "/users",
+  "/",
   // #swagger.tags = ['User']
   // #swagger.summary = 'create user'
   /*  #swagger.parameters['body'] = {
@@ -27,8 +27,8 @@ router.post(
 );
 
 // 讀取所有用戶
-router.get(
-  "/users",
+router.get( 
+  "/",
   // #swagger.tags = ['User']
   // #swagger.summary = 'get all users'
   authenticateToken,
@@ -37,7 +37,7 @@ router.get(
 
 // 讀取單一用戶
 router.get(
-  "/users/:id",
+  "/:id",
   // #swagger.tags = ['User']
   // #swagger.summary = 'fing single user'
   authenticateToken,
@@ -46,7 +46,7 @@ router.get(
 
 // 更新用戶
 router.put(
-  "/users/:id",
+  "/:id",
   // #swagger.tags = ['User']
   // #swagger.summary = 'Modify User Information'
   /*  #swagger.parameters['body'] = {
@@ -66,7 +66,7 @@ router.put(
 
 // 刪除用戶
 router.delete(
-  "/users/:id",
+  "/:id",
   // #swagger.tags = ['User']
   // #swagger.summary = 'delete single user'
   authenticateToken,

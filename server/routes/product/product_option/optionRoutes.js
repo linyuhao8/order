@@ -4,13 +4,13 @@ const optionController = require("../../../controllers/product/product_option/op
 
 // CRUD routes for Option
 router.post(
-  "/",
+  "/create",
   // #swagger.tags = ['Option']
   // #swagger.summary = 'Add Option'
   optionController.createOption
 );
 router.get(
-  "/",
+  "/all",
   // #swagger.tags = ['Option']
   // #swagger.summary = 'Get Option'
   optionController.getAllOptions

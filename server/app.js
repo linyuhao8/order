@@ -43,18 +43,18 @@ app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // 路由設定
 //User
-app.use("/api/user", userRoutes);
-app.use("/api/merchant", authenticateToken, merchantRoutes);
-app.use("/api/admin", verifyAdmin, adminRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/merchants", authenticateToken, merchantRoutes);
+app.use("/api/admins", verifyAdmin, adminRoutes);
 //Product
-app.use("/api/menu", authenticateToken, menuRoutes);
-app.use("/api/product", authenticateToken, productRoutes);
-app.use("/api/productimg", authenticateToken, productImageRoutes);
+app.use("/api/menus", authenticateToken, menuRoutes);
+app.use("/api/products", authenticateToken, productRoutes);
+app.use("/api/productimgs", authenticateToken, productImageRoutes);
 //Porudct Category
-app.use("/api/category", authenticateToken, categoryRoutes);
+app.use("/api/categorys", authenticateToken, categoryRoutes);
 //Product Option
-app.use("/api/productoption", authenticateToken, ProductOptionRoutes);
-app.use("/api/option", authenticateToken, optionRoutes);
-app.use("/api/optionvalue", authenticateToken, optionValueRoutes);
+app.use("/api/productoptions", authenticateToken, ProductOptionRoutes);
+app.use("/api/options", authenticateToken, optionRoutes);
+app.use("/api/optionvalues", authenticateToken, optionValueRoutes);
 
 module.exports = app;

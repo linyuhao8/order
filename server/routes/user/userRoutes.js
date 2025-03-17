@@ -7,7 +7,7 @@ const { authenticateToken } = require("../../middlewares/authMiddleware");
 
 // 創建用戶
 router.post(
-  "/",
+  "/create",
   // #swagger.tags = ['User']
   // #swagger.summary = 'create user'
   /*  #swagger.parameters['body'] = {
@@ -28,7 +28,7 @@ router.post(
 
 // 讀取所有用戶
 router.get( 
-  "/",
+  "/all",
   // #swagger.tags = ['User']
   // #swagger.summary = 'get all users'
   authenticateToken,

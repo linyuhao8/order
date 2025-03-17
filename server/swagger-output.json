@@ -57,7 +57,7 @@
     "http"
   ],
   "paths": {
-    "/api/user/users": {
+    "/api/users/create": {
       "post": {
         "tags": [
           "User"
@@ -122,7 +122,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/users/all": {
       "get": {
         "tags": [
           "User"
@@ -152,7 +154,7 @@
         }
       }
     },
-    "/api/user/users/{id}": {
+    "/api/users/{id}": {
       "get": {
         "tags": [
           "User"
@@ -298,7 +300,7 @@
         }
       }
     },
-    "/api/user/login": {
+    "/api/users/login": {
       "post": {
         "tags": [
           "User"
@@ -338,7 +340,7 @@
         }
       }
     },
-    "/api/user/logout": {
+    "/api/users/logout": {
       "post": {
         "tags": [
           "User"
@@ -355,7 +357,7 @@
         }
       }
     },
-    "/api/user/checkCookies": {
+    "/api/users/checkCookies": {
       "get": {
         "tags": [
           "User"
@@ -369,7 +371,7 @@
         }
       }
     },
-    "/api/merchant/": {
+    "/api/merchants/create": {
       "post": {
         "tags": [
           "Merchant"
@@ -429,7 +431,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/merchants/all": {
       "get": {
         "tags": [
           "Merchant"
@@ -455,7 +459,7 @@
         }
       }
     },
-    "/api/merchant/{id}": {
+    "/api/merchants/{id}": {
       "get": {
         "tags": [
           "Merchant"
@@ -590,7 +594,7 @@
         }
       }
     },
-    "/api/merchant/user/{id}/merchants": {
+    "/api/merchants/user/{id}/merchants": {
       "get": {
         "tags": [
           "Merchant"
@@ -627,7 +631,7 @@
         }
       }
     },
-    "/api/admin/create": {
+    "/api/admins/create": {
       "post": {
         "tags": [
           "Admin"
@@ -670,7 +674,7 @@
         }
       }
     },
-    "/api/admin/getAll": {
+    "/api/admins/All": {
       "get": {
         "tags": [
           "Admin"
@@ -693,7 +697,7 @@
         }
       }
     },
-    "/api/admin/users/{id}": {
+    "/api/admins/users/{id}": {
       "get": {
         "tags": [
           "Admin"
@@ -759,7 +763,7 @@
         }
       }
     },
-    "/api/menu/menus": {
+    "/api/menus/create": {
       "post": {
         "tags": [
           "Menu"
@@ -807,7 +811,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/menus/all": {
       "get": {
         "tags": [
           "Menu"
@@ -833,7 +839,7 @@
         }
       }
     },
-    "/api/menu/merchant/{merchant_id}/menus": {
+    "/api/menus/merchant/{merchant_id}": {
       "get": {
         "tags": [
           "Menu"
@@ -867,7 +873,7 @@
         }
       }
     },
-    "/api/menu/menus/{id}": {
+    "/api/menus/{id}": {
       "get": {
         "tags": [
           "Menu"
@@ -990,7 +996,7 @@
         }
       }
     },
-    "/api/product/products": {
+    "/api/products/create": {
       "post": {
         "tags": [
           "Product"
@@ -1042,7 +1048,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/products/all": {
       "get": {
         "tags": [
           "Product"
@@ -1068,7 +1076,7 @@
         }
       }
     },
-    "/api/product/menu/{menu_id}/products": {
+    "/api/products/menu/{menu_id}/": {
       "get": {
         "tags": [
           "Product"
@@ -1102,7 +1110,7 @@
         }
       }
     },
-    "/api/product/products/{id}": {
+    "/api/products/{id}": {
       "get": {
         "tags": [
           "Product"
@@ -1229,7 +1237,7 @@
         }
       }
     },
-    "/api/product/merchant/{merchant_id}/products/details": {
+    "/api/products/merchant/{merchant_id}/details": {
       "get": {
         "tags": [
           "Product"
@@ -1263,7 +1271,7 @@
         }
       }
     },
-    "/api/productimg/": {
+    "/api/productimgs/create": {
       "post": {
         "tags": [
           "ProductImg"
@@ -1315,7 +1323,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/productimgs/all": {
       "get": {
         "tags": [
           "ProductImg"
@@ -1341,7 +1351,7 @@
         }
       }
     },
-    "/api/productimg/{id}": {
+    "/api/productimgs/{id}": {
       "get": {
         "tags": [
           "ProductImg"
@@ -1464,7 +1474,7 @@
         }
       }
     },
-    "/api/productimg/product/{id}/images": {
+    "/api/productimgs/product/{id}/images": {
       "get": {
         "tags": [
           "ProductImg"
@@ -1495,7 +1505,7 @@
         }
       }
     },
-    "/api/category/categories": {
+    "/api/categorys/categories": {
       "post": {
         "tags": [
           "Category"
@@ -1565,7 +1575,7 @@
         }
       }
     },
-    "/api/category/categories/{id}": {
+    "/api/categorys/categories/{id}": {
       "put": {
         "tags": [
           "Category"
@@ -1652,7 +1662,7 @@
         }
       }
     },
-    "/api/category/product-categories": {
+    "/api/categorys/product-categories": {
       "post": {
         "tags": [
           "ProductCategory"
@@ -1739,7 +1749,7 @@
         }
       }
     },
-    "/api/category/products/{productId}/categories": {
+    "/api/categorys/products/{productId}/categories": {
       "get": {
         "tags": [
           "ProductCategory"
@@ -1773,7 +1783,7 @@
         }
       }
     },
-    "/api/productoption/product-options": {
+    "/api/productoptions/create": {
       "post": {
         "tags": [
           "ProductOption"
@@ -1817,7 +1827,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/productoptions/all": {
       "get": {
         "tags": [
           "ProductOption"
@@ -1840,7 +1852,7 @@
         }
       }
     },
-    "/api/productoption/product-options/{id}": {
+    "/api/productoptions/{id}": {
       "get": {
         "tags": [
           "ProductOption"
@@ -1959,7 +1971,7 @@
         }
       }
     },
-    "/api/option/": {
+    "/api/options/create": {
       "post": {
         "tags": [
           "Option"
@@ -2003,7 +2015,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/options/all": {
       "get": {
         "tags": [
           "Option"
@@ -2029,7 +2043,7 @@
         }
       }
     },
-    "/api/option/{id}": {
+    "/api/options/{id}": {
       "get": {
         "tags": [
           "Option"
@@ -2148,7 +2162,7 @@
         }
       }
     },
-    "/api/optionvalue/option-values": {
+    "/api/optionvalues/create": {
       "post": {
         "tags": [
           "OptionValue"
@@ -2192,7 +2206,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/optionvalues/all": {
       "get": {
         "tags": [
           "OptionValue"
@@ -2218,7 +2234,7 @@
         }
       }
     },
-    "/api/optionvalue/option-values/{id}": {
+    "/api/optionvalues/{id}": {
       "get": {
         "tags": [
           "OptionValue"

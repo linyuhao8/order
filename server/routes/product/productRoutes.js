@@ -5,7 +5,7 @@ const productController = require("../../controllers/product/productControllers"
 
 // 產品路由
 router.post(
-  "/products",
+  "/create",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'add product'
   /*  #swagger.parameters['body'] = {
@@ -21,26 +21,26 @@ router.post(
   productController.createProduct
 );
 router.get(
-  "/products",
+  "/all",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'Get all products'
   productController.getAllProducts
 );
 
 router.get(
-  "/menu/:menu_id/products",
+  "/menu/:menu_id/",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'Query all products containing menu_id,Enter menu_id'
   productController.getProductsWithMenuId
 );
 router.get(
-  "/products/:id",
+  "/:id",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'Find single product'
   productController.getProductById
 );
 router.put(
-  "/products/:id",
+  "/:id",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'modify product'
   /*  #swagger.parameters['body'] = {
@@ -56,13 +56,13 @@ router.put(
   productController.updateProduct
 );
 router.delete(
-  "/products/:id",
+  "/:id",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'deleta single product'
   productController.deleteProduct
 );
 router.get(
-  "/merchant/:merchant_id/products/details",
+  "/merchant/:merchant_id/details",
   // #swagger.tags = ['Product']
   // #swagger.summary = 'Check all the menus and products of a particular merchant. Enter merchant_id'
   productController.getMerchantDetails

@@ -5,7 +5,7 @@ const productOptionController = require("../../../controllers/product/product_op
 
 // 創建 ProductOption
 router.post(
-  "/product-options",
+  "/create",
   // #swagger.tags = ['ProductOption']
   // #swagger.summary = 'Add prductOption'
   productOptionController.createProductOption
@@ -13,7 +13,7 @@ router.post(
 
 // 查詢所有 ProductOptions
 router.get(
-  "/product-options",
+  "/all",
   // #swagger.tags = ['ProductOption']
   // #swagger.summary = 'Get All prductOption'
   productOptionController.getAllProductOptions
@@ -21,7 +21,7 @@ router.get(
 
 // 查詢單一 ProductOption
 router.get(
-  "/product-options/:id",
+  "/:id",
   // #swagger.tags = ['ProductOption']
   // #swagger.summary = 'Get single prductOption by Id'
   productOptionController.getProductOptionById
@@ -29,7 +29,7 @@ router.get(
 
 // 更新 ProductOption
 router.put(
-  "/product-options/:id",
+  "/:id",
   // #swagger.tags = ['ProductOption']
   // #swagger.summary = 'Update prductOption by Id'
   productOptionController.updateProductOption
@@ -37,7 +37,7 @@ router.put(
 
 // 刪除 ProductOption
 router.delete(
-  "/product-options/:id",
+  "/:id",
   // #swagger.tags = ['ProductOption']
   // #swagger.summary = 'Delete prductOption by Id'
   productOptionController.deleteProductOption

@@ -3,7 +3,7 @@ const router = express.Router();
 const productImgController = require("../../controllers/product/productImgControllers");
 
 router.post(
-  "/",
+  "/create",
   // #swagger.tags = ['ProductImg']
   // #swagger.summary = 'Add ProductImg ,enter product_id'
   /*  #swagger.parameters['body'] = {
@@ -19,7 +19,7 @@ router.post(
   productImgController.createProductImg
 );
 router.get(
-  "/",
+  "/all",
   // #swagger.tags = ['ProductImg']
   // #swagger.summary = 'Get All ProductImg'
   productImgController.getAllProductImgs

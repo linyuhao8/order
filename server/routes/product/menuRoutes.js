@@ -5,7 +5,7 @@ const menuController = require("../../controllers/product/menuControllers");
 
 // 菜單路由
 router.post(
-  "/menus",
+  "/create",
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'Add menu,Enter mercant_id'
   /*  #swagger.parameters['body'] = {
@@ -20,27 +20,27 @@ router.post(
   menuController.createMenu
 );
 router.get(
-  "/menus",
+  "/all",
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'Get all menu'
   menuController.getAllMenus
 );
 // 查詢某個商家的所有菜單
 router.get(
-  "/merchant/:merchant_id/menus",
+  "/merchant/:merchant_id",
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'Find all the menus of a merchant, Enter merchant_id'
   menuController.getMenusByMerchant
 );
 
 router.get(
-  "/menus/:id",
+  "/:id",
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'Find single menu'
   menuController.getMenuById
 );
 router.put(
-  "/menus/:id",
+  "/:id",
 
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'edit menu'
@@ -56,7 +56,7 @@ router.put(
   menuController.updateMenu
 );
 router.delete(
-  "/menus/:id",
+  "/:id",
   // #swagger.tags = ['Menu']
   // #swagger.summary = 'Delete menu,Enter menu_id,All data related to the product will be deleted.'
   menuController.deleteMenu

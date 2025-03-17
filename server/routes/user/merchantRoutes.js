@@ -4,7 +4,7 @@ const merchantController = require("../../controllers/user/merchantRoutes");
 
 // 創建商家
 router.post(
-  "/",
+  "/create",
   // #swagger.tags = ['Merchant']
   // #swagger.summary = 'create merchant'
   /*  #swagger.parameters['body'] = {
@@ -24,7 +24,7 @@ router.post(
 
 // 獲取所有商家
 router.get(
-  "/",
+  "/all",
   // #swagger.tags = ['Merchant']
   // #swagger.summary = 'find all merchant'
   merchantController.getAllMerchants

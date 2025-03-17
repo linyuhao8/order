@@ -15,7 +15,7 @@ router.post(
 
 // 讀取所有管理員
 router.get(
-  "/getAll",
+  "/All",
   // #swagger.tags = ['Admin']
   // #swagger.summary = 'get all Admin'
   adminController.getAllAdmin

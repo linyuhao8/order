@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const merchantController = require("../../controllers/user/merchantRoutes");
+const merchantController = require("../../../controllers/user/merchant/merchantControllers");
 
 // 創建商家
 router.post(

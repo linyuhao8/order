@@ -5,15 +5,14 @@ const {
   createProductSchema,
   updateProductSchema,
 } = require("../../validations/product/productValidation");
-const { message } = require("../../validations/user/registerUserValidation");
 
 // 創建產品
 const createProduct = async (req, res) => {
-  // Joi 驗證
+  // Joi validation
   const { error } = createProductSchema.validate(req.body, {
     abortEarly: false,
   });
-
+  //If error, return error message
   if (error) {
     return res.status(400).json({
       message: "資料格式錯誤",
@@ -21,11 +20,14 @@ const createProduct = async (req, res) => {
     });
   }
   try {
+    //get data from req.body
     const { name, description, price, menu_id } = req.body;
+    //checl menu_id exist or not
     const menu = await Menu.findByPk(menu_id);
     if (!menu) {
       return res.status(400).json({ message: "找不到該菜單" });
     }
+    //if menu exist, create new product
     const newProduct = await Product.create({
       name,
       description,

@@ -20,7 +20,11 @@ const doc = {
     {
       name: "Merchant",
       description:
-        "1.belongsto(User),hasMany(Menu),hasMany(ProductOption) 2.id, user_id, business_name, description, feature, merchant_logo, location",
+        "1.belongsto(User),hasMany(Menu),hasMany(ProductOption)hasMany(MerchantCategory) 2.id, user_id, business_name, description, feature, merchant_logo, location",
+    },
+    {
+      name: "MerchantCategory",
+      description: "1.belongsto(Merchant) 2.id, name , merchant_id",
     },
     {
       name: "Menu",

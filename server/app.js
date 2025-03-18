@@ -19,7 +19,8 @@ const {
 //User
 const userRoutes = require("./routes/user/userRoutes");
 const adminRoutes = require("./routes/user/adminRoutes");
-const merchantRoutes = require("./routes/user/merchantRoutes");
+const merchantRoutes = require("./routes/user/merchant/merchantRoutes");
+const merchantCategoryRoutes = require("./routes/user/merchant/merchantCategoryRoutes");
 //Product
 const menuRoutes = require("./routes/product/menuRoutes");
 const productRoutes = require("./routes/product/productRoutes");
@@ -45,6 +46,7 @@ app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
 //User
 app.use("/api/users", userRoutes);
 app.use("/api/merchants", authenticateToken, merchantRoutes);
+app.use("/api/merchant-categorys", authenticateToken, merchantCategoryRoutes);
 app.use("/api/admins", verifyAdmin, adminRoutes);
 //Product
 app.use("/api/menus", authenticateToken, menuRoutes);

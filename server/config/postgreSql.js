@@ -41,7 +41,11 @@ db.sequelize = sequelize;
 // 匯入模型
 // Use Related
 db.User = require("../models/user/UserModels")(sequelize, Sequelize.DataTypes);
-db.Merchant = require("../models/user/MerchantModels")(
+db.Merchant = require("../models/user/Merchant/MerchantModels")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.MerchantCategory = require("../models/user/Merchant/MerchantCategory")(
   sequelize,
   Sequelize.DataTypes
 );

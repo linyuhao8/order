@@ -1,10 +1,10 @@
-const Merchant = require("../../config/postgreSql").db.Merchant;
-const User = require("../../config/postgreSql").db.User;
+const Merchant = require("../../../config/postgreSql").db.Merchant;
+const User = require("../../../config/postgreSql").db.User;
 const {
   createMerchantValidation,
   updateMerchantValidation,
-} = require("../../validations/user/merchantValidation");
-const { message } = require("../../validations/user/registerUserValidation");
+} = require("../../../validations/user/merchant/merchantValidation");
+
 
 // 新增商家
 const createMerchant = async (req, res) => {

@@ -69,8 +69,14 @@ module.exports = (sequelize, DataTypes) => {
     // If a Merchant is deleted, all associated ProductOptions will also be deleted.
     Merchant.hasMany(models.ProductOption, {
       foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
-      as: "productOptions", // Alias for accessing the associated ProductOptions from the Merchant model
+      as: "product_options", // Alias for accessing the associated ProductOptions from the Merchant model
       onDelete: "SET NULL", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
+      onUpdate: "CASCADE",
+    });
+    Merchant.hasMany(models.MerchantCategory, {
+      foreignKey: "merchant_id",
+      as: "merchant_categories",
+      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   };

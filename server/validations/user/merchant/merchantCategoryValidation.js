@@ -7,7 +7,7 @@ const merchantCategorySchema = {
       .min(1)
       .max(255)
       .required()
-      .empty("") // ⬅️ 這裡確保 name 不能是空字串
+      .empty("")
       .messages({
         "string.empty": "name 不能為空",
         "string.min": "商家名稱最少 1 字元",
@@ -18,7 +18,7 @@ const merchantCategorySchema = {
     merchant_id: Joi.string()
       .guid({ version: "uuidv4" })
       .required()
-      .empty("") // ⬅️ 這裡確保 merchant_id 不能是空字串
+      .empty("")
       .messages({
         "string.empty": "merchant_id 不能為空",
         "any.required": "merchant_id 是必填欄位",

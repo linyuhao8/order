@@ -1,24 +1,37 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* 確保 Tailwind dark mode 可以影響所有深層元素 */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* 變數定義（默認是 light mode） */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: rgb(255, 255, 255);
+  --foreground: rgb(23, 23, 23);
 }
 
+/* 自動根據系統偏好設定 dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: oklch(0.278 0.033 256.848); /*gray-800*/
+    --foreground: rgb(237, 237, 237);
   }
 }
 
+/* 針對 Tailwind class 模式，手動加 .dark 時變更顏色 */
+.dark {
+  --background: oklch(0.278 0.033 256.848); /*gray-800*/
+  --foreground: rgb(237, 237, 237);
+}
+.dark p {
+  color: #d0d0d0;
+}
+/* 基本樣式 */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }

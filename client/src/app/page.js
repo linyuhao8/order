@@ -49,8 +49,9 @@ export default function Home() {
       phone: "04-2322-5863",
     },
   ];
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-800">
       <main className="max-w-6xl mx-auto px-4">
         <Navbar />
         {/* Team Member Section */}
@@ -112,9 +113,9 @@ export default function Home() {
             {merchats.map((merchant) => (
               <div
                 key={merchant.id}
-                className="rounded-lg overflow-hidden bg-gray-50"
+                className="rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-600"
               >
-                <div className="flex justify-between items-center px-4 py-3">
+                <div className="flex justify-between items-center px-5 py-6">
                   <div>
                     <h3 className="text-lg font-medium">
                       {merchant.business_name}

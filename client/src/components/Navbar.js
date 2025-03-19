@@ -1,6 +1,18 @@
 import React from "react";
 import Link from "next/link";
 const Navbar = () => {
+  function toggleDarkMode() {
+    const html = document.documentElement;
+
+    if (html.classList.contains("dark")) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light"); // 儲存淺色模式
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark"); // 儲存深色模式
+    }
+  }
+
   return (
     <>
       {/* Header/Navigation */}
@@ -18,10 +30,12 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="flex space-x-2">
-          <button className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-            Works
+          <button
+            onClick={toggleDarkMode}
+            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition dark:bg-gray-600 dark:text-white"
+          >
+            dark
           </button>
-
           <a
             className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition"
             href="/login"

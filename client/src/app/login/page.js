@@ -69,9 +69,9 @@ export default function Login() {
       <Navbar />
       <div className="min-h-[calc(100vh-70px)] flex flex-col justify-center">
         <main className="flex flex-col items-center px-4">
-          <div className="w-full max-w-md bg-white rounded-2xl shadow-md overflow-hidden">
+          <div className="w-full max-w-md bg-white dark:bg-gray-700 rounded-2xl shadow-md overflow-hidden">
             <div className="px-8 pt-10 pb-8">
-              <h1 className="text-2xl font-medium text-gray-900 text-center">
+              <h1 className="text-2xl font-medium text-gray-900 text-center dark:text-white">
                 Login
               </h1>
               <p className="mt-3 text-sm text-gray-500 text-center">
@@ -93,7 +93,7 @@ export default function Login() {
                     placeholder="電子郵件"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ export default function Login() {
                     placeholder="密碼"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
                 <div className="mt-2 flex justify-end">
@@ -166,7 +166,7 @@ export default function Login() {
                   <div className="w-full border-t border-gray-200"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500">
+                  <span className="px-4 bg-white  dark:bg-gray-700 text-gray-400">
                     或使用其他方式登入
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export default function Login() {
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center border border-gray-200 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -191,7 +191,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center border border-gray-200 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -219,7 +219,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center border border-gray-200 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"

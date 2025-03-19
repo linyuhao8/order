@@ -67,9 +67,9 @@ export default function Login() {
   return (
     <>
       <Navbar />
-      <div className="min-h-[calc(100vh-70px)] bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col justify-center">
+      <div className="min-h-[calc(100vh-70px)] flex flex-col justify-center">
         <main className="flex flex-col items-center px-4">
-          <div className="w-full max-w-md bg-white rounded-3xl shadow-lg overflow-hidden">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-md overflow-hidden">
             <div className="px-8 pt-10 pb-8">
               <h1 className="text-2xl font-medium text-gray-900 text-center">
                 Login
@@ -93,7 +93,7 @@ export default function Login() {
                     placeholder="電子郵件"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
               </div>
@@ -109,13 +109,13 @@ export default function Login() {
                     placeholder="密碼"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-300 rounded-xl bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
                 <div className="mt-2 flex justify-end">
                   <a
                     href="#"
-                    className="text-sm font-medium text-blue-500 hover:text-blue-400 transition duration-150"
+                    className="text-sm font-medium text-amber-500 hover:text-amber-400 transition duration-150"
                   >
                     忘記密碼？
                   </a>
@@ -126,9 +126,13 @@ export default function Login() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full flex justify-center py-4 px-4 border border-transparent rounded-xl text-white text-base font-medium bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 ${
-                    loading ? "opacity-70 cursor-not-allowed" : ""
-                  }`}
+                  className={`w-full flex justify-center py-4 px-4 border border-transparent rounded-xl text-white text-base font-medium bg-gradient-to-r 
+                    from-amber-400 
+                    to-amber-500 hover:from-amber-500 hover:to-amber-600 
+                    focus:outline-none focus:ring-2 focus:ring-offset-2 
+                    focus:ring-amber-500 transition duration-200 ${
+                      loading ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
                 >
                   {loading ? (
                     <svg
@@ -240,7 +244,7 @@ export default function Login() {
                   還沒有帳戶？
                   <a
                     href="#"
-                    className="ml-1 font-medium text-blue-500 hover:text-blue-400 transition duration-150"
+                    className="ml-1 font-medium text-amber-500 hover:text-amber-400 transition duration-150"
                   >
                     立即註冊
                   </a>

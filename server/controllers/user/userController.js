@@ -205,7 +205,7 @@ const login = async (req, res) => {
       maxAge: 60 * 60 * 1000, // Token 存活 1 小時
     });
     // 回傳登入成功的訊息
-    return res.json({ message: "登入成功" });
+    return res.json({ message: "登入成功", user });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "伺服器錯誤" });

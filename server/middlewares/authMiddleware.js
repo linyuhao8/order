@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-// Middleware: 驗證 JWT Token驗證是否登入
+// Middleware: Authenticate JWT Token to verify login status.
 const authenticateToken = (req, res, next) => {
   const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
 
@@ -13,11 +13,11 @@ const authenticateToken = (req, res, next) => {
     if (err) {
       return res.status(403).json({ message: "Token 無效或過期" });
     }
-    req.user = user; // 解碼後的 user 資料
+    req.user = user; // Decoded user data
     next();
   });
 };
-// Middleware 驗證 JWT Token 並檢查是否為 Admin
+// Middleware authenticates the JWT Token and checks if it is Admin.
 const verifyAdmin = (req, res, next) => {
   const token =
     req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");
@@ -35,7 +35,7 @@ const verifyAdmin = (req, res, next) => {
       return res.status(403).json({ message: "權限不足，僅限 Admin 存取" });
     }
 
-    req.user = decoded; // 將解析後的用戶信息存到 req.user
+    req.user = decoded; // Save the parsed user information to req.user
     next();
   } catch (error) {
     return res.status(401).json({ message: "Token 無效或已過期" });

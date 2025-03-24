@@ -1,6 +1,6 @@
 // pages/login.js
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import { api } from "@/api";
@@ -39,6 +39,21 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  const checkauth = async () => {
+    const check = await api.auth.checkAuth();
+    const data = await check.json();
+    if (!check.ok) {
+      redirect("/login");
+    } else {
+      redirect(`/dashboard/user/profile/${data.user.id}`);
+    }
+  };
+
+  //If logged in, redirect to home page
+  useEffect(() => {
+    checkauth();
+  }, []);
 
   return (
     <>

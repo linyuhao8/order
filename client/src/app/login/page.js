@@ -1,66 +1,72 @@
-// pages/login.js
 "use client";
 import { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
-import Navbar from "@/components/Navbar";
+import { useRouter } from "next/navigation";
 import { api } from "@/api";
-
+import Navbar from "@/components/Navbar";
+import { useSelector, useDispatch } from "react-redux";
 export default function Login() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState("");
-
+  const theme = useSelector((state) => state.theme.mode);
   //Submit form
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       setLoading(true);
-      //reset error
+      // Reset error state
       setErrors("");
       const response = await api.auth.login(email, password);
       const data = await response.json();
-      //display error to html
+
+      // Display error to HTML if response is not OK
       if (!response.ok) {
         setErrors(
           data.errors && data.errors.length > 0
-            ? data.errors.join(", ") // 顯示所有錯誤訊息
-            : data.message || "登入失敗"
+            ? data.errors.join(", ") // Display all error messages
+            : data.message || "Login failed"
         );
       } else {
-        //login success redirect to home
-        redirect(`/`);
+        // Login success, redirect to home
+        router.push(`/dashboard/user/profile`); // Redirect to home or dashboard
       }
-      setLoading(false);
     } catch (error) {
-      console.error("API 請求錯誤:", error);
-      setErrors("發生錯誤，請稍後再試");
+      console.error("API request error:", error);
+      setErrors("An error occurred, please try again later");
     } finally {
       setLoading(false);
     }
   };
 
-  const checkauth = async () => {
-    const check = await api.auth.checkAuth();
-    const data = await check.json();
-    if (!check.ok) {
-      redirect("/login");
-    } else {
-      redirect(`/dashboard/user/profile/${data.user.id}`);
+  // Function to check if the user is authenticated
+  const checkAuth = async () => {
+    try {
+      const response = await api.auth.checkAuth(); // Assuming this returns a response with a 200/401
+      const data = await response.json();
+
+      if (response.ok) {
+        // If logged in, redirect to the user's profile page
+        router.push(`/dashboard/user/profile/${data.user.id}`);
+      }
+    } catch (error) {
+      console.error("Error checking authentication:", error);
     }
   };
 
-  //If logged in, redirect to home page
+  // If logged in, redirect to home page
   useEffect(() => {
-    checkauth();
-  }, []);
+    checkAuth();
+    console.log(theme);
+  }, []); // Only run on mount, do not run repeatedly after form submission
 
   return (
     <>
       <Navbar />
-      <div className="min-h-[calc(100vh-70px)] flex flex-col justify-center">
+      <div className="min-h-[calc(100vh-70px)] bg-white dark:bg-gray-700 flex flex-col justify-center">
         <main className="flex flex-col items-center px-4">
-          <div className="w-full max-w-md bg-white dark:bg-gray-700 rounded-2xl shadow-md overflow-hidden">
+          <div className="w-full max-w-md  rounded-2xl shadow-md overflow-hidden">
             <div className="px-8 pt-10 pb-8">
               <h1 className="text-2xl font-medium text-gray-900 text-center dark:text-white">
                 Login
@@ -88,7 +94,7 @@ export default function Login() {
                     placeholder="電子郵件"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 dark:text-white rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
               </div>
@@ -104,7 +110,7 @@ export default function Login() {
                     placeholder="密碼"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
                 <div className="mt-2 flex justify-end">

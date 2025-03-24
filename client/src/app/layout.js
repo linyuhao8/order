@@ -1,5 +1,5 @@
 import "./globals.css";
-
+import { StoreProvider } from "../lib/storeProvide";
 export const metadata = {
   title: "Order",
   description: "點餐平台",
@@ -8,7 +8,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

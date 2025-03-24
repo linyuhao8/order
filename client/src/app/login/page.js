@@ -3,65 +3,41 @@
 import { useState } from "react";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { api } from "@/api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  //login api
-  const login = async (email, password) => {
-    const url = "http://localhost:8080/api/users/login";
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-      //if fail return status and errors
-      if (!response.ok) {
-        return {
-          success: false,
-          message: data.message || "登入失敗",
-          errors: data.errors || [],
-        };
-      }
-      //login succesful and return data
-      return { success: true, data };
-    } catch (error) {
-      return {
-        success: false,
-        message: "系統錯誤，請稍後再試",
-        errors: [],
-      };
-    }
-  };
+  const [errors, setErrors] = useState("");
 
   //Submit form
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    //reset error
-    setError("");
-
-    const result = await login(email, password);
-    //display error to html
-    if (!result.success) {
-      setError(
-        result.errors.length > 0 ? result.errors.join("、") : result.message
-      );
-    } else {
-      //redirect to home
-      redirect(`/`);
+    try {
+      e.preventDefault();
+      setLoading(true);
+      //reset error
+      setErrors("");
+      const response = await api.auth.login(email, password);
+      const data = await response.json();
+      //display error to html
+      if (!response.ok) {
+        setErrors(
+          data.errors && data.errors.length > 0
+            ? data.errors.join(", ") // 顯示所有錯誤訊息
+            : data.message || "登入失敗"
+        );
+      } else {
+        //login success redirect to home
+        redirect(`/`);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error("API 請求錯誤:", error);
+      setErrors("發生錯誤，請稍後再試");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -75,9 +51,13 @@ export default function Login() {
                 Login
               </h1>
               <p className="mt-3 text-sm text-gray-500 text-center">
-                請輸入您的登入資訊以繼續 <br />
-                {error && <span className="text-red-500">{error}</span>}{" "}
+                Please enter your login information to continue <br />
                 {/* 顯示錯誤訊息 */}
+                {errors && (
+                  <span className="text-red-500 mt-2">
+                    <strong>Error:</strong> {errors}
+                  </span>
+                )}
               </p>
             </div>
 
@@ -117,7 +97,7 @@ export default function Login() {
                     href="#"
                     className="text-sm font-medium text-amber-500 hover:text-amber-400 transition duration-150"
                   >
-                    忘記密碼？
+                    Forgot your password?
                   </a>
                 </div>
               </div>
@@ -167,7 +147,7 @@ export default function Login() {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-4 bg-white  dark:bg-gray-700 text-gray-400">
-                    或使用其他方式登入
+                    or use another method to log in
                   </span>
                 </div>
               </div>
@@ -175,7 +155,7 @@ export default function Login() {
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -191,7 +171,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -219,7 +199,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center bg-gray-800 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -241,12 +221,12 @@ export default function Login() {
 
               <div className="text-center pt-4">
                 <p className="text-sm text-gray-600">
-                  還沒有帳戶？
+                  Don&apos;t have an account yet?
                   <a
                     href="#"
                     className="ml-1 font-medium text-amber-500 hover:text-amber-400 transition duration-150"
                   >
-                    立即註冊
+                    Register
                   </a>
                 </p>
               </div>

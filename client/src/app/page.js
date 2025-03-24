@@ -1,8 +1,6 @@
 // pages/index.js
 "use client";
-import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 export default function Home() {
   const merchats = [

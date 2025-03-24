@@ -7,8 +7,6 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:3000", // 允許的前端網址
-    methods: ["GET", "POST", "PUT", "DELETE"], // 允許的 HTTP 方法
-    allowedHeaders: ["Content-Type", "Authorization"], // 允許的 headers
     credentials: true, // 允許攜帶 cookies
   })
 );
@@ -41,8 +39,12 @@ const swaggerFile = require("./swagger-output.json");
 
 // Swagger UI 設置
 app.use("/api-docs", cors(), swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
 // 路由設定
+
+// 確認登入狀態的 API
+app.get("/api/check-auth", authenticateToken, (req, res) => {
+  res.json({ message: "已登入", user: req.user });
+});
 //User
 app.use("/api/users", userRoutes);
 app.use("/api/merchants", authenticateToken, merchantRoutes);

@@ -36,7 +36,7 @@ export const authApi = {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/users/logout`,
         {
-          method: "GET",
+          method: "POST",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
         }

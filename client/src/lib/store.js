@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from "./slices/themeSlice"; // 匯入主題的 reducer
+import themeReducer from "./slices/themeSlice";
+import loginSlice from "./slices/loginSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      theme: themeReducer, // 註冊 theme slice
+      theme: themeReducer,
+      auth: loginSlice,
     },
   });
 };

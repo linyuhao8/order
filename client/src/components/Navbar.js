@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { api } from "../api";
 
 //Redux State
+import { logoutSuccess } from "@/lib/slices/loginSlice";
 import { toggleTheme } from "@/lib/slices/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,12 +16,13 @@ import { FaUser } from "react-icons/fa";
 import { IoLogOutSharp } from "react-icons/io5";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
   //Redux
   const theme = useSelector((state) => state.theme.mode);
-  const dispatch = useDispatch();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   // Runs only on the client side
   useEffect(() => {
@@ -39,6 +41,10 @@ const Navbar = () => {
     }
   }, [theme, isClient]); // Only update the DOM when the theme changes.
 
+  useEffect(() => {
+    console.log(isAuthenticated);
+  }, [user, isAuthenticated]);
+
   // logout
   const logout = async () => {
     try {
@@ -47,6 +53,7 @@ const Navbar = () => {
       if (!response.ok) {
         return data.message;
       }
+      dispatch(logoutSuccess());
       router.push("/login"); // use router redirect
     } catch (error) {
       console.error("Logout failed:", error);
@@ -95,19 +102,25 @@ const Navbar = () => {
             Dark Mode
           </button>
 
-          <Link
-            href="/login"
-            className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition"
-          >
-            Login
-          </Link>
-
-          <button onClick={goToProfile} className="cursor-pointer">
-            <FaUser />
-          </button>
-          <button onClick={logout} className="cursor-pointer">
-            <IoLogOutSharp />
-          </button>
+          {isAuthenticated ? (
+            <>
+              <button onClick={goToProfile} className="cursor-pointer">
+                <FaUser />
+              </button>
+              <button onClick={logout} className="cursor-pointer">
+                <IoLogOutSharp />
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition"
+              >
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </>

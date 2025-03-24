@@ -1,23 +1,27 @@
 "use client";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { loginSuccess } from "@/lib/slices/loginSlice";
 import { useRouter } from "next/navigation";
 import { api } from "@/api";
 import Navbar from "@/components/Navbar";
-import { useSelector, useDispatch } from "react-redux";
+
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState("");
-  const theme = useSelector((state) => state.theme.mode);
+
   //Submit form
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
       setLoading(true);
       // Reset error state
       setErrors("");
+      //POST login
       const response = await api.auth.login(email, password);
       const data = await response.json();
 
@@ -30,6 +34,7 @@ export default function Login() {
         );
       } else {
         // Login success, redirect to home
+        dispatch(loginSuccess(data.user));
         router.push(`/dashboard/user/profile`); // Redirect to home or dashboard
       }
     } catch (error) {
@@ -58,15 +63,14 @@ export default function Login() {
   // If logged in, redirect to home page
   useEffect(() => {
     checkAuth();
-    console.log(theme);
   }, []); // Only run on mount, do not run repeatedly after form submission
 
   return (
     <>
       <Navbar />
-      <div className="min-h-[calc(100vh-70px)] bg-white dark:bg-gray-700 flex flex-col justify-center">
+      <div className="min-h-[calc(100vh-70px)] bg-stone-50 dark:bg-gray-700 flex flex-col justify-center">
         <main className="flex flex-col items-center px-4">
-          <div className="w-full max-w-md  rounded-2xl shadow-md overflow-hidden">
+          <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden">
             <div className="px-8 pt-10 pb-8">
               <h1 className="text-2xl font-medium text-gray-900 text-center dark:text-white">
                 Login
@@ -94,7 +98,7 @@ export default function Login() {
                     placeholder="電子郵件"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-500 dark:text-white rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 dark:text-white rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
               </div>
@@ -110,7 +114,7 @@ export default function Login() {
                     placeholder="密碼"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+                    className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
                   />
                 </div>
                 <div className="mt-2 flex justify-end">
@@ -176,7 +180,7 @@ export default function Login() {
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center  border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -192,7 +196,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center  border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"
@@ -220,7 +224,7 @@ export default function Login() {
                 </button>
                 <button
                   type="button"
-                  className="py-3 px-4 flex justify-center items-center dark:bg-gray-600 border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
+                  className="py-3 px-4 flex justify-center items-center  border border-gray-500 rounded-xl hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200"
                 >
                   <svg
                     className="h-5 w-5"

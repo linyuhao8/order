@@ -5,6 +5,7 @@ import { loginSuccess } from "@/lib/slices/loginSlice";
 import { useRouter } from "next/navigation";
 import { api } from "@/api";
 import Navbar from "@/components/Navbar";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -12,34 +13,34 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState("");
 
   //Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      // Reset error state
-      setErrors("");
       //POST login
       const response = await api.auth.login(email, password);
       const data = await response.json();
 
-      // Display error to HTML if response is not OK
       if (!response.ok) {
-        setErrors(
+        // display error toast
+        toast.error(
           data.errors && data.errors.length > 0
-            ? data.errors.join(", ") // Display all error messages
-            : data.message || "Login failed"
+            ? data.errors.join(", ") // all errors
+            : data.message || "Login Failure"
         );
       } else {
-        // Login success, redirect to home
+        // login success
         dispatch(loginSuccess(data.user));
-        router.push(`/dashboard/user/profile`); // Redirect to home or dashboard
+        toast.success("🎉 login success！redirect to dash...", {
+          autoClose: 1500,
+        });
+        router.push(`/dashboard/user/profile`);
       }
     } catch (error) {
       console.error("API request error:", error);
-      setErrors("An error occurred, please try again later");
+      toast.error("❌ server error, try later again");
     } finally {
       setLoading(false);
     }
@@ -79,13 +80,7 @@ export default function Login() {
                 Login
               </h1>
               <p className="mt-3 text-sm text-gray-500 text-center">
-                Please enter your login information to continue <br />
-                {/* 顯示錯誤訊息 */}
-                {errors && (
-                  <span className="text-red-500 mt-2">
-                    <strong>Error:</strong> {errors}
-                  </span>
-                )}
+                Please enter your login information to continue
               </p>
             </div>
 
@@ -98,7 +93,7 @@ export default function Login() {
                     type="email"
                     autoComplete="email"
                     required
-                    placeholder="電子郵件"
+                    placeholder="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="appearance-none block w-full px-4 py-4 border border-gray-500 dark:text-white rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
@@ -114,7 +109,7 @@ export default function Login() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    placeholder="密碼"
+                    placeholder="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
@@ -164,7 +159,7 @@ export default function Login() {
                       ></path>
                     </svg>
                   ) : (
-                    "登入"
+                    "login"
                   )}
                 </button>
               </div>

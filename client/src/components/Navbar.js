@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import { useTheme } from "@/hooks/useTheme";
 //API
 import { api } from "../api";
 
@@ -21,7 +21,7 @@ const Navbar = () => {
   const router = useRouter();
 
   //Redux
-  const theme = useSelector((state) => state.theme.mode);
+  const theme = useTheme();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   // Runs only on the client side
@@ -97,9 +97,9 @@ const Navbar = () => {
         <div className="flex space-x-2">
           <button
             onClick={() => dispatch(toggleTheme())}
-            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition dark:bg-gray-600 dark:text-white"
+            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-800 hover:text-white rounded-lg transition dark:bg-gray-600 dark:text-white"
           >
-            Dark Mode
+            {theme == "light" ? "light" : "dark"}
           </button>
 
           {isAuthenticated ? (

@@ -48,12 +48,15 @@ export default function Login() {
   // Function to check if the user is authenticated
   const checkAuth = async () => {
     try {
-      const response = await api.auth.checkAuth(); // Assuming this returns a response with a 200/401
+      const response = await api.auth.checkAuth();
       const data = await response.json();
 
       if (response.ok) {
-        // If logged in, redirect to the user's profile page
         router.push(`/dashboard/user/profile/${data.user.id}`);
+      } else if (response.status === 401) {
+        router.push("/login");
+      } else {
+        console.error("Unexpected response:", data);
       }
     } catch (error) {
       console.error("Error checking authentication:", error);

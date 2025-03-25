@@ -41,10 +41,6 @@ const Navbar = () => {
     }
   }, [theme, isClient]); // Only update the DOM when the theme changes.
 
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, [user, isAuthenticated]);
-
   // logout
   const logout = async () => {
     try {
@@ -97,15 +93,21 @@ const Navbar = () => {
         <div className="flex space-x-2">
           <button
             onClick={() => dispatch(toggleTheme())}
-            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-800 hover:text-white rounded-lg transition dark:bg-gray-600 dark:text-white"
+            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-800 hover:text-white rounded-lg transition dark:bg-gray-600 dark:text-white cursor-pointer"
           >
             {theme == "light" ? "light" : "dark"}
           </button>
 
           {isAuthenticated ? (
             <>
-              <button onClick={goToProfile} className="cursor-pointer">
+              <button
+                onClick={goToProfile}
+                className="flex flex-nowrap items-center cursor-pointer"
+              >
                 <FaUser />
+                {isAuthenticated && user?.name ? (
+                  <span className="text-sm"> {user.name}</span>
+                ) : null}
               </button>
               <button onClick={logout} className="cursor-pointer">
                 <IoLogOutSharp />

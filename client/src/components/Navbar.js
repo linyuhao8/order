@@ -14,31 +14,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaUser } from "react-icons/fa";
 import { IoLogOutSharp } from "react-icons/io5";
 
+//hook
+import useThemeSwitcher from "@/hooks/useThemeSwitcher";
+
 const Navbar = () => {
   const dispatch = useDispatch();
-  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
   //Redux
   const theme = useSelector((state) => state.theme.mode);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  // Runs only on the client side
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient) return; // Runs only on the client side
-    const html = document.documentElement;
-    if (theme === "dark") {
-      html.classList.add("dark");
-      html.classList.remove("light");
-    } else {
-      html.classList.add("light");
-      html.classList.remove("dark");
-    }
-  }, [theme, isClient]); // Only update the DOM when the theme changes.
+  // 使用自定義 Hook 來處理主題切換
+  useThemeSwitcher(theme);
 
   // logout
   const logout = async () => {
@@ -70,10 +58,6 @@ const Navbar = () => {
       router.push("/login"); // if error, redirect to login page
     }
   };
-
-  if (!isClient) {
-    return null; // Do not render the Navbar until the client is loaded.
-  }
 
   return (
     <>

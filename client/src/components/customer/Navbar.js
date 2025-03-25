@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 //API
-import { api } from "../api";
+import { api } from "../../api";
 
 //Redux State
 import { logoutSuccess } from "@/lib/slices/loginSlice";

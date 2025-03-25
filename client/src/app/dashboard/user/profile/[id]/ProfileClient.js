@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { api } from "@/api";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/customer/Navbar";
 export default function ProfileClient({ initialData, id }) {
   const [profile, setProfile] = useState(initialData);
   const [loading, setLoading] = useState(!initialData);

@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useTheme } from "@/hooks/useTheme";
 //API
 import { api } from "../api";
 
@@ -21,7 +20,7 @@ const Navbar = () => {
   const router = useRouter();
 
   //Redux
-  const theme = useTheme();
+  const theme = useSelector((state) => state.theme.mode);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   // Runs only on the client side

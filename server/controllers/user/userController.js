@@ -194,7 +194,7 @@ const login = async (req, res) => {
     }
     // 密碼正確，生成 JWT Token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role, name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );

@@ -1,14 +1,11 @@
 "use client";
-import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { loginSuccess } from "@/lib/slices/loginSlice";
 import { useRouter } from "next/navigation";
 import { api } from "@/api";
 import Navbar from "@/components/customer/Navbar";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,12 +28,10 @@ export default function Login() {
             : data.message || "Login Failure"
         );
       } else {
-        // login success
-        dispatch(loginSuccess(data.user));
         toast.success("🎉 login success！redirect to dash...", {
           autoClose: 1500,
         });
-        router.push(`/dashboard/user/profile`);
+        router.push(`/dashboard`);
       }
     } catch (error) {
       console.error("API request error:", error);

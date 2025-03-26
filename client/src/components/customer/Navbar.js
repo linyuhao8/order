@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 //API
-import { api } from "../../api";
+import { api } from "@/api";
 
 //Redux State
-import { logoutSuccess } from "@/lib/slices/loginSlice";
 import { toggleTheme } from "@/lib/slices/themeSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,18 +15,23 @@ import { FaUser } from "react-icons/fa";
 import { IoLogOutSharp } from "react-icons/io5";
 
 //hook
+import useAuth from "@/hooks/useAuth";
 import useThemeSwitcher from "@/hooks/useThemeSwitcher";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  //Redux
-  const theme = useSelector((state) => state.theme.mode);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  //hook check auth
+  const { isAuthenticated, user } = useAuth();
 
-  // 使用自定義 Hook 來處理主題切換
+  // hook theme control
+  const theme = useSelector((state) => state.theme.mode);
   useThemeSwitcher(theme);
+
+  useEffect(() => {
+    console.log(isAuthenticated,user);
+  }, [isAuthenticated,user]);
 
   // logout
   const logout = async () => {
@@ -36,7 +41,6 @@ const Navbar = () => {
       if (!response.ok) {
         return data.message;
       }
-      dispatch(logoutSuccess());
       router.push("/login"); // use router redirect
     } catch (error) {
       console.error("Logout failed:", error);
@@ -58,6 +62,7 @@ const Navbar = () => {
       router.push("/login"); // if error, redirect to login page
     }
   };
+
 
   return (
     <>
@@ -95,6 +100,12 @@ const Navbar = () => {
               <button onClick={logout} className="cursor-pointer">
                 <IoLogOutSharp />
               </button>
+              <Link
+                href="/dashboard"
+                className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition"
+              >
+                dash
+              </Link>
             </>
           ) : (
             <>

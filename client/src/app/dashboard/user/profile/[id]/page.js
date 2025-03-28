@@ -1,30 +1,49 @@
-import ProfileClient from "./ProfileClient";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+// app/dashboard/profile/page.js
+"use client";
+import { useState, useEffect } from "react";
 import { api } from "@/api";
+import { use } from "react";
 
-//commit name client / Add profile page(SSR fetch data),Add profileClient page(CSR fetch and display layout)
-async function getUserData(id) {
-  // get cookie token
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+export default function ProfilePage({ params }) {
+  const { id } = use(params);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // API
-  const res = await api.user.getUser(id, token);
+  useEffect(() => {
+    if (!id) return;
 
-  // 如果沒有授權（401 或 403），直接跳轉
-  if (res.status === 401 || res.status === 403) {
-    console.warn(`⚠️ API error: ${res.status}`);
-    redirect("/login");
-  }
+    async function fetchUserProfile() {
+      try {
+        const res = await api.user.getUser(id);
+        if (!res.ok) {
+          console.warn(`⚠️ API response error: ${res.status}`);
+          return;
+        }
+        const data = await res.json();
+        setProfile(data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  return await res.json();
-}
+    fetchUserProfile();
+  }, [id]);
 
-//SSR
-export default async function Page({ params }) {
-  const { id } = await params;
-  const initialData = await getUserData(id);
+  if (loading) return <p>Loading...</p>;
 
-  return <ProfileClient initialData={initialData} id={id} />;
+  return (
+    <div className="w-full md:ml-64 p-4 md:p-6 h-[200vh]">
+      <h1>User Profile</h1>
+      {profile ? (
+        <>
+          <p>Name: {profile.name}</p>
+          <p>Email: {profile.email}</p>
+        </>
+      ) : (
+        <p>User not found</p>
+      )}
+    </div>
+  );
 }

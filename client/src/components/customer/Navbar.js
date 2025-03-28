@@ -1,10 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-//API
-import { api } from "@/api";
 
 //Redux State
 import { toggleTheme } from "@/lib/slices/themeSlice";
@@ -15,12 +11,11 @@ import { FaUser } from "react-icons/fa";
 import { IoLogOutSharp } from "react-icons/io5";
 
 //hook
-import useAuth from "@/hooks/useAuth";
-import useThemeSwitcher from "@/hooks/useThemeSwitcher";
+import useAuth from "@/hooks/auth/useAuth";
+import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   //hook check auth
   const { isAuthenticated, user } = useAuth();
@@ -30,39 +25,8 @@ const Navbar = () => {
   useThemeSwitcher(theme);
 
   useEffect(() => {
-    console.log(isAuthenticated,user);
-  }, [isAuthenticated,user]);
-
-  // logout
-  const logout = async () => {
-    try {
-      const response = await api.auth.logout(); // API
-      const data = await response.json();
-      if (!response.ok) {
-        return data.message;
-      }
-      router.push("/login"); // use router redirect
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
-  // profile redirect
-  const goToProfile = async () => {
-    try {
-      const response = await api.auth.checkAuth(); // check auth
-      if (!response.ok) {
-        router.push("/login"); // If not logged in, redirect to login page
-      } else {
-        const data = await response.json();
-        router.push(`/dashboard/user/profile/${data.user.id}`); // if logged in, redirect to profile page
-      }
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-      router.push("/login"); // if error, redirect to login page
-    }
-  };
-
+    console.log(isAuthenticated, user);
+  }, [isAuthenticated, user]);
 
   return (
     <>
@@ -70,10 +34,10 @@ const Navbar = () => {
         <Link href="/">
           <div className="flex items-center flex-nowrap space-x-2">
             <div className="bg-amber-500 text-white rounded-full h-8 w-8 flex items-center justify-center">
-              <span>A</span>
+              <span>H</span>
             </div>
             <div>
-              <span className="font-medium">Ace Agency</span>
+              <span className="font-medium">Hank Order</span>
             </div>
           </div>
         </Link>
@@ -88,15 +52,12 @@ const Navbar = () => {
 
           {isAuthenticated ? (
             <>
-              <button
-                onClick={goToProfile}
+              <Link
+                href="/dashboard/user/profile"
                 className="flex flex-nowrap items-center cursor-pointer"
               >
                 <FaUser />
-                {isAuthenticated && user?.name ? (
-                  <span className="text-sm"> {user.name}</span>
-                ) : null}
-              </button>
+              </Link>
               <button onClick={logout} className="cursor-pointer">
                 <IoLogOutSharp />
               </button>

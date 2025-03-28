@@ -3,8 +3,8 @@ import Navbar from "@/components/dashboard/Navbar";
 import { StoreProvider } from "@/lib/storeProvide";
 
 export const metadata = {
-  title: "Order",
-  description: "點餐平台",
+  title: "dashboard",
+  description: "dash",
 };
 
 export default function RootLayout({ children }) {

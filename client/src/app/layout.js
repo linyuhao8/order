@@ -1,7 +1,7 @@
 //app/layout.js For merchant and public
 import "@/styles/globals.css";
 import { StoreProvider } from "@/lib/storeProvide";
-import ToastProvider from "@/components/ToastProvider";
+import ToastProvider from "@/components/common/ToastProvider";
 
 export const metadata = {
   title: "Order",

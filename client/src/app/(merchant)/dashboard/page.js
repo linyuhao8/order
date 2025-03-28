@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
 
 //model
-import Modal from "@/components/Model";
+import Modal from "@/components/common/Model";
 import useModal from "@/hooks/ui/useModel";
 import SettingPage from "./settings/page";
 

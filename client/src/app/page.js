@@ -1,6 +1,7 @@
 // pages/index.js
 import Image from "next/image";
-import Navbar from "../components/customer/Navbar";
+import Navbar from "../components/public/Navbar";
+
 export default function Home() {
   const merchats = [
     {

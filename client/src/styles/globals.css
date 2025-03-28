@@ -26,18 +26,39 @@
   }
 }
 
-/* 針對 Tailwind class 模式，手動加 .dark 時變更顏色 */
-.dark {
-  --background: oklch(0.278 0.033 256.848); /*gray-800*/
-  --foreground: rgb(237, 237, 237);
-}
-.dark p {
-  color: #d0d0d0;
-}
 /* 基本樣式 */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   transition: background 0.3s ease, color 0.3s ease;
+}
+/* 針對 Tailwind class 模式，手動加 .dark 時變更顏色 */
+.dark {
+  --background: oklch(0.278 0.033 256.848); /*gray-800*/
+  --foreground: rgb(237, 237, 237);
+}
+
+.settings-tabs button {
+  font-size: 18px;
+  padding: 5px 8px;
+}
+.dark .settings-tabs button.active {
+  @apply bg-gray-700 w-full text-left rounded-lg;
+}
+.settings-tabs button.active {
+  @apply bg-gray-100 w-full text-left rounded-lg;
+}
+.render-tab-content {
+  @apply flex flex-col justify-start w-[400px] min-h-[50vh] overflow-y-auto;
+}
+.render-tab-content button {
+  @apply mt-auto;
+}
+
+.dashboard-nav a.link {
+  @apply flex gap-2 items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-100 dark:hover:bg-gray-700;
+}
+.dashboard-nav a.link span {
+  @apply hidden sm:inline; /* 在手機隱藏，在 sm（640px 以上）顯示 */
 }

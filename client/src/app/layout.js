@@ -1,4 +1,4 @@
-import "./globals.css";
+// import "@/styles/globals.css";
 import { StoreProvider } from "../lib/storeProvide";
 import ToastProvider from "@/components/ToastProvider";
 

@@ -1,10 +1,11 @@
+//app/layout.js For merchant and public
 import "@/styles/globals.css";
-import { StoreProvider } from "../../lib/storeProvide";
+import { StoreProvider } from "@/lib/storeProvide";
 import ToastProvider from "@/components/ToastProvider";
 
 export const metadata = {
   title: "Order",
-  description: "點餐平台",
+  description: "order",
 };
 
 export default function RootLayout({ children }) {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <StoreProvider>
+          {/* Redux Store */}
           {children}
           <ToastProvider /> {/* Only run on Csr */}
         </StoreProvider>

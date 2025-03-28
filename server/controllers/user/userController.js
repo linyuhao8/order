@@ -224,7 +224,8 @@ const logout = async (req, res) => {
     });
   }
   // 清除存儲在 Cookie 中的 JWT Token
-  res.clearCookie("token");
+  res.clearCookie("token", { path: "/" });
+
 
   // 返回登出成功訊息
   res.json({ message: "登出成功" });

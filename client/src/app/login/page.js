@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/api";
-import Navbar from "@/components/customer/Navbar";
+import Navbar from "@/components/public/Navbar";
 import { toast } from "react-toastify";
 
 export default function Login() {

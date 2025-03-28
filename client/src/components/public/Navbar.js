@@ -13,7 +13,7 @@ import { IoLogOutSharp } from "react-icons/io5";
 //hook
 import useAuth from "@/hooks/auth/useAuth";
 import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
-
+import { useLogout } from "@/hooks/auth/useLogout";
 const Navbar = () => {
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const Navbar = () => {
   // hook theme control
   const theme = useSelector((state) => state.theme.mode);
   useThemeSwitcher(theme);
-
+  const { logout } = useLogout();
   useEffect(() => {
     console.log(isAuthenticated, user);
   }, [isAuthenticated, user]);

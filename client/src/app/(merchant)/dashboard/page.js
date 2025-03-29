@@ -74,7 +74,7 @@ export default function Dashboard() {
         {/* Grid Layout with Responsive Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Employee Profile Card */}
-          <div className="col-span-1 row-span-1 md:row-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 md:p-6">
+          <div className="col-span-1 row-span-1 md:row-span-2 md:col-span-3 xl:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 md:p-6">
             <div className="flex justify-between items-center mb-4 md:mb-5">
               <h2 className="text-base font-semibold dark:text-white">
                 Employee Profile
@@ -134,7 +134,7 @@ export default function Dashboard() {
           </div>
 
           {/* Activity Card */}
-          <div className="col-span-1 md:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+          <div className="col-span-1 md:col-span-2 md:col-span-3 xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-base font-semibold dark:text-white">
                 Weekly Activity
@@ -206,7 +206,7 @@ export default function Dashboard() {
           </div>
 
           {/* Working Format Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+          <div className="bg-white dark:bg-gray-800 md:col-span-2 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-base font-semibold dark:text-white">
                 Working Format
@@ -228,7 +228,7 @@ export default function Dashboard() {
           </div>
 
           {/* Time Tracking Card */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
+          <div className="bg-white dark:bg-gray-800 md:col-span-1 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-base font-semibold dark:text-white">
                 Time Tracking

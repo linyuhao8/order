@@ -10,12 +10,6 @@
 :root {
   --background: rgb(255, 255, 255);
   --foreground: rgb(23, 23, 23);
-  --toastify-color-light: rgb(255, 255, 255);
-  --toastify-color-dark: rgb(23, 23, 23);
-  --toastify-color-info: #fd9a00;
-  --toastify-color-success: #07bc0c;
-  --toastify-color-warning: #f1c40f;
-  --toastify-color-error: hsl(6, 78%, 57%);
 }
 
 /* 自動根據系統偏好設定 dark mode */

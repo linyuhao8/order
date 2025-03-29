@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 const AccountSettings = () => {
   const [formData, setFormData] = useState({
@@ -31,11 +30,8 @@ const AccountSettings = () => {
       });
 
       if (!res.ok) throw new Error("Failed to update settings");
-
-      toast.success("Account updated successfully!");
     } catch (error) {
       console.error("Error updating account:", error);
-      toast.error("Failed to update account");
     }
   };
 
@@ -86,13 +82,13 @@ const AccountSettings = () => {
           />
         </div>
       </form>
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 transition duration-200"
-        >
-          Save Changes
-        </button>
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 transition duration-200"
+      >
+        Save Changes
+      </button>
     </div>
   );
 };

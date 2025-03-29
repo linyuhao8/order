@@ -8,9 +8,6 @@ import { useRouter } from "next/navigation";
 //check Authenticated
 import { api } from "@/api";
 
-//toast
-import { toast } from "react-toastify";
-
 //hook auth direct
 import useAuth from "@/hooks/auth/useAuth";
 
@@ -50,21 +47,10 @@ export default function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        // display error toast
-        toast.error(
-          data.errors && data.errors.length > 0
-            ? data.errors.join(", ") // all errors
-            : data.message || "Login Failure"
-        );
-      } else {
-        toast.success("🎉 login success！redirect to dash...", {
-          autoClose: 1500,
-        });
         router.push(`/dashboard`);
       }
     } catch (error) {
       console.error("API request error:", error);
-      toast.error("❌ server error, try later again");
     } finally {
       setLoading(false);
     }

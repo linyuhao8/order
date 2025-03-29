@@ -1,19 +1,18 @@
 import Link from "next/link";
-import clsx from "clsx"; // 用來動態組合 className
+import clsx from "clsx";
 
 const Button = ({
   href,
   onClick,
   children,
-  variant = "primary", // 預設是 primary 樣式
-  size = "md", // 預設是 md 尺寸
-  icon: Icon, // 圖標
-  iconPosition = "left", // 圖標位置（left/right）
-  className = "", // 允許自訂 class
-  disabled = false, // 是否禁用
+  variant = "primary",
+  size = "md",
+  icon: Icon,
+  iconPosition = "left",
+  className = "",
+  disabled = false,
   ...props
 }) => {
-  // 不同的 variant 樣式
   const baseStyles = "gap-1 font-medium transition cursor-pointer";
   const variants = {
     primary:
@@ -41,7 +40,7 @@ const Button = ({
   };
 
   const classes = clsx(baseStyles, variants[variant], sizes[size], className, {
-    "opacity-50 cursor-not-allowed": disabled, // 禁用時變灰
+    "opacity-50 cursor-not-allowed": disabled,
   });
 
   const content = (

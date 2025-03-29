@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 // Icons
 import { FaUser } from "react-icons/fa";
-import { IoLogOutSharp } from "react-icons/io5";
 import { FaCloudSun } from "react-icons/fa";
 import { MdDarkMode } from "react-icons/md";
 
@@ -39,30 +38,17 @@ const UserLinks = () => (
   </div>
 );
 
-const GuestLinks = () => (
-  <div className="flex space-x-2">
-    <Link
-      href="/login"
-      className="px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-400 transition"
-    >
-      Login
-    </Link>
-  </div>
-);
+const GuestLinks = () => <Button href="/login">Login</Button>;
 
 const Navbar = () => {
   const dispatch = useDispatch();
 
   // hook check auth
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // hook theme control
   const theme = useSelector((state) => state.theme.mode);
   useThemeSwitcher(theme);
-
-  useEffect(() => {
-    console.log(isAuthenticated, user);
-  }, [isAuthenticated, user]);
 
   return (
     <div className="flex justify-between items-center px-3 py-5">

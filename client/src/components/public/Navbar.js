@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 // Redux State
 import { toggleTheme } from "@/lib/slices/themeSlice";
@@ -20,12 +19,15 @@ import Button from "@/components/common/Button";
 import LogoutButton from "@/components/common/auth/LogoutButton";
 
 // Subcomponents
+
+// Theme toggle, updates via redux store
 const ThemeButton = ({ theme, toggleTheme }) => (
   <Button onClick={toggleTheme} variant="icon" size="icon">
     {theme === "dark" ? <MdDarkMode /> : <FaCloudSun />}
   </Button>
 );
 
+// isAuthenticated display
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
     <Button href="/dashboard/user/profile" icon={FaUser}>
@@ -37,10 +39,11 @@ const UserLinks = () => (
     <LogoutButton variant="transparently" size="none" isHome="true" />
   </div>
 );
-
+// unAuthenticated display
 const GuestLinks = () => <Button href="/login">Login</Button>;
 
 const Navbar = () => {
+  //update redux store
   const dispatch = useDispatch();
 
   // hook check auth

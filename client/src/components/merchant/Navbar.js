@@ -4,6 +4,10 @@ import Link from "next/link";
 //logout hook
 import { useLogout } from "@/hooks/auth/useLogout";
 
+//component
+import Button from "@/components/common/Button";
+import LogoutButton from "@/components/common/auth/LogoutButton";
+
 //icon
 import { IoHome } from "react-icons/io5"; //Home
 import { FaUser } from "react-icons/fa"; //User
@@ -34,37 +38,54 @@ const Navbar = () => {
           <ul className="space-y-2">
             {[
               {
-                icon: <IoHome size={24} />,
+                icon: IoHome,
                 label: "Home",
-                url: `${process.env.NEXT_PUBLIC_URL}`,
+                url: process.env.NEXT_PUBLIC_URL || "/",
               },
               {
-                icon: <FaUser size={24} />,
+                icon: FaUser,
                 label: "Profile",
                 url: `${process.env.NEXT_PUBLIC_URL}/dashboard/user/profile`,
               },
               {
-                icon: <MdDashboard size={24} />,
+                icon: MdDashboard,
                 label: "Dashboard",
                 url: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
               },
-              { icon: <FaStore size={24} />, label: "Merchants" },
-              { icon: <MdRestaurantMenu size={24} />, label: "Menu" },
-              { icon: <FaShoppingCart size={24} />, label: "Order" },
-              { icon: <MdRateReview size={24} />, label: "Review" },
+              {
+                icon: FaStore,
+                label: "Merchants",
+                url: "/merchants",
+              },
+              {
+                icon: MdRestaurantMenu,
+                label: "Menu",
+                url: "/menu",
+              },
+              {
+                icon: FaShoppingCart,
+                label: "Order",
+                url: "/order",
+              },
+              {
+                icon: MdRateReview,
+                label: "Review",
+                url: "/review",
+              },
             ].map((item, index) => (
               <li key={index}>
-                <Link
-                  href={item.url ? `${item.url}` : "#"}
-                  className="flex items-center space-x-2 hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded"
+                <Button
+                  icon={item.icon}
+                  href={item.url}
+                  variant="dashboardNav"
+                  size="md"
                 >
-                  {item.icon}
-                  <span>{item.label}</span>
-                </Link>
+                  {item.label}
+                </Button>
               </li>
             ))}
             <li>
-              <button onClick={logout}>logout</button>
+              <LogoutButton variant="dashboardNav" />
             </li>
           </ul>
         </nav>

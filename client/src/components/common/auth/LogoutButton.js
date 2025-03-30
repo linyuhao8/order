@@ -5,16 +5,28 @@ import { useState } from "react";
 import Button from "@/components/common/Button";
 import { FaSignOutAlt } from "react-icons/fa";
 
+import toast from "react-hot-toast";
+
 const LogoutButton = ({ variant, size, isHome }) => {
   const router = useRouter();
   const { logout } = useLogout();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
-    setIsLoggingOut(true); 
-    await logout(); 
-    router.push("/login");
-    setIsLoggingOut(false); 
+    setIsLoggingOut(true);
+    toast.loading("Logging out...");
+
+    try {
+      await logout();
+      toast.dismiss();
+      toast.success("Logged out successfully!");
+      router.push("/login");
+    } catch (error) {
+      toast.dismiss();
+      toast.error("Logout failed. Please try again.");
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (

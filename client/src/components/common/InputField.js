@@ -11,7 +11,7 @@ export default function InputField({
 }) {
   const variantStyles = {
     default:
-      "border-gray-500 text-gray-900 placeholder-gray-400 focus:ring-amber-500",
+      "py-1 px-3 text-gray-900 border border-gray-500 rounded-xl rounded-sm placeholder-gray-400 focus:ring-amber-500",
     primary:
       "border-blue-500 text-blue-900 placeholder-blue-400 focus:ring-blue-500",
     danger:
@@ -20,7 +20,7 @@ export default function InputField({
       "appearance-none block w-full px-4 py-4 border border-gray-500 rounded-xl text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200",
   };
 
-  const inputClassName = `appearance-none block w-full px-4 py-4 rounded-xl focus:outline-none transition duration-200 ${
+  const inputClassName = `appearance-none block w-full focus:outline-none transition duration-200 ${
     variantStyles[variant] || variantStyles.default
   } ${className}`;
 

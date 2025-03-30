@@ -1,4 +1,4 @@
-// pages/index.js
+// Home Page
 import Navbar from "@/components/public/Navbar";
 import TeamMembers from "@/components/public/home/TeamMembers";
 import Hero from "@/components/public/home/Hero";

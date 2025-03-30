@@ -11,13 +11,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 //hook
 import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
+import withAuth from "@/hoc/withAuth";
 
 //model
 import Modal from "@/components/common/Model";
 import useModal from "@/hooks/ui/useModel";
 import SettingPage from "./settings/page";
 
-export default function Dashboard() {
+function Dashboard() {
   const theme = useSelector((state) => state.theme.mode);
   const dispatch = useDispatch();
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -27,7 +28,7 @@ export default function Dashboard() {
   return (
     <>
       {/* Main Content - Adjusted for Responsiveness */}
-      <div className="w-full md:ml-64 p-4 md:p-6">
+      <div>
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
           <h1 className="text-2xl font-semibold dark:text-white">
             Merchant Dashboard
@@ -202,7 +203,7 @@ export default function Dashboard() {
           </div>
 
           {/* Working Format Card */}
-          <div className="bg-white dark:bg-gray-800 md:col-span-2 rounded-xl shadow-sm p-6">
+          <div className="bg-white dark:bg-gray-800 md:col-span-2 xl:col-span-1 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="text-base font-semibold dark:text-white">
                 Working Format
@@ -416,3 +417,4 @@ export default function Dashboard() {
     </>
   );
 }
+export default withAuth(Dashboard);

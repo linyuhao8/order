@@ -34,7 +34,7 @@ export default function ProfilePage({ params }) {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="w-full md:ml-64 p-4 md:p-6 h-[200vh]">
+    <div>
       <h1>User Profile</h1>
       {profile ? (
         <>

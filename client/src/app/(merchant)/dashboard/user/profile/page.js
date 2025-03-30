@@ -1,23 +1,21 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import withAuth from "@/hoc/withAuth";
 
-//hook
-import useAuth from "@/hooks/auth/useAuth";
-
-const ProfilePage = () => {
+const ProfilePage = ({ isAuthenticated, user }) => {
   const router = useRouter();
-  // If authentication fails, it will automatically redirect to the login page.
-  const { isAuthenticated, user } = useAuth(true);
-
+  // ✅ Get data directly from withAuth props
   useEffect(() => {
-    // If the validation is successful, jump to the corresponding Profile page.
     if (isAuthenticated && user) {
-      router.push(`/dashboard/user/profile/${user.id}`);
+      const targetPath = `/dashboard/user/profile/${user.id}`;
+      if (router.pathname !== targetPath) {
+        router.replace(targetPath);
+      }
     }
   }, [isAuthenticated, user, router]);
 
-  return <div className="w-full md:ml-64 p-4 md:p-6">Loading...</div>; // 加載頁面時顯示 Loading
+  return <div>Loading...</div>;
 };
 
-export default ProfilePage;
+export default withAuth(ProfilePage);

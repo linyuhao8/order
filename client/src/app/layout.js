@@ -1,6 +1,7 @@
 //app/layout.js For merchant and public
 import "@/styles/globals.css";
 import { StoreProvider } from "@/lib/storeProvide";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Order",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <StoreProvider>
           {/* Redux Store */}
           {children}
+          <Toaster />
         </StoreProvider>
       </body>
     </html>

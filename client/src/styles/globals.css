@@ -56,3 +56,63 @@ body {
 .dashboard-nav a.link span {
   @apply hidden sm:inline; /* 在手機隱藏，在 sm（640px 以上）顯示 */
 }
+
+/* Profile Container */
+.profile-container {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Profile Title */
+.profile-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Profile Item (each row) */
+.profile-item {
+  @apply flex gap-8 relative justify-between items-center max-w-[calc(100vw-50vw)] w-[300px];
+}
+
+/* Profile label (text) */
+.profile-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563; /* Tailwind gray-600 */
+}
+
+/* Profile value (data displayed) */
+.profile-value {
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  padding: 12px;
+  border-radius: 8px;
+  color: #1f2937; /* Tailwind gray-800 */
+  font-size: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Edit button container (shown only on hover) */
+.edit-btn-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Edit button styles */
+.edit-btn {
+  @apply py-1 px-3 text-amber-500;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Edit icon style */
+.edit-icon {
+  width: 16px;
+  height: 16px;
+  color: #4b5563; /* Tailwind gray-600 */
+}

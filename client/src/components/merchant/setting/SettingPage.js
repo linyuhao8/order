@@ -27,9 +27,9 @@ const SettingPage = ({ settingActiveTab }) => {
   };
 
   return (
-    <div className="settings-container flex">
+    <div className="settings-container flex flex-col md:flex-row">
       <SettingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="settings-content">{renderTabContent()}</div>
+      <div className="settings-content p-4">{renderTabContent()}</div>
     </div>
   );
 };

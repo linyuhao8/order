@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import Loading from "@/components/common/Loading";
 import Navbar from "@/components/merchant/Navbar";
 
 export const metadata = {
@@ -10,7 +12,7 @@ export default function RootLayout({ children }) {
     <div className="dashboard min-h-screen dark:bg-gray-900">
       <div className="flex flex-col md:flex-row">
         <Navbar />
-        {children}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 "use client";
-
 //icon
 import { IoIosSettings } from "react-icons/io";
 import { FaCloudSun } from "react-icons/fa";
@@ -68,7 +67,6 @@ export default function Dashboard() {
             </div>
           </div>
         </header>
-
         {/* Grid Layout with Responsive Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Employee Profile Card */}

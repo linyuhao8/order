@@ -10,7 +10,7 @@ export default function Modal({ isOpen, closeModal, children }) {
       onClick={closeModal}
     >
       <div
-        className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all scale-100 opacity-100 duration-300 ease-in-out"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg transform transition-all scale-100 opacity-100 duration-300 ease-in-out"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

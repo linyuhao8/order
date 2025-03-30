@@ -203,7 +203,9 @@ const login = async (req, res) => {
       httpOnly: true, // 防止 JavaScript 存取該 Cookie
       secure: process.env.NODE_ENV === "production", // 只有在生產環境下才會啟用 Secure
       maxAge: 60 * 60 * 1000, // Token 存活 1 小時
+      sameSite: "Strict", // 防止 CSRF 攻击
     });
+    
     // 回傳登入成功的訊息
     return res.json({
       message: "登入成功",
@@ -225,7 +227,6 @@ const logout = async (req, res) => {
   }
   // 清除存儲在 Cookie 中的 JWT Token
   res.clearCookie("token", { path: "/" });
-
 
   // 返回登出成功訊息
   res.json({ message: "登出成功" });

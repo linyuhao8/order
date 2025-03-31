@@ -1,9 +1,6 @@
 "use client";
 import Link from "next/link";
 
-//logout hook
-import { useLogout } from "@/hooks/auth/useLogout";
-
 //component
 import Button from "@/components/common/Button";
 import LogoutButton from "@/components/common/auth/LogoutButton";
@@ -18,7 +15,6 @@ import { FaShoppingCart } from "react-icons/fa"; // Order
 import { MdRateReview } from "react-icons/md"; // Review
 
 const Navbar = () => {
-  const { logout } = useLogout();
   return (
     <div>
       {/* Sidebar - Mobile Menu, Desktop Fixed */}
@@ -45,12 +41,12 @@ const Navbar = () => {
               {
                 icon: FaUser,
                 label: "Profile",
-                url: `${process.env.NEXT_PUBLIC_URL}/dashboard/user/profile`,
+                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/user/profile`,
               },
               {
                 icon: MdDashboard,
                 label: "Dashboard",
-                url: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
+                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard`,
               },
               {
                 icon: FaStore,

@@ -58,7 +58,7 @@ export default function Login() {
       //success
       toast.dismiss();
       toast.success(data.message || "Login successful!");
-      router.push("/dashboard");
+      router.push("/merchant/dashboard");
     } catch (error) {
       toast.dismiss();
       toast.error(

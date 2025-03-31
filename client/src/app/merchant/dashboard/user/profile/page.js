@@ -8,7 +8,7 @@ const ProfilePage = ({ isAuthenticated, user }) => {
   // ✅ Get data directly from withAuth props
   useEffect(() => {
     if (isAuthenticated && user) {
-      const targetPath = `/dashboard/user/profile/${user.id}`;
+      const targetPath = `/merchant/dashboard/user/profile/${user.id}`;
       if (router.pathname !== targetPath) {
         router.replace(targetPath);
       }

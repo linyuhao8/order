@@ -30,10 +30,10 @@ const ThemeButton = ({ theme, toggleTheme }) => (
 // isAuthenticated display
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
-    <Button href="/dashboard/user/profile" icon={FaUser}>
+    <Button href="/merchant/dashboard/user/profile" icon={FaUser}>
       User
     </Button>
-    <Button href="/dashboard" variant="primary">
+    <Button href="/merchant/dashboard" variant="primary">
       Dash
     </Button>
     <LogoutButton variant="transparently" size="none" isHome="true" />

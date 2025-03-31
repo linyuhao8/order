@@ -25,7 +25,7 @@ const Button = ({
       "flex items-center  justify-center bg-red-500 text-white hover:bg-red-400",
     transparently:
       "flex items-center justify-center flex-nowrap bg-transpanent text-lg",
-    icon: "rounded-full flex items-center justify-center  bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 cursor-pointer",
+    icon: "w-9 h-9 rounded-full flex items-center justify-center  bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 cursor-pointer",
     dashboardNav:
       "flex items-center justify-start text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded ",
   };

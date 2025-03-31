@@ -15,7 +15,7 @@ const SettingButton = () => {
     <>
       <button onClick={openModal}>
         <IoIosSettings className="text-2xl" />
-
+      </button>
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <SettingPage />
         <button onClick={openSubModal}>Open SubModal</button>

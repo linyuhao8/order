@@ -107,21 +107,20 @@ const updateUser = async (req, res) => {
         .json({ message: `User with id ${userId} not found` });
     }
     //檢查是否有一樣的信箱
-    const checkEmail = await User.findOne({ where: { email } });
-
-    if (checkEmail && checkEmail.id !== userId) {
-      return res
-        .status(400)
-        .json({ message: "此信箱被使用", email: checkEmail });
+    if (email) {
+      const checkEmail = await User.findOne({ where: { email } });
+      if (checkEmail && checkEmail.id !== userId) {
+        return res
+          .status(400)
+          .json({ message: "此信箱已被使用", email: checkEmail });
+      }
     }
 
     // 如果有提供新密碼，則進行加密
     let hashedPassword = user.password; // 預設為原來的密碼
-    console.log("befroe", hashedPassword);
     if (password) {
       hashedPassword = await bcrypt.hash(password, 10); // 加密新的密碼
     }
-    console.log("after", hashedPassword);
     // 更新用戶
     await user.update({
       email: email || user.email,
@@ -205,9 +204,9 @@ const login = async (req, res) => {
       maxAge: 60 * 60 * 1000, // Token 存活 1 小時
       sameSite: "Strict", // 防止 CSRF 攻击
     });
-    
+
     // 回傳登入成功的訊息
-    return res.json({
+    return res.status(200).json({
       message: "登入成功",
       user: { name: user.name, email: user.email, role: user.role },
     });

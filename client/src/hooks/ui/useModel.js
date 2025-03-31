@@ -1,15 +1,12 @@
 "use client";
 import { useState } from "react";
 
-export default function useModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+//Responsible for controlling the opening and closing of the model
+const useModel = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+  return [isOpen, openModal, closeModal];
+};
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  return {
-    isModalOpen,
-    openModal,
-    closeModal,
-  };
-}
+export default useModel;

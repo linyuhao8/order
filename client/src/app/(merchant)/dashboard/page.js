@@ -3,7 +3,6 @@
 import { IoIosSettings } from "react-icons/io";
 import { FaCloudSun } from "react-icons/fa";
 import { MdDarkMode } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
 
 //redux
 import { toggleTheme } from "@/lib/slices/themeSlice";
@@ -14,14 +13,17 @@ import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
 import withAuth from "@/hoc/withAuth";
 
 //model
-import Modal from "@/components/common/Model";
-import useModal from "@/hooks/ui/useModel";
+import { Modal, SubModal } from "@/components/common/Model";
+import useModel from "@/hooks/ui/useModel";
 import SettingPage from "./settings/page";
 
 function Dashboard() {
   const theme = useSelector((state) => state.theme.mode);
   const dispatch = useDispatch();
-  const { isModalOpen, openModal, closeModal } = useModal();
+
+  const [isModalOpen, openModal, closeModal] = useModel();
+  const [isSubModalOpen, openSubModal, closeSubModal] = useModel();
+
 
   useThemeSwitcher(theme);
 
@@ -49,22 +51,31 @@ function Dashboard() {
               >
                 {theme === "dark" ? <MdDarkMode /> : <FaCloudSun />}
               </button>
-              {/* 使用 Modal 組件並傳遞開關狀態 */}
-              <Modal isOpen={isModalOpen} closeModal={closeModal}>
-                <SettingPage />
-                <button
-                  onClick={closeModal}
-                  className="absolute text-2xl right-4 top-4"
-                >
-                  <IoMdClose />
+              <div>
+                <button onClick={openModal}>
+                  Open Main Modal
                 </button>
-              </Modal>
-              <button
-                onClick={openModal}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 cursor-pointer"
-              >
-                <IoIosSettings className="text-2xl" />
-              </button>
+
+                <Modal
+                  isOpen={isModalOpen}
+                  closeModal={closeModal}
+                >
+                  <SettingPage />
+                  <button onClick={openSubModal}>
+                    Open SubModal
+                  </button>
+                </Modal>
+
+                <SubModal
+                  isOpen={isSubModalOpen}
+                  closeModal={closeSubModal}
+                >
+                  <h3>Sub Modal</h3>
+                </SubModal>
+              </div>
+              {/* 父級 Modal */}
+
+              <IoIosSettings className="text-2xl" />
             </div>
           </div>
         </header>

@@ -1,31 +1,16 @@
 "use client";
 import Link from "next/link";
 
-// Redux State
-import { toggleTheme } from "@/lib/slices/themeSlice";
-import { useSelector, useDispatch } from "react-redux";
-
 // Icons
 import { FaUser } from "react-icons/fa";
-import { FaCloudSun } from "react-icons/fa";
-import { MdDarkMode } from "react-icons/md";
 
 // Hooks
 import useAuth from "@/hooks/auth/useAuth";
-import useThemeSwitcher from "@/hooks/ui/useThemeSwitcher";
 
 // Component
 import Button from "@/components/common/Button";
 import LogoutButton from "@/components/common/auth/LogoutButton";
-
-// Subcomponents
-
-// Theme toggle, updates via redux store
-const ThemeButton = ({ theme, toggleTheme }) => (
-  <Button onClick={toggleTheme} variant="icon" size="icon">
-    {theme === "dark" ? <MdDarkMode /> : <FaCloudSun />}
-  </Button>
-);
+import ThemeButton from "../common/ui/ThemeButton";
 
 // isAuthenticated display
 const UserLinks = () => (
@@ -43,15 +28,9 @@ const UserLinks = () => (
 const GuestLinks = () => <Button href="/login">Login</Button>;
 
 const Navbar = () => {
-  //update redux store
-  const dispatch = useDispatch();
 
   // hook check auth
   const { isAuthenticated } = useAuth();
-
-  // hook theme control
-  const theme = useSelector((state) => state.theme.mode);
-  useThemeSwitcher(theme);
 
   return (
     <div className="flex justify-between items-center px-3 py-5">
@@ -68,11 +47,7 @@ const Navbar = () => {
 
       <div className="flex flex-nowrap gap-2">
         {/* Theme toggle */}
-        <ThemeButton
-          theme={theme}
-          toggleTheme={() => dispatch(toggleTheme())}
-        />
-
+        <ThemeButton/>
         {/* User or Guest links */}
         {isAuthenticated ? <UserLinks /> : <GuestLinks />}
       </div>

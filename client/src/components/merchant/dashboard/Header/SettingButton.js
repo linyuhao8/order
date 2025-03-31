@@ -10,20 +10,14 @@ import SettingPage from "@/components/merchant/setting/SettingPage";
 
 const SettingButton = () => {
   const [isModalOpen, openModal, closeModal] = useModel();
-  const [isSubModalOpen, openSubModal, closeSubModal] = useModel();
   return (
     <>
       <button onClick={openModal}>
         <IoIosSettings className="text-2xl" />
       </button>
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
-        <SettingPage />
-        <button onClick={openSubModal}>Open SubModal</button>
+        <SettingPage settingActiveTab="account" />
       </Modal>
-
-      <SubModal isOpen={isSubModalOpen} closeModal={closeSubModal}>
-        <h3>Sub Modal</h3>
-      </SubModal>
     </>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import withAuth from "@/hoc/withAuth";
-import Header from "@/components/merchant/dashboard/Header";
+import Header from "@/components/merchant/dashboard/Header/Header";
 
 function Dashboard() {
   return (

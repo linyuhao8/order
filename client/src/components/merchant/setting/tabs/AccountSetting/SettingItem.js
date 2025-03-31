@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { SubModal } from "@/components/common/Model";
 import useModel from "@/hooks/ui/useModel";
 import InputField from "@/components/common/InputField";
 import Button from "@/components/common/Button";
 import toast from "react-hot-toast";
+import SettingSubModal from "./SettingSubModal";
 
 const ProfileItem = ({ label, value, isEditable, id }) => {
   const [isSubModalOpen, openSubModal, closeSubModal] = useModel();
   const [inputValue, setInputValue] = useState(value);
   const [updateValue, setUpdateValue] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsUpdate(true);
     const data = {};
     if (label === "Name" && inputValue.trim()) data.name = inputValue;
-    if (label === "Phone Number" && inputValue.trim()) data.phoneNumber = inputValue;
+    if (label === "Phone Number" && inputValue.trim())
+      data.phoneNumber = inputValue;
     if (label === "Address" && inputValue.trim()) data.address = inputValue;
     if (label === "Email" && inputValue.trim()) data.email = inputValue;
 
@@ -73,34 +74,16 @@ const ProfileItem = ({ label, value, isEditable, id }) => {
           </div>
         )}
       </div>
-
-      <SubModal isOpen={isSubModalOpen} closeModal={closeSubModal}>
-        <div className="p-3">
-          <h3 className="text-xl font-bold">Variation {label}</h3>
-
-          <form onSubmit={handleSubmit}>
-            <InputField
-              id={label}
-              name={label}
-              type="text"
-              autoComplete={true}
-              required={true}
-              placeholder={value}
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="rounded-sm"
-            />
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              disabled={isUpdate}
-              className="mt-3"
-            >
-              {isUpdate ? "Submitting..." : "Submit"}
-            </Button>
-          </form>
-        </div>
-      </SubModal>
+      <SettingSubModal
+        isOpen={isSubModalOpen}
+        closeModal={closeSubModal}
+        label={label}
+        value={value}
+        inputValue={inputValue}
+        handleSubmit={handleSubmit}
+        isUpdate={isUpdate}
+        setInputValue={setInputValue}
+      />
     </>
   );
 };

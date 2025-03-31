@@ -30,11 +30,6 @@ const ProfilePage = () => {
     fetchUser();
   }, []);
 
-  const handleEdit = (field) => {
-    // 在這裡處理編輯邏輯
-    console.log("Edit", field);
-  };
-
   return (
     <div className="container mx-auto p-4">
       {userdata ? (
@@ -46,25 +41,26 @@ const ProfilePage = () => {
             <SettingItem
               label="Name"
               value={userdata.name}
-              isEditable={true} // 根據需要顯示或隱藏編輯按鈕
-              onEdit={() => handleEdit("name")} // 編輯事件
+              isEditable={true} 
+              id={userdata.id}
             />
             <SettingItem
               label="Email"
               value={userdata.email}
-              isEditable={false} // 不顯示編輯按鈕
+              isEditable={true} 
+              id={userdata.id}
             />
             <SettingItem
               label="Phone Number"
               value={userdata.phoneNumber}
               isEditable={true}
-              onEdit={() => handleEdit("phoneNumber")}
+              id={userdata.id}
             />
             <SettingItem
               label="Address"
               value={userdata.address}
               isEditable={true}
-              onEdit={() => handleEdit("address")}
+              id={userdata.id}
             />
             <SettingItem
               label="Role"

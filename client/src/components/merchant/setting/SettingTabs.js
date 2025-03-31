@@ -1,6 +1,6 @@
 const SettingTabs = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="px-5 md:w-[180px] mw-full bg-gray-50 pt-5 rounded-t-xl md:rounded-l-xl">
+    <div className="px-5 md:w-[180px] mw-full bg-gray-50 dark:bg-gray-700 pt-5 rounded-t-xl md:rounded-l-xl">
       <h2 className="text-2xl mb-3 text-black dark:text-white">Settings</h2>
       <div className="settings-tabs flex flex-col items-start">
         <button

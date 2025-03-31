@@ -36,9 +36,10 @@ body {
 .settings-tabs button {
   font-size: 18px;
   padding: 5px 8px;
+  @apply text-gray-500 dark:text-gray-400;
 }
 .dark .settings-tabs button.active {
-  @apply bg-gray-700 w-full text-left rounded-lg;
+  @apply bg-gray-600 w-full text-left rounded-lg;
 }
 .settings-tabs button.active {
   @apply bg-gray-100 w-full text-left rounded-lg;
@@ -80,15 +81,12 @@ body {
 .profile-label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #4b5563; /* Tailwind gray-600 */
+  @apply text-gray-400 dark:text-gray-400;
 }
 
 /* Profile value (data displayed) */
 .profile-value {
-  background-color: #f3f4f6; /* Tailwind gray-100 */
-  padding: 12px;
-  border-radius: 8px;
-  color: #1f2937; /* Tailwind gray-800 */
+  @apply bg-gray-100 dark:bg-gray-600 dark:text-stone-200 p-3 rounded-sm;
   font-size: 1rem;
   display: inline-block;
   width: 100%;

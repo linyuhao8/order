@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 //Handling Pages
 import SettingTabs from "./SettingTabs";
 //What is displayed on each page
-import AccountSettings from "./tabs/AccountSettings";
+import AccountSettings from "./tabs/AccountSetting/AccountSettings";
 import NotificationSettings from "./tabs/NotificationSettings";
 import PrivacySettings from "./tabs/PrivacySettings";
 

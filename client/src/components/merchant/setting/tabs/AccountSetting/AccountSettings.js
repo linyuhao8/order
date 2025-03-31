@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import SettingItem from "@/components/merchant/setting/tabs/SettingItem";
+import SettingItem from "@/components/merchant/setting/tabs/AccountSetting/SettingItem";
 
 const ProfilePage = () => {
   const [userdata, setUserdata] = useState({

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FaRegUser } from "react-icons/fa";
 
 const UserProfile = () => {
   const [userdata, setUserdata] = useState({
@@ -38,13 +39,15 @@ const UserProfile = () => {
           <h2 className="text-base font-semibold dark:text-white">
             User Profile
           </h2>
-          <button className="w-6 h-6 rounded flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700">
-            <i className="fas fa-ellipsis-vertical text-gray-500 dark:text-gray-400"></i>
+          <button className="rounded flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700">
+            button
           </button>
         </div>
 
         <div className="flex flex-col md:flex-col items-center mb-4 md:mb-6">
-          <div className="h-15 w-15 rounded-full bg-gray-200 overflow-hidden mb-2"></div>
+          <div className="h-15 w-15 flex justify-center items-center rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden mb-2">
+            <FaRegUser size={25}/>
+          </div>
           <div className="text-center">
             <h3 className="text-lg md:text-xl font-semibold dark:text-white mb-1">
               {userdata ? userdata?.name : "Name"}

@@ -1,4 +1,5 @@
-//icon
+"use client";
+// icon
 import { IoIosSettings } from "react-icons/io";
 
 //model

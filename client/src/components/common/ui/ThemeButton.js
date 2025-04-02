@@ -1,3 +1,4 @@
+"use client";
 // Import the Button component
 import Button from "@/components/common/Button";
 

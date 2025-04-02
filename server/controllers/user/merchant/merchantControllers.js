@@ -5,7 +5,6 @@ const {
   updateMerchantValidation,
 } = require("../../../validations/user/merchant/merchantValidation");
 
-
 // 新增商家
 const createMerchant = async (req, res) => {
   const { error } = createMerchantValidation.validate(req.body, {
@@ -91,7 +90,7 @@ const getMerchantById = async (req, res) => {
 
 // 更新商家資料
 const updateMerchant = async (req, res) => {
-  const { error, value } = updateMerchantValidation.validate(req.body, {
+  const { error } = updateMerchantValidation.validate(req.body, {
     abortEarly: false,
   });
   if (error) {
@@ -100,7 +99,6 @@ const updateMerchant = async (req, res) => {
       errors: error.details.map((err) => err.message),
     });
   }
-  value = requestAnimationFrame.body;
   try {
     const { id } = req.params;
     const {
@@ -113,12 +111,15 @@ const updateMerchant = async (req, res) => {
     } = req.body;
 
     // **手動檢查 user_id 是否存在**
-    const user = await User.findByPk(user_id);
-    if (!user) {
-      return res.status(400).json({
-        message: "無效的 user_id，該用戶不存在",
-      });
+    if (user_id) {
+      const user = await User.findByPk(user_id);
+      if (!user) {
+        return res.status(400).json({
+          message: "無效的 user_id，該用戶不存在",
+        });
+      }
     }
+
     // 檢查商家是否存在
     const merchant = await Merchant.findOne({
       where: { id },
@@ -199,7 +200,7 @@ const getAllMerchantByUserId = async (req, res) => {
         {
           //回傳User相關得資料
           model: User, // 關聯 User 表
-          as: "user", 
+          as: "user",
           //attributes: ["id", "name"],如果只要回傳必要欄位
         },
       ],

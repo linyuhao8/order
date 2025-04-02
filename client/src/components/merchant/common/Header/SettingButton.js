@@ -7,7 +7,7 @@ import { Modal, SubModal } from "@/components/common/Model";
 import useModel from "@/hooks/ui/useModel";
 
 //component
-import SettingPage from "@/components/merchant/setting/SettingPage";
+import SettingPage from "@/app/merchant/dashboard/settings/page";
 
 const SettingButton = () => {
   const [isModalOpen, openModal, closeModal] = useModel();

@@ -27,7 +27,7 @@ const MerchantsCard = ({ merchant }) => {
           <span className="text-sm">Monthly Orders:500</span>
           <div className="flex nowrap gap-2">
             <Link
-              href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/id`}
+              href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/${merchant.id}`}
               className="flex justify-center items-center h-7 w-7 rounded-full bg-gray-300 overflow-hidden"
             >
               <BsFileEarmarkPost />

@@ -66,6 +66,11 @@ const UserProfile = ({ userId }) => {
         <div className="mb-4 md:mb-6 space-y-2">
           <div className="flex items-center text-gray-500 dark:text-gray-400">
             <span className="text-sm md:text-base">
+              iD: {userdata ? userdata?.id : "ID"}
+            </span>
+          </div>
+          <div className="flex items-center text-gray-500 dark:text-gray-400">
+            <span className="text-sm md:text-base">
               Email: {userdata ? userdata?.email : "email"}
             </span>
           </div>

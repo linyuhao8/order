@@ -61,6 +61,7 @@ export default function Login() {
       toast.dismiss();
       toast.success(data.message || "Login successful!");
 
+      //save to sesstion
       sessionStorage.setItem("user", JSON.stringify(data.user));
 
       //direct to dashboard

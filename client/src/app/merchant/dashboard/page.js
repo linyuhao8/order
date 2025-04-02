@@ -2,8 +2,14 @@
 import withAuth from "@/hoc/withAuth";
 import Header from "@/components/merchant/common/Header/Header";
 import UserProfile from "@/components/merchant/common/UserProfile";
+import useSession from "@/hooks/useSesstion";
 
 function Dashboard() {
+  const user = useSession("user");
+  if (!user) {
+    return <div>Loading...</div>; // 如果資料尚未讀取，顯示 Loading
+  }
+  const userId = user.id;
   return (
     <>
       {/* Main Content - Adjusted for Responsiveness */}
@@ -11,7 +17,7 @@ function Dashboard() {
         <Header />
         {/* Grid Layout with Responsive Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <UserProfile />
+          <UserProfile userId={userId} />
           {/* Activity Card */}
           <div className="col-span-1 md:col-span-2 md:col-span-3 xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">

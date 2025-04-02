@@ -208,7 +208,16 @@ const login = async (req, res) => {
     // 回傳登入成功的訊息
     return res.status(200).json({
       message: "登入成功",
-      user: { name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        address: user.address,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
     });
   } catch (error) {
     console.error(error);

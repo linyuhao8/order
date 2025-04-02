@@ -1,17 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
+//component
 import MerchantsGrid from "@/components/merchant/select/MerchantsList";
+
+//hook
+import useSession from "@/hooks/useSesstion";
 
 const MerchantList = () => {
   const [merchants, setMerchants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const user = useSession("user");
 
   useEffect(() => {
+    if (!user) return;
     const fetchMerchants = async () => {
+      setLoading(true);
       try {
-        const userId = "1cafe0e1-5f4d-4cd0-863b-284bbf74970a"; 
+        const userId = user.id;
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${userId}/merchants`,
           { withCredentials: true }
@@ -26,7 +34,7 @@ const MerchantList = () => {
       }
     };
     fetchMerchants();
-  }, []);
+  }, [user]);
 
   if (loading) return <p className="text-center text-lg">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;

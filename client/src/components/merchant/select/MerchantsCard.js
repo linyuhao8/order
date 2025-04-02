@@ -7,9 +7,12 @@ const MerchantsCard = ({ merchant }) => {
     <div className="rounded-lg overflow-hidden bg-gray-50 dark:bg-gray-600">
       <div className="flex justify-between items-center px-5 py-6">
         <div className="left">
-          <Link href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/id`}>
+          <Link
+            href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/${merchant.id}`}
+          >
             <h3 className="text-lg text-gray-800">{merchant.business_name}</h3>
           </Link>
+          <p className="text-sm text-gray-600">MerchantId:{merchant.id}</p>
           <p className="text-sm text-gray-600">Time:10-12</p>
           <p className="text-sm text-gray-600">Location:{merchant.location}</p>
           <p className="text-sm text-gray-600">
@@ -30,7 +33,7 @@ const MerchantsCard = ({ merchant }) => {
               <BsFileEarmarkPost />
             </Link>
             <Link
-              href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/id/setting`}
+              href={`${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/${merchant.id}/setting`}
               className="flex justify-center items-center h-7 w-7 rounded-full bg-gray-300 overflow-hidden"
             >
               <IoIosSettings />

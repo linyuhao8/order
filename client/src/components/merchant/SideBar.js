@@ -51,7 +51,7 @@ const Navbar = () => {
               {
                 icon: FaStore,
                 label: "Merchants",
-                url: "/merchants",
+                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/select`,
               },
               {
                 icon: MdRestaurantMenu,

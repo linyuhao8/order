@@ -1,13 +1,13 @@
 "use client";
 import withAuth from "@/hoc/withAuth";
 import Header from "@/components/merchant/common/Header/Header";
-import UserProfile from "@/components/merchant/common/UserProfile";
+import UserProfile from "@/components/merchant/Profile/UserProfile";
 import useSession from "@/hooks/useSesstion";
 
 function Dashboard() {
   const user = useSession("user");
   if (!user) {
-    return <div>Loading...</div>; // 如果資料尚未讀取，顯示 Loading
+    return <div>Loading...</div>; // if on data return loading
   }
   const userId = user.id;
   return (

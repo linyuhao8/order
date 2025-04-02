@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SettingItem from "@/components/merchant/setting/tabs/AccountSetting/SettingItem";
 
-const ProfilePage = () => {
+const AccountSettingPage = ({ userId }) => {
   const [userdata, setUserdata] = useState({
     id: "",
     name: "",
@@ -18,7 +18,7 @@ const ProfilePage = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/users/22b67487-5e92-457d-bf13-9178ef4e4baa`,
+          `http://localhost:8080/api/users/${userId}`,
           { withCredentials: true }
         );
         setUserdata(response.data); // 設置狀態
@@ -28,7 +28,7 @@ const ProfilePage = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="container mx-auto p-4">
@@ -36,18 +36,18 @@ const ProfilePage = () => {
         <div className="">
           <h1 className="text-2xl font-semibold mb-4">Profile</h1>
 
-          {/* 使用 ProfileItem 元件來顯示資料 */}
+          {/* ProfileItem display*/}
           <div className="flex flex-col gap-3">
             <SettingItem
               label="Name"
               value={userdata.name}
-              isEditable={true} 
+              isEditable={true}
               id={userdata.id}
             />
             <SettingItem
               label="Email"
               value={userdata.email}
-              isEditable={true} 
+              isEditable={true}
               id={userdata.id}
             />
             <SettingItem
@@ -86,4 +86,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default AccountSettingPage;

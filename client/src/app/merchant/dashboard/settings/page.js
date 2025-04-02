@@ -1,27 +1,39 @@
 "use client";
 import { useState, useEffect } from "react";
+
 //Handling Pages
 import SettingTabs from "@/components/merchant/setting/SettingTabs";
+
 //What is displayed on each page
 import AccountSettings from "@/components/merchant/setting/tabs/AccountSetting/AccountSettings";
 import NotificationSettings from "@/components/merchant/setting/tabs/NotificationSettings";
 import PrivacySettings from "@/components/merchant/setting/tabs/PrivacySettings";
 
+//Sesstion
+import useSession from "@/hooks/useSesstion";
+
 const SettingPage = () => {
   const [activeTab, setActiveTab] = useState("account"); //Default
+
+  //get Userdata
+  const user = useSession("user");
+  if (!user) {
+    return <div>Loading...</div>; // if on data return loading
+  }
+  const userId = user.id;
 
   // Display different pages according to conditions
   const renderTabContent = () => {
     switch (activeTab) {
       case "account":
-        return <AccountSettings />;
+        return <AccountSettings userId={userId} />;
       case "notifications":
-        return <NotificationSettings />;
+        return <NotificationSettings userId={userId} />;
       case "privacy":
-        return <PrivacySettings />;
+        return <PrivacySettings userId={userId} />;
       // display page
       default:
-        return <AccountSettings />;
+        return <AccountSettings userId={userId} />;
     }
   };
 

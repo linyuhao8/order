@@ -5,9 +5,6 @@ import { useState, useEffect, use } from "react";
 //nextjs
 import { useRouter } from "next/navigation";
 
-//check Authenticated
-import { api } from "@/api";
-
 //hook auth direct
 import useAuth from "@/hooks/auth/useAuth";
 
@@ -23,7 +20,15 @@ import SocialLogin from "@/components/public/login/SocialLogin";
 import SubmitButton from "@/components/public/login/SubmitButton";
 import Navbar from "@/components/public/Navbar";
 
+//Redux
+import { loginSuccess } from "@/lib/slices/authSlice";
+import { useDispatch } from "react-redux";
+
+//axios
+import axios from "axios";
+
 export default function Login() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,16 +53,22 @@ export default function Login() {
 
     try {
       setLoading(true);
-      //api
-      const response = await api.auth.login(email, password);
-      const data = await response.json(); // 解析 API 回應
+      //POST APi
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+      const data = await response.data;
 
-      if (!response.ok) {
-        throw data; // Api error
-      }
-      //success
+      //Success UI toast
       toast.dismiss();
       toast.success(data.message || "Login successful!");
+
+      //save to redux store
+      dispatch(loginSuccess(data.user));
+
+      //direct to dashboard
       router.push("/merchant/dashboard");
     } catch (error) {
       toast.dismiss();

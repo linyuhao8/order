@@ -1,7 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
+
+//axios
 import axios from "axios";
+
+//icon
 import { FaRegUser } from "react-icons/fa";
+
+//component
+import SettingButton from "@/components/merchant/common/SettingButton";
 
 const UserProfile = ({ userId }) => {
   const [userdata, setUserdata] = useState({
@@ -39,9 +46,7 @@ const UserProfile = ({ userId }) => {
           <h2 className="text-base font-semibold dark:text-white">
             User Profile
           </h2>
-          <button className="rounded flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700">
-            button
-          </button>
+          <SettingButton />
         </div>
 
         <div className="flex flex-col md:flex-col items-center mb-4 md:mb-6">

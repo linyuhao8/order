@@ -1,6 +1,6 @@
 import ThemeButton from "@/components/common/ui/ThemeButton";
 import Search from "./Search";
-import SettingButton from "./SettingButton";
+import SettingButton from "../SettingButton";
 
 const Header = () => {
   return (

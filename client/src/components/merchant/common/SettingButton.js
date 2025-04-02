@@ -3,7 +3,7 @@
 import { IoIosSettings } from "react-icons/io";
 
 //model
-import { Modal, SubModal } from "@/components/common/Model";
+import { Modal } from "@/components/common/Model";
 import useModel from "@/hooks/ui/useModel";
 
 //component

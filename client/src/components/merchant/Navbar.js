@@ -41,7 +41,7 @@ const Navbar = () => {
               {
                 icon: FaUser,
                 label: "Profile",
-                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/user/profile`,
+                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/profile`,
               },
               {
                 icon: MdDashboard,

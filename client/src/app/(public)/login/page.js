@@ -20,15 +20,11 @@ import SocialLogin from "@/components/public/login/SocialLogin";
 import SubmitButton from "@/components/public/login/SubmitButton";
 import Navbar from "@/components/public/Navbar";
 
-//Redux
-import { loginSuccess } from "@/lib/slices/authSlice";
-import { useDispatch } from "react-redux";
-
 //axios
 import axios from "axios";
 
 export default function Login() {
-  const dispatch = useDispatch();
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,12 +61,10 @@ export default function Login() {
       toast.dismiss();
       toast.success(data.message || "Login successful!");
 
-      //save to redux store authSlice
-      dispatch(loginSuccess({user:data.user}));
+      sessionStorage.setItem("user", JSON.stringify(data.user));
 
       //direct to dashboard
       router.push("/merchant/dashboard");
-      
     } catch (error) {
       toast.dismiss();
       toast.error(

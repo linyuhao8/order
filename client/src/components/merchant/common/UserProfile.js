@@ -22,7 +22,7 @@ const UserProfile = () => {
           `http://localhost:8080/api/users/22b67487-5e92-457d-bf13-9178ef4e4baa`,
           { withCredentials: true }
         );
-        setUserdata(response.data); // 設置狀態
+        setUserdata(response.data); 
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }

@@ -1,13 +1,14 @@
-import Header from '@/components/merchant/common/Header/Header';
-import UserProfile from '@/components/merchant/common/UserProfile';
+"use client";
+import Header from "@/components/merchant/common/Header/Header";
+import UserProfile from "@/components/merchant/common/UserProfile";
 
-const page = () => {
+const Page = () => {
   return (
     <>
-     <Header />
-     <UserProfile />
+      <Header />
+      <UserProfile  />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

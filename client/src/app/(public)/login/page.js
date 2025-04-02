@@ -65,11 +65,12 @@ export default function Login() {
       toast.dismiss();
       toast.success(data.message || "Login successful!");
 
-      //save to redux store
-      dispatch(loginSuccess(data.user));
+      //save to redux store authSlice
+      dispatch(loginSuccess({user:data.user}));
 
       //direct to dashboard
       router.push("/merchant/dashboard");
+      
     } catch (error) {
       toast.dismiss();
       toast.error(

@@ -30,7 +30,7 @@ body {
 /* 針對 Tailwind class 模式，手動加 .dark 時變更顏色 */
 .dark {
   --background: oklch(0.278 0.033 256.848); /*gray-800*/
-  --foreground: rgb(237, 237, 237);
+  --foreground: #dbdbdb;
 }
 
 .settings-tabs button {

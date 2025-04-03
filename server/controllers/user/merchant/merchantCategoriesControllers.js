@@ -1,8 +1,22 @@
 const { MCategory, MerchantCategory, Merchant } =
   require("../../../config/postgreSql").db;
+const {
+  createCategorySchema,
+  updateCategorySchema,
+  addCategoryToMerchantSchema,
+} = require("../../../validations/user/merchant/merchantCategoryValidation");
 
 // **1️⃣ 建立類別 (可選擇性連動商家)**
 const createCategory = async (req, res) => {
+  const { error } = createCategorySchema.validate(req.body, {
+    abortEarly: false,
+  });
+  if (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { name, description, img, merchant_ids } = req.body;
 
@@ -63,6 +77,15 @@ const getCategoryById = async (req, res) => {
 
 // **4️⃣ 更新類別 (同步更新中間表)**
 const updateCategory = async (req, res) => {
+  const { error } = updateCategorySchema.validate(req.body, {
+    abortEarly: false,
+  });
+  if (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { id } = req.params;
     const { name, description, img, merchant_ids } = req.body;
@@ -119,6 +142,15 @@ const deleteCategory = async (req, res) => {
 
 // **6️⃣ 新增類別到商家**
 const addCategoryToMerchant = async (req, res) => {
+  const { error } = addCategoryToMerchantSchema.validate(req.body, {
+    abortEarly: false,
+  });
+  if (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { merchant_id, category_id } = req.body;
 
@@ -167,7 +199,6 @@ const removeCategoryFromMerchant = async (req, res) => {
   }
 };
 
-
 // 1️⃣ 查詢某商家的所有分類
 const getCategoriesByMerchant = async (req, res) => {
   try {
@@ -186,7 +217,10 @@ const getCategoriesByMerchant = async (req, res) => {
     });
 
     if (!merchantCategories.length) {
-      return res.status(404).json({ success: false, message: "No categories found for this merchant." });
+      return res.status(404).json({
+        success: false,
+        message: "No categories found for this merchant.",
+      });
     }
 
     res.status(200).json({ success: true, data: merchantCategories });
@@ -213,7 +247,10 @@ const getMerchantsByCategory = async (req, res) => {
     });
 
     if (!merchants.length) {
-      return res.status(404).json({ success: false, message: "No merchants found for this category." });
+      return res.status(404).json({
+        success: false,
+        message: "No merchants found for this category.",
+      });
     }
 
     res.status(200).json({ success: true, data: merchants });
@@ -232,7 +269,9 @@ const getMerchantsCountByCategory = async (req, res) => {
       where: { category_id },
     });
 
-    res.status(200).json({ success: true, data: { category_id, merchant_count: count } });
+    res
+      .status(200)
+      .json({ success: true, data: { category_id, merchant_count: count } });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

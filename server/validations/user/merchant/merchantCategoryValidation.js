@@ -1,47 +1,40 @@
 const Joi = require("joi");
 
-const merchantCategorySchema = {
-  create: Joi.object({
-    name: Joi.string()
-      .trim()
-      .min(1)
-      .max(255)
-      .required()
-      .empty("")
-      .messages({
-        "string.empty": "name 不能為空",
-        "string.min": "商家名稱最少 1 字元",
-        "string.max": "商家名稱最多 255 字元",
-        "any.required": "name 是必填欄位",
-      }),
-
-    merchant_id: Joi.string()
-      .guid({ version: "uuidv4" })
-      .required()
-      .empty("")
-      .messages({
-        "string.empty": "merchant_id 不能為空",
-        "any.required": "merchant_id 是必填欄位",
-        "string.guid": "merchant_id 必須是有效的 UUID",
-      }),
+// 創建分類的驗證規則
+const createCategorySchema = Joi.object({
+  name: Joi.string().trim().required().messages({
+    "any.required": "分類名稱為必填",
+    "string.empty": "分類名稱不能為空",
   }),
-
-  update: Joi.object({
-    name: Joi.string().trim().min(1).max(255).optional().empty("").messages({
-      "string.empty": "name 不能為空",
-      "string.min": "商家名稱最少 1 字元",
-      "string.max": "商家名稱最多 255 字元",
-    }),
-
-    merchant_id: Joi.string()
-      .guid({ version: "uuidv4" })
-      .optional()
-      .empty("")
-      .messages({
-        "string.empty": "merchant_id 不能為空",
-        "string.guid": "merchant_id 必須是有效的 UUID",
-      }),
+  description: Joi.string().allow("").optional(),
+  img: Joi.string().uri().optional().messages({
+    "string.uri": "圖片 URL 格式不正確",
   }),
+  merchant_ids: Joi.array().items(Joi.number().integer()).optional(),
+});
+
+// 更新分類的驗證規則
+const updateCategorySchema = Joi.object({
+  name: Joi.string().trim().optional(),
+  description: Joi.string().allow("").optional(),
+  img: Joi.string().uri().optional(),
+  merchant_ids: Joi.array().items(Joi.number().integer()).optional(),
+});
+
+// 新增商家到分類的驗證規則
+const addCategoryToMerchantSchema = Joi.object({
+  merchant_id: Joi.number().integer().required().messages({
+    "any.required": "商家 ID 為必填",
+    "number.base": "商家 ID 必須為數字",
+  }),
+  category_id: Joi.number().integer().required().messages({
+    "any.required": "分類 ID 為必填",
+    "number.base": "分類 ID 必須為數字",
+  }),
+});
+
+module.exports = {
+  createCategorySchema,
+  updateCategorySchema,
+  addCategoryToMerchantSchema,
 };
-
-module.exports = merchantCategorySchema;

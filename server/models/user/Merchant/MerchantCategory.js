@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "MerchantCategory",
     {
       merchant_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: "merchants",

@@ -18,11 +18,15 @@
     },
     {
       "name": "Merchant",
-      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption)hasMany(MerchantCategory) 2.id, user_id, business_name, description, feature, merchant_logo, location"
+      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory) 2.id, user_id, business_name, description, feature, merchant_logo, location"
     },
     {
       "name": "MerchantCategory",
-      "description": "1.belongsto(Merchant) 2.id, name , merchant_id"
+      "description": "1.belongto(Merchant), belongsTo(MCategory) 2.merchant_id , category_id"
+    },
+    {
+      "name": "MCategory",
+      "description": "1.belongtoMany(ProductCategory) 2.id, name , img, description"
     },
     {
       "name": "Menu",
@@ -661,24 +665,29 @@
     "/api/merchant-categorys/": {
       "post": {
         "tags": [
-          "MerchantCategory"
+          "MCategory"
         ],
-        "summary": "Add MerchantCategory",
+        "summary": "建立類別",
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "類別資料",
             "schema": {
               "type": "object",
               "properties": {
-                "merchant_id": {
-                  "type": "string",
-                  "example": "uuid"
-                },
                 "name": {
                   "type": "string",
-                  "example": ""
+                  "example": "飲料"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "各種飲品"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "https://example.com/drink.jpg"
                 }
               }
             }
@@ -687,9 +696,6 @@
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -704,16 +710,13 @@
       },
       "get": {
         "tags": [
-          "MerchantCategory"
+          "MCategory"
         ],
-        "summary": "Get all MerchantCategorys",
+        "summary": "取得所有類別",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -730,16 +733,17 @@
     "/api/merchant-categorys/{id}": {
       "get": {
         "tags": [
-          "MerchantCategory"
+          "MCategory"
         ],
-        "summary": "Get MerchantCategory by ID",
+        "summary": "取得單一類別",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "類別 ID"
           }
         ],
         "responses": {
@@ -762,9 +766,9 @@
       },
       "put": {
         "tags": [
-          "MerchantCategory"
+          "MCategory"
         ],
-        "summary": "Update MerchantCategory",
+        "summary": "更新類別",
         "description": "",
         "parameters": [
           {
@@ -776,16 +780,21 @@
           {
             "name": "body",
             "in": "body",
+            "description": "更新類別資料",
             "schema": {
               "type": "object",
               "properties": {
-                "merchant_id": {
-                  "type": "string",
-                  "example": "uuid"
-                },
                 "name": {
                   "type": "string",
-                  "example": ""
+                  "example": "新名稱"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "新說明"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "https://example.com/new-image.jpg"
                 }
               }
             }
@@ -794,9 +803,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -814,13 +820,132 @@
       },
       "delete": {
         "tags": [
-          "MerchantCategory"
+          "MCategory"
         ],
-        "summary": "Delete MerchantCategory",
+        "summary": "刪除類別",
         "description": "",
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "類別 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant-categorys/merchant": {
+      "post": {
+        "tags": [
+          "MerchantCategory"
+        ],
+        "summary": "新增類別到商家",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "merchant_id": {
+                  "example": "any"
+                },
+                "category_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant-categorys/merchant/{merchant_id}/{category_id}": {
+      "delete": {
+        "tags": [
+          "MerchantCategory"
+        ],
+        "summary": "從商家移除類別",
+        "description": "",
+        "parameters": [
+          {
+            "name": "merchant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "類別 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant-categorys/merchant/{merchant_id}/categories": {
+      "get": {
+        "tags": [
+          "MerchantCategory"
+        ],
+        "summary": "取得商家所有分類",
+        "description": "",
+        "parameters": [
+          {
+            "name": "merchant_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -838,6 +963,71 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant-categorys/category/{category_id}/merchants": {
+      "get": {
+        "tags": [
+          "MerchantCategory"
+        ],
+        "summary": "取得某類別的所有商家",
+        "description": "",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/merchant-categorys/category/{category_id}/merchants/count": {
+      "get": {
+        "tags": [
+          "MerchantCategory"
+        ],
+        "summary": "取得某類別下商家的數量",
+        "description": "",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"

@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 //component
+import Header from "@/components/merchant/common/Header/Header";
 import MerchantsGrid from "@/components/merchant/select/MerchantsList";
+import Button from "@/components/common/Button";
 
 //hook
 import useSession from "@/hooks/useSesstion";
@@ -41,10 +43,23 @@ const MerchantList = () => {
 
   return (
     <>
+      <Header />
       {merchants.length === 0 ? (
-        <p>no data</p>
+        <p>You don&apos;t have any merchants yet.</p>
       ) : (
-        <div>
+        <div className="mb-8">
+          <div className="flex justify-between mb-3">
+            <p className="text-xl">Merchants List</p>
+            <Button
+              size="lg"
+              variant="outline"
+              href={`/merchant/dashboard/add-merchant/`}
+            >
+              Add Merchant
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2"></div>
           <MerchantsGrid merchants={merchants} />
         </div>
       )}

@@ -2,35 +2,45 @@ module.exports = (sequelize, DataTypes) => {
   const MerchantCategory = sequelize.define(
     "MerchantCategory",
     {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       merchant_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "merchants",
           key: "id",
         },
       },
+      category_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "m_categories",
+          key: "id",
+        },
+      },
     },
     {
       tableName: "merchant_categories",
-      timestamps: true,
+      timestamps: false, // 如果你不需要 createdAt 和 updatedAt，可以關掉
+      indexes: [
+        {
+          unique: true,
+          fields: ["merchant_id", "category_id"], // 定義組合鍵
+        },
+      ],
     }
   );
 
-  // Association setup (optional, if you need to establish a relationship with the User model)
   MerchantCategory.associate = (models) => {
     MerchantCategory.belongsTo(models.Merchant, {
       foreignKey: "merchant_id",
       as: "merchant",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+    MerchantCategory.belongsTo(models.MCategory, {
+      foreignKey: "category_id",
+      as: "m_category",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });

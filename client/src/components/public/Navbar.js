@@ -15,10 +15,10 @@ import ThemeButton from "../common/ui/ThemeButton";
 // isAuthenticated display
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
-    <Button href="/merchant/dashboard/user/profile" icon={FaUser}>
+    <Button href="/merchant/dashboard/user/profile" variant="outline" icon={FaUser}>
       User
     </Button>
-    <Button href="/merchant/dashboard" variant="primary">
+    <Button href="/merchant/dashboard" variant="outline">
       Dash
     </Button>
     <LogoutButton variant="transparently" size="none" isHome="true" />

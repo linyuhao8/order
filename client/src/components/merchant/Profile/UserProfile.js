@@ -49,6 +49,7 @@ const UserProfile = ({ userId }) => {
           <SettingButton />
         </div>
 
+        {/* name and role */}
         <div className="flex flex-col md:flex-col items-center mb-4 md:mb-6">
           <div className="h-15 w-15 flex justify-center items-center rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden mb-2">
             <FaRegUser size={25} />
@@ -63,6 +64,7 @@ const UserProfile = ({ userId }) => {
           </div>
         </div>
 
+        {/* profile information */}
         <div className="mb-4 md:mb-6 space-y-2">
           <div className="flex items-center text-gray-500 dark:text-gray-400">
             <span className="text-sm md:text-base">
@@ -84,6 +86,7 @@ const UserProfile = ({ userId }) => {
           </div>
         </div>
 
+        {/* some things about merchant */}
         <div className="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-3">
           {[
             { value: "3", label: "Number of Merchants" },

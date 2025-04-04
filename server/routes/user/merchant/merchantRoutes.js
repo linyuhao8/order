@@ -15,7 +15,7 @@ router.post(
             "business_name": "好吃排骨酥東海商圈",
             "description": "一段說明",
             "feature": "好吃又健康",
-            "merchant_logo": "https://images.unsplash.com/photo-1620288627223-53302f4e8c74?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "merchant_logo": "Upload files from the front-end, this route will automatically process the URLs and save them to the database.",
             "location": "台中市西屯區xx路128號"
 }
     } */

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 // Icons
 import { FaUser } from "react-icons/fa";
+import { MdSpaceDashboard } from "react-icons/md";
 
 // Hooks
 import useAuth from "@/hooks/auth/useAuth";
@@ -15,12 +16,16 @@ import ThemeButton from "../common/ui/ThemeButton";
 // isAuthenticated display
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
-    <Button href="/merchant/dashboard/user/profile" variant="outline" icon={FaUser}>
-      User
-    </Button>
-    <Button href="/merchant/dashboard" variant="outline">
-      Dash
-    </Button>
+    <Button
+      href="/merchant/dashboard/user/profile"
+      variant="icon"
+      icon={FaUser}
+    ></Button>
+    <Button
+      href="/merchant/dashboard"
+      variant="icon"
+      icon={MdSpaceDashboard}
+    ></Button>
     <LogoutButton variant="transparently" size="none" isHome="true" />
   </div>
 );
@@ -28,7 +33,6 @@ const UserLinks = () => (
 const GuestLinks = () => <Button href="/login">Login</Button>;
 
 const Navbar = () => {
-
   // hook check auth
   const { isAuthenticated } = useAuth();
 
@@ -47,7 +51,7 @@ const Navbar = () => {
 
       <div className="flex flex-nowrap gap-2">
         {/* Theme toggle */}
-        <ThemeButton/>
+        <ThemeButton />
         {/* User or Guest links */}
         {isAuthenticated ? <UserLinks /> : <GuestLinks />}
       </div>

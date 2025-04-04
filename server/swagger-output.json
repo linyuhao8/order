@@ -673,21 +673,17 @@
           {
             "name": "body",
             "in": "body",
-            "description": "類別資料",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string",
-                  "example": "飲料"
+                  "example": "any"
                 },
                 "description": {
-                  "type": "string",
-                  "example": "各種飲品"
+                  "example": "any"
                 },
-                "img": {
-                  "type": "string",
-                  "example": "https://example.com/drink.jpg"
+                "merchant_ids": {
+                  "example": "any"
                 }
               }
             }

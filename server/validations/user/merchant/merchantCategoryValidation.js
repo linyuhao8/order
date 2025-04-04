@@ -7,7 +7,7 @@ const createCategorySchema = Joi.object({
     "string.empty": "分類名稱不能為空",
   }),
   description: Joi.string().allow("").optional(),
-  img: Joi.string().uri().optional().messages({
+  img: Joi.string().uri().allow(null).optional().messages({
     "string.uri": "圖片 URL 格式不正確",
   }),
   merchant_ids: Joi.array().items(Joi.number().integer()).optional(),

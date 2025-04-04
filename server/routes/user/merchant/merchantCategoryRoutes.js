@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const categoryController = require("../../../controllers/user/merchant/merchantCategoriesControllers");
+const upload = require("../../../middlewares/upload");
 
 router.post(
   "/",
@@ -12,9 +13,10 @@ router.post(
         schema: {
           "name": "飲料",
           "description": "各種飲品",
-          "img": "https://example.com/drink.jpg",
+          "img": Upload files from the front-end, this route will automatically process the URLs and save them to the database.,
         }
       } */
+  upload.single("img"),
   categoryController.createCategory
 );
 

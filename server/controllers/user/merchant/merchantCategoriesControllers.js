@@ -17,9 +17,26 @@ const createCategory = async (req, res) => {
       message: error.details.map((err) => err.message),
     });
   }
-  try {
-    const { name, description, img, merchant_ids } = req.body;
 
+  try {
+    const { name, description, merchant_ids } = req.body;
+
+    // 檢查類別名稱是否已存在
+    const existingCategory = await MCategory.findOne({
+      where: { name },
+    });
+
+    if (existingCategory) {
+      return res.status(400).json({
+        success: false,
+        message: "Category with this name already exists",
+      });
+    }
+
+    // 圖片檔案在 req.file
+    const img = req.file ? `/uploads/${req.file.filename}` : null;
+
+    // 創建新的類別
     const category = await MCategory.create({ name, description, img });
 
     // 如果有提供 `merchant_ids`，則自動關聯商家
@@ -33,9 +50,10 @@ const createCategory = async (req, res) => {
 
     res.status(201).json({ success: true, data: category });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: error.message, error });
   }
 };
+
 
 // **2️⃣ 取得所有類別 (包含商家)**
 const getAllCategories = async (req, res) => {

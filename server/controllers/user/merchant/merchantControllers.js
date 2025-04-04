@@ -23,9 +23,11 @@ const createMerchant = async (req, res) => {
       business_name,
       description,
       feature,
-      merchant_logo,
       location,
     } = req.body;
+
+    // 圖片檔案在 req.file
+    const merchant_logo = req.file ? `/uploads/${req.file.filename}` : null;
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);

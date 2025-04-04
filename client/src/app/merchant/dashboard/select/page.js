@@ -48,10 +48,10 @@ const MerchantList = () => {
         <p>You don&apos;t have any merchants yet.</p>
       ) : (
         <div className="mb-8">
-          <div className="flex justify-between mb-3">
+          <div className="flex justify-between mb-5">
             <p className="text-xl">Merchants List</p>
             <Button
-              size="lg"
+              size="md"
               variant="outline"
               href={`/merchant/dashboard/add-merchant/`}
             >

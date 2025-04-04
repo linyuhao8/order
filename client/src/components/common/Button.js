@@ -20,7 +20,7 @@ const Button = ({
     secondary:
       "flex items-center  justify-center bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-500",
     outline:
-      "inline-flex items-center justify-center border border-gray-100 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-amber-500",
+      "inline-flex items-center justify-center border border-gray-100 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-amber-500",
     danger:
       "flex items-center  justify-center bg-red-500 text-white hover:bg-red-400",
     transparently:

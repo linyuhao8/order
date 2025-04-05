@@ -94,6 +94,10 @@ db.OptionValue = require("../models/product/product_option/optionValueModel")(
   sequelize,
   Sequelize.DataTypes
 );
+db.Image = require("../models/image")(
+  sequelize,
+  Sequelize.DataTypes
+);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }

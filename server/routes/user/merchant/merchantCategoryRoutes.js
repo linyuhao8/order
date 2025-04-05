@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const categoryController = require("../../../controllers/user/merchant/merchantCategoriesControllers");
-const upload = require("../../../middlewares/upload");
+
 
 router.post(
   "/",
@@ -16,7 +16,7 @@ router.post(
           "img": Upload files from the front-end, this route will automatically process the URLs and save them to the database.,
         }
       } */
-  upload.single("img"),
+
   categoryController.createCategory
 );
 

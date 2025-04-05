@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const merchantController = require("../../../controllers/user/merchant/merchantControllers");
-const upload = require("../../../middlewares/upload");
+
 
 // 創建商家
 router.post(
@@ -20,7 +20,6 @@ router.post(
             "location": "台中市西屯區xx路128號"
 }
     } */
-  upload.single("merchant_logo"),
   merchantController.createMerchant
 );
 

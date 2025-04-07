@@ -38,7 +38,7 @@ export default function Login() {
     if (isAuthenticated === true) {
       toast("You are logged in.", { icon: "⚠️" });
       //Cannot click “Back” to go back to previous page
-      router.replace("/dashboard");
+      router.replace("/merchant/dashboard");
     }
   }, [isAuthenticated, router]);
 

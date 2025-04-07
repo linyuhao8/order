@@ -1,27 +1,12 @@
 "use client";
+
 const Loading = () => {
-    return (
-      <div className="loading">
-        <p>Loading...</p>
-        <div className="spinner md:ml-64"></div>
-        <style jsx>{`
-          .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 2s linear infinite;
-          }
-  
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  };
-  
-  export default Loading;
-  
+  return (
+    <div className="flex flex-col items-center justify-center h-full py-10">
+      <p className="text-gray-600 mb-4">Loading...</p>
+      <div className="w-8 h-8 border-4 border-t-blue-500 border-gray-200 rounded-full animate-spin" />
+    </div>
+  );
+};
+
+export default Loading;

@@ -22,13 +22,12 @@ const withAuth = (WrappedComponent) => {
       // If the user is not authenticated, show a warning toast
       if (isAuthenticated === false) {
         toast("請先登入", { icon: "⚠️" });
+        router.replace("/login");
       }
-    }, [isAuthenticated]);
+    }, [isAuthenticated, router]);
 
     // Show a loading state while authentication status is being determined
-    if (isAuthenticated === null) {
-      return <div>Loading...</div>;
-    }
+    if (isAuthenticated === null) return null;
 
     // Render the wrapped component with authentication props
     return (

@@ -59,8 +59,9 @@ const MerchantList = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2"></div>
-          <MerchantsGrid merchants={merchants} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
+            <MerchantsGrid merchants={merchants} />
+          </div>
         </div>
       )}
     </>

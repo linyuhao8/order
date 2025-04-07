@@ -2,13 +2,13 @@
 import withAuth from "@/hoc/withAuth";
 import Header from "@/components/merchant/common/Header/Header";
 import UserProfile from "@/components/merchant/Profile/UserProfile";
-import useSession from "@/hooks/useSesstion";
+import Loading from "@/components/common/Loading";
 
-function Dashboard() {
-  const user = useSession("user");
-  if (!user) {
-    return <div>Loading...</div>; // if on data return loading
+function Dashboard({ isAuthenticated, user }) {
+  if (!user || isAuthenticated === null) {
+    return <Loading />;
   }
+
   const userId = user.id;
   return (
     <>
@@ -305,4 +305,5 @@ function Dashboard() {
     </>
   );
 }
+
 export default withAuth(Dashboard);

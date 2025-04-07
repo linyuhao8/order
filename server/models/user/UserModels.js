@@ -65,6 +65,12 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE", // Ensures that when a User is deleted, the associated Admin will be deleted
       onUpdate: "CASCADE",
     });
+    User.hasMany(models.Image, {
+      foreignKey: "user_id",
+      as: "images",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
   };
 
   return User;

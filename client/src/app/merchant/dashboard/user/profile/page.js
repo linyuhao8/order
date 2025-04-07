@@ -1,21 +1,24 @@
 "use client";
+
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
+import Loading from "@/components/common/Loading";
 
 const ProfilePage = ({ isAuthenticated, user }) => {
   const router = useRouter();
-  // ✅ Get data directly from withAuth props
+  const pathname = usePathname();
+
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user?.id) {
       const targetPath = `/merchant/dashboard/user/profile/${user.id}`;
-      if (router.pathname !== targetPath) {
+      if (pathname !== targetPath) {
         router.replace(targetPath);
       }
     }
-  }, [isAuthenticated, user, router]);
+  }, [isAuthenticated, user?.id, pathname, router]);
 
-  return <div>Loading...</div>;
+  return <Loading />;
 };
 
 export default withAuth(ProfilePage);

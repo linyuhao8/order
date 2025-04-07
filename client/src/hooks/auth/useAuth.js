@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/api";
 
+//使用方法const { isAuthenticated, user } = useAuth(true);
+//當傳入參數為true，如用戶未登入會自動導向
+
 //When redirectIfUnauthenticated is true, unregistered users will be redirected and will not be able to access the page.
 const useAuth = (redirectIfUnauthenticated = false) => {
   // State to track authentication status

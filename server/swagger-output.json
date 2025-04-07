@@ -684,6 +684,9 @@
                 },
                 "merchant_ids": {
                   "example": "any"
+                },
+                "img": {
+                  "example": "any"
                 }
               }
             }
@@ -2758,10 +2761,6 @@
     },
     "/api/images/": {
       "post": {
-        "tags": [
-          "Image"
-        ],
-        "summary": "use client Upload an image",
         "description": "",
         "responses": {
           "201": {
@@ -2782,10 +2781,6 @@
         }
       },
       "get": {
-        "tags": [
-          "Image"
-        ],
-        "summary": "Get all images",
         "description": "",
         "responses": {
           "200": {
@@ -2805,10 +2800,6 @@
     },
     "/api/images/{id}": {
       "get": {
-        "tags": [
-          "Image"
-        ],
-        "summary": "Get a single image by its ID",
         "description": "",
         "parameters": [
           {
@@ -2837,10 +2828,6 @@
         }
       },
       "put": {
-        "tags": [
-          "Image"
-        ],
-        "summary": "Update an image by its ID",
         "description": "",
         "parameters": [
           {
@@ -2856,9 +2843,6 @@
               "type": "object",
               "properties": {
                 "filename": {
-                  "example": "any"
-                },
-                "url": {
                   "example": "any"
                 }
               }
@@ -2884,10 +2868,6 @@
         }
       },
       "delete": {
-        "tags": [
-          "Image"
-        ],
-        "summary": "Delete an image by its ID",
         "description": "",
         "parameters": [
           {

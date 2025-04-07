@@ -1,47 +1,19 @@
-// routes/imageRoutes.js
 const express = require("express");
-const upload = require("../middlewares/upload");
+const router = express.Router();
+const { upload, uploadToGCS } = require("../middlewares/gcsUpload");
 const imageController = require("../controllers/imageController");
 
-const router = express.Router();
-// 上傳圖片
+// #swagger.tags = ['Image']
+// #swagger.summary = 'Upload image to Google Cloud Storage'
 router.post(
   "/",
-  // #swagger.tags = ['Image']
-  // #swagger.summary = 'use client Upload an image'
-  upload.single("image"),
-  imageController.uploadImage
+  upload, // 然后处理文件上传
+  uploadToGCS, // 接着上传到 Google Cloud Storage
+  imageController.uploadImage // 最后处理控制器逻辑
 );
+router.get("/", imageController.getAllImages);
+router.get("/:id", imageController.getImage);
+router.put("/:id", imageController.updateImage);
+router.delete("/:id", imageController.deleteImage);
 
-// 取得所有圖片
-router.get(
-  "/",
-  // #swagger.tags = ['Image']
-  // #swagger.summary = 'Get all images'
-  imageController.getAllImages
-);
-
-// 取得單張圖片
-router.get(
-  "/:id",
-  // #swagger.tags = ['Image']
-  // #swagger.summary = 'Get a single image by its ID'
-  imageController.getImage
-);
-
-// 更新圖片
-router.put(
-  "/:id",
-  // #swagger.tags = ['Image']
-  // #swagger.summary = 'Update an image by its ID'
-  imageController.updateImage
-);
-
-// 刪除圖片
-router.delete(
-  "/:id",
-  // #swagger.tags = ['Image']
-  // #swagger.summary = 'Delete an image by its ID'
-  imageController.deleteImage
-);
 module.exports = router;

@@ -63,7 +63,6 @@ app.use("/api/productoptions", authenticateToken, ProductOptionRoutes);
 app.use("/api/options", authenticateToken, optionRoutes);
 app.use("/api/optionvalues", authenticateToken, optionValueRoutes);
 //Img upload
-app.use("/uploads", authenticateToken, express.static("uploads"));
 app.use("/api/images", authenticateToken, imageRoutes);
 
 module.exports = app;

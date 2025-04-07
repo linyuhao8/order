@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/auth/useAuth";
 import toast from "react-hot-toast";
 
+//使用方法
+// const Page = ({ isAuthenticated,user }) => { return <div></div> };
+// export default withAuth(Page);
+//用於後端的每個頁面都會先驗證一次，檢查是否登入和jwt token，並且能回傳user data
+
 /**
  * A higher-order component (HOC) that wraps a component
  * and ensures the user is authenticated before rendering it.
@@ -15,7 +20,7 @@ import toast from "react-hot-toast";
 const withAuth = (WrappedComponent) => {
   const AuthComponent = (props) => {
     // Retrieve authentication state and user data
-    const { isAuthenticated, user } = useAuth(true);
+    const { isAuthenticated, user } = useAuth();
     const router = useRouter();
 
     useEffect(() => {

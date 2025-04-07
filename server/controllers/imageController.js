@@ -109,10 +109,41 @@ const updateImage = async (req, res) => {
   }
 };
 
+const getUserImages = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const { count, rows } = await Image.findAndCountAll({
+      where: { user_id: userId },
+      limit,
+      offset,
+      order: [["createdAt", "DESC"]],
+    });
+
+    const totalPages = Math.ceil(count / limit);
+
+    return res.json({
+      data: rows,
+      pagination: {
+        total: count,
+        page,
+        totalPages,
+        limit,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching user images:", error);
+    return res.status(500).json({ error: "Server error" });
+  }
+};
+
 module.exports = {
   uploadImage,
   getAllImages,
   getImage,
   deleteImage,
   updateImage,
+  getUserImages,
 };

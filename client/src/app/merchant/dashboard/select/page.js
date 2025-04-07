@@ -2,20 +2,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import toast from "react-hot-toast";
+
 //component
 import Header from "@/components/merchant/common/Header/Header";
 import MerchantsGrid from "@/components/merchant/select/MerchantsList";
 import Button from "@/components/common/Button";
+import Loading from "@/components/common/Loading";
 
 //hook
-import useSession from "@/hooks/useSesstion";
+import withAuth from "@/hoc/withAuth";
 
-const MerchantList = () => {
+const MerchantList = ({ isAuthenticated, user }) => {
   const [merchants, setMerchants] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const user = useSession("user");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  //每次載入頁面都會抓取這個user的所有商家資料並顯示
   useEffect(() => {
     if (!user) return;
     const fetchMerchants = async () => {
@@ -31,6 +34,7 @@ const MerchantList = () => {
         console.log(response.data);
       } catch (err) {
         setError("Failed to load merchants.");
+        toast.error("無法加載商家資料！");
       } finally {
         setLoading(false);
       }
@@ -38,8 +42,8 @@ const MerchantList = () => {
     fetchMerchants();
   }, [user]);
 
-  if (loading) return <p className="text-center text-lg">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading) return <Loading />;
+  if (error) return <div>{error}</div>; 
 
   return (
     <>
@@ -68,4 +72,4 @@ const MerchantList = () => {
   );
 };
 
-export default MerchantList;
+export default withAuth(MerchantList);

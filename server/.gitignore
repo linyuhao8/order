@@ -137,3 +137,6 @@ dist
 
 # Ignore uploads directory
 /uploads/
+
+#key
+gcs-key.json

@@ -102,7 +102,9 @@ const uploadToGCS = async (req, res, next) => {
     req.uploadedFiles = [];
 
     const uploadPromises = req.files.map(async (file) => {
-      const originalname = file.originalname;
+      const originalname = Buffer.from(file.originalname, "latin1").toString(
+        "utf8"
+      );
 
       // 取得唯一檔案名稱
       const { uniqueFilename, readableFilename } = await getUniqueFilename(

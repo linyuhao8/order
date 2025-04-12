@@ -28,6 +28,9 @@ const Button = ({
     icon: "w-9 h-9 rounded-full flex items-center justify-center  bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 cursor-pointer",
     dashboardNav:
       "flex items-center justify-start text-lg hover:bg-gray-100 dark:hover:bg-gray-700 rounded ",
+    activeTab:
+      "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-amber-500 text-amber-600",
+    tab: "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
   };
 
   // size

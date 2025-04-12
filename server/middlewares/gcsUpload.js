@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const stream = require("stream");
 const Image = require("../config/postgreSql").db.Image; // 引入 Image 模型
 require("dotenv").config();
+const sharp = require("sharp");
 
 // 初始化 GCS Storage
 const storage = new Storage({
@@ -134,6 +135,11 @@ const uploadToGCS = async (req, res, next) => {
 
           // 创建数据库记录
           try {
+            // 用 sharp 取得圖片尺寸
+            const metadata = await sharp(file.buffer).metadata();
+            const width = metadata.width;
+            const height = metadata.height;
+
             const imageRecord = await Image.create({
               user_id: userId,
               filename: readableFilename,
@@ -141,18 +147,22 @@ const uploadToGCS = async (req, res, next) => {
               url: publicUrl,
               mime_type: file.mimetype,
               size: file.size,
+              width,
+              height,
             });
 
             // 将上传结果添加到请求对象中，供路由处理器使用
-            req.uploadedFiles.push({
-              id: imageRecord.id,
-              originalname,
-              filename: readableFilename,
-              uniqueFilename,
-              mimetype: file.mimetype,
-              size: file.size,
-              url: publicUrl,
-            });
+             req.uploadedFiles.push({
+               id: imageRecord.id,
+               originalname,
+               filename: readableFilename,
+               uniqueFilename,
+               mimetype: file.mimetype,
+               size: file.size,
+               url: publicUrl,
+               width,
+               height,
+             });
 
             resolve(imageRecord);
           } catch (error) {

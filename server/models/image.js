@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "Image",
     {
       id: {
-        type: DataTypes.UUID, 
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
@@ -22,6 +22,22 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
         allowNull: false,
+      },
+      width: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      height: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      size: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      mime_type: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {

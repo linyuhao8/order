@@ -36,28 +36,34 @@ const Navbar = () => {
               {
                 icon: IoHome,
                 label: "Home",
-                url: process.env.NEXT_PUBLIC_URL || "/",
+                url: "/",
               },
               {
                 icon: FaUser,
                 label: "Profile",
-                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/profile`,
+                url: `/merchant/dashboard/profile`,
               },
               {
                 icon: MdDashboard,
                 label: "Dashboard",
-                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard`,
+                url: `/merchant/dashboard`,
               },
               {
                 icon: FaStore,
                 label: "Merchants",
-                url: `${process.env.NEXT_PUBLIC_URL}/merchant/dashboard/select`,
+                url: `/merchant/dashboard/select`,
               },
               {
                 icon: MdRestaurantMenu,
                 label: "Menu",
                 url: "/menu",
               },
+              {
+                icon: MdRestaurantMenu,
+                label: "Media",
+                url: "/merchant/dashboard/media",
+              },
+
               {
                 icon: FaShoppingCart,
                 label: "Order",

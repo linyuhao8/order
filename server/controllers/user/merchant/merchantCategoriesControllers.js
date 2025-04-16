@@ -68,7 +68,15 @@ const getAllCategories = async (req, res) => {
   try {
     const categories = await MCategory.findAll({
       include: [
-        { model: Merchant, as: "merchants", through: { attributes: [] } },
+        {
+          model: Merchant,
+          as: "merchants",
+          through: { attributes: [] },
+        },
+        {
+          model: Image,
+          as: "image",
+        },
       ],
     });
 
@@ -86,6 +94,10 @@ const getCategoryById = async (req, res) => {
     const category = await MCategory.findByPk(id, {
       include: [
         { model: Merchant, as: "merchants", through: { attributes: [] } },
+        {
+          model: Image,
+          as: "image",
+        },
       ],
     });
 
@@ -132,7 +144,7 @@ const updateCategory = async (req, res) => {
         });
       }
     }
-    await category.update({ name, description, img, img_id:img_id });
+    await category.update({ name, description, img, img_id: img_id });
 
     // **同步更新 MerchantCategory**
     if (merchant_ids) {

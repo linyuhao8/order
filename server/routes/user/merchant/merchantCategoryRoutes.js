@@ -7,13 +7,15 @@ router.post(
   "/",
   // #swagger.tags = ['MCategory']
   // #swagger.summary = '建立類別'
-  /*  #swagger.parameters['body'] = {
+  /*  
+      #swagger.parameters['body'] = {
         in: 'body',
-        description: '類別資料',
+        description: '更新類別資料',
         schema: {
-          "name": "飲料",
-          "description": "各種飲品",
-          "img": Upload files from the front-end, this route will automatically process the URLs and save them to the database.,
+          "name": "新名稱",
+          "description": "新說明",
+          "img": "https://example.com/new-image.jpg",
+          "img_id": "uuid"
         }
       } */
 
@@ -52,6 +54,7 @@ router.put(
           "name": "新名稱",
           "description": "新說明",
           "img": "https://example.com/new-image.jpg",
+          "img_id": "uuid"
         }
       } */
   categoryController.updateCategory

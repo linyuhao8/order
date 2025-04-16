@@ -1,4 +1,4 @@
-const { MCategory, MerchantCategory, Merchant } =
+const { MCategory, MerchantCategory, Merchant, Image } =
   require("../../../config/postgreSql").db;
 const {
   createCategorySchema,
@@ -19,7 +19,15 @@ const createCategory = async (req, res) => {
   }
 
   try {
-    const { name, description, merchant_ids, img } = req.body;
+    const { name, description, merchant_ids, img, img_id } = req.body;
+
+    const existingImg = await Image.findByPk(img_id);
+    if (!existingImg) {
+      return res.status(400).json({
+        success: false,
+        message: "Image does not exist", // 修改錯誤訊息為正確
+      });
+    }
 
     // 檢查類別名稱是否已存在
     const existingCategory = await MCategory.findOne({
@@ -34,7 +42,11 @@ const createCategory = async (req, res) => {
     }
 
     // 創建新的類別
-    const category = await MCategory.create({ name, description, img });
+    const category = await MCategory.create({
+      name,
+      description,
+      img_id: img_id,
+    });
 
     // 如果有提供 `merchant_ids`，則自動關聯商家
     if (merchant_ids && merchant_ids.length > 0) {
@@ -102,7 +114,7 @@ const updateCategory = async (req, res) => {
   }
   try {
     const { id } = req.params;
-    const { name, description, img, merchant_ids } = req.body;
+    const { name, description, img, merchant_ids, img_id } = req.body;
 
     const category = await MCategory.findByPk(id);
     if (!category) {
@@ -110,8 +122,17 @@ const updateCategory = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Category not found" });
     }
-
-    await category.update({ name, description, img });
+    // 如果提供了 img_id，確保它是有效的
+    if (img_id) {
+      const existingImg = await Image.findOne({ where: { id: img_id } });
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image with this ID does not exist",
+        });
+      }
+    }
+    await category.update({ name, description, img, img_id:img_id });
 
     // **同步更新 MerchantCategory**
     if (merchant_ids) {

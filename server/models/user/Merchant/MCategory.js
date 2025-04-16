@@ -21,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING, // 存圖片 URL
         allowNull: true,
       },
+      img_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "images",
+          key: "id",
+        },
+      },
     },
     {
       tableName: "m_categories",
@@ -37,6 +45,13 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
+    MCategory.belongsTo(models.Image, {
+      foreignKey: "img_id", // or 'imageId'
+      as: "image",
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
+    });
+
   };
 
   return MCategory;

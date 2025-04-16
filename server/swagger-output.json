@@ -22,7 +22,7 @@
     },
     {
       "name": "Image",
-      "description": "1.belongto(User) 2.id, filename, url, user_id, timespace"
+      "description": "1.belongto(User),hasMany(MCategory) 2.id, filename, url, user_id, timespace"
     },
     {
       "name": "MerchantCategory",
@@ -30,7 +30,7 @@
     },
     {
       "name": "MCategory",
-      "description": "1.belongtoMany(ProductCategory) 2.id, name , img, description"
+      "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img, description"
     },
     {
       "name": "Menu",
@@ -677,20 +677,25 @@
           {
             "name": "body",
             "in": "body",
+            "description": "更新類別資料",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "新名稱"
                 },
                 "description": {
-                  "example": "any"
-                },
-                "merchant_ids": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "新說明"
                 },
                 "img": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "https://example.com/new-image.jpg"
+                },
+                "img_id": {
+                  "type": "string",
+                  "example": "uuid"
                 }
               }
             }
@@ -801,6 +806,10 @@
                 "img": {
                   "type": "string",
                   "example": "https://example.com/new-image.jpg"
+                },
+                "img_id": {
+                  "type": "string",
+                  "example": "uuid"
                 }
               }
             }

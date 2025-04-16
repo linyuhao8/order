@@ -24,7 +24,8 @@ const doc = {
     },
     {
       name: "Image",
-      description: "1.belongto(User) 2.id, filename, url, user_id, timespace",
+      description:
+        "1.belongto(User),hasMany(MCategory) 2.id, filename, url, user_id, timespace",
     },
     {
       name: "MerchantCategory",
@@ -34,7 +35,7 @@ const doc = {
     {
       name: "MCategory",
       description:
-        "1.belongtoMany(ProductCategory) 2.id, name , img, description",
+        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img, description",
     },
     {
       name: "Menu",

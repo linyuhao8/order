@@ -30,7 +30,8 @@ export default function InputField({
         id={id}
         name={name}
         type={type}
-        autoComplete={name}
+        autoFocus={name}
+        autoComplete="off"
         required={required}
         placeholder={placeholder}
         value={value}

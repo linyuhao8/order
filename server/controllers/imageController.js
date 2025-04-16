@@ -70,22 +70,34 @@ const deleteImage = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Image not found" });
 
-    const filename = image.url.split("/").pop();
     const { Storage } = require("@google-cloud/storage");
     const path = require("path");
 
     const storage = new Storage({
       keyFilename: path.join(__dirname, "..", process.env.KEYFILENAME),
     });
+
     const bucket = storage.bucket(process.env.BUCKET_NAME);
-    await bucket
-      .file(filename)
-      .delete()
-      .catch(() => {});
+
+    // 正確解析 GCS 的相對路徑
+    const baseUrl = `https://storage.googleapis.com/${process.env.BUCKET_NAME}/`;
+    const filename = image.url.replace(baseUrl, "");
+    console.log(filename);
+    try {
+      await bucket.file(filename).delete();
+    } catch (deleteError) {
+      console.error("Error deleting image from GCS:", deleteError);
+      return res.status(500).json({
+        success: false,
+        message: "Failed to delete image from GCS",
+        error: deleteError,
+      });
+    }
 
     await image.destroy();
     res.json({ success: true, message: "Image deleted" });
   } catch (error) {
+    console.error("Error during image deletion:", error);
     res.status(500).json({ success: false, message: "Delete failed", error });
   }
 };

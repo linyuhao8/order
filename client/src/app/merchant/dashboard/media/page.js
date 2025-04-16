@@ -1,13 +1,13 @@
 // pages/admin/media.jsx
 "use client";
 import { useState } from "react";
-import MediaLibrary from "@/components/common/MediaLibrary";
+import MediaLibrary from "@/components/common/MediaLibrary/MediaLibrary";
 import Image from "next/image";
 import withAuth from "@/hoc/withAuth";
 
-function MediaPage({user}) {
+function MediaPage({ user }) {
   const [selectedImages, setSelectedImages] = useState([]);
-  const userId = user.id; // 請替換為實際的用戶ID邏輯
+  const userId = user.id;
 
   const handleSelectImages = (images) => {
     setSelectedImages(images);

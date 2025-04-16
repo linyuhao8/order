@@ -11,9 +11,14 @@ import {
   Info,
 } from "lucide-react";
 import toast from "react-hot-toast";
-import Button from "./Button";
+import Button from "../Button";
 
-const MediaLibrary = ({ userId, onSelectImages, maxSelect = 10 }) => {
+const MediaLibrary = ({
+  userId,
+  onSelectImages,
+  maxSelect = 10,
+  closeModal,
+}) => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -70,6 +75,9 @@ const MediaLibrary = ({ userId, onSelectImages, maxSelect = 10 }) => {
   // 確認選擇並返回給父組件
   const confirmSelection = () => {
     onSelectImages(selectedImages);
+    if (closeModal) {
+      closeModal();
+    }
   };
 
   // 處理圖片詳情查看
@@ -193,7 +201,7 @@ const MediaLibrary = ({ userId, onSelectImages, maxSelect = 10 }) => {
 
   return (
     <div
-      className="w-full bg-white rounded-lg shadow-md"
+      className="min-w-[60vw] h-[80vh] bg-white rounded-lg shadow-md overflow-y-auto"
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
@@ -265,7 +273,7 @@ const MediaLibrary = ({ userId, onSelectImages, maxSelect = 10 }) => {
         ) : images.length === 0 ? (
           <div className="text-center py-12 text-gray-500">尚無圖片</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
             {images.map((image) => (
               // Loop through each image in the images array
               <div

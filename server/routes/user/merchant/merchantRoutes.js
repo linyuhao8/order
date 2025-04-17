@@ -15,6 +15,7 @@ router.post(
                 "description": "一段說明",
                 "feature": "好吃又健康",
                 "image_id": "uuid",
+                "merchant_logo_id": "uuid",
                 "location": "台中市西屯區xx路128號",
                 "business_hours": "週一～週六08:00~22:00 週日13:00~22:00"
             }
@@ -51,6 +52,7 @@ router.put(
                 "description": "一段說明",
                 "feature": "好吃又健康",
                 "image_id": "uuid",
+                "merchant_logo_id": "uuid",
                 "location": "台中市西屯區xx路128號",
                 "business_hours": "週一～週六08:00~22:00 週日13:00~22:00"
             }

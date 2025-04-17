@@ -28,9 +28,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(10),
         allowNull: true,
       },
-      merchant_logo: {
-        type: DataTypes.STRING,
+      merchant_logo_id: {
+        type: DataTypes.UUID,
         allowNull: true,
+        references: {
+          model: "images",
+          key: "id",
+        },
       },
       location: {
         type: DataTypes.TEXT,
@@ -93,6 +97,12 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
+    Merchant.belongsTo(models.Image, {
+        foreignKey: "merchant_logo_id",
+        as: "merchant_logo",
+        onDelete: "SET NULL",
+        onUpdate: "CASCADE",
+      });
   };
 
   return Merchant;

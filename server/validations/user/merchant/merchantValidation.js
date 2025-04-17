@@ -14,13 +14,16 @@ const createMerchantValidation = Joi.object({
   feature: Joi.string().max(10).optional().messages({
     "string.max": "商家特色最多 10 字元",
   }),
-  merchant_logo: Joi.string().uri().optional().messages({
-    "string.uri": "商家標誌應該是有效的 URL",
-  }),
-  location: Joi.string().optional(),
+  location: Joi.string().allow("").optional(),
   image_id: Joi.string().guid({ version: "uuidv4" }).optional().messages({
     "string.guid": "image_id 必須是有效的 UUID",
   }),
+  merchant_logo_id: Joi.string()
+    .guid({ version: "uuidv4" })
+    .optional()
+    .messages({
+      "string.guid": "merchant_logo_id 必須是有效的 UUID",
+    }),
   business_hours: Joi.string().max(100).optional().messages({
     "string.max": "business_hours 最多 100 個字",
   }),
@@ -35,10 +38,13 @@ const updateMerchantValidation = Joi.object({
   feature: Joi.string().max(10).optional().messages({
     "string.max": "商家特色最多 10 字元",
   }),
-  merchant_logo: Joi.string().uri().optional().messages({
-    "string.uri": "商家標誌應該是有效的 URL",
-  }),
-  location: Joi.string().optional(),
+  merchant_logo_id: Joi.string()
+    .guid({ version: "uuidv4" })
+    .optional()
+    .messages({
+      "string.guid": "merchant_logo_id 必須是有效的 UUID",
+    }),
+  location: Joi.string().allow("").optional(),
   image_id: Joi.string().guid({ version: "uuidv4" }).optional().messages({
     "string.guid": "image_id 必須是有效的 UUID",
   }),

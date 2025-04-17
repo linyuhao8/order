@@ -6,14 +6,16 @@ import withAuth from "@/hoc/withAuth";
 //component
 import Button from "@/components/common/Button";
 import Tab from "@/components/merchant/Add-Merchant/Tab";
+import Header from "@/components/merchant/common/Header/Header";
 
 function AddMerchantPage({ user }) {
   return (
     <UserContext.Provider value={user}>
       <div className="min-h-screen">
+        <Header />
         {/* 主要內容區 */}
         <main className="py-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
             {/* 頁面標題 */}
             <div className="flex items-center justify-between space-x-5 mb-8">
               <div className="flex items-start space-x-5">

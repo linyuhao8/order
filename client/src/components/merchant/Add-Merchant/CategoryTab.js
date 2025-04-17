@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useUser } from "@/contexts/UserContext";
 import axios from "axios";
 
 //UI
@@ -14,24 +13,22 @@ import UploadImageField from "@/components/common/MediaLibrary/UploadImageField"
 import toast from "react-hot-toast";
 import Button from "@/components/common/Button";
 
-const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
+const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const user = useUser();
-  const userId = user.id;
   const [isLoading, setIsLoading] = useState(false);
   const [categoryForm, setCategoryForm] = useState({
     name: "",
     description: "",
-    images: [],
+    category_logo: "",
   });
 
-  const handleSelectImages = (images) => {
-    console.log("handleSeclectImages", images);
+  const handleSelectImages = (images, fieldName) => {
+    console.log("handleSelectImages", images, fieldName);
 
     if (images.length > 0) {
       setCategoryForm((prev) => ({
         ...prev,
-        images: images,
+        [fieldName]: images, // 根據動態欄位名更新相應的圖片欄位
       }));
     }
   };
@@ -50,12 +47,15 @@ const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
     setIsLoading(true);
 
     try {
+      console.log(categoryForm.category_logo);
       const res = await axios.post(
         `${API_URL}/api/merchant-categorys/`,
         {
           name: categoryForm.name,
           description: categoryForm.description,
-          img_id: categoryForm.images[0]?.id || null,
+          img_id: categoryForm.category_logo
+            ? categoryForm.category_logo[0].id
+            : null,
         },
         {
           withCredentials: true,
@@ -84,6 +84,9 @@ const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
     }
   };
 
+  useEffect(() => {
+    console.log("marchant", categoryForm);
+  }, [categoryForm]);
   return (
     <>
       {/* 分類表單區塊 */}
@@ -101,10 +104,13 @@ const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
                   <UploadImageField
                     FormData={categoryForm}
                     setFormData={setCategoryForm}
-                    handleSelectImages={handleSelectImages}
+                    handleSelectImages={(images) =>
+                      handleSelectImages(images, "category_logo")
+                    }
                     name="iamge"
                     maxSelect={1}
                     userId={userId}
+                    fieldName="category_logo"
                   />
                   <CategoryDescription
                     categoryForm={categoryForm}

@@ -3,30 +3,33 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import MediaButton from "../../merchant/common/MediaButton";
 
-const UploadSingleImageField = ({
+const UploadImageField = ({
   FormData,
   setFormData,
   name,
   handleSelectImages,
   maxSelect,
   userId,
+  fieldName,
 }) => {
   const [previewImgs, setPreviewImgs] = useState([]);
 
   const handleRemoveImage = (indexToRemove) => {
     setFormData((prev) => ({
       ...prev,
-      images: prev.images.filter((_, index) => index !== indexToRemove),
+      [fieldName]: prev[fieldName].filter(
+        (_, index) => index !== indexToRemove
+      ), // 根據 fieldName 動態更新
     }));
   };
 
   useEffect(() => {
-    if (FormData?.images) {
-      setPreviewImgs(FormData.images);
+    if (FormData?.[fieldName]) {
+      setPreviewImgs(FormData[fieldName]);
     } else {
-      setPreviewImgs(null);
+      setPreviewImgs([]);
     }
-  }, [FormData.images]);
+  }, [FormData?.[fieldName]]);
 
   return (
     <div className="sm:col-span-6 border-y py-5 border-gray-200 dark:border-gray-500">
@@ -101,4 +104,4 @@ const UploadSingleImageField = ({
   );
 };
 
-export default UploadSingleImageField;
+export default UploadImageField;

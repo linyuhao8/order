@@ -19,7 +19,7 @@ const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
   const [categoryForm, setCategoryForm] = useState({
     name: "",
     description: "",
-    category_logo: "",
+    category_logo: [],
   });
 
   const handleSelectImages = (images, fieldName) => {
@@ -46,54 +46,49 @@ const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
     e.preventDefault();
     setIsLoading(true);
 
+    const { name, description, category_logo } = categoryForm;
+    const imageId = category_logo?.[0]?.id || null;
+
     try {
-      console.log(categoryForm.category_logo);
       const res = await axios.post(
         `${API_URL}/api/merchant-categorys/`,
         {
-          name: categoryForm.name,
-          description: categoryForm.description,
-          img_id: categoryForm.category_logo
-            ? categoryForm.category_logo[0].id
-            : null,
+          name,
+          description,
+          img_id: imageId,
         },
         {
           withCredentials: true,
         }
       );
 
-      if (res.status !== 201) {
-        toast.error("分類建立失敗");
-        return;
+      if (res.status === 201) {
+        toast.success("分類新增成功！");
+        setCategoryForm({
+          name: "",
+          description: "",
+          category_logo: null,
+        });
+        getAllCategories();
+      } else {
+        toast.error("分類建立失敗，請稍後再試");
       }
-
-      toast.success("分類新增成功！");
-      setCategoryForm({
-        name: "",
-        description: "",
-        images: null,
-      });
-      getAllCategories();
     } catch (error) {
-      console.error("建立分類錯誤:", error);
-      toast.error(
-        "建立分類失敗：" + (error?.response?.data?.message || error.message)
-      );
+      const msg = error?.response?.data?.message || error.message || "未知錯誤";
+      console.error("❌ 建立分類錯誤:", error);
+      toast.error(`建立分類失敗：${msg}`);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    console.log("marchant", categoryForm);
-  }, [categoryForm]);
   return (
     <>
       {/* 分類表單區塊 */}
       {activeTab === "category" && (
         <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
           <Hero />
-          <div className="border-t border-gray-400">
+          <div className="border-t border-gray-200">
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="px-4 py-5 sm:p-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
@@ -107,7 +102,7 @@ const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
                     handleSelectImages={(images) =>
                       handleSelectImages(images, "category_logo")
                     }
-                    name="iamge"
+                    name="category_logo"
                     maxSelect={1}
                     userId={userId}
                     fieldName="category_logo"

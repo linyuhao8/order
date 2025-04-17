@@ -6,20 +6,21 @@ import axios from "axios";
 
 import InputField from "@/components/common/InputField";
 import UploadImageField from "@/components/common/MediaLibrary/UploadImageField";
+import { useRouter } from "next/navigation";
 
 const MerchantTab = ({ activeTab, categories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
   // 商家表單狀態
   const [merchantForm, setMerchantForm] = useState({
     user_id: "",
     business_name: "",
     description: "",
     feature: "",
-    merchant_logo: "",
+    merchant_logo: [],
     location: "",
-    business_hours: "",
+    business_hours: "週一～週六08:00~22:00 週日13:00~22:00",
     category_id: "",
   });
 
@@ -45,54 +46,74 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
   const handleMerchantSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
+    const {
+      business_name,
+      description,
+      feature,
+      merchant_logo,
+      location,
+      business_hours,
+      category_id,
+    } = merchantForm;
+
     try {
-      //新增商家資料
-      const MerchantRes = await axios.post(
+      if (!merchantForm.category_id) {
+        toast.error("請選擇商家分類");
+        return;
+      }
+      // 建立商家資料
+      const merchantRes = await axios.post(
         `${API_URL}/api/merchants/create`,
         {
           user_id: userId,
-          business_name: merchantForm.name,
-          description: merchantForm.description,
-          feature: merchantForm.feature,
-          merchant_logo_id: merchantForm.merchant_logo[0]?.id || null,
-          location: merchantForm.location,
-          business_hours: merchantForm.business_hours,
+          business_name,
+          description,
+          feature,
+          merchant_logo_id: merchant_logo?.[0]?.id || null,
+          location,
+          business_hours,
         },
         {
           withCredentials: true,
         }
       );
-      if (!MerchantRes.ok) {
+
+      if (merchantRes.status !== 201) {
         toast.error("商家創建失敗");
-        return "商家創建失敗";
+        return;
       }
-      //取得merchatid然後建立中間表
-      //建立中間表
-      const MerchantCategoryRes = await axios.post(
+
+      const merchantId = merchantRes.data?.id; // 取回剛建立的商家 ID
+      if (!merchantId) {
+        toast.error("商家創建成功，但無法取得商家 ID");
+        return;
+      }
+
+      // 建立中間表：商家與分類的關聯
+      const merchantCategoryRes = await axios.post(
         `${API_URL}/api/merchant-categorys/merchant`,
         {
-          merchant_id: "uuid",
-          category_id: merchantForm.category_id,
+          merchant_id: merchantId,
+          category_id,
         },
         {
           withCredentials: true,
         }
       );
-      console.log(MerchantCategoryRes);
-      //Reset Form
-      setMerchantForm({
-        user_id: "",
-        business_name: "",
-        description: "",
-        feature: "",
-        business_logo_id: "",
-        location: "",
-        business_hours: "",
-        category_id: "",
-      });
+
+      if (merchantCategoryRes.status !== 201) {
+        toast.error("商家分類關聯建立失敗");
+        return;
+      }
+
+      toast.success("商家建立成功！");
+      router.push("/merchant/dashboard/select");
     } catch (error) {
-      toast.error(error.message);
-      console.error(error);
+      console.error("❌ 商家建立失敗:", error);
+      toast.error(
+        "建立商家失敗：" + (error?.response?.data?.message || error.message)
+      );
     } finally {
       setIsLoading(false);
     }
@@ -116,31 +137,29 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
             </p>
           </div>
           <div className="border-t border-gray-200">
-            <form>
+            <form onSubmit={handleMerchantSubmit}>
               <div className="px-4 py-5  sm:p-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label
-                      htmlFor="name"
+                      htmlFor="business_name"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       商家名稱 <span className="text-red-500">*</span>
                     </label>
-                    <div className="mt-1">
-                      <InputField
-                        type="text"
-                        name="business_name"
-                        id="business_name"
-                        required
-                        value={merchantForm.business_name}
-                        onChange={handleMerchantChange}
-                      />
-                    </div>
+                    <InputField
+                      type="text"
+                      name="business_name"
+                      id="business_name"
+                      required
+                      value={merchantForm.business_name}
+                      onChange={handleMerchantChange}
+                    />
                   </div>
 
                   <div className="sm:col-span-3">
                     <label
-                      htmlFor="categoryId"
+                      htmlFor="category_id"
                       className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
                       商家分類 <span className="text-red-500">*</span>
@@ -200,17 +219,16 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       商家特色
+                      <span className="text-sm text-gray-400">最多10字</span>
                     </label>
-                    <div className="mt-1">
-                      <InputField
-                        type="text"
-                        name="feature"
-                        id="feature"
-                        value={merchantForm.feature}
-                        onChange={handleMerchantChange}
-                        placeholder="例：手作甜點、有插座、寵物友善..."
-                      />
-                    </div>
+                    <InputField
+                      type="text"
+                      name="feature"
+                      id="feature"
+                      value={merchantForm.feature}
+                      onChange={handleMerchantChange}
+                      placeholder="例：手作甜點、有插座、寵物友善..."
+                    />
                   </div>
 
                   {/* 商家地址 */}
@@ -221,16 +239,15 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                     >
                       地址
                     </label>
-                    <div className="mt-1">
-                      <InputField
-                        type="text"
-                        name="location"
-                        id="location"
-                        required
-                        value={merchantForm.location}
-                        onChange={handleMerchantChange}
-                      />
-                    </div>
+
+                    <InputField
+                      type="text"
+                      name="location"
+                      id="location"
+                      required
+                      value={merchantForm.location}
+                      onChange={handleMerchantChange}
+                    />
                   </div>
 
                   {/* 營業時間 */}
@@ -241,55 +258,47 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                     >
                       營業時間
                     </label>
-                    <div className="mt-1">
-                      <InputField
-                        type="text"
-                        name="business_hours"
-                        id="business_hours"
-                        value={merchantForm.business_hours}
-                        onChange={handleMerchantChange}
-                        placeholder="例：週一至週五 9:00-18:00"
-                      />
-                    </div>
+
+                    <InputField
+                      type="text"
+                      name="business_hours"
+                      id="business_hours"
+                      value={merchantForm.business_hours}
+                      onChange={handleMerchantChange}
+                      placeholder="例：週一至週五 9:00-18:00"
+                    />
                   </div>
 
                   {/* 商家 Logo（上傳後 image_id） */}
                   <div className="sm:col-span-6">
-                    <label
-                      htmlFor="image_id"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      商家 Logo
-                    </label>
-                    <div className="mt-1">
-                      {/* 你這邊可以換成自己的上傳組件 */}
-                      <UploadImageField
-                        FormData={merchantForm}
-                        setFormData={setMerchantForm}
-                        handleSelectImages={(images) =>
-                          handleSelectImages(images, "merchant_logo")
-                        }
-                        name="image_id"
-                        maxSelect={1}
-                        userId={userId}
-                        fieldName="merchant_logo"
-                      />
-                    </div>
+                    {/* 你這邊可以換成自己的上傳組件 */}
+                    <UploadImageField
+                      FormData={merchantForm}
+                      setFormData={setMerchantForm}
+                      handleSelectImages={(images) =>
+                        handleSelectImages(images, "merchant_logo")
+                      }
+                      name="merchant_logo"
+                      maxSelect={1}
+                      userId={userId}
+                      fieldName="merchant_logo"
+                    />
                   </div>
                 </div>
               </div>
+
               <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6">
                 <button
                   type="button"
-                  className="mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                  className="cursor-pointer mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
                 >
                   取消
                 </button>
                 <button
-                  type="button"
+                  type="submit"
                   disabled={isLoading}
                   onClick={handleMerchantSubmit}
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                  className="cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
                 >
                   {isLoading ? "處理中..." : "新增商家"}
                 </button>

@@ -32,10 +32,13 @@ const UploadImageField = ({
   }, [FormData?.[fieldName]]);
 
   return (
-    <div className="sm:col-span-6 border-y py-5 border-gray-200 dark:border-gray-500">
-      <div className="flex justify-between">
-        <h2 htmlFor={name} className="text-md mb-2">
-          Upload
+    <div className="sm:col-span-6 py-5">
+      <div className="flex justify-between items-end">
+        <h2
+          htmlFor={name}
+          className="text-lg font-medium text-gray-700 dark:text-gray-300"
+        >
+          {name}
         </h2>
         {/* Media Button 獨立在圖片下方 */}
         <MediaButton
@@ -45,7 +48,7 @@ const UploadImageField = ({
         />
       </div>
 
-      <div className="mt-2 flex flex-col gap-4">
+      <div className="mt-4 pt-3 flex flex-col gap-4 border-t border-gray-200 dark:border-gray-500">
         {/* imgs flex */}
         <div className="flex flex-row flex-wrap gap-4">
           {previewImgs?.length > 0 ? (

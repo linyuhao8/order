@@ -18,11 +18,11 @@
     },
     {
       "name": "Merchant",
-      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo, location"
+      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo(abandoned), location, image_id , business_hours"
     },
     {
       "name": "Image",
-      "description": "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, timespace"
+      "description": "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace"
     },
     {
       "name": "MerchantCategory",
@@ -30,7 +30,7 @@
     },
     {
       "name": "MCategory",
-      "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img, description"
+      "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img(abandoned), description , img_id"
     },
     {
       "name": "Menu",
@@ -426,7 +426,7 @@
                 },
                 "business_name": {
                   "type": "string",
-                  "example": "好吃排骨酥東海商圈"
+                  "example": "排骨酥東海商圈"
                 },
                 "description": {
                   "type": "string",
@@ -443,6 +443,10 @@
                 "location": {
                   "type": "string",
                   "example": "台中市西屯區xx路128號"
+                },
+                "business_hours": {
+                  "type": "string",
+                  "example": "週一～週六08:00~22:00 週日13:00~22:00"
                 }
               }
             }
@@ -568,6 +572,10 @@
                 "location": {
                   "type": "string",
                   "example": "台中市西屯區xx路128號"
+                },
+                "business_hours": {
+                  "type": "string",
+                  "example": "週一～週六08:00~22:00 週日13:00~22:00"
                 }
               }
             }

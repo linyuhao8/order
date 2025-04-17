@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
+      business_hours: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       tableName: "merchants", // 指定表名

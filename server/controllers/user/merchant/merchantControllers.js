@@ -25,6 +25,7 @@ const createMerchant = async (req, res) => {
       location,
       merchant_logo,
       image_id,
+      business_hours,
     } = req.body;
 
     // **手動檢查 user_id 是否存在**
@@ -50,6 +51,7 @@ const createMerchant = async (req, res) => {
       merchant_logo,
       location,
       image_id,
+      business_hours,
     });
 
     //將role轉成merchat
@@ -119,6 +121,7 @@ const updateMerchant = async (req, res) => {
       merchant_logo,
       location,
       image_id,
+      business_hours,
     } = req.body;
 
     if (user_id) {
@@ -129,12 +132,14 @@ const updateMerchant = async (req, res) => {
         });
       }
     }
-    const existingImg = await Image.findByPk(image_id);
-    if (!existingImg) {
-      return res.status(400).json({
-        success: false,
-        message: "Image does not exist", // 修改錯誤訊息為正確
-      });
+    if (image_id) {
+      const existingImg = await Image.findOne({ where: { id: image_id } });
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image with this ID does not exist",
+        });
+      }
     }
     // 檢查商家是否存在
     const merchant = await Merchant.findOne({
@@ -154,6 +159,7 @@ const updateMerchant = async (req, res) => {
       merchant_logo,
       location,
       image_id,
+      business_hours,
     });
 
     return res.status(200).json({ message: "商家資料更新成功" });

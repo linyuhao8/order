@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const merchantController = require("../../../controllers/user/merchant/merchantControllers");
 
-
 // 創建商家
 router.post(
   "/create",
@@ -11,13 +10,14 @@ router.post(
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-            "user_id": "uuid",
-            "business_name": "好吃排骨酥東海商圈",
-            "description": "一段說明",
-            "feature": "好吃又健康",
-            "image_id": "uuid",
-            "location": "台中市西屯區xx路128號"
-}
+                "user_id": "uuid",
+                "business_name": "排骨酥東海商圈",
+                "description": "一段說明",
+                "feature": "好吃又健康",
+                "image_id": "uuid",
+                "location": "台中市西屯區xx路128號",
+                "business_hours": "週一～週六08:00~22:00 週日13:00~22:00"
+            }
     } */
   merchantController.createMerchant
 );
@@ -46,13 +46,14 @@ router.put(
   /*  #swagger.parameters['body'] = {
             in: 'body',
             schema: {
-            "user_id": "uuid",
-            "business_name": "排骨酥東海商圈",
-            "description": "一段說明",
-            "feature": "好吃又健康",
-            "image_id": "uuid",
-            "location": "台中市西屯區xx路128號"
-}
+                "user_id": "uuid",
+                "business_name": "排骨酥東海商圈",
+                "description": "一段說明",
+                "feature": "好吃又健康",
+                "image_id": "uuid",
+                "location": "台中市西屯區xx路128號",
+                "business_hours": "週一～週六08:00~22:00 週日13:00~22:00"
+            }
     } */
   merchantController.updateMerchant
 );

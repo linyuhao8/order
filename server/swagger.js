@@ -20,12 +20,12 @@ const doc = {
     {
       name: "Merchant",
       description:
-        "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo, location",
+        "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo(abandoned), location, image_id , business_hours",
     },
     {
       name: "Image",
       description:
-        "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, timespace",
+        "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace",
     },
     {
       name: "MerchantCategory",
@@ -35,7 +35,7 @@ const doc = {
     {
       name: "MCategory",
       description:
-        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img, description",
+        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img(abandoned), description , img_id",
     },
     {
       name: "Menu",

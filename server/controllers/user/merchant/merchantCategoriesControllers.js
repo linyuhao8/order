@@ -21,12 +21,14 @@ const createCategory = async (req, res) => {
   try {
     const { name, description, merchant_ids, img, img_id } = req.body;
 
-    const existingImg = await Image.findByPk(img_id);
-    if (!existingImg) {
-      return res.status(400).json({
-        success: false,
-        message: "Image does not exist", // 修改錯誤訊息為正確
-      });
+    if (img_id) {
+      const existingImg = await Image.findByPk(img_id);
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image does not exist",
+        });
+      }
     }
 
     // 檢查類別名稱是否已存在

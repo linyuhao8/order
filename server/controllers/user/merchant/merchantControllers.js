@@ -35,12 +35,14 @@ const createMerchant = async (req, res) => {
         message: "無效的 user_id，該用戶不存在",
       });
     }
-    const existingImg = await Image.findByPk(image_id);
-    if (!existingImg) {
-      return res.status(400).json({
-        success: false,
-        message: "Image does not exist", // 修改錯誤訊息為正確
-      });
+    if (image_id) {
+      const existingImg = await Image.findByPk(image_id);
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image does not exist",
+        });
+      }
     }
     // 創建商家
     const newMerchant = await Merchant.create({

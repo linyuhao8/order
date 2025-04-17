@@ -440,6 +440,10 @@
                   "type": "string",
                   "example": "uuid"
                 },
+                "merchant_logo_id": {
+                  "type": "string",
+                  "example": "uuid"
+                },
                 "location": {
                   "type": "string",
                   "example": "台中市西屯區xx路128號"
@@ -566,6 +570,10 @@
                   "example": "好吃又健康"
                 },
                 "image_id": {
+                  "type": "string",
+                  "example": "uuid"
+                },
+                "merchant_logo_id": {
                   "type": "string",
                   "example": "uuid"
                 },

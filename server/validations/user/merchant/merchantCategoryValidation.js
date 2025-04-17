@@ -10,9 +10,13 @@ const createCategorySchema = Joi.object({
   img: Joi.string().uri().allow(null, "").optional().messages({
     "string.uri": "圖片 URL 格式不正確",
   }),
-  img_id: Joi.string().guid({ version: "uuidv4" }).optional().messages({
-    "string.guid": "img_id 必須是有效的 UUID",
-  }),
+  img_id: Joi.string()
+    .guid({ version: "uuidv4" })
+    .allow(null, "")
+    .optional()
+    .messages({
+      "string.guid": "img_id 必須是有效的 UUID",
+    }),
 });
 
 // 更新分類的驗證規則
@@ -20,9 +24,13 @@ const updateCategorySchema = Joi.object({
   name: Joi.string().trim().optional(),
   description: Joi.string().allow("").optional(),
   img: Joi.string().uri().allow(null, "").optional(),
-  img_id: Joi.string().guid({ version: "uuidv4" }).optional().messages({
-    "string.guid": "img_id 必須是有效的 UUID",
-  }),
+  img_id: Joi.string()
+    .guid({ version: "uuidv4" })
+    .allow(null, "")
+    .optional()
+    .messages({
+      "string.guid": "img_id 必須是有效的 UUID",
+    }),
 });
 
 // 新增商家到分類的驗證規則

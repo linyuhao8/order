@@ -42,7 +42,7 @@ const Tab = () => {
     if (user) {
       getAllCategories();
     }
-  }, [user]); 
+  }, [user]);
 
   return (
     <>
@@ -60,8 +60,18 @@ const Tab = () => {
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value)}
           >
-            <option value="merchant">新增商家</option>
-            <option value="category">新增分類</option>
+            <option
+              value="merchant"
+              className="text-black bg-white dark:text-white dark:bg-gray-800"
+            >
+              新增商家
+            </option>
+            <option
+              value="category"
+              className="text-black bg-white dark:text-white dark:bg-gray-800"
+            >
+              新增分類
+            </option>
           </select>
         </div>
 

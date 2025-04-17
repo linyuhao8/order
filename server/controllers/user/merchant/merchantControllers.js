@@ -35,12 +35,27 @@ const createMerchant = async (req, res) => {
         message: "無效的 user_id，該用戶不存在",
       });
     }
-    if (image_id) {
-      const existingImg = await Image.findByPk(image_id);
+    if (merchant_logo_id && typeof merchant_logo_id === "string") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
       if (!existingImg) {
         return res.status(400).json({
           success: false,
-          message: "Image does not exist",
+          message: "Image with this ID does not exist",
+        });
+      }
+    }
+    if (image_id && typeof image_id === "number") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image with this ID does not exist",
         });
       }
     }
@@ -61,8 +76,10 @@ const createMerchant = async (req, res) => {
     await user.save();
     return res.status(201).json(newMerchant); // 回傳新增的商家資料
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "創建商家失敗", error });
+    console.error("創建商家失敗：", error);
+    return res.status(500).json({
+      message: "創建商家失敗，請稍後再試。",
+    });
   }
 };
 
@@ -78,7 +95,7 @@ const getAllMerchants = async (req, res) => {
     return res.status(200).json(merchants);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "查詢商家失敗", error });
+    return res.status(500).json({ message: "查詢商家失敗" });
   }
 };
 
@@ -98,7 +115,7 @@ const getMerchantById = async (req, res) => {
     return res.status(200).json(merchant);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "查詢商家失敗", error });
+    return res.status(500).json({ message: "查詢商家失敗" });
   }
 };
 
@@ -134,8 +151,23 @@ const updateMerchant = async (req, res) => {
         });
       }
     }
-    if (image_id) {
-      const existingImg = await Image.findOne({ where: { id: image_id } });
+    if (merchant_logo_id && typeof merchant_logo_id === "string") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
+      if (!existingImg) {
+        return res.status(400).json({
+          success: false,
+          message: "Image with this ID does not exist",
+        });
+      }
+    }
+    if (image_id && typeof image_id === "number") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
       if (!existingImg) {
         return res.status(400).json({
           success: false,
@@ -167,7 +199,7 @@ const updateMerchant = async (req, res) => {
     return res.status(200).json({ message: "商家資料更新成功" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "更新商家失敗", error });
+    return res.status(500).json({ message: "更新商家失敗" });
   }
 };
 
@@ -204,7 +236,7 @@ const deleteMerchant = async (req, res) => {
     return res.status(200).json({ message: "商家已刪除" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "刪除商家失敗", error });
+    return res.status(500).json({ message: "刪除商家失敗" });
   }
 };
 
@@ -237,7 +269,7 @@ const getAllMerchantByUserId = async (req, res) => {
       return res.status(404).json({ message: "沒有商家" });
     }
   } catch (error) {
-    return res.status(500).json({ message: "伺服器錯誤", error });
+    return res.status(500).json({ message: "伺服器錯誤" });
   }
 };
 

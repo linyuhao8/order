@@ -21,12 +21,15 @@ const createCategory = async (req, res) => {
   try {
     const { name, description, merchant_ids, img, img_id } = req.body;
 
-    if (img_id) {
-      const existingImg = await Image.findByPk(img_id);
+    if (img_id && typeof img_id === "number") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
       if (!existingImg) {
         return res.status(400).json({
           success: false,
-          message: "Image does not exist",
+          message: "Image with this ID does not exist",
         });
       }
     }
@@ -137,8 +140,11 @@ const updateCategory = async (req, res) => {
         .json({ success: false, message: "Category not found" });
     }
     // 如果提供了 img_id，確保它是有效的
-    if (img_id) {
-      const existingImg = await Image.findOne({ where: { id: img_id } });
+    if (img_id && typeof img_id === "number") {
+      const existingImg = await Image.findOne({
+        where: { id: merchant_logo_id },
+      });
+
       if (!existingImg) {
         return res.status(400).json({
           success: false,

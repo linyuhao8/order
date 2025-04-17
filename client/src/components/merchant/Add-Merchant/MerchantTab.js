@@ -85,23 +85,23 @@ const MerchantTab = ({ activeTab, categories }) => {
     <>
       {/* 商家表單區塊 */}
       {activeTab === "merchant" && (
-        <div className="bg-white shadow-md overflow-hidden rounded-lg">
+        <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
           <div className="px-4 py-5 sm:px-6">
-            <h2 className="text-lg leading-6 font-medium text-gray-900">
+            <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
               新增商家資料
             </h2>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">
+            <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
               請填寫以下商家基本資訊
             </p>
           </div>
           <div className="border-t border-gray-200">
             <form onSubmit={handleMerchantSubmit}>
-              <div className="px-4 py-5 bg-white sm:p-6">
+              <div className="px-4 py-5  sm:p-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       商家名稱 <span className="text-red-500">*</span>
                     </label>
@@ -120,7 +120,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="categoryId"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
                       商家分類 <span className="text-red-500">*</span>
                     </label>
@@ -131,11 +131,20 @@ const MerchantTab = ({ activeTab, categories }) => {
                         required
                         value={merchantForm.categoryId}
                         onChange={handleMerchantChange}
-                        className="block w-full py-1 px-3 text-gray-900 dark:text-gray-100 border border-gray-300 rounded-sm rounded-sm placeholder-gray-400 placeholder-text-sm focus:ring-amber-500"
+                        className="block w-full py-1 px-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-sm focus:ring-amber-500"
                       >
-                        <option value="">請選擇分類</option>
+                        <option
+                          className="text-black bg-white dark:text-white dark:bg-gray-800"
+                          value=""
+                        >
+                          請選擇分類
+                        </option>
                         {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
+                          <option
+                            key={category.id}
+                            value={category.id}
+                            className="text-black bg-white dark:text-white dark:bg-gray-800"
+                          >
                             {category.name} ({category.merchants.length})
                           </option>
                         ))}
@@ -146,7 +155,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium  dark:text-gray-300 text-gray-700"
                     >
                       電子郵件 <span className="text-red-500">*</span>
                     </label>
@@ -165,7 +174,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm dark:text-gray-300 font-medium text-gray-700"
                     >
                       聯絡電話 <span className="text-red-500">*</span>
                     </label>
@@ -184,7 +193,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-6">
                     <label
                       htmlFor="address"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
                       地址 <span className="text-red-500">*</span>
                     </label>
@@ -203,7 +212,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="website"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
                       網站
                     </label>
@@ -221,7 +230,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-3">
                     <label
                       htmlFor="openingHours"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
                       營業時間
                     </label>
@@ -240,7 +249,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-6">
                     <label
                       htmlFor="logo"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       商家Logo
                     </label>
@@ -266,7 +275,7 @@ const MerchantTab = ({ activeTab, categories }) => {
                   <div className="sm:col-span-6">
                     <label
                       htmlFor="description"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       商家描述
                     </label>
@@ -277,16 +286,16 @@ const MerchantTab = ({ activeTab, categories }) => {
                         rows={3}
                         value={merchantForm.description}
                         onChange={handleMerchantChange}
-                        className="focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+                        className="focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md"
                       />
                     </div>
-                    <p className="mt-2 text-sm text-gray-500">
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                       簡短描述商家特色與服務
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6">
                 <button
                   type="button"
                   className="mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"

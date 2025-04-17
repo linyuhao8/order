@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useUser } from "@/contexts/UserContext";
 
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -13,6 +14,9 @@ import Button from "@/components/common/Button";
 const Tab = () => {
   const [activeTab, setActiveTab] = useState("merchant");
   const [categories, setCategories] = useState([]);
+  const user = useUser();
+
+  const userId = user.id;
 
   const getAllCategories = async () => {
     try {
@@ -35,8 +39,10 @@ const Tab = () => {
   };
 
   useEffect(() => {
-    getAllCategories();
-  }, []);
+    if (user) {
+      getAllCategories();
+    }
+  }, [user]); 
 
   return (
     <>
@@ -80,11 +86,16 @@ const Tab = () => {
         </div>
       </div>
 
-      <MerchantTab activeTab={activeTab} categories={categories} />
+      <MerchantTab
+        activeTab={activeTab}
+        categories={categories}
+        userId={userId}
+      />
       <CategoryTab
         activeTab={activeTab}
         categories={categories}
         getAllCategories={getAllCategories}
+        userId={userId}
       />
     </>
   );

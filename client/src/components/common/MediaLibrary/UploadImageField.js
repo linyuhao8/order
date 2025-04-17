@@ -29,7 +29,7 @@ const UploadSingleImageField = ({
   }, [FormData.images]);
 
   return (
-    <div className="sm:col-span-6 border-y py-5 border-gray-200">
+    <div className="sm:col-span-6 border-y py-5 border-gray-200 dark:border-gray-500">
       <div className="flex justify-between">
         <h2 htmlFor={name} className="text-md mb-2">
           Upload

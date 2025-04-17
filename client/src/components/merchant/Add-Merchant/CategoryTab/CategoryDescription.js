@@ -3,7 +3,7 @@ const CategoryDescription = ({ categoryForm, handleCategoryChange }) => {
     <div className="sm:col-span-6">
       <label
         htmlFor="categoryDescription"
-        className="block text-sm font-medium text-gray-700"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
         分類描述
       </label>
@@ -14,7 +14,7 @@ const CategoryDescription = ({ categoryForm, handleCategoryChange }) => {
           rows={3}
           value={categoryForm.description}
           onChange={handleCategoryChange}
-          className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 rounded-md"
+          className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 dark:border-gray-500 rounded-md"
         />
       </div>
     </div>

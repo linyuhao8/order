@@ -11,7 +11,7 @@ export default function InputField({
 }) {
   const variantStyles = {
     default:
-      "py-1 px-3 text-gray-900 dark:text-gray-100 border border-gray-300 rounded-sm rounded-sm placeholder-gray-400 placeholder-text-sm focus:ring-amber-500",
+      "py-1 px-3 text-gray-900 dark:text-gray-100 dark:border-gray-500 border border-gray-300 rounded-sm rounded-sm placeholder-gray-400 placeholder-text-sm focus:ring-amber-500",
     primary:
       "border-blue-500 text-blue-900 placeholder-blue-400 focus:ring-blue-500",
     danger:

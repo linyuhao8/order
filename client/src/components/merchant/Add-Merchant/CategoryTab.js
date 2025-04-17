@@ -88,11 +88,11 @@ const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
     <>
       {/* 分類表單區塊 */}
       {activeTab === "category" && (
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
           <Hero />
-          <div className="border-t border-gray-200">
+          <div className="border-t border-gray-400">
             <form onSubmit={(e) => e.preventDefault()}>
-              <div className="px-4 py-5 bg-white sm:p-6">
+              <div className="px-4 py-5 sm:p-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                   <CategoryName
                     categoryForm={categoryForm}
@@ -117,7 +117,7 @@ const CategoryTab = ({ activeTab, categories, getAllCategories }) => {
                 getAllCategories={getAllCategories}
               />
 
-              <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 text-right sm:px-6">
+              <div className="px-4 py-3 border-t border-gray-400 text-right sm:px-6">
                 <Button
                   onClick={handleCategorySubmit}
                   type="button"

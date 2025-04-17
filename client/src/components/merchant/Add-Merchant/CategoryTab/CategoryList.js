@@ -35,13 +35,13 @@ const CategoryList = ({ categories, getAllCategories }) => {
   };
 
   return (
-    <div className="px-4 py-5 bg-gray-50 sm:p-6">
-      <h3 className="text-sm font-medium text-gray-700 mb-3">現有分類列表</h3>
+    <div className="px-4 py-5 sm:p-6">
+      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">現有分類列表</h3>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {categories?.map((category) => (
           <div
             key={category.id}
-            className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-md"
+            className="flex items-center justify-between p-3 dark:bg-gray-700 border border-gray-200 dark:border-gray-500 rounded-md"
           >
             <div className="flex items-center">
               <div className="mr-3 flex-shrink-0 h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
@@ -60,10 +60,10 @@ const CategoryList = ({ categories, getAllCategories }) => {
                 )}
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">
+                <p className="text-sm font-medium ">
                   {category.name}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {category.merchants.length} 個商家
                 </p>
               </div>
@@ -84,7 +84,7 @@ const CategoryList = ({ categories, getAllCategories }) => {
         <Modal isOpen={isModalOpen} closeModal={closeModal}>
           <div className="p-6">
             <h2 className="text-lg font-semibold">確認刪除</h2>
-            <p className="mt-2 text-gray-700">
+            <p className="mt-2 text-gray-700 dark:text-gray-400">
               確定要刪除分類: <strong>{categoryToDelete.name}</strong> 嗎？
             </p>
             <div className="mt-4 flex justify-end space-x-4">

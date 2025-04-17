@@ -5,7 +5,7 @@ const CategoryName = ({ categoryForm, handleCategoryChange }) => {
     <div className="sm:col-span-4">
       <label
         htmlFor="categoryName"
-        className="block text-sm font-medium text-gray-700"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
         分類名稱 <span className="text-red-500">*</span>
       </label>
@@ -17,6 +17,7 @@ const CategoryName = ({ categoryForm, handleCategoryChange }) => {
         placeholder={"姓名"}
         value={categoryForm.name}
         onChange={handleCategoryChange}
+        variant=""
       />
     </div>
   );

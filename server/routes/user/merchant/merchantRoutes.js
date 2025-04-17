@@ -10,13 +10,12 @@ router.post(
   // #swagger.summary = 'create merchant'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: 'merchant info',
             schema: {
             "user_id": "uuid",
             "business_name": "好吃排骨酥東海商圈",
             "description": "一段說明",
             "feature": "好吃又健康",
-            "merchant_logo": "Upload files from the front-end, this route will automatically process the URLs and save them to the database.",
+            "image_id": "uuid",
             "location": "台中市西屯區xx路128號"
 }
     } */
@@ -46,13 +45,12 @@ router.put(
   // #swagger.summary = 'modify merchant info'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: '商家資料',
             schema: {
             "user_id": "uuid",
             "business_name": "排骨酥東海商圈",
             "description": "一段說明",
             "feature": "好吃又健康",
-            "merchant_logo": "url",
+            "image_id": "uuid",
             "location": "台中市西屯區xx路128號"
 }
     } */

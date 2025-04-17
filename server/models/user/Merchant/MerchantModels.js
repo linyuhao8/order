@@ -2,45 +2,47 @@ module.exports = (sequelize, DataTypes) => {
   const Merchant = sequelize.define(
     "Merchant",
     {
-      // Merchant ID (使用 UUID 作為主鍵)
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4, // 使用 UUIDV4 作為預設值
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      // 參照到 User 模型的外鍵
       user_id: {
         type: DataTypes.UUID,
         references: {
-          model: "users", // 這裡的 "Users" 要與您在 DB 中的表名一致
+          model: "users",
           key: "id",
         },
-        allowNull: false, // 不允許為空
+        allowNull: false,
       },
-      // 商家名稱
+
       business_name: {
         type: DataTypes.STRING(255),
-        allowNull: false, // 不允許為空
+        allowNull: false,
       },
-      // 商家描述
       description: {
         type: DataTypes.TEXT,
-        allowNull: true, // 可以為空
+        allowNull: true,
       },
-      // 商家特色 (限制為 10 字)
       feature: {
         type: DataTypes.STRING(10),
         allowNull: true,
       },
-      // 商家標誌 URL
       merchant_logo: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      // 商家位置
       location: {
         type: DataTypes.TEXT,
         allowNull: true,
+      },
+      image_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "images",
+          key: "id",
+        },
       },
     },
     {
@@ -79,6 +81,12 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: "category_id",
       as: "categories",
       onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+    Merchant.belongsTo(models.Image, {
+      foreignKey: "image_id",
+      as: "image",
+      onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
   };

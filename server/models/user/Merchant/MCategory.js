@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       img: {
-        type: DataTypes.STRING, // 存圖片 URL
+        type: DataTypes.STRING, 
         allowNull: true,
       },
       img_id: {
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "m_categories",
-      timestamps: true, // 會自動加入 createdAt、updatedAt 欄位
+      timestamps: true, 
     }
   );
 

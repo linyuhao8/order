@@ -18,11 +18,11 @@
     },
     {
       "name": "Merchant",
-      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory) 2.id, user_id, business_name, description, feature, merchant_logo, location"
+      "description": "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo, location"
     },
     {
       "name": "Image",
-      "description": "1.belongto(User),hasMany(MCategory) 2.id, filename, url, user_id, timespace"
+      "description": "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, timespace"
     },
     {
       "name": "MerchantCategory",
@@ -417,7 +417,6 @@
           {
             "name": "body",
             "in": "body",
-            "description": "merchant info",
             "schema": {
               "type": "object",
               "properties": {
@@ -437,9 +436,9 @@
                   "type": "string",
                   "example": "好吃又健康"
                 },
-                "merchant_logo": {
+                "image_id": {
                   "type": "string",
-                  "example": "Upload files from the front-end, this route will automatically process the URLs and save them to the database."
+                  "example": "uuid"
                 },
                 "location": {
                   "type": "string",
@@ -543,7 +542,6 @@
           {
             "name": "body",
             "in": "body",
-            "description": "商家資料",
             "schema": {
               "type": "object",
               "properties": {
@@ -563,9 +561,9 @@
                   "type": "string",
                   "example": "好吃又健康"
                 },
-                "merchant_logo": {
+                "image_id": {
                   "type": "string",
-                  "example": "url"
+                  "example": "uuid"
                 },
                 "location": {
                   "type": "string",

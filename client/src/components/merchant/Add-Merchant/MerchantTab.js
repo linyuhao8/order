@@ -1,7 +1,13 @@
-import InputField from "@/components/common/InputField";
+"use client";
+
 import { useState } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
+
+import InputField from "@/components/common/InputField";
 
 const MerchantTab = ({ activeTab, categories }) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [isLoading, setIsLoading] = useState(false);
   // 商家表單狀態
   const [merchantForm, setMerchantForm] = useState({
@@ -22,17 +28,41 @@ const MerchantTab = ({ activeTab, categories }) => {
       ...prev,
       [name]: value,
     }));
+    console.log(name, value);
   };
 
-  const handleMerchantSubmit = (e) => {
+  const handleMerchantSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // 模擬API調用的延遲
-    setTimeout(() => {
-      setIsLoading(false);
-      // 顯示成功訊息
-      alert("商家新增成功！");
-      // 重置表單
+    try {
+      //建立中間表
+      const MerchantCategoryRes = await axios.post(
+        `${API_URL}/api/merchant-categorys/merchant`,
+        {
+          merchant_id: "uuid",
+          category_id: "number",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      //新增商家資料
+      const MerchantRes = await axios.post(
+        `${API_URL}/api/merchants/create`,
+        {
+          user_id: "uuid",
+          business_name: "好吃排骨酥東海商圈",
+          description: "一段說明",
+          feature: "好吃又健康",
+          merchant_logo:
+            "Upload files from the front-end, this route will automatically process the URLs and save them to the database.",
+          location: "台中市西屯區xx路128號",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      //Reset Form
       setMerchantForm({
         name: "",
         description: "",
@@ -44,8 +74,13 @@ const MerchantTab = ({ activeTab, categories }) => {
         openingHours: "",
         website: "",
       });
-    }, 1000);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <>
       {/* 商家表單區塊 */}

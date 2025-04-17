@@ -59,6 +59,12 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
+    Image.hasMany(models.Merchant, {
+      foreignKey: "image_id",
+      as: "merchants",
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
+    });
   };
 
   return Image;

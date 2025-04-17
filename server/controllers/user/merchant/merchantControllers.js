@@ -1,5 +1,4 @@
-const Merchant = require("../../../config/postgreSql").db.Merchant;
-const User = require("../../../config/postgreSql").db.User;
+const { Merchant, User, Image } = require("../../../config/postgreSql").db;
 const {
   createMerchantValidation,
   updateMerchantValidation,
@@ -25,8 +24,8 @@ const createMerchant = async (req, res) => {
       feature,
       location,
       merchant_logo,
+      image_id,
     } = req.body;
-
 
     // **手動檢查 user_id 是否存在**
     const user = await User.findByPk(user_id);
@@ -35,7 +34,13 @@ const createMerchant = async (req, res) => {
         message: "無效的 user_id，該用戶不存在",
       });
     }
-
+    const existingImg = await Image.findByPk(image_id);
+    if (!existingImg) {
+      return res.status(400).json({
+        success: false,
+        message: "Image does not exist", // 修改錯誤訊息為正確
+      });
+    }
     // 創建商家
     const newMerchant = await Merchant.create({
       user_id,
@@ -44,6 +49,7 @@ const createMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
+      image_id,
     });
 
     //將role轉成merchat
@@ -59,7 +65,9 @@ const createMerchant = async (req, res) => {
 // 查詢所有商家
 const getAllMerchants = async (req, res) => {
   try {
-    const merchants = await Merchant.findAll();
+    const merchants = await Merchant.findAll({
+      include: [{ model: Image, as: "image" }],
+    });
     if (!merchants || merchants.length === 0) {
       return res.status(404).json({ message: "找不到商家" });
     }
@@ -76,6 +84,7 @@ const getMerchantById = async (req, res) => {
     const { id } = req.params;
     const merchant = await Merchant.findOne({
       where: { id },
+      include: [{ model: Image, as: "image" }],
     });
 
     if (!merchant) {
@@ -109,9 +118,9 @@ const updateMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
+      image_id,
     } = req.body;
 
-    // **手動檢查 user_id 是否存在**
     if (user_id) {
       const user = await User.findByPk(user_id);
       if (!user) {
@@ -120,7 +129,13 @@ const updateMerchant = async (req, res) => {
         });
       }
     }
-
+    const existingImg = await Image.findByPk(image_id);
+    if (!existingImg) {
+      return res.status(400).json({
+        success: false,
+        message: "Image does not exist", // 修改錯誤訊息為正確
+      });
+    }
     // 檢查商家是否存在
     const merchant = await Merchant.findOne({
       where: { id },
@@ -138,6 +153,7 @@ const updateMerchant = async (req, res) => {
       feature,
       merchant_logo,
       location,
+      image_id,
     });
 
     return res.status(200).json({ message: "商家資料更新成功" });
@@ -204,6 +220,7 @@ const getAllMerchantByUserId = async (req, res) => {
           as: "user",
           //attributes: ["id", "name"],如果只要回傳必要欄位
         },
+        { model: Image, as: "image" },
       ],
     });
     if (merchant.length > 0) {

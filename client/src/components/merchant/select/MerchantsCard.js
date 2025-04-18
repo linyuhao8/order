@@ -65,6 +65,12 @@ const MerchantsCard = ({ merchant }) => {
               Updated: {new Date(merchant.updatedAt).toLocaleDateString()}
             </span>
           </div>
+          <div className="flex items-start gap-2">
+            <BsInfoCircle className="mt-1 text-gray-400" />
+            <span className="text-sm text-gray-600 dark:text-gray-300 truncate">
+              Category: {merchant.categories?.[0]?.name}
+            </span>
+          </div>
         </div>
 
         {merchant.description && (

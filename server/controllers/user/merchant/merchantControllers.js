@@ -1,4 +1,5 @@
-const { Merchant, User, Image } = require("../../../config/postgreSql").db;
+const { Merchant, User, Image, MCategory } =
+  require("../../../config/postgreSql").db;
 const {
   createMerchantValidation,
   updateMerchantValidation,
@@ -87,7 +88,10 @@ const createMerchant = async (req, res) => {
 const getAllMerchants = async (req, res) => {
   try {
     const merchants = await Merchant.findAll({
-      include: [{ model: Image, as: "image" }],
+      include: [
+        { model: Image, as: "image" },
+        { model: MCategory, as: "categories" },
+      ],
     });
     if (!merchants || merchants.length === 0) {
       return res.status(404).json({ message: "找不到商家" });
@@ -105,7 +109,10 @@ const getMerchantById = async (req, res) => {
     const { id } = req.params;
     const merchant = await Merchant.findOne({
       where: { id },
-      include: [{ model: Image, as: "image" }],
+      include: [
+        { model: Image, as: "image" },
+        { model: MCategory, as: "categories" },
+      ],
     });
 
     if (!merchant) {
@@ -261,6 +268,7 @@ const getAllMerchantByUserId = async (req, res) => {
           //attributes: ["id", "name"],如果只要回傳必要欄位
         },
         { model: Image, as: "image" },
+        { model: MCategory, as: "categories" },
       ],
     });
     if (merchant.length > 0) {

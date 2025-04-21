@@ -5,12 +5,12 @@ import withAuth from "@/hoc/withAuth";
 //component
 import MerchantCreateTabs from "@/components/merchant/Add-Merchant/MerchantCreateTabs";
 
-function AddMerchantPage({ user }) {
+function AddCategoryPage({ user }) {
   return (
     <>
-      <MerchantCreateTabs user={user} active={"merchant"} />
+      <MerchantCreateTabs user={user} active={"category"} />
     </>
   );
 }
 
-export default withAuth(AddMerchantPage);
+export default withAuth(AddCategoryPage);

@@ -43,7 +43,7 @@ const MerchantList = ({ isAuthenticated, user }) => {
   }, [user]);
 
   if (loading) return <Loading />;
-  if (error) return <div>{error}</div>; 
+  if (error) return <div>{error}</div>;
 
   return (
     <>
@@ -54,13 +54,22 @@ const MerchantList = ({ isAuthenticated, user }) => {
         <div className="mb-8">
           <div className="flex justify-between mb-5">
             <p className="text-xl">Merchants List</p>
-            <Button
-              size="md"
-              variant="outline"
-              href={`/merchant/dashboard/add-merchant/`}
-            >
-              Add Merchant
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                size="md"
+                variant="outline"
+                href={`/merchant/dashboard/add-merchant/`}
+              >
+                Add Merchant
+              </Button>
+              <Button
+                size="md"
+                variant="outline"
+                href={`/merchant/dashboard/add-merchant-category/`}
+              >
+                Add Catergory by merchant
+              </Button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">

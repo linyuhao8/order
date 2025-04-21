@@ -11,8 +11,8 @@ import CategoryTab from "./CategoryTab";
 import MerchantTab from "./MerchantTab";
 import Button from "@/components/common/Button";
 
-const Tab = () => {
-  const [activeTab, setActiveTab] = useState("merchant");
+const Tab = ({active}) => {
+  const [activeTab, setActiveTab] = useState(active);
   const [categories, setCategories] = useState([]);
   const user = useUser();
 

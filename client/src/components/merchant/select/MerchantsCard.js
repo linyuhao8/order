@@ -1,4 +1,12 @@
+"use client";
+//hook
+import { useRouter } from "next/navigation";
+import axios from "axios";
 import Link from "next/link";
+//component
+import Button from "@/components/common/Button";
+import toast from "react-hot-toast";
+//icon
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { IoIosSettings } from "react-icons/io";
 import { MdStorefront } from "react-icons/md";
@@ -7,8 +15,29 @@ import { BsCalendarDate } from "react-icons/bs";
 import { BsInfoCircle } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
 import { FiTrendingUp } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 
-const MerchantsCard = ({ merchant }) => {
+const MerchantsCard = ({ merchant, fetchMerchants }) => {
+  const router = useRouter();
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete merchant: ${merchant.business_name}?`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/${merchant.id}`,
+        { withCredentials: true }
+      );
+      toast.success("Merchant deleted successfully!");
+      fetchMerchants();
+    } catch (error) {
+      console.error("Error deleting merchant:", error);
+      toast.error("Failed to delete merchant.");
+    }
+  };
+
   return (
     <div className="rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
       <div className="p-6">
@@ -87,18 +116,21 @@ const MerchantsCard = ({ merchant }) => {
           </span>
 
           <div className="flex gap-2">
-            <Link
+            <Button
+              variant="square"
               href={`/merchant/dashboard/${merchant.id}`}
-              className="flex justify-center items-center h-9 w-9 rounded-lg bg-gray-100 text-gray-600 hover:bg-amber-100 hover:text-amber-600 transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-amber-900/30 dark:hover:text-amber-400"
             >
               <BsFileEarmarkPost size={18} />
-            </Link>
-            <Link
+            </Button>
+            <Button
+              variant="square"
               href={`/merchant/dashboard/${merchant.id}/setting`}
-              className="flex justify-center items-center h-9 w-9 rounded-lg bg-gray-100 text-gray-600 hover:bg-amber-100 hover:text-amber-600 transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-amber-900/30 dark:hover:text-amber-400"
             >
               <IoIosSettings size={18} />
-            </Link>
+            </Button>
+            <Button variant="square" onClick={handleDelete}>
+              <MdDelete />
+            </Button>
           </div>
         </div>
       </div>

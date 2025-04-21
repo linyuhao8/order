@@ -64,13 +64,13 @@ const Tab = ({active}) => {
               value="merchant"
               className="text-black bg-white dark:text-white dark:bg-gray-800"
             >
-              新增商家
+              Merchant
             </option>
             <option
               value="category"
               className="text-black bg-white dark:text-white dark:bg-gray-800"
             >
-              新增分類
+              Category
             </option>
           </select>
         </div>

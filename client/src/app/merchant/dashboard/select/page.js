@@ -19,26 +19,26 @@ const MerchantList = ({ isAuthenticated, user }) => {
   const [error, setError] = useState("");
 
   //每次載入頁面都會抓取這個user的所有商家資料並顯示
+  const fetchMerchants = async () => {
+    setLoading(true);
+    try {
+      const userId = user.id;
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${userId}/merchants`,
+        { withCredentials: true }
+      );
+
+      setMerchants(response.data);
+      console.log(response.data);
+    } catch (err) {
+      setError("Failed to load merchants.");
+      toast.error("無法加載商家資料！");
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     if (!user) return;
-    const fetchMerchants = async () => {
-      setLoading(true);
-      try {
-        const userId = user.id;
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${userId}/merchants`,
-          { withCredentials: true }
-        );
-
-        setMerchants(response.data);
-        console.log(response.data);
-      } catch (err) {
-        setError("Failed to load merchants.");
-        toast.error("無法加載商家資料！");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchMerchants();
   }, [user]);
 
@@ -67,13 +67,16 @@ const MerchantList = ({ isAuthenticated, user }) => {
                 variant="outline"
                 href={`/merchant/dashboard/add-merchant-category/`}
               >
-                Add Catergory by merchant
+                Add Catergory 
               </Button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
-            <MerchantsGrid merchants={merchants} />
+            <MerchantsGrid
+              merchants={merchants}
+              fetchMerchants={fetchMerchants}
+            />
           </div>
         </div>
       )}

@@ -13,12 +13,15 @@
 }
 
 /* 自動根據系統偏好設定 dark mode */
+/*
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: oklch(0.278 0.033 256.848); /*gray-800*/
+    --background: oklch(0.278 0.033 256.848); // gray-800
     --foreground: rgb(237, 237, 237);
   }
 }
+*/
+
 
 /* 基本樣式 */
 body {

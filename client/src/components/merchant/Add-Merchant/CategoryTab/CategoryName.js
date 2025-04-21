@@ -7,14 +7,14 @@ const CategoryName = ({ categoryForm, handleCategoryChange }) => {
         htmlFor="categoryName"
         className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
-        分類名稱 <span className="text-red-500">*</span>
+        name <span className="text-red-500">*</span>
       </label>
 
       <InputField
         type="text"
         name="name"
         id="categoryName"
-        placeholder={"姓名"}
+        placeholder={"name"}
         value={categoryForm.name}
         onChange={handleCategoryChange}
         variant=""

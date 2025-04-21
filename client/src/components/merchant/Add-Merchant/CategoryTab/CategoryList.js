@@ -64,7 +64,7 @@ const CategoryList = ({ categories, getAllCategories }) => {
                   {category.name}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {category.merchants.length} 個商家
+                  {category.merchants.length} merchants
                 </p>
               </div>
             </div>
@@ -73,7 +73,7 @@ const CategoryList = ({ categories, getAllCategories }) => {
               onClick={() => openDeleteModal(category)} // 打開 Modal 並傳遞要刪除的 category
               className="text-red-500 hover:text-red-700 text-sm cursor-pointer"
             >
-              刪除
+              delete
             </button>
           </div>
         ))}

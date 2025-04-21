@@ -5,7 +5,7 @@ const CategoryDescription = ({ categoryForm, handleCategoryChange }) => {
         htmlFor="categoryDescription"
         className="block text-sm font-medium text-gray-700 dark:text-gray-200"
       >
-        分類描述
+        categoryDescription
       </label>
       <div className="mt-1">
         <textarea

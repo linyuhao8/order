@@ -118,14 +118,15 @@ const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
                 getAllCategories={getAllCategories}
               />
 
-              <div className="px-4 py-3 border-t border-gray-400 text-right sm:px-6">
+              <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-400  text-right sm:px-6">
                 <Button
                   onClick={handleCategorySubmit}
                   type="button"
                   disabled={isLoading}
-                  variant="primary"
+                  variant="outline"
+                  size="lg"
                 >
-                  {isLoading ? "處理中..." : "新增分類"}
+                  {isLoading ? "handling..." : "submit"}
                 </Button>
               </div>
             </form>

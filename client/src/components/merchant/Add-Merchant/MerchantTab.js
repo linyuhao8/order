@@ -7,6 +7,7 @@ import axios from "axios";
 import InputField from "@/components/common/InputField";
 import UploadImageField from "@/components/common/MediaLibrary/UploadImageField";
 import { useRouter } from "next/navigation";
+import Button from "@/components/common/Button";
 
 const MerchantTab = ({ activeTab, categories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -130,10 +131,10 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
         <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
           <div className="px-4 py-5 sm:px-6">
             <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
-              新增商家資料
+              Merchant info
             </h2>
             <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-              請填寫以下商家基本資訊
+              Please fill in the following basic business information
             </p>
           </div>
           <div className="border-t border-gray-200">
@@ -145,7 +146,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="business_name"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
-                      商家名稱 <span className="text-red-500">*</span>
+                      name <span className="text-red-500">*</span>
                     </label>
                     <InputField
                       type="text"
@@ -162,7 +163,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="category_id"
                       className="block text-sm font-medium dark:text-gray-300 text-gray-700"
                     >
-                      商家分類 <span className="text-red-500">*</span>
+                      category <span className="text-red-500">*</span>
                     </label>
                     <div className="mt-1">
                       <select
@@ -177,7 +178,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                           className="text-black bg-white dark:text-white dark:bg-gray-800"
                           value=""
                         >
-                          請選擇分類
+                          choose
                         </option>
                         {categories.map((category) => (
                           <option
@@ -198,7 +199,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="description"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
-                      商家描述
+                      description
                     </label>
                     <div className="mt-1">
                       <textarea
@@ -218,8 +219,8 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="feature"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
-                      商家特色
-                      <span className="text-sm text-gray-400">最多10字</span>
+                      feature
+                      <span className="text-sm text-gray-400">10word</span>
                     </label>
                     <InputField
                       type="text"
@@ -237,7 +238,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="location"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
-                      地址
+                      location
                     </label>
 
                     <InputField
@@ -256,7 +257,7 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
                       htmlFor="business_hours"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
-                      營業時間
+                      business_hours
                     </label>
 
                     <InputField
@@ -288,20 +289,15 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
               </div>
 
               <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6">
-                <button
-                  type="button"
-                  className="cursor-pointer mr-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
-                >
-                  取消
-                </button>
-                <button
+                <Button
+                  onClick={handleMerchantSubmit}
                   type="submit"
                   disabled={isLoading}
-                  onClick={handleMerchantSubmit}
-                  className="cursor-pointer inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                  variant="outline"
+                  size="lg"
                 >
-                  {isLoading ? "處理中..." : "新增商家"}
-                </button>
+                  {isLoading ? "handling..." : "submit"}
+                </Button>
               </div>
             </form>
           </div>

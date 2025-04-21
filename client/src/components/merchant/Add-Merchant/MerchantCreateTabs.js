@@ -6,7 +6,7 @@ import Button from "@/components/common/Button";
 import Tab from "@/components/merchant/Add-Merchant/Tab";
 import Header from "@/components/merchant/common/Header/Header";
 
-const MerchantCreateTabs = ({user,active}) => {
+const MerchantCreateTabs = ({ user, active }) => {
   return (
     <UserContext.Provider value={user}>
       <div className="min-h-screen">
@@ -18,12 +18,14 @@ const MerchantCreateTabs = ({user,active}) => {
             <div className="flex items-center justify-between space-x-5 mb-8">
               <div className="flex items-start space-x-5">
                 <div className="pt-1.5">
-                  <h1 className="text-2xl font-bold">新增資料</h1>
-                  <p className="text-sm font-medium ">管理商家與分類資訊</p>
+                  <h1 className="text-2xl font-bold">Add data</h1>
+                  <p className="text-sm font-medium ">
+                    Manage Merchant and Category Information
+                  </p>
                 </div>
               </div>
               <Button variant="outline" href="/merchant/dashboard/select">
-                返回
+                back
               </Button>
             </div>
 

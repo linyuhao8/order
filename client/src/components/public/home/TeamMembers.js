@@ -1,7 +1,7 @@
 const TeamMembers = () => {
   return (
     <div className="mt-20 text-center mb-8">
-      <p className="text-gray-500 text-sm mb-4">Members</p>
+      <p className="text-gray-500 text-sm mb-4">Gourmet Food</p>
       <div className="flex justify-center space-x-2">
         {[1, 2, 3, 4, 5, 6].map((id) => (
           <div

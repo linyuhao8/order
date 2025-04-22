@@ -4,13 +4,11 @@ import { UserContext } from "@/contexts/UserContext";
 //component
 import Button from "@/components/common/Button";
 import Tab from "@/components/merchant/Add-Merchant/Tab";
-import Header from "@/components/merchant/common/Header/Header";
 
 const MerchantCreateTabs = ({ user, active }) => {
   return (
     <UserContext.Provider value={user}>
       <div className="min-h-screen">
-        <Header />
         {/* 主要內容區 */}
         <main className="py-10">
           <div className="max-w-7xl mx-auto">
@@ -18,7 +16,7 @@ const MerchantCreateTabs = ({ user, active }) => {
             <div className="flex items-center justify-between space-x-5 mb-8">
               <div className="flex items-start space-x-5">
                 <div className="pt-1.5">
-                  <h1 className="text-2xl font-bold">Add data</h1>
+                  <h1 className="text-2xl font-bold">Fill field</h1>
                   <p className="text-sm font-medium ">
                     Manage Merchant and Category Information
                   </p>

@@ -10,7 +10,7 @@ const Page = ({ user }) => {
   const userId = user.id;
   return (
     <>
-      <Header />
+      <Header name={"Profile"}/>
       <UserProfile userId={userId} />
     </>
   );

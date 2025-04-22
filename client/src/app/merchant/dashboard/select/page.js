@@ -47,13 +47,13 @@ const MerchantList = ({ isAuthenticated, user }) => {
 
   return (
     <>
-      <Header />
+      <Header name={"Merchants List"} />
       {merchants.length === 0 ? (
         <p>You don&apos;t have any merchants yet.</p>
       ) : (
         <div className="mb-8">
-          <div className="flex justify-between mb-5">
-            <p className="text-xl">Merchants List</p>
+          <div className="flex justify-start mb-5">
+
             <div className="flex gap-2">
               <Button
                 size="md"

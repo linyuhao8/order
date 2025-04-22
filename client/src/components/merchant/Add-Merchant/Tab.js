@@ -51,7 +51,7 @@ const Tab = ({active}) => {
         {/* 手機版Tab */}
         <div className="sm:hidden">
           <label htmlFor="tabs" className="sr-only">
-            選擇一個標籤
+            choose one
           </label>
           <select
             id="tabs"
@@ -83,13 +83,13 @@ const Tab = ({active}) => {
                 onClick={() => setActiveTab("merchant")}
                 variant={activeTab === "merchant" ? "activeTab" : "tab"}
               >
-                新增商家
+                Merchant
               </Button>
               <Button
                 onClick={() => setActiveTab("category")}
                 variant={activeTab === "category" ? "activeTab" : "tab"}
               >
-                新增分類
+                Category
               </Button>
             </nav>
           </div>

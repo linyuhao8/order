@@ -14,7 +14,7 @@ function Dashboard({ isAuthenticated, user }) {
     <>
       {/* Main Content - Adjusted for Responsiveness */}
       <div>
-        <Header />
+        <Header name={"Dashboard"}/>
         {/* Grid Layout with Responsive Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <UserProfile userId={userId} />

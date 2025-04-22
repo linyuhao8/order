@@ -201,7 +201,7 @@ const MediaLibrary = ({
 
   return (
     <div
-      className="min-w-[60vw] h-[80vh] bg-white rounded-lg shadow-md overflow-y-auto"
+      className="min-w-[60vw] h-[80vh] bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-y-auto"
       onDragEnter={handleDrag}
       onDragLeave={handleDrag}
       onDragOver={handleDrag}
@@ -209,17 +209,17 @@ const MediaLibrary = ({
     >
       {/* 標頭 */}
       <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-xl font-medium text-gray-800">媒體庫</h2>
+        <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">媒體庫</h2>
         <div className="flex gap-2">
-          <span className="text-sm text-gray-500">
-            已選擇 {selectedImages.length}/{maxSelect} 項
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+             {selectedImages.length}/{maxSelect} selected
           </span>
           {selectedImages.length > 0 && (
             <button
               onClick={confirmSelection}
               className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 transition-colors"
             >
-              確認選擇
+              Confirm Selection
             </button>
           )}
         </div>
@@ -245,15 +245,15 @@ const MediaLibrary = ({
             onChange={handleFileChange}
             className="hidden"
           />
-          <Upload className="mx-auto h-12 w-12 text-gray-400" />
-          <p className="mt-2 text-sm text-gray-600">拖放圖片至此處或點擊上傳</p>
-          <p className="text-xs text-gray-500 mt-1">最多可同時上傳 10 張圖片</p>
+          <Upload className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-400" />
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Drag and drop the image here or click to upload.</p>
+          <p className="text-xs text-gray-500 mt-1 dark:text-gray-400">Up to 10 pictures can be uploaded at the same time.</p>
           {uploadLoading && (
             <div className="mt-2">
               <div className="w-full bg-gray-200 rounded-full h-1">
                 <div className="bg-blue-500 h-1 rounded-full animate-pulse"></div>
               </div>
-              <p className="text-xs text-gray-500 mt-1">正在上傳...</p>
+              <p className="text-xs text-gray-500 mt-1">Uploading...</p>
             </div>
           )}
         </div>
@@ -271,7 +271,7 @@ const MediaLibrary = ({
             ))}
           </div>
         ) : images.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">尚無圖片</div>
+          <div className="text-center py-12 text-gray-500">not</div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 ">
             {images.map((image) => (
@@ -371,7 +371,7 @@ const MediaLibrary = ({
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-xl w-full max-h-screen overflow-auto">
             <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="text-lg font-medium">圖片詳情</h3>
+              <h3 className="text-lg font-medium">details</h3>
               <button
                 onClick={closeDetail}
                 className="text-gray-500 hover:text-gray-700"
@@ -393,14 +393,14 @@ const MediaLibrary = ({
 
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">文件名</span>
+                  <span className="text-gray-600">name</span>
                   <span className="text-gray-900 font-medium">
                     {detailImage.filename || "未命名"}
                   </span>
                 </div>
                 {detailImage.size && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">大小</span>
+                    <span className="text-gray-600">size</span>
                     <span className="text-gray-900 font-medium">
                       {Math.round(detailImage.size / 1024)} KB
                     </span>
@@ -408,7 +408,7 @@ const MediaLibrary = ({
                 )}
                 {detailImage.height && detailImage.width && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">尺寸</span>
+                    <span className="text-gray-600">Width x height</span>
                     <span className="text-gray-900 font-medium">
                       {detailImage.width} x {detailImage.height}
                     </span>
@@ -416,7 +416,7 @@ const MediaLibrary = ({
                 )}
                 {detailImage.createdAt && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">上傳日期</span>
+                    <span className="text-gray-600">upload date</span>
                     <span className="text-gray-900 font-medium">
                       {new Date(detailImage.createdAt).toLocaleDateString()}
                     </span>

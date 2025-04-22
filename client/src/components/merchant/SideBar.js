@@ -55,23 +55,22 @@ const Navbar = () => {
               },
               {
                 icon: MdRestaurantMenu,
-                label: "Menu",
-                url: "/menu",
-              },
-              {
-                icon: MdRestaurantMenu,
                 label: "Media",
                 url: "/merchant/dashboard/media",
               },
-
+              {
+                icon: MdRestaurantMenu,
+                label: "Menu(not yet)",
+                url: "/menu",
+              },
               {
                 icon: FaShoppingCart,
-                label: "Order",
+                label: "Order(not yet)",
                 url: "/order",
               },
               {
                 icon: MdRateReview,
-                label: "Review",
+                label: "Review(not yet)",
                 url: "/review",
               },
             ].map((item, index) => (

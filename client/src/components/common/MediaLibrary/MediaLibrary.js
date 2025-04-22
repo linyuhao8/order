@@ -29,7 +29,7 @@ const MediaLibrary = ({
   const [dragActive, setDragActive] = useState(false);
 
   const fileInputRef = useRef(null);
-  const limit = 20; // Number of images per page , When using fetch images and client pagination
+  const limit = 10; // Number of images per page , When using fetch images and client pagination
 
   // 獲取圖片列表
   const fetchImages = useCallback(async () => {
@@ -307,7 +307,7 @@ const MediaLibrary = ({
                       className={`p-1 rounded-full ${
                         selectedImages.some((img) => img.id === image.id)
                           ? "bg-blue-500 text-white" // Selected style
-                          : "bg-white text-gray-600 opacity-0 group-hover:opacity-100" // Show only on hover
+                          : "bg-white text-gray-600 opacity-0 group-hover:opacity-100 hover:cursor-pointer" // Show only on hover
                       }`}
                     >
                       <Check size={16} /> {/* Check icon */}
@@ -319,7 +319,7 @@ const MediaLibrary = ({
                         e.stopPropagation(); // Prevents the click from triggering parent click
                         handleViewDetail(image); // Opens detail view for this image
                       }}
-                      className="p-1 rounded-full bg-white text-gray-600 opacity-0 group-hover:opacity-100"
+                      className="p-1 rounded-full bg-white text-gray-600 opacity-0 group-hover:opacity-100 hover:cursor-pointer"
                     >
                       <Info size={16} /> {/* Info icon */}
                     </button>
@@ -374,7 +374,7 @@ const MediaLibrary = ({
               <h3 className="text-lg font-medium">details</h3>
               <button
                 onClick={closeDetail}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 hover:cursor-pointer"
               >
                 <X size={20} />
               </button>
@@ -439,7 +439,7 @@ const MediaLibrary = ({
                   className={`px-4 py-2 rounded-md ${
                     selectedImages.some((img) => img.id === detailImage.id)
                       ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                      : "bg-blue-500 text-white hover:bg-blue-600"
+                      : "bg-blue-500 text-white hover:bg-blue-600 hover:cursor-pointer"
                   }`}
                 >
                   {selectedImages.some((img) => img.id === detailImage.id)

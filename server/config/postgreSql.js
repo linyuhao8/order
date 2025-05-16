@@ -94,10 +94,7 @@ db.OptionValue = require("../models/product/product_option/optionValueModel")(
   sequelize,
   Sequelize.DataTypes
 );
-db.Image = require("../models/image")(
-  sequelize,
-  Sequelize.DataTypes
-);
+db.Image = require("../models/image")(sequelize, Sequelize.DataTypes);
 
 // 同步所有模型
 // 使用 { force: false, alter: true }
@@ -105,7 +102,7 @@ db.Image = require("../models/image")(
 async function syncDatabase() {
   try {
     // 使用 { alter: true } 可以保證在同步時自動創建不存在的資料表，也會更新結構
-    await sequelize.sync({ force: false, alter: true });
+    await sequelize.sync({ force: false, alter: false });
     console.log(
       "✅ Models synced with the database and missing tables created."
     );

@@ -31,7 +31,13 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
         { withCredentials: true }
       );
       toast.success("Merchant deleted successfully!");
-      fetchMerchants();
+      // ✅ 判斷是否有傳入 fetchMerchants（來自商家列表頁）
+      if (typeof fetchMerchants === "function") {
+        fetchMerchants();
+      } else {
+        // ❌ 沒有 fetchMerchants，可能是從單一商家頁面進來
+        router.push("/merchant/dashboard/select");
+      }
     } catch (error) {
       console.error("Error deleting merchant:", error);
       toast.error("Failed to delete merchant.");

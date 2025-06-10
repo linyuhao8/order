@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 //component
 import Header from "@/components/merchant/common/Header/Header";
-import MerchantsGrid from "@/components/merchant/select/MerchantsList";
+import MerchantsList from "@/components/merchant/select/MerchantsList";
 import Button from "@/components/common/Button";
 import Loading from "@/components/common/Loading";
 
@@ -53,7 +53,6 @@ const MerchantList = ({ isAuthenticated, user }) => {
       ) : (
         <div className="mb-8">
           <div className="flex justify-start mb-5">
-
             <div className="flex gap-2">
               <Button
                 size="md"
@@ -67,13 +66,13 @@ const MerchantList = ({ isAuthenticated, user }) => {
                 variant="outline"
                 href={`/merchant/dashboard/add-merchant-category/`}
               >
-                Add Catergory 
+                Add Catergory
               </Button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
-            <MerchantsGrid
+            <MerchantsList
               merchants={merchants}
               fetchMerchants={fetchMerchants}
             />

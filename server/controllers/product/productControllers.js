@@ -63,13 +63,6 @@ const getProductsWithMenuId = async (req, res) => {
     // 查詢所有 `menu_id` 匹配的產品
     const products = await Product.findAll({
       where: { menu_id }, // 過濾 `menu_id`
-      include: [
-        {
-          model: Menu,
-          as: "menu",
-          attributes: ["name"], // 只回傳 `menu.name`
-        },
-      ],
     });
 
     if (products.length === 0) {

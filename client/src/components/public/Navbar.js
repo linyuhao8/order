@@ -17,7 +17,7 @@ import ThemeButton from "../common/ui/ThemeButton";
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
     <Button
-      href="/merchant/dashboard/user/profile"
+      href="/merchant/dashboard/profile"
       variant="icon"
       icon={FaUser}
     ></Button>

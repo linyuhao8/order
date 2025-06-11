@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "menu_id", // 這表示 Product 表中會有一個 `menu_id` 欄位，指向 Menu 表中的 `id` 欄位
       // `as` 用來定義這個關聯的別名，這個別名會用於查詢時來加載相關聯的資料
       // 在這裡我們設置為 "products"，之後在 include 查詢時會使用這個別名來獲取所有對應的產品
-      as: "menu",
+      as: "products",
       onDelete: "CASCADE", // 刪除 Menu 時，刪除關聯的 Product
       onUpdate: "CASCADE",
     });

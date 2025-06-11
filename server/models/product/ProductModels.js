@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     // 設定 Product 與 Menu 的一對多關聯 (Product 會有一個 menu_id 指向 Menu)
     Product.belongsTo(models.Menu, {
       foreignKey: "menu_id", // 在 Product 模型中，使用 "menu_id" 作為外鍵
-      as: "menu", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
+      as: "products", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });

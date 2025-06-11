@@ -163,7 +163,7 @@ const getMerchantDetails = async (req, res) => {
           include: [
             {
               model: ProductImg,
-              as: "images", // 產品圖片
+              as: "product_imgs", // 產品圖片
             },
             //     {
             //       model: ProductCategory,

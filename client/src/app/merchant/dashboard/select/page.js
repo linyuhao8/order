@@ -1,54 +1,39 @@
 "use client";
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-import toast from "react-hot-toast";
 
 //component
 import Header from "@/components/merchant/common/Header/Header";
 import MerchantsList from "@/components/merchant/select/MerchantsList";
 import Button from "@/components/common/Button";
 import Loading from "@/components/common/Loading";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
 //hook
 import withAuth from "@/hoc/withAuth";
+import useFetch from "@/hooks/api/useFetch";
 
 const MerchantList = ({ isAuthenticated, user }) => {
-  const [merchants, setMerchants] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const url = user
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${user.id}/merchants`
+    : null;
 
-  //每次載入頁面都會抓取這個user的所有商家資料並顯示
-  const fetchMerchants = async () => {
-    setLoading(true);
-    try {
-      const userId = user.id;
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${userId}/merchants`,
-        { withCredentials: true }
-      );
-
-      setMerchants(response.data);
-      console.log(response.data);
-    } catch (err) {
-      setError("Failed to load merchants.");
-      toast.error("無法加載商家資料！");
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    if (!user) return;
-    fetchMerchants();
-  }, [user]);
+  const {
+    data: merchants,
+    loading,
+    error,
+    refetch,
+  } = useFetch(url, {
+    withCredentials: true,
+    enabled: !!user, // 確保 user 有值才執行抓取
+  });
 
   if (loading) return <Loading />;
-  if (error) return <div>{error}</div>;
+  if (error)
+    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
 
   return (
     <>
       <Header name={"Merchants List"} />
-      {merchants.length === 0 ? (
+      {!merchants?.length ? (
         <p>You don&apos;t have any merchants yet.</p>
       ) : (
         <div className="mb-8">
@@ -72,10 +57,7 @@ const MerchantList = ({ isAuthenticated, user }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
-            <MerchantsList
-              merchants={merchants}
-              fetchMerchants={fetchMerchants}
-            />
+            <MerchantsList merchants={merchants} fetchMerchants={refetch} />
           </div>
         </div>
       )}

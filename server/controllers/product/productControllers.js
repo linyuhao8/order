@@ -58,18 +58,13 @@ const getAllProducts = async (req, res) => {
 // 查詢所有有 menu_id 的產品
 const getProductsWithMenuId = async (req, res) => {
   try {
-    const { menu_id } = req.params; // 從 URL 參數獲取 menu_id
+    const { menu_id } = req.params;
 
-    // 查詢所有 `menu_id` 匹配的產品
     const products = await Product.findAll({
-      where: { menu_id }, // 過濾 `menu_id`
+      where: { menu_id },
     });
 
-    if (products.length === 0) {
-      return res.status(404).json({ message: "找不到此 menu_id 的產品" });
-    }
-
-    return res.status(200).json(products);
+    return res.status(200).json(products); // 直接回傳即可
   } catch (error) {
     console.error("查詢失敗:", error);
     return res.status(500).json({ message: "無法獲取產品", error });

@@ -69,16 +69,17 @@ export default function MerchantMenu({ id }) {
                 <div className="flex items-start justify-between mb-4">
                   {/* 左側菜單資訊 */}
                   <div className="flex-1 space-y-3">
-                    {/* 菜單 ID 標籤 */}
-                    <div className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
-                      ID: {menu.id}
-                    </div>
-
-                    {/* 菜單名稱 */}
-                    <div>
-                      <h4 className="text-xl font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
-                        {menu.name}
-                      </h4>
+                    <div className="flex flex-col sm:flex-col md:flex-row">
+                      {/* 菜單名稱 */}
+                      <div>
+                        <h4 className="text-xl  text-gray-700 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
+                          {menu.name}
+                        </h4>
+                      </div>
+                      {/* 菜單 ID 標籤 */}
+                      <div className="inline-flex mt-2 text-gray-400 items-center rounded-md  text-xs font-semibold  hover:bg-secondary/80">
+                        ID: {menu.id}
+                      </div>
                     </div>
 
                     {/* 菜單描述 */}

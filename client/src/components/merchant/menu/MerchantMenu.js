@@ -5,22 +5,32 @@ import ProductList from "../product/ProductList";
 import useFetch from "@/hooks/api/useFetch";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import Loading from "@/components/common/Loading";
+import Button from "@/components/common/Button";
+import { MdDelete } from "react-icons/md";
 
 export default function MerchantMenu({ id }) {
   const [productCount, setProductCounts] = useState({});
 
-  const url = id
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${id}`
+  const getMenusUrl = id
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${id}?limit=1`
     : null;
 
+  //getMenus API
   const {
     data: menus,
-    loading,
-    error,
-    refetch,
-  } = useFetch(url, {
+    loading: menusLoading,
+    error: menusError,
+    refetch: menusRefetch,
+  } = useFetch(getMenusUrl, {
     withCredentials: true,
     enabled: !!id,
+  });
+
+  //Delete API
+  const { refetch: deleteRefetch } = useFetch(null, {
+    method: "DELETE",
+    withCredentials: true,
+    enabled: false,
   });
 
   const handleProductCountChange = (menuId, count) => {
@@ -29,9 +39,22 @@ export default function MerchantMenu({ id }) {
       [menuId]: count,
     }));
   };
+  const handleDelete = async (menuId, name) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete this Menu: ${name}?`
+    );
+    if (!confirmDelete) return;
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/menus/${menuId}`;
+      const res = await deleteRefetch({ url });
+      if (res) menusRefetch(); // 重新拉菜單資料
+    } catch (e) {
+      //useFetch裡面會處理回傳錯誤
+    }
+  };
 
-  if (loading) return <Loading />;
-  if (error)
+  if (menusLoading) return <Loading />;
+  if (menusError)
     return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
 
   return (
@@ -59,7 +82,7 @@ export default function MerchantMenu({ id }) {
         </div>
       ) : (
         /* 菜單列表 */
-        <div className="">
+        <div className="flex flex-col gap-8">
           {menus?.map((menu) => (
             <div
               key={menu.id}
@@ -94,6 +117,13 @@ export default function MerchantMenu({ id }) {
                       <span className="mr-1.5">📊</span>
                       <p>{productCount[menu.id]} 項商品</p>
                     </div>
+
+                    <Button
+                      variant="square"
+                      onClick={() => handleDelete(menu.id, menu.name)}
+                    >
+                      <MdDelete />
+                    </Button>
                   </div>
                 </div>
 

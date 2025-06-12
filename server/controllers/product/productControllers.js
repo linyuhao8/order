@@ -59,12 +59,15 @@ const getAllProducts = async (req, res) => {
 const getProductsWithMenuId = async (req, res) => {
   try {
     const { menu_id } = req.params;
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 10; // 預設 20 筆
 
     const products = await Product.findAll({
       where: { menu_id },
+      limit,
+      order: [["createdAt", "DESC"]],
     });
 
-    return res.status(200).json(products); // 直接回傳即可
+    return res.status(200).json(products);
   } catch (error) {
     console.error("查詢失敗:", error);
     return res.status(500).json({ message: "無法獲取產品", error });

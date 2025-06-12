@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 //component
 import Button from "@/components/common/Button";
 import MenuTab from "./MenuTab";
+import ProductTab from "../../product/ProductTab";
 
 const Tab = ({ active, merchantId }) => {
-  const [activeTab, setActiveTab] = useState(active);
+  const [activeTab, setActiveTab] = useState(active || "menu");
   return (
     <>
       {/* 選項卡切換 */}
@@ -24,18 +25,8 @@ const Tab = ({ active, merchantId }) => {
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value)}
           >
-            <option
-              value="menu"
-              className="text-black bg-white dark:text-white dark:bg-gray-800"
-            >
-              Menu
-            </option>
-            <option
-              value="product"
-              className="text-black bg-white dark:text-white dark:bg-gray-800"
-            >
-              Product
-            </option>
+            <option value="menu">Menu</option>
+            <option value="product">Product</option>
           </select>
         </div>
 
@@ -59,7 +50,12 @@ const Tab = ({ active, merchantId }) => {
           </div>
         </div>
       </div>
-      <MenuTab activeTab={activeTab} merchantId={merchantId} />
+      {activeTab === "menu" && (
+        <MenuTab activeTab={activeTab} merchantId={merchantId} />
+      )}
+      {activeTab === "product" && (
+        <ProductTab activeTab={activeTab} merchantId={merchantId} />
+      )}
     </>
   );
 };

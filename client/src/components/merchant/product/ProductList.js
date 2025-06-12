@@ -6,7 +6,7 @@ import Loading from "@/components/common/Loading";
 
 const ProductList = ({ menuId, onProductCountChange }) => {
   const url = menuId
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/menu/${menuId}`
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/menu/${menuId}?limit=2`
     : null;
 
   const {
@@ -48,7 +48,7 @@ const ProductList = ({ menuId, onProductCountChange }) => {
               {/* 左側內容 */}
               <div className="flex-1 space-y-3">
                 {/* ID 標籤 */}
-                <div className="inline-flex text-gray-400 items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                <div className="text-gray-400 items-center rounded-md border border-b border-gray-200 px-2.5 py-0.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparen hover:bg-secondary/80">
                   #{product.id}
                 </div>
 

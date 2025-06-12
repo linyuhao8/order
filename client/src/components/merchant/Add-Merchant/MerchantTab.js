@@ -127,182 +127,180 @@ const MerchantTab = ({ activeTab, categories, userId }) => {
   return (
     <>
       {/* 商家表單區塊 */}
-      {activeTab === "merchant" && (
-        <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
-              Merchant info
-            </h2>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-              Please fill in the following basic business information
-            </p>
-          </div>
-          <div className="border-t border-gray-200">
-            <form onSubmit={handleMerchantSubmit}>
-              <div className="px-4 py-5  sm:p-6">
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="business_name"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      name <span className="text-red-500">*</span>
-                    </label>
-                    <InputField
-                      type="text"
-                      name="business_name"
-                      id="business_name"
-                      required
-                      value={merchantForm.business_name}
-                      onChange={handleMerchantChange}
-                    />
-                  </div>
+      <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
+        <div className="px-4 py-5 sm:px-6">
+          <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+            Merchant info
+          </h2>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
+            Please fill in the following basic business information
+          </p>
+        </div>
+        <div className="border-t border-gray-200">
+          <form onSubmit={handleMerchantSubmit}>
+            <div className="px-4 py-5  sm:p-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="business_name"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    name <span className="text-red-500">*</span>
+                  </label>
+                  <InputField
+                    type="text"
+                    name="business_name"
+                    id="business_name"
+                    required
+                    value={merchantForm.business_name}
+                    onChange={handleMerchantChange}
+                  />
+                </div>
 
-                  <div className="sm:col-span-3">
-                    <label
-                      htmlFor="category_id"
-                      className="block text-sm font-medium dark:text-gray-300 text-gray-700"
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="category_id"
+                    className="block text-sm font-medium dark:text-gray-300 text-gray-700"
+                  >
+                    category <span className="text-red-500">*</span>
+                  </label>
+                  <div className="mt-1">
+                    <select
+                      id="category_id"
+                      name="category_id"
+                      required
+                      value={merchantForm.category_id}
+                      onChange={handleMerchantChange}
+                      className="block w-full py-1 px-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-sm focus:ring-amber-500"
                     >
-                      category <span className="text-red-500">*</span>
-                    </label>
-                    <div className="mt-1">
-                      <select
-                        id="category_id"
-                        name="category_id"
-                        required
-                        value={merchantForm.category_id}
-                        onChange={handleMerchantChange}
-                        className="block w-full py-1 px-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-sm focus:ring-amber-500"
+                      <option
+                        className="text-black bg-white dark:text-white dark:bg-gray-800"
+                        value=""
                       >
+                        choose
+                      </option>
+                      {categories.map((category) => (
                         <option
+                          key={category.id}
+                          value={category.id}
                           className="text-black bg-white dark:text-white dark:bg-gray-800"
-                          value=""
                         >
-                          choose
+                          {category.name} ({category.merchants.length})
                         </option>
-                        {categories.map((category) => (
-                          <option
-                            key={category.id}
-                            value={category.id}
-                            className="text-black bg-white dark:text-white dark:bg-gray-800"
-                          >
-                            {category.name} ({category.merchants.length})
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      ))}
+                    </select>
                   </div>
+                </div>
 
-                  {/* 商家描述 */}
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="description"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      description
-                    </label>
-                    <div className="mt-1">
-                      <textarea
-                        id="description"
-                        name="description"
-                        rows={3}
-                        value={merchantForm.description}
-                        onChange={handleMerchantChange}
-                        className="focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md"
-                      />
-                    </div>
-                  </div>
-
-                  {/* 商家特色 */}
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="feature"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      feature
-                      <span className="text-sm text-gray-400">10word</span>
-                    </label>
-                    <InputField
-                      type="text"
-                      name="feature"
-                      id="feature"
-                      value={merchantForm.feature}
+                {/* 商家描述 */}
+                <div className="sm:col-span-6">
+                  <label
+                    htmlFor="description"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    description
+                  </label>
+                  <div className="mt-1">
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows={3}
+                      value={merchantForm.description}
                       onChange={handleMerchantChange}
-                      placeholder="例：手作甜點、有插座、寵物友善..."
-                    />
-                  </div>
-
-                  {/* 商家地址 */}
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="location"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      location
-                    </label>
-
-                    <InputField
-                      type="text"
-                      name="location"
-                      id="location"
-                      required
-                      value={merchantForm.location}
-                      onChange={handleMerchantChange}
-                    />
-                  </div>
-
-                  {/* 營業時間 */}
-                  <div className="sm:col-span-6">
-                    <label
-                      htmlFor="business_hours"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      business_hours
-                    </label>
-
-                    <InputField
-                      type="text"
-                      name="business_hours"
-                      id="business_hours"
-                      value={merchantForm.business_hours}
-                      onChange={handleMerchantChange}
-                      placeholder="例：週一至週五 9:00-18:00"
-                    />
-                  </div>
-
-                  {/* 商家 Logo（上傳後 image_id） */}
-                  <div className="sm:col-span-6">
-                    {/* 你這邊可以換成自己的上傳組件 */}
-                    <UploadImageField
-                      FormData={merchantForm}
-                      setFormData={setMerchantForm}
-                      handleSelectImages={(images) =>
-                        handleSelectImages(images, "merchant_logo")
-                      }
-                      name="merchant_logo"
-                      maxSelect={1}
-                      userId={userId}
-                      fieldName="merchant_logo"
+                      className="focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md"
                     />
                   </div>
                 </div>
-              </div>
 
-              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6">
-                <Button
-                  onClick={handleMerchantSubmit}
-                  type="submit"
-                  disabled={isLoading}
-                  variant="outline"
-                  size="lg"
-                >
-                  {isLoading ? "handling..." : "submit"}
-                </Button>
+                {/* 商家特色 */}
+                <div className="sm:col-span-6">
+                  <label
+                    htmlFor="feature"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    feature
+                    <span className="text-sm text-gray-400">10word</span>
+                  </label>
+                  <InputField
+                    type="text"
+                    name="feature"
+                    id="feature"
+                    value={merchantForm.feature}
+                    onChange={handleMerchantChange}
+                    placeholder="例：手作甜點、有插座、寵物友善..."
+                  />
+                </div>
+
+                {/* 商家地址 */}
+                <div className="sm:col-span-6">
+                  <label
+                    htmlFor="location"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    location
+                  </label>
+
+                  <InputField
+                    type="text"
+                    name="location"
+                    id="location"
+                    required
+                    value={merchantForm.location}
+                    onChange={handleMerchantChange}
+                  />
+                </div>
+
+                {/* 營業時間 */}
+                <div className="sm:col-span-6">
+                  <label
+                    htmlFor="business_hours"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    business_hours
+                  </label>
+
+                  <InputField
+                    type="text"
+                    name="business_hours"
+                    id="business_hours"
+                    value={merchantForm.business_hours}
+                    onChange={handleMerchantChange}
+                    placeholder="例：週一至週五 9:00-18:00"
+                  />
+                </div>
+
+                {/* 商家 Logo（上傳後 image_id） */}
+                <div className="sm:col-span-6">
+                  {/* 你這邊可以換成自己的上傳組件 */}
+                  <UploadImageField
+                    FormData={merchantForm}
+                    setFormData={setMerchantForm}
+                    handleSelectImages={(images) =>
+                      handleSelectImages(images, "merchant_logo")
+                    }
+                    name="merchant_logo"
+                    maxSelect={1}
+                    userId={userId}
+                    fieldName="merchant_logo"
+                  />
+                </div>
               </div>
-            </form>
-          </div>
+            </div>
+
+            <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6">
+              <Button
+                onClick={handleMerchantSubmit}
+                type="submit"
+                disabled={isLoading}
+                variant="outline"
+                size="lg"
+              >
+                {isLoading ? "handling..." : "submit"}
+              </Button>
+            </div>
+          </form>
         </div>
-      )}
+      </div>
     </>
   );
 };

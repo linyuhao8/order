@@ -85,54 +85,52 @@ const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
   return (
     <>
       {/* 分類表單區塊 */}
-      {activeTab === "category" && (
-        <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
-          <Hero />
-          <div className="border-t border-gray-200">
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div className="px-4 py-5 sm:p-6">
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
-                  <CategoryName
-                    categoryForm={categoryForm}
-                    handleCategoryChange={handleCategoryChange}
-                  />
-                  <UploadImageField
-                    FormData={categoryForm}
-                    setFormData={setCategoryForm}
-                    handleSelectImages={(images) =>
-                      handleSelectImages(images, "category_logo")
-                    }
-                    name="category_logo"
-                    maxSelect={1}
-                    userId={userId}
-                    fieldName="category_logo"
-                  />
-                  <CategoryDescription
-                    categoryForm={categoryForm}
-                    handleCategoryChange={handleCategoryChange}
-                  />
-                </div>
+      <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+        <Hero />
+        <div className="border-t border-gray-200">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="px-4 py-5 sm:p-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
+                <CategoryName
+                  categoryForm={categoryForm}
+                  handleCategoryChange={handleCategoryChange}
+                />
+                <UploadImageField
+                  FormData={categoryForm}
+                  setFormData={setCategoryForm}
+                  handleSelectImages={(images) =>
+                    handleSelectImages(images, "category_logo")
+                  }
+                  name="category_logo"
+                  maxSelect={1}
+                  userId={userId}
+                  fieldName="category_logo"
+                />
+                <CategoryDescription
+                  categoryForm={categoryForm}
+                  handleCategoryChange={handleCategoryChange}
+                />
               </div>
-              <CategoryList
-                categories={categories}
-                getAllCategories={getAllCategories}
-              />
+            </div>
+            <CategoryList
+              categories={categories}
+              getAllCategories={getAllCategories}
+            />
 
-              <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-400  text-right sm:px-6">
-                <Button
-                  onClick={handleCategorySubmit}
-                  type="button"
-                  disabled={isLoading}
-                  variant="outline"
-                  size="lg"
-                >
-                  {isLoading ? "handling..." : "submit"}
-                </Button>
-              </div>
-            </form>
-          </div>
+            <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-400  text-right sm:px-6">
+              <Button
+                onClick={handleCategorySubmit}
+                type="button"
+                disabled={isLoading}
+                variant="outline"
+                size="lg"
+              >
+                {isLoading ? "handling..." : "submit"}
+              </Button>
+            </div>
+          </form>
         </div>
-      )}
+      </div>
     </>
   );
 };

@@ -12,7 +12,7 @@ import Loading from "@/components/common/Loading";
 import ErrorMessage from "@/components/common/ErrorMessage";
 
 const Tab = ({ active }) => {
-  const [activeTab, setActiveTab] = useState(active);
+  const [activeTab, setActiveTab] = useState(active || "merchant");
   const [categories, setCategories] = useState([]);
 
   //custom context
@@ -55,18 +55,8 @@ const Tab = ({ active }) => {
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value)}
           >
-            <option
-              value="merchant"
-              className="text-black bg-white dark:text-white dark:bg-gray-800"
-            >
-              Merchant
-            </option>
-            <option
-              value="category"
-              className="text-black bg-white dark:text-white dark:bg-gray-800"
-            >
-              Category
-            </option>
+            <option value="merchant">Merchant</option>
+            <option value="category">Category</option>
           </select>
         </div>
 
@@ -91,17 +81,22 @@ const Tab = ({ active }) => {
         </div>
       </div>
 
-      <MerchantTab
-        activeTab={activeTab}
-        categories={categories}
-        userId={userId}
-      />
-      <CategoryTab
-        activeTab={activeTab}
-        categories={categories}
-        getAllCategories={refetch}
-        userId={userId}
-      />
+      {activeTab === "merchant" && (
+        <MerchantTab
+          activeTab={activeTab}
+          categories={categories}
+          userId={userId}
+        />
+      )}
+
+      {activeTab === "category" && (
+        <CategoryTab
+          activeTab={activeTab}
+          categories={categories}
+          getAllCategories={refetch}
+          userId={userId}
+        />
+      )}
     </>
   );
 };

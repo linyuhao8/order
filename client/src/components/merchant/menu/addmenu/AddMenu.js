@@ -2,7 +2,7 @@
 //component
 import Button from "@/components/common/Button";
 import Tab from "./Tab";
-const AddMenu = ({ user, active, merchantId }) => {
+const AddPage = ({ user, active, merchantId }) => {
   return (
     <div className="min-h-screen">
       {/* 主要內容區 */}
@@ -32,4 +32,4 @@ const AddMenu = ({ user, active, merchantId }) => {
   );
 };
 
-export default AddMenu;
+export default AddPage;

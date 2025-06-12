@@ -8,6 +8,7 @@ import SettingTabs from "@/components/merchant/setting/SettingTabs";
 import AccountSettings from "@/components/merchant/setting/tabs/AccountSetting/AccountSettings";
 import NotificationSettings from "@/components/merchant/setting/tabs/NotificationSettings";
 import PrivacySettings from "@/components/merchant/setting/tabs/PrivacySettings";
+import Loading from "@/components/common/Loading";
 
 //Sesstion
 import useSession from "@/hooks/useSesstion";
@@ -18,7 +19,7 @@ const SettingPage = () => {
   //get Userdata
   const user = useSession("user");
   if (!user) {
-    return <div>Loading...</div>; // if on data return loading
+    return <Loading />; // if on data return loading
   }
   const userId = user.id;
 

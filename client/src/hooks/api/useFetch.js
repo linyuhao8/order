@@ -59,9 +59,10 @@ export default function useFetch(defaultUrl = "", options = {}) {
         });
 
         setData(response.data);
+
         const isSuccess =
-          (method === "POST" && response.status === 201) ||
-          (["PUT", "DELETE"].includes(method) &&
+          (reqMethod === "POST" && response.status === 201) ||
+          (["PUT", "DELETE"].includes(reqMethod) &&
             [200, 204].includes(response.status));
 
         let messageMap = {
@@ -72,7 +73,7 @@ export default function useFetch(defaultUrl = "", options = {}) {
 
         if (isSuccess) {
           toast.success(
-            response.data?.message || messageMap[method] || "操作成功"
+            response.data?.message || messageMap[reqMethod] || "操作成功"
           );
         }
 

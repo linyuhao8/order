@@ -6,7 +6,7 @@ import Loading from "@/components/common/Loading";
 
 const ProductList = ({ menuId, onProductCountChange }) => {
   const url = menuId
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/menu/${menuId}?limit=2`
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/menu/${menuId}?limit=5`
     : null;
 
   const {
@@ -47,11 +47,6 @@ const ProductList = ({ menuId, onProductCountChange }) => {
             <div className="flex items-start justify-between">
               {/* 左側內容 */}
               <div className="flex-1 space-y-3">
-                {/* ID 標籤 */}
-                <div className="text-gray-400 items-center rounded-md border border-b border-gray-200 px-2.5 py-0.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparen hover:bg-secondary/80">
-                  #{product.id}
-                </div>
-
                 {/* 產品名稱 */}
                 <div>
                   <h3 className="text-sm text-gray-600  dark:text-gray-300 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
@@ -82,13 +77,8 @@ const ProductList = ({ menuId, onProductCountChange }) => {
               {/* 右側價格區域 */}
               <div className="flex flex-col items-end gap-3 ml-6">
                 {/* 價格標籤 */}
-                <div className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm shadow-sm">
+                <div className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-[12px] shadow-sm">
                   NT$ {product.price.toLocaleString()}
-                </div>
-
-                {/* Menu ID */}
-                <div className="inline-flex items-center  shadow-sm rounded-md px-2 py-1 text-xs">
-                  Menu: {product.menu_id.slice(-8)}
                 </div>
               </div>
             </div>

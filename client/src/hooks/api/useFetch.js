@@ -59,11 +59,32 @@ export default function useFetch(defaultUrl = "", options = {}) {
         });
 
         setData(response.data);
+        const isSuccess =
+          (method === "POST" && response.status === 201) ||
+          (["PUT", "DELETE"].includes(method) &&
+            [200, 204].includes(response.status));
+
+        let messageMap = {
+          POST: "新增成功",
+          PUT: "更新成功",
+          DELETE: "刪除成功",
+        };
+
+        if (isSuccess) {
+          toast.success(
+            response.data?.message || messageMap[method] || "操作成功"
+          );
+        }
+
         return response.data;
       } catch (err) {
         setError(err);
-        toast.error(err.response?.data?.message || err.message || "請求失敗！");
-        throw err;
+        const resData = err.response?.data;
+        if (resData?.errors?.length) {
+          resData.errors.forEach((msg) => toast.error(msg));
+        } else {
+          toast.error(resData?.message || err.message || "請求失敗！");
+        }
       } finally {
         setLoading(false);
       }

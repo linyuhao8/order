@@ -1,56 +1,42 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
 
 // Component
 import Header from "@/components/merchant/common/Header/Header";
 import Button from "@/components/common/Button";
-import Loading from "@/components/common/Loading";
 import MerchantsCard from "@/components/merchant/select/MerchantsCard";
 import MerchantMenu from "@/components/merchant/menu/MerchantMenu";
+import Loading from "@/components/common/Loading";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
 // HOC
 import withAuth from "@/hoc/withAuth";
+import useFetch from "@/hooks/api/useFetch";
 
 const MerchantPage = ({ isAuthenticated, user }) => {
   const { merchantId } = useParams();
-  const router = useRouter();
 
-  const [merchant, setMerchant] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const url = merchantId
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/${merchantId}`
+    : null;
 
-  const fetchMerchant = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/${merchantId}`,
-        { withCredentials: true }
-      );
-      setMerchant(res.data);
-    } catch (err) {
-      setError("無法載入商家資料");
-      toast.error("無法載入商家資料！");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!user || !merchantId) return;
-    fetchMerchant();
-  }, [user, merchantId]);
-
+  const {
+    data: merchant,
+    loading,
+    error,
+    refetch,
+  } = useFetch(url, {
+    withCredentials: true,
+    enabled: !!merchantId,
+  });
   if (loading) return <Loading />;
-  if (error) return <div>{error}</div>;
+  if (error)
+    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
   if (!merchant) return null;
 
   return (
     <>
-      <Header name={`商家：${merchant.business_name}`} />
+      <Header name={`商家：${merchant?.business_name}`} />
       <MerchantsCard merchant={merchant} />
       <div className="py-5">
         <Button
@@ -69,9 +55,7 @@ const MerchantPage = ({ isAuthenticated, user }) => {
           新增 Product
         </Button>
       </div>
-      <div className="flex gap-3 mt-2">
-        <MerchantMenu id={merchantId} />
-      </div>
+      <MerchantMenu id={merchantId} />
     </>
   );
 };

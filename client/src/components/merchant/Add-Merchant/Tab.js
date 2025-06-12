@@ -2,47 +2,42 @@
 
 import { useState, useEffect } from "react";
 import { useUser } from "@/contexts/UserContext";
-
-import axios from "axios";
-import toast from "react-hot-toast";
+import useFetch from "@/hooks/api/useFetch";
 
 //component
 import CategoryTab from "./CategoryTab";
 import MerchantTab from "./MerchantTab";
 import Button from "@/components/common/Button";
+import Loading from "@/components/common/Loading";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
-const Tab = ({active}) => {
+const Tab = ({ active }) => {
   const [activeTab, setActiveTab] = useState(active);
   const [categories, setCategories] = useState([]);
+
+  //custom context
   const user = useUser();
 
   const userId = user.id;
 
-  const getAllCategories = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/merchant-categorys/`,
-        { withCredentials: true }
-      );
-      if (response.status === 200 && response.data?.data) {
-        setCategories(response.data.data);
-      } else {
-        toast.error("無法取得分類資料，請稍後再試");
-        setCategories([]);
-      }
-    } catch (err) {
-      console.error("❌ Error fetching categories:", err);
-      toast.error("獲取分類時發生錯誤");
-      setError(err);
-      setCategories([]);
-    }
-  };
+  const url = userId
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchant-categorys/`
+    : null;
 
+  const { data, loading, error, refetch } = useFetch(url, {
+    withCredentials: true,
+    enabled: !!userId,
+  });
   useEffect(() => {
-    if (user) {
-      getAllCategories();
+    if (data) {
+      setCategories(data.data);
     }
-  }, [user]);
+  }, [data]);
+
+  if (loading) return <Loading />;
+  if (error)
+    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
+  if (!categories) return null;
 
   return (
     <>
@@ -104,7 +99,7 @@ const Tab = ({active}) => {
       <CategoryTab
         activeTab={activeTab}
         categories={categories}
-        getAllCategories={getAllCategories}
+        getAllCategories={refetch}
         userId={userId}
       />
     </>

@@ -36,20 +36,20 @@ const MerchantPage = ({ isAuthenticated, user }) => {
 
   return (
     <>
-      <Header name={`商家：${merchant?.business_name}`} />
+      <Header name={`Merchant Detail`} />
       <MerchantsCard merchant={merchant} />
       <div className="py-5">
         <Button
           size="md"
           variant="outline"
-          href={`/merchant/${merchantId}/add-menu`}
+          href={`/merchant/dashboard/${merchantId}/add-menu`}
         >
           新增 Menu
         </Button>
         <Button
           size="md"
           variant="outline"
-          href={`/merchant/${merchantId}/add-product`}
+          href={`/merchant//dashboard/${merchantId}/add-product`}
           className="ml-2"
         >
           新增 Product

@@ -2,8 +2,8 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 
 // 判斷環境（如果是 production，則連接 Supabase，否則使用本地 DB）
-const isProduction = process.env.NODE_ENV === "production";
-const DATABASE_URL = isProduction
+const isDevelopment = process.env.NODE_ENV === "development";
+const DATABASE_URL = isDevelopment
   ? process.env.SUPABASE_DATABASE_URL // 遠端 Supabase
   : process.env.LOCAL_DATABASE_URL; // 本地 PostgreSQL
 

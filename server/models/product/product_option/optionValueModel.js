@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      option_values: {
+      values: {
+        // 改名為 values
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -23,8 +24,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         defaultValue: 0,
       },
+      is_default: {
+        // 新增欄位 is_default
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
+      sort_order: {
+        // 新增欄位 sort_order
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
-    {  tableName: "option_values",timestamps: true }
+    {
+      tableName: "option_values",
+      timestamps: true,
+    }
   );
 
   OptionValue.associate = (models) => {

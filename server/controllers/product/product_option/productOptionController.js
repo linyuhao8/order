@@ -1,16 +1,36 @@
-//productOptionController.js
 const { ProductOption } = require("../../../config/postgreSql").db; // 引入 ProductOption 模型
+const {
+  createProductOptionSchema,
+  updateProductOptionSchema,
+} = require("../../../validations/product/product_option/productOptionValidation");
 
 // 創建 ProductOption
 const createProductOption = async (req, res) => {
+  const { error } = createProductOptionSchema.validate(req.body, {
+    abortEarly: false, // 允許顯示所有錯誤
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
-    const { product_id, option_id, is_custom, merchant_id } = req.body;
+    const {
+      product_id,
+      option_id,
+      required = false,
+      sort_order = null,
+    } = req.body;
+
     const newProductOption = await ProductOption.create({
       product_id,
       option_id,
-      is_custom,
-      merchant_id,
+      required,
+      sort_order,
     });
+
     res.status(201).json({
       message: "ProductOption created successfully",
       data: newProductOption,
@@ -61,18 +81,29 @@ const getProductOptionById = async (req, res) => {
 
 // 更新 ProductOption
 const updateProductOption = async (req, res) => {
+  const { error } = updateProductOptionSchema.validate(req.body, {
+    abortEarly: false, // 允許顯示所有錯誤
+  });
+
+  if (error) {
+    return res.status(400).json({
+      message: "資料格式錯誤",
+      errors: error.details.map((err) => err.message),
+    });
+  }
   try {
     const { id } = req.params;
-    const { product_id, option_id, is_custom, merchant_id } = req.body;
+    const { product_id, option_id, required, sort_order } = req.body;
+
     const productOption = await ProductOption.findByPk(id);
     if (!productOption) {
       return res.status(404).json({ message: "ProductOption not found" });
     }
-    productOption.product_id = product_id || productOption.product_id;
-    productOption.option_id = option_id || productOption.option_id;
-    productOption.is_custom =
-      is_custom !== undefined ? is_custom : productOption.is_custom;
-    productOption.merchant_id = merchant_id || productOption.merchant_id;
+
+    if (product_id !== undefined) productOption.product_id = product_id;
+    if (option_id !== undefined) productOption.option_id = option_id;
+    if (required !== undefined) productOption.required = required;
+    if (sort_order !== undefined) productOption.sort_order = sort_order;
 
     await productOption.save();
 

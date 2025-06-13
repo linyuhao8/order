@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       img: {
-        type: DataTypes.STRING, 
+        type: DataTypes.STRING, // 若未轉成 Image 關聯前的舊欄位
         allowNull: true,
       },
       img_id: {
@@ -28,15 +28,18 @@ module.exports = (sequelize, DataTypes) => {
           model: "images",
           key: "id",
         },
+        onDelete: "SET NULL", // 建議放這裡以防 migration 不一致
+        onUpdate: "CASCADE",
       },
     },
     {
       tableName: "m_categories",
-      timestamps: true, 
+      timestamps: true,
     }
   );
 
   MCategory.associate = (models) => {
+    // 多對多：MCategory <--> Merchant
     MCategory.belongsToMany(models.Merchant, {
       through: models.MerchantCategory,
       foreignKey: "category_id",
@@ -45,13 +48,14 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
+
+    // 一對一：MCategory --> Image
     MCategory.belongsTo(models.Image, {
-      foreignKey: "img_id", // or 'imageId'
+      foreignKey: "img_id",
       as: "image",
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
-
   };
 
   return MCategory;

@@ -55,17 +55,17 @@ const doc = {
     {
       name: "ProductOption",
       description:
-        "Middle table 1.belongsto(Product), belongsTo(option), belongsTo(Merchant), belongsTo() 2.id, product_id, option_id, is_custom, merchant_id",
+        "中介表：Product 與 Option 的關聯表。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at",
     },
     {
       name: "Option",
       description:
-        "1.belongstoMany(ProductOption), hasMany(OptionValue), belongsToMany(Category), belongsTo(Category) 2.id, name, category_id, type",
+        "商品選項定義。1. BelongsTo(Category), HasMany(OptionValue), BelongsToMany(Product through ProductOption) 2. 欄位：id, name, type(enum: select, checkbox, text, number), description(text), min_select(int), max_select(int), created_at, updated_at",
     },
     {
       name: "OptionValue",
       description:
-        "1.belongto(Option) 2.id, option_id, option_values, extra_price.",
+        "Option 對應的具體值（選項值）。1. BelongsTo(Option) 2. 欄位：id, option_id, values(string), extra_price(float), is_default(boolean), sort_order(int), created_at, updated_at",
     },
     {
       name: "ProductCategory",

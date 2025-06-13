@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         allowNull: false,
       },
-
       business_name: {
         type: DataTypes.STRING(255),
         allowNull: false,
@@ -64,23 +63,14 @@ module.exports = (sequelize, DataTypes) => {
     // A Merchant belongs to one User, linked by the user_id foreign key
     // If the associated User is deleted, the related Merchant will also be deleted.
     Merchant.belongsTo(models.User, {
-      foreignKey: "user_id", // Foreign key name that links to the User model
-      as: "user", // Alias for accessing the associated User from the Merchant model
-      onDelete: "SET NULL", // Ensures that when a User is deleted, the associated Merchant will be deleted
-      onUpdate: "CASCADE",
+      foreignKey: "user_id",
+      as: "user",
+      onDelete: "SET NULL", // ← 這行註解應改為 "保留商家資料，但移除對應的使用者"
     });
     Merchant.hasMany(models.Menu, {
       foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
       as: "menus", // Alias for accessing the associated ProductOptions from the Merchant model
       onDelete: "CASCADE", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
-      onUpdate: "CASCADE",
-    });
-    // A Merchant can have multiple ProductOptions through the ProductOption table
-    // If a Merchant is deleted, all associated ProductOptions will also be deleted.
-    Merchant.hasMany(models.ProductOption, {
-      foreignKey: "merchant_id", // Foreign key in ProductOption that links to Merchant
-      as: "product_options", // Alias for accessing the associated ProductOptions from the Merchant model
-      onDelete: "SET NULL", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
       onUpdate: "CASCADE",
     });
     Merchant.belongsToMany(models.MCategory, {
@@ -95,13 +85,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "image_id",
       as: "image",
       onDelete: "SET NULL",
-      onUpdate: "CASCADE",
     });
     Merchant.belongsTo(models.Image, {
       foreignKey: "merchant_logo_id",
       as: "merchant_logo",
       onDelete: "SET NULL",
-      onUpdate: "CASCADE",
     });
   };
 

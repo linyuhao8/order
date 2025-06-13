@@ -18,9 +18,13 @@ const createProductImgSchema = Joi.object({
     "string.max": "標題最多 255 字",
   }),
 
-  description: Joi.string().optional().messages({
-    "string.base": "描述必須是文字",
-  }),
+  description: Joi.string()
+    .allow("", null) // 允許空字串和 null
+    .max(1000)
+    .messages({
+      "string.base": "描述必須是字符串",
+      "string.max": "描述不能超過 1000 個字符",
+    }),
 });
 
 //✅ PUT（更新 ProductImg）驗證

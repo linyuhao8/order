@@ -8,11 +8,14 @@ const createMenuSchema = Joi.object({
     "string.min": "菜單名稱長度必須至少 1 個字符",
     "any.required": "菜單名稱是必填欄位",
   }),
-  description: Joi.string().max(1000).allow(null).messages({
-    "string.empty": "描述不能為空",
-    "string.base": "描述必須是字符串",
-    "string.max": "描述不能超過 1000 個字符",
-  }),
+  description: Joi.string()
+    .allow("", null) // 允許空字串和 null
+    .max(1000)
+    .messages({
+      "string.base": "描述必須是字符串",
+      "string.max": "描述不能超過 1000 個字符",
+    }),
+
   merchant_id: Joi.string().guid({ version: "uuidv4" }).required().messages({
     "string.empty": "商家 ID 不能為空",
     "string.base": "商家 ID 必須是字符串",

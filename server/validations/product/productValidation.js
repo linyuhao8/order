@@ -7,10 +7,13 @@ const createProductSchema = Joi.object({
     "string.max": "產品名稱長度不能超過 255 字符",
   }),
 
-  description: Joi.string().optional().messages({
-    "string.empty": "描述不能為空",
-    "string.base": "描述必須是字符串",
-  }),
+  description: Joi.string()
+    .allow("", null) // 允許空字串和 null
+    .max(1000)
+    .messages({
+      "string.base": "描述必須是字符串",
+      "string.max": "描述不能超過 1000 個字符",
+    }),
 
   price: Joi.number().min(0).required().messages({
     "string.empty": "價格不能為空",
@@ -46,7 +49,6 @@ const updateProductSchema = Joi.object({
   menu_id: Joi.string().uuid().optional().messages({
     "string.empty": "menu_id不能為空",
     "string.uuid": "菜單 ID 必須是有效的 UUID 格式",
-
   }),
 });
 

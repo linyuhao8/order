@@ -53,24 +53,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-    Image.hasMany(models.MCategory, {
-      foreignKey: "img_id",
-      as: "categories",
-      onDelete: "SET NULL",
-      onUpdate: "CASCADE",
-    });
-    Image.hasMany(models.Merchant, {
-      foreignKey: "image_id",
-      as: "merchants",
-      onDelete: "SET NULL",
-      onUpdate: "CASCADE",
-    });
-    Image.hasMany(models.Merchant, {
-      foreignKey: "merchant_logo_id",
-      as: "logo_merchants",
-      onDelete: "SET NULL",
-      onUpdate: "CASCADE",
-    });
   };
 
   return Image;

@@ -98,11 +98,11 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
     Merchant.belongsTo(models.Image, {
-        foreignKey: "merchant_logo_id",
-        as: "merchant_logo",
-        onDelete: "SET NULL",
-        onUpdate: "CASCADE",
-      });
+      foreignKey: "merchant_logo_id",
+      as: "merchant_logo",
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
+    });
   };
 
   return Merchant;

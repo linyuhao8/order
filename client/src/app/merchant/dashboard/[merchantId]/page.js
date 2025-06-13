@@ -29,6 +29,7 @@ const MerchantPage = ({ isAuthenticated, user }) => {
     withCredentials: true,
     enabled: !!merchantId,
   });
+
   if (loading) return <Loading />;
   if (error)
     return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
@@ -36,8 +37,7 @@ const MerchantPage = ({ isAuthenticated, user }) => {
 
   return (
     <>
-      <Header name={`Merchant Detail`} />
-      <MerchantsCard merchant={merchant} />
+      <Header name={`${merchant?.business_name || "商家資訊"}`} />
       <div className="py-5">
         <Button
           size="md"
@@ -54,8 +54,16 @@ const MerchantPage = ({ isAuthenticated, user }) => {
         >
           新增 Product
         </Button>
+        <Button
+          variant="outline"
+          href="/merchant/dashboard/select"
+          className="ml-2"
+        >
+          back
+        </Button>
       </div>
       <MerchantMenu id={merchantId} />
+      <MerchantsCard merchant={merchant} />
     </>
   );
 };

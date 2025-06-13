@@ -54,14 +54,12 @@ export default function MerchantMenu({ id }) {
   };
 
   if (menusLoading) return <Loading />;
-  if (menusError)
-    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
 
   return (
     <div className="space-y-6">
       {/* 標題區域 */}
       <div className="flex items-center gap-2">
-        <h3 className="text-2xl font-semibold tracking-tight">商家菜單</h3>
+        <h3 className="text-2xl font-semibold tracking-tight">Menu</h3>
         <div className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground">
           {menus?.length} 個菜單
         </div>
@@ -74,10 +72,10 @@ export default function MerchantMenu({ id }) {
             <div className="text-3xl">📋</div>
           </div>
           <h4 className="text-base font-medium text-foreground mb-1">
-            沒有菜單資料
+            no menu.
           </h4>
           <p className="text-sm text-muted-foreground">
-            開始建立您的第一個菜單
+            Please create your first menu.
           </p>
         </div>
       ) : (
@@ -95,7 +93,7 @@ export default function MerchantMenu({ id }) {
                     <div className="flex flex-col sm:flex-col md:flex-row justify-start items-start sm:items-center gap-2">
                       {/* 菜單名稱 */}
                       <div>
-                        <h4 className="text-xl  text-gray-700 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
+                        <h4 className="text-xl  text-gray-700  dark:text-gray-200 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
                           {menu.name}
                         </h4>
                       </div>

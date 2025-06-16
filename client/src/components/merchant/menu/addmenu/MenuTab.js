@@ -82,14 +82,13 @@ const MenuTab = ({ activeTab, merchantId }) => {
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
-                    description <span className="text-red-500">*</span>
+                    description
                   </label>
                   <div className="mt-1">
                     <textarea
                       id="description"
                       name="description"
                       rows={3}
-                      required
                       value={menuForm.description}
                       onChange={handleMenuChange}
                       className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 dark:border-gray-500 rounded-md"

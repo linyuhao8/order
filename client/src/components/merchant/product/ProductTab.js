@@ -71,7 +71,6 @@ const ProductTab = ({ activeTab, merchantId }) => {
     }
   }, [menus]);
 
-
   //需要取得所有的productid讓其挑選
   return (
     <>
@@ -113,14 +112,13 @@ const ProductTab = ({ activeTab, merchantId }) => {
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
-                    description <span className="text-red-500">*</span>
+                    description
                   </label>
                   <div className="mt-1">
                     <textarea
                       id="description"
                       name="description"
                       rows={3}
-                      required
                       value={productForm.description}
                       onChange={handleProductChange}
                       className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 dark:border-gray-500 rounded-md"

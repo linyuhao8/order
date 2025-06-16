@@ -2,46 +2,52 @@ const Joi = require("joi");
 
 // Validation schema for creating Option (POST)
 const createOptionSchema = Joi.object({
-  name: Joi.string().min(1).required().messages({
-    "string.base": "Name must be a string",
-    "string.empty": "Name is required",
-    "string.min": "Name must be at least 1 characters long",
-    "any.required": "Name is required",
+  name: Joi.string().required().messages({
+    "any.required": "請填寫選項名稱",
+    "string.base": "選項名稱必須是字串",
   }),
-  category_id: Joi.string().uuid().guid({ version: "uuidv4" }).optional().messages({
-    "string.uuid": "Category ID must be a valid UUID",
-    "string.guid": "category_id must be uuid",
-  }),
+
   type: Joi.string()
-    .valid("select", "text", "number", "checkbox")
+    .valid("select", "checkbox", "text", "number")
     .required()
     .messages({
-      "string.base": "Type must be a string",
-      "any.only":
-        "Type must be one of the following: select, text, number, checkbox",
-      "any.required": "Type is required",
+      "any.required": "請選擇選項類型",
+      "any.only": "選項類型必須是 select、checkbox、text 或 number",
     }),
+
+  description: Joi.string().allow(null, "").optional(),
+
+  min_select: Joi.number().integer().min(0).allow(null).optional().messages({
+    "number.base": "min_select 必須是整數",
+    "number.integer": "min_select 必須是整數",
+  }),
+
+  max_select: Joi.number().integer().min(0).allow(null).optional().messages({
+    "number.base": "max_select 必須是整數",
+    "number.integer": "max_select 必須是整數",
+  }),
 });
 
 // Validation schema for updating Option (PUT)
 const updateOptionSchema = Joi.object({
-  name: Joi.string().min(3).optional().messages({
-    "string.base": "Name must be a string",
-    "string.empty": "Name cannot be empty",
-    "string.min": "Name must be at least 3 characters long",
-  }),
-  category_id: Joi.string().uuid().guid({ version: "uuidv4" }).optional().messages({
-    "string.uuid": "Category ID must be a valid UUID",
-    "string.guid": "category_id must be uuid",
-  }),
+  name: Joi.string().optional(),
+
   type: Joi.string()
-    .valid("select", "text", "number", "checkbox")
+    .valid("select", "checkbox", "text", "number")
     .optional()
     .messages({
-      "string.base": "Type must be a string",
-      "any.only":
-        "Type must be one of the following: select, text, number, checkbox",
+      "any.only": "選項類型必須是 select、checkbox、text 或 number",
     }),
-});
+
+  description: Joi.string().allow(null, "").optional(),
+
+  min_select: Joi.number().integer().min(0).allow(null).optional(),
+
+  max_select: Joi.number().integer().min(0).allow(null).optional(),
+})
+  .min(1)
+  .messages({
+    "object.min": "請至少提供一個要更新的欄位",
+  });
 
 module.exports = { createOptionSchema, updateOptionSchema };

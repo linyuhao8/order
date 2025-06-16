@@ -8,9 +8,8 @@ const {
 
 // Create a new Option
 async function createOption(req, res) {
-  // Joi 驗證輸入資料
   const { error } = createOptionSchema.validate(req.body, {
-    abortEarly: false, // 允許顯示所有錯誤
+    abortEarly: false,
   });
 
   if (error) {
@@ -19,19 +18,26 @@ async function createOption(req, res) {
       errors: error.details.map((err) => err.message),
     });
   }
-  try {
-    const { name, category_id, type } = req.body;
-    if (category_id) {
-      const checkCategory = await Category.findByPk(category_id);
-      if (!checkCategory) {
-        return res.status(400).json({ message: "can't not find category" });
-      }
-    }
 
-    const option = await Option.create({ name, category_id, type });
-    return res.status(201).json(option);
+  try {
+    const { name, type, description, min_select, max_select } = req.body;
+
+    const option = await Option.create({
+      name,
+      type,
+      description,
+      min_select,
+      max_select,
+    });
+
+    return res.status(201).json({
+      message: "新增 Option 成功",
+      data: option,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
@@ -39,12 +45,14 @@ async function createOption(req, res) {
 async function getAllOptions(req, res) {
   try {
     const options = await Option.findAll();
-    if (options.length === 0) {
-      return res.status(404).json({ message: "No options found." });
-    }
-    return res.status(200).json(options);
+    return res.status(200).json({
+      message: "取得所有 Option 成功",
+      data: options,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
@@ -52,27 +60,28 @@ async function getAllOptions(req, res) {
 async function getOptionById(req, res) {
   try {
     const option = await Option.findByPk(req.params.id, {
-      include: [
-        {
-          model: OptionValue,
-          as: "option_values",
-        },
-      ],
+      include: [{ model: OptionValue, as: "option_values" }],
     });
+
     if (!option) {
-      return res.status(404).json({ message: "Option not found." });
+      return res.status(404).json({ message: "找不到此 Option" });
     }
-    return res.status(200).json(option);
+
+    return res.status(200).json({
+      message: "取得 Option 成功",
+      data: option,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
 // Update an Option
 async function updateOption(req, res) {
-  // Joi 驗證輸入資料
   const { error } = updateOptionSchema.validate(req.body, {
-    abortEarly: false, // 允許顯示所有錯誤
+    abortEarly: false,
   });
 
   if (error) {
@@ -81,22 +90,32 @@ async function updateOption(req, res) {
       errors: error.details.map((err) => err.message),
     });
   }
+
   try {
     const option = await Option.findByPk(req.params.id);
     if (!option) {
-      return res.status(404).json({ message: "Option not found." });
+      return res.status(404).json({ message: "找不到此 Option" });
     }
 
-    const { name, category_id, type } = req.body;
-    const checkCategory = await Category.findByPk(category_id);
-    if (!checkCategory) {
-      return res.status(400).json({ message: "can't not find category" });
-    }
+    const { name, type, description, min_select, max_select } = req.body;
 
-    const updatedOption = await option.update({ name, category_id, type });
-    return res.status(200).json(updatedOption);
+    await option.update({
+      name,
+
+      type,
+      description,
+      min_select,
+      max_select,
+    });
+
+    return res.status(200).json({
+      message: "更新 Option 成功",
+      data: option,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
@@ -105,13 +124,15 @@ async function deleteOption(req, res) {
   try {
     const option = await Option.findByPk(req.params.id);
     if (!option) {
-      return res.status(404).json({ message: "Option not found." });
+      return res.status(404).json({ message: "找不到此 Option" });
     }
 
     await option.destroy();
-    return res.status(204).send(); // Successfully deleted, no content returned
+    return res.status(204).send();
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 

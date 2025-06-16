@@ -1,5 +1,4 @@
-const { OptionValue, Option } = require("../../../config/postgreSql").db; // Import OptionValue model
-const { Op } = require("sequelize"); // Sequelize operators for complex queries
+const { OptionValue, Option } = require("../../../config/postgreSql").db;
 const {
   createOptionValueSchema,
   updateOptionValueSchema,
@@ -8,7 +7,7 @@ const {
 // Create a new OptionValue
 async function createOptionValue(req, res) {
   const { error } = createOptionValueSchema.validate(req.body, {
-    abortEarly: false, // 允許顯示所有錯誤
+    abortEarly: false,
   });
 
   if (error) {
@@ -17,23 +16,37 @@ async function createOptionValue(req, res) {
       errors: error.details.map((err) => err.message),
     });
   }
+
   try {
-    // Destructure the request body
-    const { option_id, option_values, extra_price } = req.body;
-    const checkOptionId = await Option.findByPk(option_id);
-    if (!checkOptionId) {
-      return res.status(400).json({ message: "can't not find optionId" });
+    const {
+      option_id,
+      values,
+      extra_price = 0,
+      is_default = false,
+      sort_order = null,
+    } = req.body;
+
+    const option = await Option.findByPk(option_id);
+    if (!option) {
+      return res.status(400).json({ message: "找不到對應的 Option" });
     }
-    // Create a new OptionValue
+
     const newOptionValue = await OptionValue.create({
       option_id,
-      option_values,
+      values,
       extra_price,
+      is_default,
+      sort_order,
     });
 
-    return res.status(201).json(newOptionValue);
+    return res.status(201).json({
+      message: "新增 OptionValue 成功",
+      data: newOptionValue,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
@@ -42,13 +55,14 @@ async function getAllOptionValues(req, res) {
   try {
     const optionValues = await OptionValue.findAll();
 
-    if (optionValues.length === 0) {
-      return res.status(404).json({ message: "No option values found." });
-    }
-
-    return res.status(200).json(optionValues);
+    return res.status(200).json({
+      message: "取得所有 OptionValue 成功",
+      data: optionValues,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
@@ -56,20 +70,26 @@ async function getAllOptionValues(req, res) {
 async function getOptionValueById(req, res) {
   try {
     const optionValue = await OptionValue.findByPk(req.params.id);
+
     if (!optionValue) {
-      return res.status(404).json({ message: "OptionValue not found." });
+      return res.status(404).json({ message: "找不到此 OptionValue" });
     }
 
-    return res.status(200).json(optionValue);
+    return res.status(200).json({
+      message: "取得 OptionValue 成功",
+      data: optionValue,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
-// Update an existing OptionValue
+// Update OptionValue
 async function updateOptionValue(req, res) {
   const { error } = updateOptionValueSchema.validate(req.body, {
-    abortEarly: false, // 允許顯示所有錯誤
+    abortEarly: false,
   });
 
   if (error) {
@@ -78,50 +98,52 @@ async function updateOptionValue(req, res) {
       errors: error.details.map((err) => err.message),
     });
   }
+
   try {
-    const { option_values, extra_price } = req.body;
-
-    // Find the OptionValue by ID
     const optionValue = await OptionValue.findByPk(req.params.id);
-
     if (!optionValue) {
-      return res.status(404).json({ message: "OptionValue not found." });
+      return res.status(404).json({ message: "找不到此 OptionValue" });
     }
 
-    // Update the OptionValue
-    const updatedOptionValue = await optionValue.update({
-      option_values,
+    const { values, extra_price, is_default, sort_order } = req.body;
+
+    await optionValue.update({
+      values,
       extra_price,
+      is_default,
+      sort_order,
     });
 
-    return res.status(200).json(updatedOptionValue);
+    return res.status(200).json({
+      message: "更新 OptionValue 成功",
+      data: optionValue,
+    });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
 // Delete OptionValue
 async function deleteOptionValue(req, res) {
   try {
-    // Find the OptionValue by ID
     const optionValue = await OptionValue.findByPk(req.params.id);
 
     if (!optionValue) {
-      return res.status(404).json({ message: "OptionValue not found." });
+      return res.status(404).json({ message: "找不到此 OptionValue" });
     }
 
-    // Delete the OptionValue
     await optionValue.destroy();
 
-    return res
-      .status(200)
-      .json({ message: "OptionValue deleted successfully." });
+    return res.status(200).json({ message: "刪除 OptionValue 成功" });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res
+      .status(500)
+      .json({ message: "伺服器錯誤", error: error.message });
   }
 }
 
-// Export the controller functions
 module.exports = {
   createOptionValue,
   getAllOptionValues,

@@ -26,6 +26,9 @@ const createOptionSchema = Joi.object({
     "number.base": "max_select 必須是整數",
     "number.integer": "max_select 必須是整數",
   }),
+  user_id: Joi.string().uuid().optional(),
+  merchant_id: Joi.string().uuid().optional(),
+  is_global: Joi.boolean().optional(),
 });
 
 // Validation schema for updating Option (PUT)
@@ -44,6 +47,9 @@ const updateOptionSchema = Joi.object({
   min_select: Joi.number().integer().min(0).allow(null).optional(),
 
   max_select: Joi.number().integer().min(0).allow(null).optional(),
+  user_id: Joi.string().uuid().optional(),
+  merchant_id: Joi.string().uuid().optional(),
+  is_global: Joi.boolean().optional(),
 })
   .min(1)
   .messages({

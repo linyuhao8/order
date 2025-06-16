@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // 移除 category_id
       type: {
         type: DataTypes.ENUM("select", "checkbox", "text", "number"),
         allowNull: false,
@@ -28,6 +27,29 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
+      // 新增欄位
+      user_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "users", // 你的 User table 名稱
+          key: "id",
+        },
+      },
+      merchant_id: {
+        type: DataTypes.UUID,
+        allowNull: true,
+        references: {
+          model: "merchants", // 你的 Merchant table 名稱
+          key: "id",
+        },
+      },
+
+      is_global: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
     },
     {
       tableName: "options",
@@ -36,9 +58,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Option.associate = (models) => {
-    // 移除原本的 Category 關聯
-    // Option.belongsTo(models.Category, {...});
-
     Option.hasMany(models.OptionValue, {
       foreignKey: "option_id",
       as: "option_values",
@@ -54,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
 
-    // Option 和 O_category 的中間表 OptionCategory
     Option.hasMany(models.OptionCategory, {
       foreignKey: "option_id",
       as: "option_categories",

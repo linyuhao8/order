@@ -20,7 +20,16 @@ async function createOption(req, res) {
   }
 
   try {
-    const { name, type, description, min_select, max_select } = req.body;
+    const {
+      name,
+      type,
+      description,
+      min_select,
+      max_select,
+      user_id,
+      merchant_id,
+      is_global,
+    } = req.body;
 
     const option = await Option.create({
       name,
@@ -28,6 +37,9 @@ async function createOption(req, res) {
       description,
       min_select,
       max_select,
+      user_id,
+      merchant_id,
+      is_global,
     });
 
     return res.status(201).json({
@@ -44,7 +56,22 @@ async function createOption(req, res) {
 // Get all Options
 async function getAllOptions(req, res) {
   try {
-    const options = await Option.findAll();
+    const { user_id, merchant_id } = req.query;
+
+    const where = {};
+    if (user_id) where.user_id = user_id;
+    if (merchant_id) where.merchant_id = merchant_id;
+
+    const options = await Option.findAll({
+      where,
+      include: [
+        {
+          model: OptionValue,
+          as: "option_values",
+        },
+      ],
+    });
+
     return res.status(200).json({
       message: "取得所有 Option 成功",
       data: options,
@@ -97,15 +124,26 @@ async function updateOption(req, res) {
       return res.status(404).json({ message: "找不到此 Option" });
     }
 
-    const { name, type, description, min_select, max_select } = req.body;
-
-    await option.update({
+    const {
       name,
-
       type,
       description,
       min_select,
       max_select,
+      user_id,
+      merchant_id,
+      is_global,
+    } = req.body;
+
+    await option.update({
+      name,
+      type,
+      description,
+      min_select,
+      max_select,
+      user_id,
+      merchant_id,
+      is_global,
     });
 
     return res.status(200).json({

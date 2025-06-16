@@ -60,7 +60,7 @@ const doc = {
     {
       name: "Option",
       description:
-        "商品選項定義。1. BelongsTo(Category), HasMany(OptionValue), BelongsToMany(Product through ProductOption) 2. 欄位：id, name, type(enum: select, checkbox, text, number), description(text), min_select(int), max_select(int), created_at, updated_at",
+        "商品選項定義。1. HasMany(OptionValue), BelongsToMany(Product through ProductOption), HasMany(OptionCategory) 2. 欄位：id, name, type(enum: select, checkbox, text, number), description(text), min_select(int), max_select(int), user_id(UUID), merchant_id(UUID), is_global(boolean), created_at, updated_at",
     },
     {
       name: "OptionValue",

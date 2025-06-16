@@ -1946,10 +1946,10 @@
         }
       }
     },
-    "/api/categorys/categories": {
+    "/api/categorys/p-categories": {
       "post": {
         "tags": [
-          "Category"
+          "P_Category"
         ],
         "summary": "Add Category",
         "description": "",
@@ -1993,7 +1993,7 @@
       },
       "get": {
         "tags": [
-          "Category"
+          "P_Category"
         ],
         "summary": "Get All Category",
         "description": "",
@@ -2016,10 +2016,10 @@
         }
       }
     },
-    "/api/categorys/categories/{id}": {
+    "/api/categorys/p-categories/{id}": {
       "put": {
         "tags": [
-          "Category"
+          "P_Category"
         ],
         "summary": "modify Category",
         "description": "",
@@ -2072,7 +2072,7 @@
       },
       "delete": {
         "tags": [
-          "Category"
+          "P_Category"
         ],
         "summary": "Delete Category",
         "description": "",

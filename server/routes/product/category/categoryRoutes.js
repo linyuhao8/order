@@ -4,26 +4,26 @@ const categoryController = require("../../../controllers/product/category/catego
 
 // 分類 API
 router.post(
-  "/categories",
-  // #swagger.tags = ['Category']
+  "/p-categories",
+  // #swagger.tags = ['P_Category']
   // #swagger.summary = 'Add Category'
   categoryController.createCategory
 );
 router.put(
-  "/categories/:id",
-  // #swagger.tags = ['Category']
+  "/p-categories/:id",
+  // #swagger.tags = ['P_Category']
   // #swagger.summary = 'modify Category'
   categoryController.updateCategory
 );
 router.delete(
-  "/categories/:id",
-  // #swagger.tags = ['Category']
+  "/p-categories/:id",
+  // #swagger.tags = ['P_Category']
   // #swagger.summary = 'Delete Category'
   categoryController.deleteCategory
 );
 router.get(
-  "/categories",
-  // #swagger.tags = ['Category']
+  "/p-categories",
+  // #swagger.tags = ['P_Category']
   // #swagger.summary = 'Get All Category'
   categoryController.getAllCategories
 );

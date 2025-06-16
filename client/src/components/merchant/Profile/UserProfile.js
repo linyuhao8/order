@@ -26,7 +26,7 @@ const UserProfile = ({ userId }) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/users/${userId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`,
           { withCredentials: true }
         );
         setUserdata(response.data);

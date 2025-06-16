@@ -77,6 +77,16 @@ const doc = {
       description:
         "1.belongtoMany(ProductCategory) 2.id, name, description, img",
     },
+    {
+      name: "Option_Category",
+      description:
+        "中介表：Option 與 O_Category 的關聯表。1. BelongsTo(Option), BelongsTo(O_Category) 2. 欄位：id, option_id, o_category_id, created_at, updated_at",
+    },
+    {
+      name: "O_Category",
+      description:
+        "Option 分類標籤表，用於分類 Option。1. HasMany(OptionCategory) 2. 欄位：id, name, description, created_at, updated_at",
+    },
   ],
   host: `localhost:${process.env.SERVER_PORT_ENV}`,
 };

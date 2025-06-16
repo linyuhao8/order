@@ -94,6 +94,15 @@ db.OptionValue = require("../models/product/product_option/optionValueModel")(
   sequelize,
   Sequelize.DataTypes
 );
+db.O_Category = require("../models/product/product_option/category/O_Category")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.OptionCategory =
+  require("../models/product/product_option/category/optionCategory")(
+    sequelize,
+    Sequelize.DataTypes
+  );
 db.Image = require("../models/image")(sequelize, Sequelize.DataTypes);
 
 // 同步所有模型

@@ -5,7 +5,7 @@
     "description": "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql.",
     "version": "1.0.0"
   },
-  "host": "localhost:8080",
+  "host": "localhost:8082",
   "basePath": "/",
   "tags": [
     {
@@ -61,7 +61,7 @@
       "description": "1.belongto(Product), belongsTo(Category) 2.product_id, category_id"
     },
     {
-      "name": "Category",
+      "name": "P_Category",
       "description": "1.belongtoMany(ProductCategory) 2.id, name, description, img"
     }
   ],
@@ -895,14 +895,17 @@
           {
             "name": "body",
             "in": "body",
+            "description": "商家與類別關聯",
             "schema": {
               "type": "object",
               "properties": {
                 "merchant_id": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "uuid"
                 },
                 "category_id": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 2
                 }
               }
             }
@@ -2432,10 +2435,16 @@
                 "name": {
                   "example": "any"
                 },
-                "category_id": {
+                "type": {
                   "example": "any"
                 },
-                "type": {
+                "description": {
+                  "example": "any"
+                },
+                "min_select": {
+                  "example": "any"
+                },
+                "max_select": {
                   "example": "any"
                 }
               }
@@ -2477,9 +2486,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -2542,10 +2548,16 @@
                 "name": {
                   "example": "any"
                 },
-                "category_id": {
+                "type": {
                   "example": "any"
                 },
-                "type": {
+                "description": {
+                  "example": "any"
+                },
+                "min_select": {
+                  "example": "any"
+                },
+                "max_select": {
                   "example": "any"
                 }
               }
@@ -2623,10 +2635,16 @@
                 "option_id": {
                   "example": "any"
                 },
-                "option_values": {
+                "values": {
                   "example": "any"
                 },
                 "extra_price": {
+                  "example": "any"
+                },
+                "is_default": {
+                  "example": "any"
+                },
+                "sort_order": {
                   "example": "any"
                 }
               }
@@ -2668,9 +2686,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -2730,10 +2745,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "option_values": {
+                "values": {
                   "example": "any"
                 },
                 "extra_price": {
+                  "example": "any"
+                },
+                "is_default": {
+                  "example": "any"
+                },
+                "sort_order": {
                   "example": "any"
                 }
               }

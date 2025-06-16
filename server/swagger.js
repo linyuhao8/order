@@ -73,7 +73,7 @@ const doc = {
         "1.belongto(Product), belongsTo(Category) 2.product_id, category_id",
     },
     {
-      name: "Category",
+      name: "P_Category",
       description:
         "1.belongtoMany(ProductCategory) 2.id, name, description, img",
     },

@@ -55,8 +55,8 @@ const ProductList = ({ menuId, onProductCountChange }) => {
                 </div>
 
                 {/* 描述 */}
-                <p className="text-[12px] text-gray-500 text-muted-foreground leading-relaxed">
-                  {product.description || "暫無描述"}
+                <p className="text-[10px] text-gray-500 text-muted-foreground leading-relaxed">
+                  {product.description?.slice(0, 30) || "暫無描述"}
                 </p>
 
                 {/* 時間資訊 */}
@@ -72,6 +72,7 @@ const ProductList = ({ menuId, onProductCountChange }) => {
                     </div>
                   )}
                 </div>
+                <div className="text-[10px]">{product.id}</div>
               </div>
 
               {/* 右側價格區域 */}

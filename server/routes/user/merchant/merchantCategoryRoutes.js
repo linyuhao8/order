@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../../../controllers/user/merchant/merchantCategoriesControllers");
 
-
 router.post(
   "/",
   // #swagger.tags = ['MCategory']
@@ -85,7 +84,7 @@ router.post(
         in: 'body',
         description: '商家與類別關聯',
         schema: {
-          "merchant_id": uuid,
+          "merchant_id": "uuid",
           "category_id": 2
         }
       } */

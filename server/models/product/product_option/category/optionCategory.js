@@ -39,14 +39,14 @@ module.exports = (sequelize, DataTypes) => {
 
     OptionCategory.belongsTo(models.Option, {
       foreignKey: "option_id",
-      as: "Option",
+      as: "option",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
 
     OptionCategory.belongsTo(models.O_Category, {
       foreignKey: "o_category_id",
-      as: "O_category",
+      as: "o_category",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });

@@ -48,8 +48,8 @@ async function getAllOptionCategories(req, res) {
   try {
     const optionCategories = await OptionCategory.findAll({
       include: [
-        { model: Option, as: "Option" },
-        { model: O_Category, as: "O_Category" },
+        { model: Option, as: "option" },
+        { model: O_Category, as: "o_category" },
       ],
     });
 
@@ -64,8 +64,8 @@ async function getOptionCategoryById(req, res) {
   try {
     const optionCategory = await OptionCategory.findByPk(req.params.id, {
       include: [
-        { model: Option, as: "Option" },
-        { model: O_Category, as: "O_Category" },
+        { model: Option, as: "option" },
+        { model: O_Category, as: "o_category" },
       ],
     });
 

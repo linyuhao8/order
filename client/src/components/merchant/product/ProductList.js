@@ -22,7 +22,7 @@ const ProductList = ({ menuId, onProductCountChange }) => {
   useEffect(() => {
     if (products && typeof onProductCountChange === "function")
       onProductCountChange(products.length || 0);
-  }, [products]);
+  }, [products, onProductCountChange]);
 
   if (loading) return <Loading />;
   if (error)

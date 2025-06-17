@@ -63,7 +63,7 @@ const ProductTab = ({ activeTab, merchantId }) => {
     if (merchantId) {
       menuRefetch();
     }
-  }, [merchantId]);
+  }, [merchantId, menuRefetch]);
 
   useEffect(() => {
     if (menus) {

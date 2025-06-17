@@ -33,6 +33,8 @@ const OptionListByUser = ({ userId }) => {
             (適用於多個商家都通用的)
           </p>
         </div>
+
+        {/* 顯示選項資料 */}
         <div className="border-t p-5 border-gray-200 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
           {options?.map((option) => (
             <div
@@ -88,6 +90,7 @@ const OptionListByUser = ({ userId }) => {
             </div>
           ))}
         </div>
+
         {/* 空狀態 */}
         {options?.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16">

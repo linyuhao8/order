@@ -4,8 +4,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
 //model
-import { Modal } from "@/components/common/Model";
-import useModel from "@/hooks/ui/useModel";
+import { Modal } from "@/components/common/Modal";
+import useModel from "@/hooks/ui/useModal";
 
 const CategoryList = ({ categories, getAllCategories }) => {
   const [categoryToDelete, setCategoryToDelete] = useState(null); // 儲存要刪除的 category id
@@ -36,7 +36,9 @@ const CategoryList = ({ categories, getAllCategories }) => {
 
   return (
     <div className="px-4 py-5 sm:p-6">
-      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">現有分類列表</h3>
+      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
+        現有分類列表
+      </h3>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {categories?.map((category) => (
           <div
@@ -60,9 +62,7 @@ const CategoryList = ({ categories, getAllCategories }) => {
                 )}
               </div>
               <div>
-                <p className="text-sm font-medium ">
-                  {category.name}
-                </p>
+                <p className="text-sm font-medium ">{category.name}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {category.merchants.length} merchants
                 </p>

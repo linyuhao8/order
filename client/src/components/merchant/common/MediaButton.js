@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@/components/common/Button";
-import { Modal } from "@/components/common/Model";
-import useModel from "@/hooks/ui/useModel";
+import { Modal } from "@/components/common/Modal";
+import useModel from "@/hooks/ui/useModal";
 import MediaLibrary from "@/components/common/MediaLibrary/MediaLibrary";
 
 const MediaButton = ({ userId, handleSelectImages, maxSelect }) => {

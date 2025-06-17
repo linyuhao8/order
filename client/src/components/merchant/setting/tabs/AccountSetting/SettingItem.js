@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import useModel from "@/hooks/ui/useModel";
+import useModel from "@/hooks/ui/useModal";
 import InputField from "@/components/common/InputField";
 import Button from "@/components/common/Button";
 import toast from "react-hot-toast";
@@ -11,7 +11,7 @@ const ProfileItem = ({ label, value, isEditable, id }) => {
   const [inputValue, setInputValue] = useState(value);
   const [updateValue, setUpdateValue] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsUpdate(true);

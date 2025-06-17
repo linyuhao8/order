@@ -1,6 +1,6 @@
 import React from "react";
 import InputField from "@/components/common/InputField";
-import { SubModal } from "@/components/common/Model";
+import { SubModal } from "@/components/common/Modal";
 import Button from "@/components/common/Button";
 
 const SettingSubModal = ({

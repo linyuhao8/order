@@ -1,6 +1,18 @@
 //createPortal lets you render some children into a different part of the DOM.
 import { createPortal } from "react-dom";
 
+{
+  /* <Modal
+  isOpen={isModalOpen}
+  closeModal={(e) => {
+    e.stopPropagation(); // 阻止關閉 modal 時冒泡
+    closeModal(); // 關閉 modal
+  }}
+>
+  <MediaLibrary />
+</Modal>; */
+}
+
 //Both use createPortal to avoid confusion in UI hierarchy.
 export const Modal = ({ isOpen, closeModal, children }) => {
   //Prevent SSR errors: Add typeof document === "undefined" judgment to ensure that document.body is only executed on the browser side.

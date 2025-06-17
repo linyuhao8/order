@@ -3,8 +3,8 @@
 import { IoIosSettings } from "react-icons/io";
 
 //model
-import { Modal } from "@/components/common/Model";
-import useModel from "@/hooks/ui/useModel";
+import { Modal } from "@/components/common/Modal";
+import useModel from "@/hooks/ui/useModal";
 
 //component
 import SettingPage from "@/app/merchant/dashboard/settings/page";

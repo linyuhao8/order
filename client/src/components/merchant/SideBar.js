@@ -60,8 +60,8 @@ const Navbar = () => {
               },
               {
                 icon: MdRestaurantMenu,
-                label: "Menu(not yet)",
-                url: "/menu",
+                label: "ProductOption",
+                url: "/merchant/dashboard/product/option-management",
               },
               {
                 icon: FaShoppingCart,

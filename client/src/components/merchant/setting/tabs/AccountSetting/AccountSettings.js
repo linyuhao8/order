@@ -36,7 +36,7 @@ const AccountSettingPage = ({ userId }) => {
           <Loading /> {/* 這邊你可以換成 Skeleton 元件讓體驗更好 */}
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           <SettingItem
             label="Name"
             value={userdata.name}

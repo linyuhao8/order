@@ -24,23 +24,32 @@ import Navbar from "@/components/public/Navbar";
 import axios from "axios";
 
 export default function Login() {
-
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   // hook check auth
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   //If you're logged in and directed to the dash
   useEffect(() => {
-    if (isAuthenticated === true) {
+    if (isAuthenticated === true && user) {
       toast("You are logged in.", { icon: "⚠️" });
-      //Cannot click “Back” to go back to previous page
-      router.replace("/merchant/dashboard");
+
+      const { role } = user;
+
+      let targetPath = "/";
+      if (role === "merchant") {
+        targetPath = "/merchant/dashboard";
+      } else if (role === "admin") {
+        targetPath = "/admin/dashboard";
+      }
+
+      // 使用 replace 可防止按 back 回到 login 頁
+      router.replace(targetPath);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, user, router]);
 
   //Submit form
   const handleSubmit = async (e) => {
@@ -64,8 +73,16 @@ export default function Login() {
       //save to sesstion
       sessionStorage.setItem("user", JSON.stringify(data.user));
 
-      //direct to dashboard
-      router.push("/merchant/dashboard");
+      //redirect
+      const { role } = data.user;
+
+      if (role === "merchant") {
+        router.push("/merchant/dashboard");
+      } else if (role === "admin") {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       toast.dismiss();
       toast.error(

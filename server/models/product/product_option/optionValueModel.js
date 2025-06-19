@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      values: {
+      value: {
         // 改名為 values
         type: DataTypes.STRING,
         allowNull: false,

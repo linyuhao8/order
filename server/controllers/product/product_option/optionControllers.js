@@ -174,10 +174,63 @@ async function deleteOption(req, res) {
   }
 }
 
+async function createOptionWithValues(req, res) {
+  try {
+    const {
+      name,
+      description,
+      type,
+      min_select,
+      max_select,
+      user_id,
+      merchant_id,
+      is_global,
+      values,
+    } = req.body;
+
+    if (!name || !type || !Array.isArray(values)) {
+      return res.status(400).json({ message: "Missing required fields." });
+    }
+
+    // 建立 Option
+    const option = await Option.create({
+      name,
+      description,
+      type,
+      min_select,
+      max_select,
+      user_id,
+      merchant_id,
+      is_global,
+    });
+
+    // 確保 values 裡有對應欄位名稱，比如是 value
+    const optionValuesData = values.map((val) => ({
+      option_id: option.id,
+      value: val.value, // 確認欄位名稱對應
+      extra_price: val.extra_price ?? 0,
+      is_default: val.is_default ?? false,
+      sort_order: val.sort_order ?? 1,
+    }));
+
+    const createdValues = await OptionValue.bulkCreate(optionValuesData);
+
+    return res.status(201).json({
+      message: "Option created successfully.",
+      option,
+      optionValues: createdValues,
+    });
+  } catch (err) {
+    console.error("Error creating option:", err);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+}
+
 module.exports = {
   createOption,
   getAllOptions,
   getOptionById,
   updateOption,
   deleteOption,
+  createOptionWithValues,
 };

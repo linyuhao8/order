@@ -2443,10 +2443,10 @@
                 "name": {
                   "example": "any"
                 },
-                "type": {
+                "description": {
                   "example": "any"
                 },
-                "description": {
+                "type": {
                   "example": "any"
                 },
                 "min_select": {
@@ -2462,6 +2462,9 @@
                   "example": "any"
                 },
                 "is_global": {
+                  "example": "any"
+                },
+                "values": {
                   "example": "any"
                 }
               }

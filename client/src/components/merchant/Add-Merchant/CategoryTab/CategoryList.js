@@ -5,11 +5,11 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 //model
 import { Modal } from "@/components/common/Modal";
-import useModel from "@/hooks/ui/useModal";
+import useModal from "@/hooks/ui/useModal";
 
 const CategoryList = ({ categories, getAllCategories }) => {
   const [categoryToDelete, setCategoryToDelete] = useState(null); // 儲存要刪除的 category id
-  const [isModalOpen, openModal, closeModal] = useModel();
+  const [isModalOpen, openModal, closeModal] = useModal();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const handleDeleteCategory = async (id) => {

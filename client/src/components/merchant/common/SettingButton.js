@@ -4,13 +4,13 @@ import { IoIosSettings } from "react-icons/io";
 
 //model
 import { Modal } from "@/components/common/Modal";
-import useModel from "@/hooks/ui/useModal";
+import useModal from "@/hooks/ui/useModal";
 
 //component
 import SettingPage from "@/app/merchant/dashboard/settings/page";
 
 const SettingButton = () => {
-  const [isModalOpen, openModal, closeModal] = useModel();
+  const [isModalOpen, openModal, closeModal] = useModal();
   return (
     <>
       <button onClick={openModal}>

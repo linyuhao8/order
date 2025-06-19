@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Loading from "@/components/common/Loading";
-import SideBar from "@/components/merchant/SideBar";
+import SideBar from "@/components/merchant/common/SideBar";
 
 export const metadata = {
   title: "dashboard",

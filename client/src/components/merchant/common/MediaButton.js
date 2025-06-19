@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "@/components/common/Button";
 import { Modal } from "@/components/common/Modal";
-import useModel from "@/hooks/ui/useModal";
+import useModal from "@/hooks/ui/useModal";
 import MediaLibrary from "@/components/common/MediaLibrary/MediaLibrary";
 
 const MediaButton = ({ userId, handleSelectImages, maxSelect }) => {
-  const [isModalOpen, openModal, closeModal] = useModel();
+  const [isModalOpen, openModal, closeModal] = useModal();
   const handleButtonClick = (event) => {
     event.stopPropagation(); // 阻止事件冒泡
     openModal(); // 開啟 Modal

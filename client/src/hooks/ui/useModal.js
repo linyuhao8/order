@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 
-// import useModel from "@/hooks/ui/useModel";
-//  const [isModalOpen, openModal, closeModal] = useModel();
+// import useModal from "@/hooks/ui/useModal";
+//  const [isModalOpen, openModal, closeModal] = useModal();
 
 //Responsible for controlling the opening and closing of the model
-const useModel = () => {
+const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
   return [isOpen, openModal, closeModal];
 };
 
-export default useModel;
+export default useModal;

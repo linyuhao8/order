@@ -49,11 +49,6 @@ const Navbar = () => {
                 url: "/merchant/dashboard/media",
               },
               {
-                icon: MdRestaurantMenu,
-                label: "ProductOption",
-                url: "/merchant/dashboard/product/option-management",
-              },
-              {
                 icon: FaShoppingCart,
                 label: "Order(not yet)",
                 url: "/order",

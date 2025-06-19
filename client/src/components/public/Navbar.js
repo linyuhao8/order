@@ -16,16 +16,8 @@ import ThemeButton from "../common/ui/ThemeButton";
 // isAuthenticated display
 const UserLinks = () => (
   <div className="flex space-x-2 items-center">
-    <Button
-      href="/merchant/dashboard/profile"
-      variant="icon"
-      icon={FaUser}
-    ></Button>
-    <Button
-      href="/merchant/dashboard"
-      variant="icon"
-      icon={MdSpaceDashboard}
-    ></Button>
+    <Button href="/account" variant="icon" icon={FaUser}></Button>
+    <Button href="/orders" variant="icon" icon={MdSpaceDashboard}></Button>
     <LogoutButton variant="transparently" size="none" isHome="true" />
   </div>
 );

@@ -53,7 +53,7 @@ const OptionManagement = ({ user, active, merchantId }) => {
     <div className="min-h-screen">
       {/* 主要內容區 */}
       <main className="py-10">
-        <div className="max-w-7xl mx-auto">
+        <div className="mx-auto">
           {/* 頁面標題 */}
           <div className="flex items-center justify-between space-x-5 mb-8">
             <div className="flex items-start space-x-5">
@@ -65,7 +65,7 @@ const OptionManagement = ({ user, active, merchantId }) => {
                 </Button>
               </div>
             </div>
-            <Button variant="outline" href={`/merchant/dashboard/`}>
+            <Button variant="outline" href={`/merchant/dashboard/select`}>
               back
             </Button>
           </div>

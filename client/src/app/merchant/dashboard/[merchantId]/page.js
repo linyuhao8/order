@@ -56,17 +56,17 @@ const MerchantPage = ({ isAuthenticated, user }) => {
         </Button>
         <Button
           variant="outline"
-          href="/merchant/dashboard/select"
-          className="ml-2"
-        >
-          back
-        </Button>
-        <Button
-          variant="outline"
           href="/merchant/dashboard/product/option-management"
           className="ml-2"
         >
           管理商品選項
+        </Button>
+        <Button
+          variant="outline"
+          href="/merchant/dashboard/select"
+          className="ml-2"
+        >
+          back
         </Button>
       </div>
       <MerchantMenu id={merchantId} />

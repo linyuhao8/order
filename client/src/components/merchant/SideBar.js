@@ -19,7 +19,7 @@ const Navbar = () => {
     <div>
       {/* Sidebar - Mobile Menu, Desktop Fixed */}
       <div className="block md:w-64 md:fixed h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 p-6 z-10">
-        <Link href="/">
+        <Link href="/merchant/dashboard">
           <div className="flex items-center flex-nowrap space-x-2 mb-6">
             <div className="bg-amber-500 text-white rounded-full h-8 w-8 flex items-center justify-center">
               <span>H</span>
@@ -34,19 +34,9 @@ const Navbar = () => {
           <ul className="space-y-2">
             {[
               {
-                icon: IoHome,
-                label: "Home",
-                url: "/",
-              },
-              {
                 icon: FaUser,
                 label: "Profile",
                 url: `/merchant/dashboard/profile`,
-              },
-              {
-                icon: MdDashboard,
-                label: "Dashboard",
-                url: `/merchant/dashboard`,
               },
               {
                 icon: FaStore,

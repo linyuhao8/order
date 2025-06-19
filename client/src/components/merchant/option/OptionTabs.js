@@ -5,11 +5,17 @@ import Button from "@/components/common/Button";
 import OptionListByUser from "@/components/merchant/option/OptionListByUser";
 import OptionListByMerchant from "./OptionListByMerchant";
 
-const OptionTabs = ({ user, active }) => {
-  const [activeTab, setActiveTab] = useState(active || "user");
-
-  if (!user) return null;
-
+const OptionTabs = ({
+  user,
+  activeTab,
+  setActiveTab,
+  getOptionByUserData,
+  getOptionByUserLoading,
+  getOptionByUserRefetch,
+  getAllMerchantByUserData,
+  getAllMerchantByUserLoading,
+  refreshKey,
+}) => {
   return (
     <>
       {/* 選項卡切換 */}
@@ -61,8 +67,21 @@ const OptionTabs = ({ user, active }) => {
 
       {/* 根據 activeTab 渲染內容 */}
 
-      {activeTab === "user" && <OptionListByUser userId={user.id} />}
-      {activeTab === "merchant" && <OptionListByMerchant user={user} />}
+      {activeTab === "user" && (
+        <OptionListByUser
+          optionData={getOptionByUserData}
+          optionLoading={getOptionByUserLoading}
+          getOptionByUserRefetch={getOptionByUserRefetch}
+        />
+      )}
+      {activeTab === "merchant" && (
+        <OptionListByMerchant
+          merchantData={getAllMerchantByUserData}
+          merchantLoading={getAllMerchantByUserLoading}
+          refreshKey={refreshKey}
+        />
+      )}
+      {activeTab === "global" && <div>尚未新增此功能</div>}
     </>
   );
 };

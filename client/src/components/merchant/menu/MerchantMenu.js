@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import ProductList from "../product/ProductList";
 import useFetch from "@/hooks/api/useFetch";
 import ErrorMessage from "@/components/common/ErrorMessage";
@@ -9,8 +9,10 @@ import Button from "@/components/common/Button";
 import { MdDelete } from "react-icons/md";
 
 export default function MerchantMenu({ id }) {
+  //用物件的方式紀錄每個菜單的商品數量 ex: {menuId : 2}
   const [productCount, setProductCounts] = useState({});
 
+  //根據商家ID取得菜單
   const getMenusUrl = id
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${id}?limit=1`
     : null;
@@ -33,12 +35,28 @@ export default function MerchantMenu({ id }) {
     enabled: false,
   });
 
-  const handleProductCountChange = (menuId, count) => {
-    setProductCounts((prev) => ({
-      ...prev,
-      [menuId]: count,
-    }));
-  };
+  // 為每個 menuId 建立固定的 callback，避免重複渲染或 eslint 錯誤
+  // 用useMemo來記錄，只要menu不改變，就不需變動商品數量
+  const productCountCallbacks = useMemo(() => {
+    const obj = {};
+    //每個做處理key,value
+    menus?.forEach((menu) => {
+      //count為callback function傳入的參數（在productlist裡面設定的）
+      obj[menu.id] = (count) =>
+        //設定狀態
+        setProductCounts((prev) => {
+          //如果menuId的count一樣就不用更新
+          if (prev[menu.id] === count) {
+            return prev;
+          }
+          //不一樣就更新count
+          return { ...prev, [menu.id]: count };
+        });
+    });
+    //回傳結果
+    return obj;
+  }, [menus]);
+
   const handleDelete = async (menuId, name) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete this Menu: ${name}?`
@@ -130,11 +148,12 @@ export default function MerchantMenu({ id }) {
                   <div>
                     <ProductList
                       menuId={menu.id}
-                      // callback func接受子組件傳回的參數
-                      onProductCountChange={(count) =>
-                        handleProductCountChange(menu.id, count)
-                      }
+                      onProductCountChange={productCountCallbacks[menu.id]}
                     />
+                    {/* productCountCallbacks = {
+  1: (count) => { ... }, // 對應 menu id = 1 的 callback
+  2: (count) => { ... }, // 對應 menu id = 2 的 callback
+  3: (count) => { ... }, // ... */}
                   </div>
                 </div>
               </div>

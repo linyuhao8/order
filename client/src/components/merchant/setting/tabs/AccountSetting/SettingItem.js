@@ -61,7 +61,7 @@ const ProfileItem = ({ label, value, isEditable, id }) => {
 
   return (
     <>
-      <div className="w-full flex sm:flex-row flex-col relative justify-between items-center sm:gap-8  bg-white py-3 border-t border-gray-200">
+      <div className="w-full flex sm:flex-row flex-col relative justify-between items-center sm:gap-8  py-3 border-t border-gray-200">
         {/* 標籤 */}
         <label className=" w-full sm:w-[40%] text-sm font-medium text-gray-400 dark:text-gray-400">
           {label}

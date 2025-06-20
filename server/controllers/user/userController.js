@@ -201,7 +201,7 @@ const login = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // 防止 JavaScript 存取該 Cookie
       secure: process.env.NODE_ENV === "production", // 只有在生產環境下才會啟用 Secure
-      maxAge: 60 * 60 * 1000, // Token 存活 1 小時
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7天
       sameSite: "Strict", // 防止 CSRF 攻击
     });
 

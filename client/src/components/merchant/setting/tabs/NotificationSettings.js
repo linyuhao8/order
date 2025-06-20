@@ -16,7 +16,7 @@ const NotificationSettings = () => {
   };
 
   return (
-    <div className="render-tab-content max-w-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div className="mx-auto bg-white dark:bg-gray-800 py-2">
       <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
         Notification Settings
       </h3>
@@ -61,7 +61,7 @@ const NotificationSettings = () => {
       {/* Save Button */}
       <button
         type="submit"
-        className="w-full bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 transition duration-200"
+        className="mt-4 bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 transition duration-200"
       >
         Save Changes
       </button>

@@ -2,14 +2,14 @@
 // icon
 import { IoIosSettings } from "react-icons/io";
 
-//model
+//modal
 import { Modal } from "@/components/common/Modal";
 import useModal from "@/hooks/ui/useModal";
 
 //component
-import SettingPage from "@/app/merchant/dashboard/settings/page";
+import Setting from "@/components/merchant/setting/Setting";
 
-const SettingButton = () => {
+const SettingButton = ({ user }) => {
   const [isModalOpen, openModal, closeModal] = useModal();
   return (
     <>
@@ -17,7 +17,7 @@ const SettingButton = () => {
         <IoIosSettings className="text-2xl" />
       </button>
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
-        <SettingPage settingActiveTab="account" />
+        <Setting settingActiveTab={"account"} user={user} />
       </Modal>
     </>
   );

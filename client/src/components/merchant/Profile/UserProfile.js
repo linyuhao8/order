@@ -1,114 +1,95 @@
 "use client";
-import { useState, useEffect } from "react";
-
-//axios
-import axios from "axios";
-
-//icon
 import { FaRegUser } from "react-icons/fa";
+import useFetch from "@/hooks/api/useFetch";
+import Loading from "@/components/common/Loading";
+import ErrorMessage from "@/components/common/ErrorMessage";
 
-//component
-import SettingButton from "@/components/merchant/common/SettingButton";
+const UserProfile = ({ user }) => {
+  const userId = user?.id;
+  const url = userId
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`
+    : null;
 
-const UserProfile = ({ userId }) => {
-  const [userdata, setUserdata] = useState({
-    id: "",
-    name: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
-    role: "",
-    createdAt: "",
-    updatedAt: "",
+  const {
+    data: userdata,
+    loading,
+    error,
+    refetch,
+  } = useFetch(url, {
+    withCredentials: true,
+    enabled: !!userId,
   });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`,
-          { withCredentials: true }
-        );
-        setUserdata(response.data);
-      } catch (error) {
-        console.error("Error fetching user profile:", error);
-      }
-    };
+  if (!userId) return null;
+  if (loading) return <Loading />;
+  if (error)
+    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
 
-    fetchUser();
-  }, [userId]);
+  const {
+    id = "ID",
+    name = "Name",
+    email = "Email",
+    role = "Role",
+    createdAt,
+  } = userdata || {};
+
+  const stats = [
+    { value: "3", label: "Number of Merchants" },
+    { value: "32", label: "Number of Orders" },
+    { value: "98%", label: "Review" },
+    { value: "$8,450", label: "Monthly incomes" },
+  ];
 
   return (
-    <>
-      {/* Employee Profile Card */}
-      <div className="col-span-1 row-span-1 md:row-span-2 md:col-span-3 xl:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 dark:border-gray-700">
-        <div className="flex justify-between items-center mb-4 md:mb-5">
-          <h2 className="text-base font-semibold dark:text-white">
-            User Profile
-          </h2>
-          <SettingButton />
-        </div>
+    <div className="col-span-1 row-span-1 md:row-span-2 md:col-span-3 xl:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 dark:border-gray-700">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4 md:mb-5">
+        <h2 className="text-base font-semibold dark:text-white">
+          User Profile
+        </h2>
+      </div>
 
-        {/* name and role */}
-        <div className="flex flex-col md:flex-col items-center mb-4 md:mb-6">
-          <div className="h-15 w-15 flex justify-center items-center rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden mb-2">
-            <FaRegUser size={25} />
-          </div>
-          <div className="text-center">
-            <h3 className="text-lg md:text-xl font-semibold dark:text-white mb-1">
-              {userdata ? userdata?.name : "Name"}
-            </h3>
-            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-3 md:mb-4">
-              {userdata ? userdata?.role : "Role"}
-            </p>
-          </div>
+      {/* Avatar */}
+      <div className="flex flex-col items-center mb-6">
+        <div className="h-15 w-15 flex justify-center items-center rounded-full bg-gray-200 dark:bg-gray-700 mb-2">
+          <FaRegUser size={25} />
         </div>
-
-        {/* profile information */}
-        <div className="mb-4 md:mb-6 space-y-2">
-          <div className="flex items-center text-gray-500 dark:text-gray-400">
-            <span className="text-sm md:text-base">
-              iD: {userdata ? userdata?.id : "ID"}
-            </span>
-          </div>
-          <div className="flex items-center text-gray-500 dark:text-gray-400">
-            <span className="text-sm md:text-base">
-              Email: {userdata ? userdata?.email : "email"}
-            </span>
-          </div>
-          <div className="flex items-center text-gray-500 dark:text-gray-400">
-            <span className="text-sm md:text-base">
-              Joined:{" "}
-              {userdata
-                ? new Date(userdata.createdAt).toLocaleString()
-                : "createdAt"}
-            </span>
-          </div>
-        </div>
-
-        {/* some things about merchant */}
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-3">
-          {[
-            { value: "3", label: "Number of Merchants" },
-            { value: "32", label: "Number of Orders" },
-            { value: "98%", label: "Review" },
-            { value: "$8,450", label: "Monthly incomes" },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="p-2 md:p-3 rounded-lg bg-gray-50 dark:bg-gray-700 text-center"
-            >
-              <div className="text-base md:text-xl font-semibold text-amber-600 dark:text-amber-400 mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+        <div className="text-center">
+          <h3 className="text-lg md:text-xl font-semibold dark:text-white mb-1">
+            {name}
+          </h3>
+          <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">
+            {role}
+          </p>
         </div>
       </div>
-    </>
+
+      {/* Profile Info */}
+      <div className="mb-6 space-y-2 text-sm md:text-base text-gray-500 dark:text-gray-400">
+        <p>ID: {id}</p>
+        <p>Email: {email}</p>
+        <p>
+          Joined: {createdAt ? new Date(createdAt).toLocaleString() : "Unknown"}
+        </p>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 gap-3">
+        {stats.map(({ value, label }, idx) => (
+          <div
+            key={idx}
+            className="p-3 rounded-lg bg-gray-50 dark:bg-gray-700 text-center"
+          >
+            <div className="text-xl font-semibold text-amber-600 dark:text-amber-400 mb-1">
+              {value}
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              {label}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

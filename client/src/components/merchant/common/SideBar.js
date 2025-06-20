@@ -25,7 +25,7 @@ const Navbar = () => {
               <span>H</span>
             </div>
             <div>
-              <span className="font-medium">Hank Order</span>
+              <span className="font-medium">Dashboard</span>
             </div>
           </div>
         </Link>

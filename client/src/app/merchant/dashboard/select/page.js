@@ -32,7 +32,7 @@ const MerchantList = ({ isAuthenticated, user }) => {
 
   return (
     <>
-      <Header name={"Merchants List"} user={user} />
+      <Header name={"Merchants List"} />
       {!merchants?.length ? (
         <p>You don&apos;t have any merchants yet.</p>
       ) : (

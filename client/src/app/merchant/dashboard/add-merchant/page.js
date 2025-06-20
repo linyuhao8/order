@@ -9,7 +9,7 @@ import Header from "@/components/merchant/common/Header/Header";
 function AddMerchantPage({ user }) {
   return (
     <>
-    <Header name={"Added new merchant information page"} />
+      <Header name={"Added new merchant information page"} user={user} />
       <MerchantCreateTabs user={user} active={"merchant"} />
     </>
   );

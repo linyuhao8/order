@@ -37,7 +37,7 @@ const MerchantPage = ({ isAuthenticated, user }) => {
 
   return (
     <>
-      <Header name={`${merchant?.business_name || "商家資訊"}`} />
+      <Header name={`${merchant?.business_name || "商家資訊"}`} user={user} />
       <div className="py-5">
         <Button
           size="md"

@@ -9,8 +9,10 @@ const Page = ({ user }) => {
   const userId = user.id;
   return (
     <>
-      <Header name={"Profile"} />
-      <UserProfile userId={userId} />
+      <Header name={"Profile"} user={user} />
+      <div className="max-w-xl">
+        <UserProfile user={user} />
+      </div>
     </>
   );
 };

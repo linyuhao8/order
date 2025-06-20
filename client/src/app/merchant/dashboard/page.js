@@ -8,16 +8,14 @@ function Dashboard({ isAuthenticated, user }) {
   if (!user || isAuthenticated === null) {
     return <Loading />;
   }
-
-  const userId = user.id;
   return (
     <>
       {/* Main Content - Adjusted for Responsiveness */}
       <div>
-        <Header name={"Dashboard"}/>
+        <Header name={"Dashboard"} user={user} />
         {/* Grid Layout with Responsive Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <UserProfile userId={userId} />
+          <UserProfile user={user} />
           {/* Activity Card */}
           <div className="col-span-1 md:col-span-2 md:col-span-3 xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-5">

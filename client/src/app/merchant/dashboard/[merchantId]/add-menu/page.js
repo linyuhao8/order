@@ -10,7 +10,7 @@ function AddMenuPage({ user }) {
   const { merchantId } = useParams();
   return (
     <>
-      <Header name={"Menu"} />
+      <Header name={"Menu"} user={user} />
       <AddMenu user={user} active={"menu"} merchantId={merchantId} />
     </>
   );

@@ -11,7 +11,7 @@ function AddMerchantPage({ user }) {
   if (!user) return <Loading />;
   return (
     <>
-      <Header name={"Management Option"} />
+      <Header name={"Management Option"} user={user} />
       <OptionManagement user={user} active={"user"} />
     </>
   );

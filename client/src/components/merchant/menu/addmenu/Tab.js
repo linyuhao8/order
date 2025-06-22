@@ -6,9 +6,11 @@ import { useState, useEffect } from "react";
 import Button from "@/components/common/Button";
 import MenuTab from "./MenuTab";
 import ProductTab from "../../product/ProductTab";
+import Loading from "@/components/common/Loading";
 
 const Tab = ({ active, merchantId }) => {
   const [activeTab, setActiveTab] = useState(active || "menu");
+  if ((!active, !merchantId)) return <Loading />;
   return (
     <>
       {/* 選項卡切換 */}

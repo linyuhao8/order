@@ -2,7 +2,9 @@
 //component
 import Button from "@/components/common/Button";
 import Tab from "./Tab";
+import Loading from "@/components/common/Loading";
 const AddPage = ({ user, active, merchantId }) => {
+  if ((!active, !merchantId)) return <Loading />;
   return (
     <div className="min-h-screen">
       {/* 主要內容區 */}

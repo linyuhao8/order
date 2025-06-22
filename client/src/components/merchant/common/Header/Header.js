@@ -1,36 +1,44 @@
+"use client";
 import ThemeButton from "@/components/common/ui/ThemeButton";
-import Search from "./Search";
 import SettingButton from "../SettingButton";
-import useFetch from "@/hooks/api/useFetch";
 import useModal from "@/hooks/ui/useModal";
-import { Modal } from "@/components/common/Modal";
+import Button from "@/components/common/Button";
+import { getCookie, deleteCookie } from "cookies-next/client";
+import MerchantSelectorModal from "./MerchantSelectorModal";
 
 const Header = ({ name, user }) => {
-  const [openModal, isModalOpen, closeModal] = useModal();
-  const url = user
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${user.id}/merchants`
-    : null;
+  const [isModalOpen, openModal, closeModal] = useModal();
+  const handleOpen = () => {
+    openModal();
+  };
 
-  const {
-    data: merchants,
-    loading,
-    error,
-    refetch,
-  } = useFetch(url, {
-    withCredentials: true,
-    enabled: false, // 確保 user 有值才執行抓取
-  });
-
+  let merchant = null;
+  const merchantCookie = getCookie("order-merchant");
+  if (merchantCookie) {
+    try {
+      merchant = JSON.parse(merchantCookie);
+    } catch (error) {
+      console.error("Invalid merchant cookie:", error);
+      deleteCookie("order-merchant"); // 清除錯誤的 cookie
+    }
+  }
   return (
     <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 space-y-4 md:space-y-0">
       <h1 className="text-2xl font-semibold dark:text-white">{name}</h1>
+
       <div className="flex flex-wrap items-center justify-end gap-4">
-        <Search />
-        <div className="flex justify-end items-center space-x-2">
-          <ThemeButton />
-          <SettingButton />
-        </div>
+        <ThemeButton />
+        <SettingButton user={user} />
+
+        <Button variant="outline" onClick={handleOpen}>
+          {merchant ? merchant?.business_name : "切換商家"}
+        </Button>
       </div>
+      <MerchantSelectorModal
+        closeModal={closeModal}
+        isModalOpen={isModalOpen}
+        user={user}
+      />
     </header>
   );
 };

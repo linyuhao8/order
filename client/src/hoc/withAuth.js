@@ -1,40 +1,47 @@
-"use client"; // ✅ This directive ensures the component runs on the client side
+"use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/auth/useAuth";
 import toast from "react-hot-toast";
-
-//使用方法
-// const Page = ({ isAuthenticated,user }) => { return <div></div> };
-// export default withAuth(Page);
-//用於後端的每個頁面都會先驗證一次，檢查是否登入和jwt token，並且能回傳user data
+import Loading from "@/components/common/Loading";
 
 /**
- * A higher-order component (HOC) that wraps a component
- * and ensures the user is authenticated before rendering it.
- *
- * @param {React.ComponentType} WrappedComponent - The component to wrap.
- * @returns {React.FC} - A new component that handles authentication.
+ * @param {React.ComponentType} WrappedComponent - The component to wrap
+ * @param {Object} options - Options for customization
+ * @param {string} options.redirectTo - Redirect path if unauthenticated
+ * @param {boolean} options.showToast - Whether to show a toast on redirect
+ * @param {React.ReactNode} options.LoadingComponent - Optional custom loading UI
+ * @returns {React.FC}
  */
-const withAuth = (WrappedComponent) => {
+
+const withAuth = (
+  WrappedComponent,
+  {
+    redirectTo = "/login",
+    showToast = true,
+    LoadingComponent = <Loading />,
+  } = {}
+) => {
   const AuthComponent = (props) => {
-    // Retrieve authentication state and user data
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated, user, isLoading } = useAuth();
     const router = useRouter();
+    const hasRedirected = useRef(false);
 
     useEffect(() => {
-      // If the user is not authenticated, show a warning toast
-      if (isAuthenticated === false) {
-        toast("請先登入", { icon: "⚠️" });
-        router.replace("/login");
+      if (!isLoading && isAuthenticated === false && !hasRedirected.current) {
+        hasRedirected.current = true;
+        if (showToast) {
+          toast("請先登入", { icon: "⚠️" });
+        }
+        router.replace(redirectTo);
       }
-    }, [isAuthenticated, router]);
+    }, [isAuthenticated, isLoading, router]);
 
-    // Show a loading state while authentication status is being determined
-    if (isAuthenticated === null) return null;
+    if (isLoading || isAuthenticated === null) {
+      return LoadingComponent;
+    }
 
-    // Render the wrapped component with authentication props
     return (
       <WrappedComponent
         {...props}
@@ -44,7 +51,6 @@ const withAuth = (WrappedComponent) => {
     );
   };
 
-  // ✅ Set displayName for better debugging in React DevTools
   AuthComponent.displayName = `withAuth(${
     WrappedComponent.displayName || WrappedComponent.name || "Component"
   })`;

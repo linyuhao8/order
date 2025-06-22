@@ -1,54 +1,89 @@
-"use client"; // This directive ensures the file is treated as a client component in Next.js.
+"use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { api } from "@/api";
+import { getCookie, setCookie, deleteCookie } from "cookies-next/client";
 
-//使用方法const { isAuthenticated, user } = useAuth(true);
-//當傳入參數為true，如用戶未登入會自動導向
-
-//When redirectIfUnauthenticated is true, unregistered users will be redirected and will not be able to access the page.
-const useAuth = (redirectIfUnauthenticated = false) => {
-  // State to track authentication status
+const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  // State to store user information
   const [user, setUser] = useState(null);
-  // Next.js router instance for navigation
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Function to check user authentication status
-    const checkAuthentication = async () => {
+    let isMounted = true;
+
+    // Step 1：從 cookie 快速取出用戶資訊（可能是舊的）
+    const userCookie = getCookie("order-user");
+    if (userCookie) {
       try {
-        const response = await api.auth.checkAuth(); // Call the authentication API
+        const parsed = JSON.parse(userCookie);
+        setUser(parsed);
+        setIsAuthenticated(true);
+        setIsLoading(true); // 雖然有 cookie，還是要 call API 確認
+      } catch (err) {
+        deleteCookie("order-user");
+      }
+    }
+
+    // Step 2：call API 二次確認用戶身份
+    const checkAuth = async () => {
+      try {
+        const response = await api.auth.checkAuth();
         const data = await response.json();
 
+        if (!isMounted) return;
+
         if (response.ok) {
-          // If authentication is successful, update state
           setIsAuthenticated(true);
           setUser(data.user);
+
+          // 更新 cookie
+          setCookie(
+            "order-user",
+            JSON.stringify({
+              id: data.user.id,
+              name: data.user.name,
+              role: data.user.role,
+            }),
+            {
+              maxAge: 60 * 60 * 24 * 7,
+              path: "/",
+            }
+          );
         } else {
-          // If authentication fails, reset state and redirect if needed
-          setIsAuthenticated(false);
-          setUser(null);
-          if (redirectIfUnauthenticated) {
-            router.push("/login"); // Redirect to login page
-          }
+          // token 失效或未登入
+          handleUnauthenticated();
         }
-      } catch (error) {
-        // Handle errors, reset state, and redirect if required
-        setIsAuthenticated(false);
-        setUser(null);
-        if (redirectIfUnauthenticated) {
-          router.push("/login");
-        }
+      } catch (err) {
+        if (!isMounted) return;
+        handleUnauthenticated("Auth failed");
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
     };
 
-    checkAuthentication();
-  }, [router, redirectIfUnauthenticated]); // Re-run effect when dependencies change
+    const handleUnauthenticated = (msg = "Unauthorized") => {
+      setIsAuthenticated(false);
+      setUser(null);
+      setError(msg);
+      deleteCookie("order-user");
+      deleteCookie("order-merchant");
+    };
 
-  return { isAuthenticated, user }; // Return authentication status and user data
+    checkAuth();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  return {
+    isAuthenticated,
+    user,
+    isLoading,
+    error,
+  };
 };
 
-export default useAuth; // Export the custom hook
+export default useAuth;

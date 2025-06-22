@@ -1,6 +1,6 @@
 "use client";
 //React
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 //nextjs
 import { useRouter } from "next/navigation";
@@ -69,9 +69,6 @@ export default function Login() {
       //Success UI toast
       toast.dismiss();
       toast.success(data.message || "Login successful!");
-
-      //save to sesstion
-      sessionStorage.setItem("user", JSON.stringify(data.user));
 
       //redirect
       const { role } = data.user;

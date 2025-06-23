@@ -8,7 +8,7 @@ import Header from "@/components/merchant/common/Header/Header";
 
 function MediaPage({ user }) {
   const [selectedImages, setSelectedImages] = useState([]);
-  const userId = user.id;
+  const userId = user ? user.id : null;
 
   const handleSelectImages = (images) => {
     setSelectedImages(images);
@@ -17,7 +17,7 @@ function MediaPage({ user }) {
 
   return (
     <>
-    <Header name={"Media"} />
+      <Header name={"Media"} user={user} />
       <div className="container mx-auto px-4 py-8">
         {selectedImages.length > 0 && (
           <div className="mb-6 p-4 bg-gray-50 rounded-lg">

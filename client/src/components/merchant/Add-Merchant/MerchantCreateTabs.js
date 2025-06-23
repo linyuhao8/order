@@ -22,7 +22,7 @@ const MerchantCreateTabs = ({ user, active }) => {
                   </p>
                 </div>
               </div>
-              <Button variant="outline" href="/merchant/dashboard/select">
+              <Button variant="outline" href="/merchant/dashboard">
                 back
               </Button>
             </div>

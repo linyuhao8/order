@@ -7,8 +7,9 @@ import { Modal } from "@/components/common/Modal";
 import { useState } from "react";
 import AddOption from "./AddOption";
 import useFetch from "@/hooks/api/useFetch";
+import { useMerchant } from "@/hooks/useMerchant";
 
-const OptionManagement = ({ user, active, merchantId }) => {
+const OptionManagement = ({ user, active }) => {
   //控制彈出視窗
   const [isModalOpen, openModal, closeModal] = useModal();
   const [activeTab, setActiveTab] = useState(active || "user");
@@ -18,6 +19,8 @@ const OptionManagement = ({ user, active, merchantId }) => {
     // 每次觸發都會改變 refreshKey → 讓子組件感知到變化
     setRefreshKey((prev) => prev + 1);
   };
+  //merchant data
+  const { merchant } = useMerchant();
 
   const getOptionByUserurl = user
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/options/all?user_id=${user.id}`
@@ -65,9 +68,14 @@ const OptionManagement = ({ user, active, merchantId }) => {
                 </Button>
               </div>
             </div>
-            <Button variant="outline" href={`/merchant/dashboard/select`}>
-              back
-            </Button>
+            {merchant && (
+              <Button
+                variant="outline"
+                href={`/merchant/dashboard/${merchant ? merchant.id : null}`}
+              >
+                back
+              </Button>
+            )}
           </div>
           {/* 選項卡切換 可以切換產品或菜單*/}
           <Tabs

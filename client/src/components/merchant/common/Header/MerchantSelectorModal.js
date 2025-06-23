@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import { Modal } from "@/components/common/Modal";
 import Loading from "@/components/common/Loading";
 import useFetch from "@/hooks/api/useFetch";
-import { setCookie } from "cookies-next";
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import { useMerchant } from "@/hooks/useMerchant";
+
 const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMerchant, setSelectedMerchant] = useState(null);
+
+  const { setCurrentMerchant } = useMerchant();
 
   const url = user
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${user.id}/merchants`
@@ -30,21 +33,14 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
 
   const handleMerchantSelect = (merchant) => {
     if (!merchant?.id) return;
-
-    // 將 merchant 部分資訊轉成 JSON 字串
-    const merchantData = JSON.stringify({
+    const simplifiedMerchant = {
       id: merchant.id,
       business_name: merchant.business_name,
-    });
-
-    setCookie("order-merchant", merchantData, {
-      maxAge: 60 * 60 * 24 * 7, // 7 天
-      path: "/",
-    });
-
+    };
+    setCurrentMerchant(simplifiedMerchant);
     setSelectedMerchant(merchant);
     closeModal();
-    router.push(`/merchant/dashboard/${merchant.id}`);
+    router.push("/merchant/dashboard");
   };
 
   const filteredMerchants =

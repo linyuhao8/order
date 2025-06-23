@@ -31,46 +31,33 @@ const MerchantPage = ({ isAuthenticated, user }) => {
   });
 
   if (loading) return <Loading />;
-  if (error)
-    return <ErrorMessage errorMessage={error.message} onReload={refetch} />;
-  if (!merchant) return null;
+  if (!user) return null;
 
   return (
     <>
       <Header name={`${merchant?.business_name || "商家資訊"}`} user={user} />
-      <div className="py-5">
-        <Button
-          size="md"
-          variant="outline"
-          href={`/merchant/dashboard/${merchantId}/add-menu`}
-        >
-          新增 Menu
-        </Button>
-        <Button
-          size="md"
-          variant="outline"
-          href={`/merchant//dashboard/${merchantId}/add-product`}
-          className="ml-2"
-        >
-          新增 Product
-        </Button>
-        <Button
-          variant="outline"
-          href="/merchant/dashboard/product/option-management"
-          className="ml-2"
-        >
-          管理商品選項
-        </Button>
-        <Button
-          variant="outline"
-          href="/merchant/dashboard/select"
-          className="ml-2"
-        >
-          back
-        </Button>
-      </div>
-      <MerchantMenu id={merchantId} />
-      <MerchantsCard merchant={merchant} />
+      {!merchant ? (
+        <div>
+          There ar no merchant you choose
+          <Button variant="outline" href="/merchant/dashboard/add-merchant">
+            Create Merchant
+          </Button>
+        </div>
+      ) : (
+        <>
+          <div className="py-5">
+            <Button
+              variant="outline"
+              href="/merchant/dashboard/product/option-management"
+              className="ml-2"
+            >
+              管理商品選項
+            </Button>
+          </div>
+          <MerchantMenu id={merchantId} />
+          <MerchantsCard merchant={merchant} />
+        </>
+      )}
     </>
   );
 };

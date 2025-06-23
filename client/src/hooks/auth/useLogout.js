@@ -1,8 +1,10 @@
 // hooks/useLogout.ts
 import axios from "axios";
 import { deleteCookie } from "cookies-next/client";
+import { useMerchant } from "../useMerchant";
 
 export const useLogout = () => {
+  const { clearCurrentMerchant } = useMerchant();
   const logout = async () => {
     try {
       const response = await axios.post(
@@ -18,7 +20,7 @@ export const useLogout = () => {
 
       if (response.status === 200) {
         deleteCookie("order-user");
-        deleteCookie("order-merchant");
+        clearCurrentMerchant();
         return { success: true, message: response.data.message };
       } else {
         return {

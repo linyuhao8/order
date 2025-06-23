@@ -26,13 +26,15 @@ const Button = ({
     transparently:
       "flex items-center justify-center flex-nowrap bg-transpanent text-lg",
     icon: "w-9 h-9 rounded-full flex items-center justify-center  bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300 cursor-pointer",
-    dashboardNav:
-      "flex items-center justify-start text-md hover:bg-gray-100 dark:hover:bg-gray-700 rounded ",
     activeTab:
       "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-amber-500 text-amber-600",
     tab: "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
     square:
       "flex justify-center items-center h-9 w-9 rounded-lg bg-gray-100 text-gray-600 hover:bg-amber-100 hover:text-amber-600 transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-amber-900/30 dark:hover:text-amber-400",
+    dashboardNav:
+      "text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex flex-nowrap items-center gap-2",
+    ghost:
+      "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800",
   };
 
   // size

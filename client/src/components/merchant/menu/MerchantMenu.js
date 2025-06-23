@@ -102,7 +102,7 @@ export default function MerchantMenu({ id }) {
           {menus?.map((menu) => (
             <div
               key={menu.id}
-              className="group relative rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className="dark:bg-gray-800 group relative rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700"
             >
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
@@ -157,9 +157,6 @@ export default function MerchantMenu({ id }) {
                   </div>
                 </div>
               </div>
-
-              {/* 懸停效果的裝飾 */}
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ))}
         </div>

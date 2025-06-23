@@ -1,10 +1,10 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/auth/useLogout";
 import { useState } from "react";
 import Button from "@/components/common/Button";
 import { FaSignOutAlt } from "react-icons/fa";
-
 import toast from "react-hot-toast";
 
 const LogoutButton = ({ variant, size, isHome }) => {
@@ -29,17 +29,21 @@ const LogoutButton = ({ variant, size, isHome }) => {
     }
   };
 
+  const isIconOnly = variant === "icon";
+
   return (
     <div>
       <Button
         size={size}
         onClick={handleLogout}
-        icon={FaSignOutAlt}
         disabled={isLoggingOut}
         variant={variant}
+        className="flex items-center gap-2"
       >
-        {/* home page on text */}
-        {!isHome ? (isLoggingOut ? "log out..." : "logout") : null}
+        <FaSignOutAlt />
+        {!isIconOnly && !isHome && (
+          <span>{isLoggingOut ? "log out..." : "Logout"}</span>
+        )}
       </Button>
     </div>
   );

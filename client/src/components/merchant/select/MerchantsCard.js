@@ -45,7 +45,7 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
   };
 
   return (
-    <div className="rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 mt-4">
+    <div className="rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 mt-8">
       <div className="p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">

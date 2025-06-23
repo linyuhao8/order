@@ -5,8 +5,7 @@ import withAuth from "@/hoc/withAuth";
 import Loading from "@/components/common/Loading";
 
 const Page = ({ user }) => {
-  if (!user) return <Loading />;
-  const userId = user.id;
+  if (!user) return null;
   return (
     <>
       <Header name={"Profile"} user={user} />

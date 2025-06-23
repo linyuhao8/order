@@ -18,7 +18,7 @@ const Tab = ({ active }) => {
   //custom context
   const user = useUser();
 
-  const userId = user.id;
+  const userId = user ? user.id : null;
 
   const url = userId
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchant-categorys/`

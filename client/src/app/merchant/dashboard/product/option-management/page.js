@@ -8,7 +8,7 @@ import Loading from "@/components/common/Loading";
 import OptionManagement from "@/components/merchant/option/OptionManagement";
 
 function AddMerchantPage({ user }) {
-  if (!user) return <Loading />;
+  if (!user) return null;
   return (
     <>
       <Header name={"Management Option"} user={user} />

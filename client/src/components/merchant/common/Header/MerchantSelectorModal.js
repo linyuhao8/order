@@ -10,10 +10,10 @@ import { useMerchant } from "@/hooks/useMerchant";
 const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedMerchant, setSelectedMerchant] = useState(null);
 
-  const { setCurrentMerchant } = useMerchant();
+  const { merchant, setCurrentMerchant } = useMerchant();
 
+  const currentMerchant = merchant;
   const url = user
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/user/${user.id}/merchants`
     : null;
@@ -38,7 +38,6 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
       business_name: merchant.business_name,
     };
     setCurrentMerchant(simplifiedMerchant);
-    setSelectedMerchant(merchant);
     closeModal();
     router.push("/merchant/dashboard");
   };
@@ -114,7 +113,7 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
                 </div>
 
                 {/* Selected indicator */}
-                {selectedMerchant?.id === merchant.id && <FaCheck />}
+                {currentMerchant?.id === merchant.id && <FaCheck />}
               </button>
             ))}
           </div>

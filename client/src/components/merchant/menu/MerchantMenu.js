@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import ProductList from "../product/ProductList";
 import useFetch from "@/hooks/api/useFetch";
-import ErrorMessage from "@/components/common/ErrorMessage";
 import Loading from "@/components/common/Loading";
 import Button from "@/components/common/Button";
 import { MdDelete } from "react-icons/md";
@@ -98,7 +97,7 @@ export default function MerchantMenu({ id }) {
         </div>
       ) : (
         /* 菜單列表 */
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 mb-8">
           {menus?.map((menu) => (
             <div
               key={menu.id}

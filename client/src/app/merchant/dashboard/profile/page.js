@@ -2,8 +2,7 @@
 import Header from "@/components/merchant/common/Header/Header";
 import UserProfile from "@/components/merchant/Profile/UserProfile";
 import withAuth from "@/hoc/withAuth";
-import Loading from "@/components/common/Loading";
-
+import MerchantList from "@/components/merchant/merchant/MerchantList";
 const Page = ({ user }) => {
   if (!user) return null;
   return (
@@ -12,6 +11,7 @@ const Page = ({ user }) => {
       <div className="max-w-xl">
         <UserProfile user={user} />
       </div>
+      <MerchantList user={user} />
     </>
   );
 };

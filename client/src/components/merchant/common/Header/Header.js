@@ -33,7 +33,7 @@ const Header = ({ name, user, status = "active" }) => {
               </h1>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">
-              線上點餐平台管理系統
+              Online Ordering Platform Management System
             </p>
           </div>
 
@@ -56,7 +56,7 @@ const Header = ({ name, user, status = "active" }) => {
                   }`}
                 ></div>
                 <span className="ml-3">
-                  {status === "active" ? "營業中" : "休息中"}
+                  {status === "active" ? "In Business" : "At Rest"}
                 </span>
               </div>
             </div>

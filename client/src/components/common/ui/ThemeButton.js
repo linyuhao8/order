@@ -23,7 +23,7 @@ const ThemeButton = ({ variant = "icon", text = false }) => {
   // Apply the theme switcher effect based on the current theme
   useThemeSwitcher(theme);
   const isIconOnly = !text;
-  const label = theme === "dark" ? "深色" : "淺色";
+  const label = theme === "dark" ? "Dark" : "Light";
   return (
     // Button to toggle the theme between light and dark mode
     <Button

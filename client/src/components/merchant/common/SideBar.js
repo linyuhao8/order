@@ -26,48 +26,51 @@ const SideBar = () => {
 
   const { merchant, setCurrentMerchant, clearCurrentMerchant } = useMerchant();
   if (!hasMounted) return null;
-  const menuItems = [
-    merchant && {
-      icon: MdRestaurantMenu,
-      label: "商品及菜單管理",
-      url: `/merchant/dashboard/${merchant.id}`,
-    },
+  const userItems = [
     {
       icon: MdOutlinePermMedia,
-      label: "媒體管理",
+      label: "Media",
       url: "/merchant/dashboard/media",
     },
     {
       icon: FaUser,
-      label: "用戶",
+      label: "User",
       url: "/merchant/dashboard/profile",
+    },
+  ].filter(Boolean); // 過濾掉 false/null
+
+  const merchantItems = [
+    merchant && {
+      icon: MdRestaurantMenu,
+      label: "Product / Menu Management",
+      url: `/merchant/dashboard/${merchant.id}`,
     },
     {
       icon: FaShoppingCart,
-      label: "訂單管理",
+      label: "Order Management",
       url: "/order",
-      badge: "即將推出",
+      badge: "Not yet",
     },
     {
       icon: MdRateReview,
-      label: "評價管理",
+      label: "Review Management",
       url: "/review",
-      badge: "即將推出",
+      badge: "Not yet",
     },
-  ].filter(Boolean); // 過濾掉 false/null
+  ].filter(Boolean); // Filter out false/null
 
   const addMenuItems = [
     {
       icon: BsShopWindow,
-      label: "新增商家或分類",
+      label: "Add Merchant or Category",
       url: "/merchant/dashboard/add-merchant",
     },
     merchant && {
       icon: MdRestaurantMenu,
-      label: "新增菜單或商品",
+      label: "Add Menu or Product",
       url: `/merchant/dashboard/${merchant.id}/add-menu`,
     },
-  ].filter(Boolean); // 過濾掉 false/null
+  ].filter(Boolean); // Filter out false/null
 
   return (
     <>
@@ -120,7 +123,7 @@ const SideBar = () => {
                     Dashboard
                   </span>
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    管理面板
+                    Merchant
                   </span>
                 </div>
               )}
@@ -139,8 +142,10 @@ const SideBar = () => {
             </button>
           </div>
           {/* Navigation */}
-          {renderMenuSection(menuItems, "Main", isCollapsed, true)}
+
+          {renderMenuSection(merchantItems, "Merchant", isCollapsed)}
           {renderMenuSection(addMenuItems, "Create", isCollapsed)}
+          {renderMenuSection(userItems, "Main", isCollapsed, true)}
 
           {/* Footer */}
           <div className="border-t border-gray-200 dark:border-gray-800 p-4 space-y-2">
@@ -184,7 +189,7 @@ const renderMenuSection = (items, title = "主要功能", isCollapsed, flex) => 
         <Button icon={item.icon} href={item.url} variant="dashboardNav">
           <span className={isCollapsed ? "md:hidden" : ""}>{item.label}</span>
           {item.badge && !isCollapsed && (
-            <span className="ml-auto px-2 py-0.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded-full">
+            <span className="ml-auto px-2 py-0.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 rounded-full text-nowrap">
               {item.badge}
             </span>
           )}

@@ -45,12 +45,25 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-
   Image.associate = (models) => {
     Image.belongsTo(models.User, {
       foreignKey: "user_id",
       as: "user",
       onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+
+    Image.hasMany(models.Merchant, {
+      foreignKey: "image_id",
+      as: "merchants",
+      onDelete: "SET NULL",
+      onUpdate: "CASCADE",
+    });
+
+    Image.hasMany(models.Merchant, {
+      foreignKey: "merchant_logo_id",
+      as: "merchant_logos",
+      onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
   };

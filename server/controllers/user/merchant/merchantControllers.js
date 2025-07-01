@@ -90,6 +90,7 @@ const getAllMerchants = async (req, res) => {
     const merchants = await Merchant.findAll({
       include: [
         { model: Image, as: "image" },
+        { model: Image, as: "merchant_logo" },
         { model: MCategory, as: "categories" },
       ],
     });
@@ -111,6 +112,7 @@ const getMerchantById = async (req, res) => {
       where: { id },
       include: [
         { model: Image, as: "image" },
+        { model: Image, as: "merchant_logo" },
         { model: MCategory, as: "categories" },
       ],
     });
@@ -268,6 +270,7 @@ const getAllMerchantByUserId = async (req, res) => {
           //attributes: ["id", "name"],如果只要回傳必要欄位
         },
         { model: Image, as: "image" },
+        { model: Image, as: "merchant_logo" },
         { model: MCategory, as: "categories" },
       ],
     });

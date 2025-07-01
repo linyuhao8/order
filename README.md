@@ -114,10 +114,6 @@ User Setting Pop-up window
 
 ### Server
 
-model db(subabase)
-
-![](https://github.com/linyuhao8/order/blob/main/client/public/db-model.png?raw=true)
-
 media upload img will save in google cloud storage.png
 
 ![](https://github.com/linyuhao8/order/blob/main/client/public/media%20upload%20img%20will%20save%20in%20google%20cloud%20storage.png?raw=true)

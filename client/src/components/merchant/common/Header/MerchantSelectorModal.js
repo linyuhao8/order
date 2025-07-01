@@ -6,7 +6,8 @@ import useFetch from "@/hooks/api/useFetch";
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useMerchant } from "@/hooks/useMerchant";
-
+import { MdStorefront } from "react-icons/md";
+import Image from "next/image";
 const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,6 +37,7 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
     const simplifiedMerchant = {
       id: merchant.id,
       business_name: merchant.business_name,
+      merchant_logo: merchant.merchant_logo,
     };
     setCurrentMerchant(simplifiedMerchant);
     closeModal();
@@ -87,33 +89,58 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
                 onClick={() => handleMerchantSelect(merchant)}
                 className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 text-left transition-colors"
               >
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                      {merchant.business_name}
-                    </h3>
-                    <div
-                      className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                        merchant.is_active ? "bg-green-500" : "bg-gray-400"
-                      }`}
-                    />
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    <span>
-                      {merchant.categories?.map((i) => i.name) || "未分類"}
-                    </span>
-                    {merchant.location && (
-                      <>
-                        <span>•</span>
-                        <span className="truncate">{merchant.location}</span>
-                      </>
+                <div className="flex justify-between w-full items-center">
+                  {/* Content */}
+                  <div className="flex items-start gap-4">
+                    {/* 左側 Logo */}
+                    {merchant.merchant_logo ? (
+                      <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
+                        <Image
+                          src={merchant.merchant_logo.url}
+                          height={250}
+                          width={250}
+                          alt={merchant.merchant_logo.filename}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 flex-shrink-0">
+                        <MdStorefront size={20} />
+                      </div>
                     )}
-                  </div>
-                </div>
 
-                {/* Selected indicator */}
-                {currentMerchant?.id === merchant.id && <FaCheck />}
+                    {/* 右側內容 */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                          {merchant.business_name}
+                        </h3>
+                        <div
+                          className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                            merchant.is_active ? "bg-green-500" : "bg-gray-400"
+                          }`}
+                        />
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <span>
+                          {merchant.categories?.map((i) => i.name).join("、") ||
+                            "未分類"}
+                        </span>
+                        {merchant.location && (
+                          <>
+                            <span>•</span>
+                            <span className="truncate">
+                              {merchant.location}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Selected indicator */}
+                  {currentMerchant?.id === merchant.id && <FaCheck />}
+                </div>
               </button>
             ))}
           </div>

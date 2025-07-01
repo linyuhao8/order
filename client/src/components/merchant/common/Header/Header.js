@@ -5,6 +5,9 @@ import useModal from "@/hooks/ui/useModal";
 import Button from "@/components/common/Button";
 import MerchantSelectorModal from "./MerchantSelectorModal";
 import { useMerchant } from "@/hooks/useMerchant";
+import { MdStorefront } from "react-icons/md";
+import Image from "next/image";
+import { useEffect } from "react";
 
 const Header = ({ name, user, status = "active" }) => {
   const [isModalOpen, openModal, closeModal] = useModal();
@@ -12,7 +15,6 @@ const Header = ({ name, user, status = "active" }) => {
     openModal();
   };
   const { merchant, setCurrentMerchant, clearCurrentMerchant } = useMerchant();
-
   return (
     <>
       {/* 背景裝飾 */}
@@ -23,23 +25,42 @@ const Header = ({ name, user, status = "active" }) => {
         <div className="absolute inset-0 rounded-2xl -z-10"></div>
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-6 lg:space-y-0">
-          {/* 左側標題區域 */}
-          <div className="relative">
-            <div className="flex items-center space-x-3 mb-2">
-              {/* 裝飾性圖標 */}
-              <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-200 bg-clip-text text-transparent">
-                {name}
-              </h1>
+          {/* 左側 Logo 與標題區域 */}
+          <div className="flex items-center gap-4">
+            {/* 商家 Logo */}
+            {merchant?.merchant_logo?.url ? (
+              <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src={merchant?.merchant_logo?.url}
+                  width={48}
+                  height={48}
+                  alt={merchant.merchant_logo.filename}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400 flex-shrink-0">
+                <MdStorefront size={24} />
+              </div>
+            )}
+
+            {/* 標題與副標題 */}
+            <div className="relative">
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></div>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-200 bg-clip-text text-transparent">
+                  {name}
+                </h1>
+              </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">
+                Online Ordering Platform Management System
+              </p>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">
-              Online Ordering Platform Management System
-            </p>
           </div>
 
           {/* 右側控制區域 */}
           <div className="flex flex-wrap items-center gap-3">
-            {/* 狀態指示器 - 重新設計 */}
+            {/* 狀態指示器 */}
             <div className="flex items-center space-x-2">
               <div
                 className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
@@ -61,18 +82,15 @@ const Header = ({ name, user, status = "active" }) => {
               </div>
             </div>
 
-            {/* 商家選擇按鈕 - 優化設計 */}
+            {/* 商家選擇按鈕 */}
             <Button variant="outline" onClick={handleOpen}>
               <span className="relative z-10">
-                {merchant ? merchant?.business_name : "Please Create Merchant"}
+                {merchant ? merchant.business_name : "Please Create Merchant"}
               </span>
-              {/* 懸停效果背景 */}
             </Button>
 
-            {/* 主題切換按鈕 */}
+            {/* 主題切換與設定 */}
             <ThemeButton variant={"icon"} />
-
-            {/* 設置按鈕 */}
             <SettingButton user={user} />
           </div>
         </div>

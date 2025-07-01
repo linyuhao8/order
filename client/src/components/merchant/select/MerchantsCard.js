@@ -16,7 +16,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
 import { FiTrendingUp } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
-
+import Image from "next/image";
 const MerchantsCard = ({ merchant, fetchMerchants }) => {
   const router = useRouter();
   const handleDelete = async () => {
@@ -43,15 +43,34 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
       toast.error("Failed to delete merchant.");
     }
   };
+  const size = 80;
+  const logoUrl = merchant?.merchant_logo?.url;
+  const logoAlt = merchant?.merchant_logo?.filename || "Merchant Logo";
+  const logoSizeClass = `w-[${size}px] h-[${size}px]`;
 
   return (
     <div className="rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
       <div className="p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-              <MdStorefront size={24} />
-            </div>
+            {logoUrl ? (
+              <div className={`${logoSizeClass} rounded-xl overflow-hidden`}>
+                <Image
+                  src={logoUrl}
+                  height={size * 3}
+                  width={size * 3}
+                  alt={logoAlt}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            ) : (
+              <div
+                className={`${logoSizeClass} rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400`}
+              >
+                <MdStorefront size={size * 0.3} />
+              </div>
+            )}
+
             <div>
               <Link
                 href={`/merchant/dashboard/${merchant.id}`}

@@ -4,6 +4,49 @@ This is a front-end and back-end split ordering platform, developed using Next.j
 
 ---
 
+## 🖥 Features (Completed)
+
+### Auth & User
+
+- JWT Login + redirect if not logged in
+- Auto redirect by user role (e.g. user can't access merchant dashboard)
+- User profile modal (view/edit)
+- Toast notifications (login, merchant/category/profile)
+
+### Dashboard & UI
+
+- Dashboard mockup with user info and sample charts（I haven't written the API yet. It's on display.）
+- Dark mode toggle (via Redux)
+
+### Multi-Tenant (Merchant)
+
+- Current merchant managed via Redux → fallback to cookie
+- Default to first merchant after login
+- Merchant switch like GCP project selector
+- Add merchant / category (`mdd-merchant` page)
+- List all merchants (`select` page)
+
+### Menu & Product & Options
+
+- Add products per merchant
+- Add multiple options (number, text, checkbox, select)
+  - Ex: Spicy level (mild/medium/hot), Toppings (芋圓/湯圓/粉條)
+
+### Media Library
+
+- Upload / delete / select images (stored in GCS)
+- Reusable `media` component
+- Image relation:
+  - One-to-many: store `image.uuid`
+  - Many-to-many: use pivot table
+
+### Merchant Roles
+
+- Merchants support multiple users
+- Upload merchant logo, set categories, etc.
+
+---
+
 ## Page Preview
 
 > Below is a screenshot of the current interface, the actual screen is constantly being updated!
@@ -210,49 +253,6 @@ npm run swagger.js
 node server.js
 # if you have nodemen , npm start
 ```
-
----
-
-## 🖥 Features (Completed)
-
-### Auth & User
-
-- JWT Login + redirect if not logged in
-- Auto redirect by user role (e.g. user can't access merchant dashboard)
-- User profile modal (view/edit)
-- Toast notifications (login, merchant/category/profile)
-
-### Dashboard & UI
-
-- Dashboard mockup with user info and sample charts（I haven't written the API yet. It's on display.）
-- Dark mode toggle (via Redux)
-
-### Multi-Tenant (Merchant)
-
-- Current merchant managed via Redux → fallback to cookie
-- Default to first merchant after login
-- Merchant switch like GCP project selector
-- Add merchant / category (`mdd-merchant` page)
-- List all merchants (`select` page)
-
-### Menu & Product & Options
-
-- Add products per merchant
-- Add multiple options (number, text, checkbox, select)
-  - Ex: Spicy level (mild/medium/hot), Toppings (芋圓/湯圓/粉條)
-
-### Media Library
-
-- Upload / delete / select images (stored in GCS)
-- Reusable `media` component
-- Image relation:
-  - One-to-many: store `image.uuid`
-  - Many-to-many: use pivot table
-
-### Merchant Roles
-
-- Merchants support multiple users
-- Upload merchant logo, set categories, etc.
 
 ---
 

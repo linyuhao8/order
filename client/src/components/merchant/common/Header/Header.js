@@ -32,8 +32,8 @@ const Header = ({ name, user, status = "active" }) => {
               <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
                 <Image
                   src={merchant?.merchant_logo?.url}
-                  width={48}
-                  height={48}
+                  width={150}
+                  height={150}
                   alt={merchant.merchant_logo.filename}
                   className="object-cover w-full h-full"
                 />
@@ -48,8 +48,8 @@ const Header = ({ name, user, status = "active" }) => {
             <div className="relative">
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-200 bg-clip-text text-transparent">
-                  {name}
+                <h1 className="text-md font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-200 bg-clip-text text-transparent">
+                  {merchant ? <>{merchant.business_name}</> : { name }}
                 </h1>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">

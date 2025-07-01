@@ -45,16 +45,16 @@ const OptionListByMerchant = ({
     <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
       <div className="px-4 py-5 sm:px-6">
         <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
-          根據商家 ID 獲取選項
+          Get Options by Merchant ID
         </h2>
         <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">
-          請先選擇商家
+          Please select a Merchant
         </p>
       </div>
       {/* 商家選擇 */}
       <div className="px-5 pb-5">
         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          選擇商家
+          Choose
         </label>
         <select
           value={activeMerchant || ""}
@@ -62,7 +62,7 @@ const OptionListByMerchant = ({
           className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
         >
           <option value="" disabled>
-            請選擇一個商家
+            Please select a Merchant
           </option>
           {merchants?.map((merchant) => (
             <option key={merchant.id} value={merchant.id}>

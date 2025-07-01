@@ -20,10 +20,10 @@ const OptionTabs = ({
     <>
       {/* 選項卡切換 */}
       <div className="mb-8">
-        {/* 手機版 Tab */}
+        {/* phone Tab */}
         <div className="sm:hidden">
           <label htmlFor="option-tabs" className="sr-only">
-            選擇選項來源
+            Selecting an option source
           </label>
           <select
             id="option-tabs"
@@ -32,13 +32,13 @@ const OptionTabs = ({
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value)}
           >
-            <option value="user">我的選項（User）</option>
-            <option value="merchant">商家選項（Merchant）</option>
-            <option value="global">全站選項（Global）</option>
+            <option value="user">My Option(By User ID)</option>
+            <option value="merchant">Merchant option(By Option ID)</option>
+            <option value="global">Global(not yet)</option>
           </select>
         </div>
 
-        {/* 桌機版 Tab */}
+        {/* desktop Tab */}
         <div className="hidden sm:block">
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
@@ -46,27 +46,26 @@ const OptionTabs = ({
                 onClick={() => setActiveTab("user")}
                 variant={activeTab === "user" ? "activeTab" : "tab"}
               >
-                我的選項
+                My Option(By User ID)
               </Button>
               <Button
                 onClick={() => setActiveTab("merchant")}
                 variant={activeTab === "merchant" ? "activeTab" : "tab"}
               >
-                商家選項
+                Merchant option(By Option ID)
               </Button>
               <Button
                 onClick={() => setActiveTab("global")}
                 variant={activeTab === "global" ? "activeTab" : "tab"}
               >
-                全站選項
+                Global(not yet)
               </Button>
             </nav>
           </div>
         </div>
       </div>
 
-      {/* 根據 activeTab 渲染內容 */}
-
+      {/* render content based on activeTab */}
       {activeTab === "user" && (
         <OptionListByUser
           optionData={getOptionByUserData}
@@ -81,7 +80,7 @@ const OptionTabs = ({
           refreshKey={refreshKey}
         />
       )}
-      {activeTab === "global" && <div>尚未新增此功能</div>}
+      {activeTab === "global" && <div>This feature has not been added yet</div>}
     </>
   );
 };

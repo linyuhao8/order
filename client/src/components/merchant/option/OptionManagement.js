@@ -62,9 +62,11 @@ const OptionManagement = ({ user, active }) => {
             <div className="flex items-start space-x-5">
               <div className="pt-1.5">
                 <h1 className="text-2xl font-bold">Option Manager</h1>
-                <p className="text-sm font-medium ">管理選單</p>
+                <p className="text-sm font-medium ">
+                  product option ex:Temperature 1.hot 2.cool
+                </p>
                 <Button variant="outline" className="mt-2" onClick={openModal}>
-                  新增選項
+                  Add Option
                 </Button>
               </div>
             </div>

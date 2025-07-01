@@ -15,9 +15,12 @@ const OptionGrid = ({
         <div className="rounded-full bg-muted p-4 mb-4">
           <div className="text-4xl">🔘</div>
         </div>
-        <h3 className="text-lg font-semibold text-foreground mb-2">尚無選項</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-2">
+          No option yet
+        </h3>
         <p className="text-sm text-muted-foreground max-w-sm text-center">
-          此商家尚未新增任何選項，請先透過右側或上方功能新增 Option。
+          This merchant has not added any product options yet, so please add an
+          Option using the button above.
         </p>
       </div>
     );
@@ -55,26 +58,26 @@ const OptionGrid = ({
         >
           <div className="p-5">
             <div className="flex items-start justify-between">
-              {/* 左側內容 */}
+              {/* left content */}
               <div className="flex-1 space-y-3">
-                {/* 選項名稱 */}
+                {/* option name */}
                 <h3 className="text-sm text-gray-600 dark:text-gray-300 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
                   {option.name} ({option.type})
                 </h3>
 
-                {/* 描述 */}
+                {/* description */}
                 <p className="text-[10px] text-gray-500 text-muted-foreground leading-relaxed">
-                  {option.description?.slice(0, 30) || "暫無描述"}
+                  {option.description?.slice(0, 30) || "not thing"}
                 </p>
 
-                {/* 價格標籤（若有預設值價格） */}
+                {/* Price labels (if there are preset prices) */}
                 {option.option_values?.some((v) => v.extra_price > 0) && (
                   <div className="inline-flex text-[12px] bg-gray-600 text-white px-3 py-1 rounded-sm">
-                    有加價選項
+                    Price increase options available
                   </div>
                 )}
 
-                {/* 子選項值 */}
+                {/* Sub-Option Value */}
                 <ul className="list-disc pl-4 space-y-1 text-[12px] text-gray-700 dark:text-gray-300">
                   {option.option_values?.length > 0 ? (
                     option.option_values
@@ -84,21 +87,21 @@ const OptionGrid = ({
                         <li key={value.id}>
                           {value.value}
                           {value.extra_price > 0 &&
-                            `（+${value.extra_price}元）`}
+                            `（+${value.extra_price} TWD）`}
                           <span className="text-[10px]">
                             {value.is_default && " default"}
                           </span>
                         </li>
                       ))
                   ) : (
-                    <li className="text-gray-400">無選項值</li>
+                    <li className="text-gray-400">No option value</li>
                   )}
                 </ul>
 
                 <div className="text-[10px] text-gray-400">{option.id}</div>
               </div>
 
-              {/* 刪除按鈕 */}
+              {/* Delete */}
               <div className="flex flex-col items-end gap-2">
                 <Button
                   variant="square"

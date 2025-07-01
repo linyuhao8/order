@@ -100,7 +100,9 @@ const AddOption = ({
       (optionForm.min_select > optionForm.max_select ||
         optionForm.max_select > optionForm.values.length)
     ) {
-      alert("請檢查選擇數量設定：最少不能大於最多，最多不能超過選項數");
+      alert(
+        "Please check the number of choices: the minimum should not be greater than the maximum, and the maximum should not exceed the number of choices."
+      );
       return;
     }
 
@@ -162,7 +164,7 @@ const AddOption = ({
         {/* 商家下拉選單 */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            商家 <span className="text-red-500">*</span>
+            Merchant <span className="text-red-500">*</span>
           </label>
           <select
             name="merchant_id"
@@ -171,7 +173,7 @@ const AddOption = ({
             className="w-full p-2 text-sm border rounded-md dark:bg-gray-700 dark:text-gray-100"
             required
           >
-            <option value="">-- 請選擇商家 --</option>
+            <option value="">-- Please select a merchant --</option>
             {merchants.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.business_name}
@@ -231,7 +233,7 @@ const AddOption = ({
             {/* Min Select */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                最少選擇數 (min_select)
+                min_select
               </label>
               <input
                 type="number"
@@ -249,7 +251,7 @@ const AddOption = ({
             {/* Max Select */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                最多選擇數 (max_select)
+                max_select
               </label>
               <input
                 type="number"
@@ -276,7 +278,7 @@ const AddOption = ({
                 key={index}
                 className="grid grid-cols-12 gap-2 items-start mb-4"
               >
-                {/* Value 名稱 */}
+                {/* Value name */}
                 <div className="col-span-4">
                   <label className="block text-xs text-gray-600 mb-1">
                     Value name
@@ -291,7 +293,7 @@ const AddOption = ({
                   />
                 </div>
 
-                {/* 加價 */}
+                {/* extra price */}
                 <div className="col-span-2">
                   <label className="block text-xs text-gray-600 mb-1">
                     Extra price
@@ -336,7 +338,7 @@ const AddOption = ({
                   />
                 </div>
 
-                {/* 刪除按鈕 */}
+                {/* delete */}
                 <div className="col-span-2 flex items-end">
                   <button
                     type="button"

@@ -4,10 +4,9 @@ This is a front-end and back-end split ordering platform, developed using Next.j
 
 ---
 
-## 📸 Page Preview
+## Page Preview
 
 > Below is a screenshot of the current interface, the actual screen is constantly being updated!
-> 
 
 ### Client
 
@@ -21,67 +20,58 @@ Home page light mode
 
 ---
 
-Login page 
+Login page
 
 ![](https://github.com/linyuhao8/order/blob/main/client/public/login1.png?raw=true)
-
-https://github.com/linyuhao8/order/blob/main/client/public/login2.png?raw=true
 
 ---
 
 merchant dashboard
-
-![](https://github.com/linyuhao8/order/blob/main/client/public/merchant%20dashboard1.png?raw=true)
-
-[https://github.com/linyuhao8/order/blob/main/client/public/merchant dashboard2.png?raw=true](https://github.com/linyuhao8/order/blob/main/client/public/merchant%20dashboard2.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/dashboard1.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/dashboard2.png?raw=true)
 
 ---
 
-add merchant category page
+add merchant and M_category page
 
-![](https://github.com/linyuhao8/order/blob/main/client/public/add%20merchant%20category.png?raw=true)
-
-add merchant page
-
-https://dai.ly/k4AHXFJJeUBVFbCUjdI
-
-![](https://github.com/linyuhao8/order/blob/main/client/public/add%20merchant.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/add-merchant-and-category1.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/add-merchant-and-category2.png?raw=true)
 
 ---
 
 media component
 
-https://dai.ly/k23Cbl587A7whACUjdK
-
-![](https://github.com/linyuhao8/order/blob/main/client/public/media1.png?raw=true)
-
-https://github.com/linyuhao8/order/blob/main/client/public/media2.png?raw=true
+![](https://github.com/linyuhao8/order/blob/main/client/public/media.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/media-detail.png?raw=true)
 
 ---
 
-merchant list
-
-[https://github.com/linyuhao8/order/blob/main/client/public/merchant list select1.png?raw=true](https://github.com/linyuhao8/order/blob/main/client/public/merchant%20list%20select1.png?raw=true)
-
-![](https://github.com/linyuhao8/order/blob/main/client/public/merchant%20list%20select2.png?raw=true)
+Product / Menu management
+![](https://github.com/linyuhao8/order/blob/main/client/public/product-management.png?raw=true)
 
 ---
 
-merchant profile
-
-[https://github.com/linyuhao8/order/blob/main/client/public/merchant profile.png?raw=true](https://github.com/linyuhao8/order/blob/main/client/public/merchant%20profile.png?raw=true)
+My Option
+![](https://github.com/linyuhao8/order/blob/main/client/public/get-option-by-userid.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/get-option-by-merchatID.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/add-option-value.png?raw=true)
 
 ---
 
-setting Pop-up window
+add menu and product page
 
-https://github.com/linyuhao8/order/blob/main/client/public/setting1.png?raw=true
+![](https://github.com/linyuhao8/order/blob/main/client/public/add-menu.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/add-product.png?raw=true)
+
+---
+
+User Setting Pop-up window
 
 ![](https://github.com/linyuhao8/order/blob/main/client/public/setting2.png?raw=true)
 
 ### Server
 
-model db(subabase) 
+model db(subabase)
 
 ![](https://github.com/linyuhao8/order/blob/main/client/public/db-model.png?raw=true)
 
@@ -95,34 +85,41 @@ media upload img will save in google cloud storage.png
 
 ```
 ordering-system/
-├── client/                     # Frontend Next.js project
-│   ├── public/                 # Static assets
+├── client/                         # Frontend Next.js project
+│   ├── public/                     # Static assets
 │   ├── src/
-│   │   ├── components/         # Shared UI components
-│   │   ├── app/                # Next.js pages and routing
-│   │   ├── styles/             # Styling configuration (Tailwind, global CSS)
-│   │   ├── context/            # Context providers (e.g., for user session data)
-│   │   ├── hoc/                # Higher Order Components (e.g., withAuth for auth protection)
-│   │   ├── hooks/              # Custom React Hooks
-│   │   ├── lib/                # Redux-related files
-│   └── package.json            # Frontend dependencies and scripts (e.g., `npm run dev`)
+│   │   ├── components/             # Shared UI components
+│   │   ├    ├── common/            # common components(merchant and public can use)
+│   │   ├    ├── merchant/          # merchant components
+│   │   ├    ├── public/            # public components(only no login use)
+│   │   ├── app/                    # Next.js pages and routing
+│   │   ├    ├── public/            # public page
+│   │   ├    ├── merchant/
+│   │   ├           ├── dashboard/  # merchant dashboard page
+│   │   ├── api/                    # API
+│   │   ├── styles/                 # Styling configuration (Tailwind, global CSS)
+│   │   ├── contexts/               # Context providers (e.g., for user session data)
+│   │   ├── hoc/                    # Higher Order Components (e.g., withAuth for auth protection)
+│   │   ├── hooks/                  # Custom React Hooks
+│   │   ├── lib/                    # Redux-related files
+│   └── package.json                # Frontend dependencies and scripts (e.g., `npm run dev`)
 │
-└── server/                     # Backend Express.js project
-    ├── src/
-    │   ├── controllers/        # Business logic and request handlers
-    │   ├── config/             # Configuration files (DB, GCS, etc.)
-    │   ├── models/             # Sequelize models (database schema)
-    │   ├── routes/             # API routes
-    │   ├── middlewares/        # Middlewares (JWT auth, GCS upload, error handling)
-    │   ├── validations/        # Joi validation schemas
-    │   └── swagger/            # Swagger UI config and YAML documentation
-    ├── .env                    # Environment variables (e.g., GCS key, DB URL)
-    ├── swagger-output.json     # Generated OpenAPI documentation
-    ├── gcs-key.json            # Google Cloud Storage credentials
-    ├── swagger.js              # Swagger initialization
-    ├── app.js                  # Main app setup (Express app)
-    ├── server.js               # Server entry (connects and runs the app)
-    └── package.json            # Backend dependencies and scripts (e.g., `npm start`)
+└── server/                         # Backend Express.js project
+    ├── controllers/                # Business logic and request handlers
+    ├── config/                     # Configuration files (DB, GCS, etc.)
+    ├── models/                     # Sequelize models (database schema)
+    ├── routes/                     # API routes
+    ├── migrations/                 # DB Changed Backup
+    ├── middlewares/                # Middlewares (JWT auth, GCS upload, error handling)
+    ├── validations/                # Joi validation schemas
+    └── swagger.js/                 # Swagger UI config and YAML documentation
+    ├── .env                        # Environment variables (e.g., GCS key, DB URL)
+    ├── swagger-output.json         # Generated OpenAPI documentation
+    ├── gcs-key.json                # Google Cloud Storage credentials
+    ├── swagger.js                  # Swagger initialization
+    ├── app.js                      # Main app setup (Express app)
+    ├── server.js                   # Server entry (connects and runs the app)
+    └── package.json                # Backend dependencies and scripts (e.g., `npm start`)
 ```
 
 ---
@@ -135,6 +132,8 @@ ordering-system/
 - **Tailwind CSS** – Utility-first CSS framework for styling
 - **Axios** – Promise-based HTTP client for API communication
 - **Redux** – State management (used for features like dark mode)
+- **recharts**
+- **cookies-next**
 
 **Backend**
 
@@ -165,12 +164,14 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 ### server/.env
 
 ```env
-#database mode
-NODE_ENV=production  #dev or production
+#database node
+NODE_ENV=development #development or production
 
 #PostgreSql
 SUPABASE_DATABASE_URL=postgresql://<user>:<password>@aws-0-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true
+# ?pgbouncer=true
 LOCAL_DATABASE_URL=postgres://postgres:20779867@localhost:5432/orderDB
+
 SUPABASE_DB_USER=<your-database-username>
 SUPABASE_DB_PASSWORD=<your-database-password>
 SUPABASE_DB_HOST=aws-0-ap-northeast-1.pooler.supabase.com
@@ -178,17 +179,18 @@ SUPABASE_DB_PORT=6543
 SUPABASE_DB_NAME=postgres
 SUPABASE_DB_DIALECT=postgres
 
-#Choose whether you want online or local, just drop the comment.
+
+#選擇要線上還是本地，把comment掉就好
 #MONGO_URI=mongodb://127.0.0.1:27017/orderDB
 MONGO_URI=mongodb+srv://<user>:<password>@project1.d1ulg.mongodb.net/orderDB?retryWrites=true&w=majority
 
-#backend port
+#後端使用網址
 SERVER_PORT_ENV=8080
 
 #JWT
 JWT_SECRET=hellott
 
-#Google Cloud Storage Fill out the form to use the media function
+#Google Cloud Storage
 BUCKET_NAME=order-storage
 KEYFILENAME=gcs-key.json
 ```
@@ -204,6 +206,7 @@ npm run dev
 # Server
 cd ../server
 npm install
+npm run swagger.js
 node server.js
 # if you have nodemen , npm start
 ```
@@ -212,18 +215,48 @@ node server.js
 
 ## 🖥 Features (Completed)
 
-- ✅ JWT Login / Authentication (with redirect if not logged in)
-- ✅ Dashboard mockup (displays user info with sample data and charts)
-- ✅ Add new Merchant / Add Merchant Category (`mdd-merchant` page)
-- ✅ User profile settings via modal (view / edit)
-- ✅ List all merchants owned by the logged-in user (`select` page)
-- ✅ Media library (upload, delete, and select images via `component midea`)
-- ✅ Dark mode toggle(Redux)
-- ✅ Toast notifications for success / error (login, add merchant, add category, update profile)
+### Auth & User
+
+- JWT Login + redirect if not logged in
+- Auto redirect by user role (e.g. user can't access merchant dashboard)
+- User profile modal (view/edit)
+- Toast notifications (login, merchant/category/profile)
+
+### Dashboard & UI
+
+- Dashboard mockup with user info and sample charts（I haven't written the API yet. It's on display.）
+- Dark mode toggle (via Redux)
+
+### Multi-Tenant (Merchant)
+
+- Current merchant managed via Redux → fallback to cookie
+- Default to first merchant after login
+- Merchant switch like GCP project selector
+- Add merchant / category (`mdd-merchant` page)
+- List all merchants (`select` page)
+
+### Menu & Product & Options
+
+- Add products per merchant
+- Add multiple options (number, text, checkbox, select)
+  - Ex: Spicy level (mild/medium/hot), Toppings (芋圓/湯圓/粉條)
+
+### Media Library
+
+- Upload / delete / select images (stored in GCS)
+- Reusable `media` component
+- Image relation:
+  - One-to-many: store `image.uuid`
+  - Many-to-many: use pivot table
+
+### Merchant Roles
+
+- Merchants support multiple users
+- Upload merchant logo, set categories, etc.
 
 ---
 
-## 🔧 Swagger UI (API Docs)
+## Swagger UI (API Docs)
 
 The backend is integrated with Swagger UI for quick preview of all available APIs and model structures.
 
@@ -233,56 +266,64 @@ Once the backend is running, you can view it directly:
 
 ---
 
-## 🧱 Database Model Summary
+## Database Model Summary
 
 👉 [DataBase-Design-map](https://www.figma.com/board/gApRMrBsot08r0lVlDOOjp/order-db-design?node-id=0-1&t=4BVeEKLw70sQkGvL-1)
 
-| Model | references | field |
-| --- | --- | --- |
-| **User** | hasOne(Admin)、hasMany(Merchant)、hasMany(Image) | `id`, `name`, `email`, `password`, `phoneNumber`, `address`, `role` |
-| **Admin** | belongsTo(User) | `id`, `user_id` |
-| **Merchant** | belongsTo(User)、hasMany(Menu)、hasMany(ProductOption)、hasMany(MerchantCategory)、belongsTo(Image) | `id`, `user_id`, `business_name`, `description`, `feature`, `location`, `image_id`, `business_hours` |
-| **Image** | belongsTo(User)、hasMany(Merchant)、hasMany(MCategory) | `id`, `filename`, `url`, `user_id`, `width`, `height`, `size`, `mime_type`, `timespace` |
-| **MerchantCategory** | belongsTo(Merchant)、belongsTo(MCategory) | `merchant_id`, `category_id` |
-| **MCategory** | belongsTo(Image)、belongsToMany(ProductCategory) | `id`, `name`, `description`, `img_id`（`img` Fields are abandoned） |
-| **Menu** | belongsTo(Merchant)、hasMany(Product) | `id`, `name`, `description`, `merchant_id` |
-| **Product** | belongsTo(Menu)、hasMany(ProductImg)、belongsToMany(ProductCategory)、belongsToMany(ProductOption) | `id`, `name`, `description`, `price`, `menu_id` |
-| **ProductImg** | belongsTo(Product) | `id`, `product_id`, `image_url`, `title`, `description` |
-| **ProductOption** | belongsTo(Product)、belongsTo(Option)、belongsTo(Merchant) | `id`, `product_id`, `option_id`, `is_custom`, `merchant_id` |
-| **Option** | hasMany(OptionValue)、belongsTo(Category) | `id`, `name`, `category_id`, `type` |
-| **OptionValue** | belongsTo(Option) | `id`, `option_id`, `option_values`, `extra_price` |
-| **ProductCategory** | belongsTo(Product)、belongsTo(Category) | `product_id`, `category_id` |
-| **Category** | hasMany(ProductCategory) | `id`, `name`, `description`, `img` |
+# Database Models Overview
 
-## ✅ Optimization Suggestions
-
-- **Replace all bidirectional bindings with unidirectional associations**
-    
-    Avoid using both `hasMany` and `belongsTo` simultaneously. Instead, keep only `belongsTo` relationships to reduce circular dependencies, save database resources, and make the system easier to maintain.
-    
-- **Refactor backend logic using Classes**
-    
-    Organize repeated API logic and ORM interactions into reusable service or controller classes. This approach promotes better code reuse, cleaner structure, and easier debugging or testing in the long run.
-    
-- **Separate and modularize frontend API logic**
-    
-    Refactor frontend API calls into reusable modules or hooks (e.g., `useUser`, `useMerchants`, `merchantService`) to improve maintainability, testability, and reduce code duplication across components.
-    
+| Model            | References                                                                                                                          | Fields                                                                                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User             | hasOne(Admin), hasMany(Merchant), hasMany(Image)                                                                                    | id, name, email, password, phoneNumber, address, role                                                                                               |
+| Admin            | belongsTo(User)                                                                                                                     | id, user_id                                                                                                                                         |
+| Merchant         | belongsTo(User), hasMany(Menu), hasMany(ProductOption), hasMany(MerchantCategory), belongsToMany(ProductCategory), belongsTo(Image) | id, user_id, business_name, description, feature, merchant_logo (abandoned), location, image_id, business_hours                                     |
+| Image            | belongsTo(User), hasMany(MCategory), hasMany(Merchant)                                                                              | id, filename, url, user_id, width, height, size, mime_type, timespace                                                                               |
+| MerchantCategory | belongsTo(Merchant), belongsTo(MCategory)                                                                                           | merchant_id, category_id                                                                                                                            |
+| MCategory        | belongsToMany(ProductCategory), belongsTo(Image)                                                                                    | id, name, img (abandoned), description, img_id                                                                                                      |
+| Menu             | belongsTo(Merchant), hasMany(Product)                                                                                               | id, name, description, merchant_id                                                                                                                  |
+| Product          | belongsTo(Menu), hasMany(ProductImg), belongsToMany(ProductCategory), belongsToMany(ProductOption)                                  | id, name, description, price, menu_id                                                                                                               |
+| ProductImg       | belongsTo(Product)                                                                                                                  | id, product_id, image_url, title, description                                                                                                       |
+| ProductOption    | belongsTo(Product), belongsTo(Option) (junction table)                                                                              | id, product_id, option_id, required (boolean), sort_order (int), created_at, updated_at                                                             |
+| Option           | hasMany(OptionValue), belongsToMany(Product through ProductOption), hasMany(OptionCategory)                                         | id, name, type (enum: select, checkbox, text, number), description, min_select, max_select, user_id, merchant_id, is_global, created_at, updated_at |
+| OptionValue      | belongsTo(Option)                                                                                                                   | id, option_id, values, extra_price, is_default, sort_order, created_at, updated_at                                                                  |
+| ProductCategory  | belongsTo(Product), belongsTo(Category)                                                                                             | product_id, category_id                                                                                                                             |
+| P_Category       | belongsToMany(ProductCategory)                                                                                                      | id, name, description, img                                                                                                                          |
+| Option_Category  | belongsTo(Option), belongsTo(O_Category) (junction table)                                                                           | id, option_id, o_category_id, created_at, updated_at                                                                                                |
+| O_Category       | hasMany(OptionCategory)                                                                                                             | id, name, description, created_at, updated_at                                                                                                       |
 
 ---
 
-## 📌 Next Steps / Roadmap
+## Next Steps / Roadmap
 
-- Add a public API to display merchant list on the homepage for non-logged-in users
-- Product management module (including publish/unpublish status)
-- Order system design and implementation
-- User roles and permission management
-- Dashboard chart integration with backend data
-- CI/CD pipeline setup (GitHub Actions + Cloud Run)
+### Feature
+
+- Public merchant API for guest homepage
+- Product module: publish/unpublish toggle
+- Order system: user-facing + admin interface
+- Role-based access control (RBAC)
+
+### Discovery & Ranking
+
+- Merchant search with keyword relevance
+- Popularity ranking based on views/sales/ratings
+- Hot keyword tracking & autocomplete suggestions
+
+### Performance & Infra
+
+- Redis caching for homepage & frequent queries
+- Dashboard charts with real-time backend data
+- CI/CD pipeline (GitHub Actions + AWS or GCP)
+- Consider background jobs (e.g. ranking sync, media cleanup)
+
+### Future Ideas
+
+- Merchant verification & approval flow
+- Analytics dashboard for merchants (traffic, conversion)
+- Multilingual support for merchant pages
 
 ---
 
-## 🙌 How to Contribute
+## How to Contribute
 
 1. Fork this project
 2. Create a feature branch: `feature/your-feature`

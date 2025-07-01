@@ -47,7 +47,7 @@ media component
 ---
 
 Product / Menu management
-![](https://github.com/linyuhao8/order/blob/main/client/public/product-management.png?raw=true)
+![](https://github.com/linyuhao8/order/blob/main/client/public/produc-management.png?raw=true)
 
 ---
 

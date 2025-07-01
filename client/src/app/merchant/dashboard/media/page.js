@@ -17,7 +17,6 @@ function MediaPage({ user }) {
 
   return (
     <>
-      <Header name={"Media"} user={user} />
       <div className="container mx-auto px-4 py-8">
         {selectedImages.length > 0 && (
           <div className="mb-6 p-4 bg-gray-50 rounded-lg">

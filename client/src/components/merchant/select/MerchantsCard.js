@@ -43,10 +43,9 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
       toast.error("Failed to delete merchant.");
     }
   };
-  const size = 80;
+  const size = 70;
   const logoUrl = merchant?.merchant_logo?.url;
   const logoAlt = merchant?.merchant_logo?.filename || "Merchant Logo";
-  const logoSizeClass = `w-[${size}px] h-[${size}px]`;
 
   return (
     <div className="rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
@@ -54,18 +53,18 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">
             {logoUrl ? (
-              <div className={`${logoSizeClass} rounded-xl overflow-hidden`}>
+              <div className={` w-10 h-10 rounded-xl overflow-hidden`}>
                 <Image
                   src={logoUrl}
-                  height={size * 3}
-                  width={size * 3}
+                  height={300}
+                  width={300}
                   alt={logoAlt}
                   className="object-cover w-full h-full"
                 />
               </div>
             ) : (
               <div
-                className={`${logoSizeClass} rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400`}
+                className={`w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400`}
               >
                 <MdStorefront size={size * 0.3} />
               </div>
@@ -76,7 +75,7 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
                 href={`/merchant/dashboard/${merchant.id}`}
                 className="group"
               >
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                <h3 className="text-md font-semibold text-gray-800 dark:text-gray-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                   {merchant.business_name}
                 </h3>
               </Link>

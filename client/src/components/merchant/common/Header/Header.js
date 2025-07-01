@@ -49,7 +49,7 @@ const Header = ({ name, user, status = "active" }) => {
               <div className="flex items-center space-x-3 mb-2">
                 <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full animate-pulse"></div>
                 <h1 className="text-md font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 dark:from-white dark:via-gray-100 dark:to-gray-200 bg-clip-text text-transparent">
-                  {merchant ? <>{merchant.business_name}</> : { name }}
+                  {merchant ? <>{merchant.business_name}</> : name}
                 </h1>
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide">

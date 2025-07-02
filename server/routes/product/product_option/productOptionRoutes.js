@@ -18,6 +18,12 @@ router.get(
   // #swagger.summary = 'Get All prductOption'
   productOptionController.getAllProductOptions
 );
+router.get(
+  "",
+  // #swagger.tags = ['ProductOption']
+  // #swagger.summary = 'Get option by product_id or option_id'
+  productOptionController.getProductOptions
+);
 
 // 查詢單一 ProductOption
 router.get(

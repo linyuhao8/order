@@ -1,4 +1,5 @@
-const { ProductOption } = require("../../../config/postgreSql").db; // 引入 ProductOption 模型
+const { ProductOption, Product, Option } =
+  require("../../../config/postgreSql").db; // 引入 ProductOption 模型
 const {
   createProductOptionSchema,
   updateProductOptionSchema,
@@ -139,10 +140,49 @@ const deleteProductOption = async (req, res) => {
   }
 };
 
+const getProductOptions = async (req, res) => {
+  const { product_id, option_id } = req.query;
+
+  if (!product_id && !option_id) {
+    return res.status(400).json({ message: "請提供 product_id 或 option_id" });
+  }
+
+  try {
+    const where = {};
+    if (product_id) where.product_id = product_id;
+    if (option_id) where.option_id = option_id;
+
+    const options = await ProductOption.findAll({
+      where,
+      include: [
+        {
+          model: Product, // 確保你有關聯定義
+          as: "products",
+        },
+        {
+          model: Option, // 確保你有關聯定義
+          as: "options",
+        },
+      ],
+    });
+
+    res.json({
+      message: "查詢成功",
+      data: options,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "查詢失敗",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createProductOption,
   getAllProductOptions,
   getProductOptionById,
   updateProductOption,
   deleteProductOption,
+  getProductOptions,
 };

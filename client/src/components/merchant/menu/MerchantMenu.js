@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import ProductList from "../product/ProductList";
 import useFetch from "@/hooks/api/useFetch";
 import Loading from "@/components/common/Loading";
@@ -20,7 +20,6 @@ export default function MerchantMenu({ id }) {
   const {
     data: menus,
     loading: menusLoading,
-    error: menusError,
     refetch: menusRefetch,
   } = useFetch(getMenusUrl, {
     withCredentials: true,
@@ -67,6 +66,7 @@ export default function MerchantMenu({ id }) {
       if (res) menusRefetch(); // 重新拉菜單資料
     } catch (e) {
       //useFetch裡面會處理回傳錯誤
+      console.log(e);
     }
   };
 

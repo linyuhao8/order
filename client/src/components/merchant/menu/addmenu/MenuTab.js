@@ -6,7 +6,7 @@ import Button from "@/components/common/Button";
 import useFetch from "@/hooks/api/useFetch";
 import Loading from "@/components/common/Loading";
 
-const MenuTab = ({ activeTab, merchantId }) => {
+const MenuTab = ({ merchantId }) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/menus/create`;
 
   // 商家表單狀態
@@ -17,7 +17,7 @@ const MenuTab = ({ activeTab, merchantId }) => {
   });
 
   //API
-  const { data, loading, error, refetch } = useFetch(url, {
+  const { loading, refetch } = useFetch(url, {
     withCredentials: true,
     enabled: false,
   });
@@ -39,6 +39,7 @@ const MenuTab = ({ activeTab, merchantId }) => {
       setMenuForm({ name: "", description: "" });
     } catch (e) {
       // 已經在 useFetch 裡 toast.error 過了
+      console.log(e);
     }
   };
   if (loading) return <Loading />;

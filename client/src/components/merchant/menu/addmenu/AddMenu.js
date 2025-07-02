@@ -3,7 +3,7 @@
 import Button from "@/components/common/Button";
 import Tab from "./Tab";
 import Loading from "@/components/common/Loading";
-const AddPage = ({ user, active, merchantId }) => {
+const AddPage = ({ active, merchantId }) => {
   if ((!active, !merchantId)) return <Loading />;
   return (
     <div className="min-h-screen">

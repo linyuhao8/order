@@ -7,25 +7,19 @@ import Button from "@/components/common/Button";
 import MerchantsCard from "@/components/merchant/select/MerchantsCard";
 import MerchantMenu from "@/components/merchant/menu/MerchantMenu";
 import Loading from "@/components/common/Loading";
-import ErrorMessage from "@/components/common/ErrorMessage";
 
 // HOC
 import withAuth from "@/hoc/withAuth";
 import useFetch from "@/hooks/api/useFetch";
 
-const MerchantPage = ({ isAuthenticated, user }) => {
+const MerchantPage = ({ user }) => {
   const { merchantId } = useParams();
 
   const url = merchantId
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/${merchantId}`
     : null;
 
-  const {
-    data: merchant,
-    loading,
-    error,
-    refetch,
-  } = useFetch(url, {
+  const { data: merchant, loading } = useFetch(url, {
     withCredentials: true,
     enabled: !!merchantId,
   });
@@ -51,7 +45,7 @@ const MerchantPage = ({ isAuthenticated, user }) => {
               href="/merchant/dashboard/product/option-management"
               className="ml-2"
             >
-              管理商品選項
+              Option management
             </Button>
           </div>
           <MerchantMenu id={merchantId} />

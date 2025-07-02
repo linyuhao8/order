@@ -15,7 +15,6 @@ const MerchantList = ({ user }) => {
   const {
     data: merchants,
     loading,
-    error,
     refetch,
   } = useFetch(url, {
     withCredentials: true,

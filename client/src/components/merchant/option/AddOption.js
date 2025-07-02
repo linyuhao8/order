@@ -39,14 +39,13 @@ const AddOption = ({
   });
 
   //Get Data
-  const {
-    data: merchantData,
-    loading: merchantLoading,
-    error: merchantError,
-  } = useFetch(merchantUrl, {
-    withCredentials: true,
-    enabled: !!user,
-  });
+  const { data: merchantData, loading: merchantLoading } = useFetch(
+    merchantUrl,
+    {
+      withCredentials: true,
+      enabled: !!user,
+    }
+  );
 
   useEffect(() => {
     if (merchantData) {

@@ -30,7 +30,6 @@ const OptionManagement = ({ user, active }) => {
   const {
     data: getOptionByUserData,
     loading: getOptionByUserLoading,
-    error: getOptionByUserError,
     refetch: getOptionByUserRefetch,
   } = useFetch(getOptionByUserurl, {
     withCredentials: true,
@@ -45,8 +44,6 @@ const OptionManagement = ({ user, active }) => {
   const {
     data: getAllMerchantByUserData,
     loading: getAllMerchantByUserLoading,
-    error: getAllMerchantByUserError,
-    refetch: getAllMerchantByUserRefetch,
   } = useFetch(getAllMerchantByUserUrl, {
     withCredentials: true,
     enabled: !!user,

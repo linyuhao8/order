@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Button from "@/components/common/Button";
 import OptionListByUser from "@/components/merchant/option/OptionListByUser";
 import OptionListByMerchant from "./OptionListByMerchant";
 
 const OptionTabs = ({
-  user,
   activeTab,
   setActiveTab,
   getOptionByUserData,

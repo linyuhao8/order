@@ -25,7 +25,6 @@ const OptionListByMerchant = ({
   const {
     data: optionData,
     loading: optionLoading,
-    error: optionError,
     refetch: optionRefetch,
   } = useFetch(merchantOptionsUrl, {
     withCredentials: true,

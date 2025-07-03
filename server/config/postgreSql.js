@@ -16,7 +16,7 @@ const sequelize = new Sequelize(DATABASE_URL, {
 // 測試連線
 sequelize
   .authenticate()
-  .then(function (err) {
+  .then(function (_err) {
     console.log("✅ Connection has been established successfully.");
   })
   .catch(function (err) {

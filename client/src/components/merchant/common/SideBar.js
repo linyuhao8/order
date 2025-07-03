@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 // React Icons
 import { IoMenu, IoClose } from "react-icons/io5";
-import { IoHome } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
-import { FaStore } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdRateReview } from "react-icons/md";
@@ -24,7 +21,8 @@ const SideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const hasMounted = useHasMounted();
 
-  const { merchant, setCurrentMerchant, clearCurrentMerchant } = useMerchant();
+  const { merchant, _setCurrentMerchant, _clearCurrentMerchant } =
+    useMerchant();
   if (!hasMounted) return null;
   const userItems = [
     {

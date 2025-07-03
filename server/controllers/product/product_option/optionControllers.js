@@ -1,4 +1,4 @@
-const { Category, Option, OptionValue } =
+const { _Category, Option, OptionValue } =
   require("../../../config/postgreSql").db;
 
 const {

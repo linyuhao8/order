@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 //UI
@@ -13,7 +13,7 @@ import UploadImageField from "@/components/common/MediaLibrary/UploadImageField"
 import toast from "react-hot-toast";
 import Button from "@/components/common/Button";
 
-const CategoryTab = ({ activeTab, categories, getAllCategories, userId }) => {
+const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [categoryForm, setCategoryForm] = useState({

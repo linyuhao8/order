@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import useModal from "@/hooks/ui/useModal";
-import InputField from "@/components/common/InputField";
-import Button from "@/components/common/Button";
 import toast from "react-hot-toast";
 import SettingSubModal from "./SettingSubModal";
 

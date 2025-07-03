@@ -9,7 +9,7 @@ import UploadImageField from "@/components/common/MediaLibrary/UploadImageField"
 import { useRouter } from "next/navigation";
 import Button from "@/components/common/Button";
 
-const MerchantTab = ({ activeTab, categories, userId }) => {
+const MerchantTab = ({ _activeTab, categories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

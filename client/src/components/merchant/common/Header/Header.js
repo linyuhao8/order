@@ -7,14 +7,14 @@ import MerchantSelectorModal from "./MerchantSelectorModal";
 import { useMerchant } from "@/hooks/useMerchant";
 import { MdStorefront } from "react-icons/md";
 import Image from "next/image";
-import { useEffect } from "react";
 
 const Header = ({ name, user, status = "active" }) => {
   const [isModalOpen, openModal, closeModal] = useModal();
   const handleOpen = () => {
     openModal();
   };
-  const { merchant, setCurrentMerchant, clearCurrentMerchant } = useMerchant();
+  const { merchant, _setCurrentMerchant, _clearCurrentMerchant } =
+    useMerchant();
   return (
     <>
       {/* 背景裝飾 */}

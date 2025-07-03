@@ -61,40 +61,29 @@ const MenuTab = ({ merchantId }) => {
             <div className="px-4 py-5  sm:p-6">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    name <span className="text-red-500">*</span>
-                  </label>
                   <InputField
                     type="text"
                     name="name"
                     id="name"
-                    required
                     value={menuForm.name}
                     onChange={handleMenuChange}
+                    label="Menu Name"
+                    placeholder="Enter Name"
+                    required
                   />
                 </div>
 
                 {/* 商家描述 */}
                 <div className="sm:col-span-6">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    description
-                  </label>
-                  <div className="mt-1">
-                    <textarea
-                      id="description"
-                      name="description"
-                      rows={3}
-                      value={menuForm.description}
-                      onChange={handleMenuChange}
-                      className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 dark:border-gray-500 rounded-md"
-                    />
-                  </div>
+                  <InputField
+                    id="description"
+                    name="description"
+                    type="textarea"
+                    value={menuForm.description}
+                    onChange={handleMenuChange}
+                    label="description"
+                    placeholder="Enter..."
+                  />
                 </div>
               </div>
             </div>

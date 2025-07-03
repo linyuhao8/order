@@ -17,7 +17,6 @@ const CategoryName = ({ categoryForm, handleCategoryChange }) => {
         placeholder={"name"}
         value={categoryForm.name}
         onChange={handleCategoryChange}
-        variant=""
       />
     </div>
   );

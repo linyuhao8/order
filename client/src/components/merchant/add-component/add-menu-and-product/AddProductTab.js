@@ -105,65 +105,39 @@ const AddProductTab = ({ merchantId }) => {
 
                 {/* description */}
                 <div className="sm:col-span-6">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    description
-                  </label>
-                  <div className="mt-1">
-                    <textarea
-                      id="description"
-                      name="description"
-                      rows={3}
-                      value={productForm.description}
-                      onChange={handleProductChange}
-                      className="p-2 focus:outline-none appearance-none  block w-full sm:text-sm border border-gray-300 dark:border-gray-500 rounded-md"
-                    />
-                  </div>
+                  <InputField
+                    id="description"
+                    name="description"
+                    type="textarea"
+                    value={productForm.description}
+                    onChange={handleProductChange}
+                    label="description"
+                    placeholder="Enter..."
+                  />
                 </div>
 
                 {/* menu */}
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="menu_id"
-                    className="block text-sm font-medium dark:text-gray-300 text-gray-700"
-                  >
-                    menu <span className="text-red-500">*</span>
-                  </label>
-                  <div className="mt-1">
-                    <select
-                      id="menu_id"
-                      name="menu_id"
-                      required
-                      value={productForm.menu_id}
-                      onChange={handleProductChange}
-                      className="block w-full py-1 px-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-sm focus:ring-amber-500"
-                    >
-                      <option
-                        className="text-black bg-white dark:text-white dark:bg-gray-800"
-                        value=""
-                      >
-                        choose
-                      </option>
-                      {menus?.map((menu) => (
-                        <option
-                          key={menu.id}
-                          value={menu.id}
-                          className="text-black bg-white dark:text-white dark:bg-gray-800"
-                        >
-                          {menu.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <InputField
+                    id="menu_id"
+                    name="menu_id"
+                    type="select"
+                    value={productForm.menu_id}
+                    onChange={handleProductChange}
+                    label="select menu"
+                    options={menus?.map((menu) => ({
+                      id: menu.id,
+                      name: menu.name,
+                    }))}
+                    selectPlaceholder="-- select your menu --"
+                  />
                 </div>
 
                 {/* pricing */}
                 <div className="sm:col-span-3">
                   <label
                     htmlFor="price"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                   >
                     Price <span className="text-red-500">*</span>
                   </label>

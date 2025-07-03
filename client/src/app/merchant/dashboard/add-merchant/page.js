@@ -10,7 +10,7 @@ function AddMerchantPage({ user }) {
   return (
     <>
       <Header name={"Added new merchant information page"} user={user} />
-      <MerchantCreateTabs user={user} active={"merchant"} />
+      <MerchantCreateTabs user={user} />
     </>
   );
 }

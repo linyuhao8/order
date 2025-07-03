@@ -3,9 +3,9 @@
 import { UserContext } from "@/contexts/UserContext";
 //component
 import Button from "@/components/common/Button";
-import Tab from "@/components/merchant/Add-Merchant/Tab";
+import TabContainer from "@/components/merchant/Add-Merchant/TabContainer";
 
-const MerchantCreateTabs = ({ user, active }) => {
+const MerchantCreateTabs = ({ user }) => {
   return (
     <UserContext.Provider value={user}>
       <div className="min-h-screen">
@@ -28,7 +28,7 @@ const MerchantCreateTabs = ({ user, active }) => {
             </div>
 
             {/* 選項卡切換 */}
-            <Tab active={active} />
+            <TabContainer />
           </div>
         </main>
       </div>

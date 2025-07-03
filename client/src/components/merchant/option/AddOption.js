@@ -128,7 +128,7 @@ const AddOption = ({
     if (activeTab === "user") {
       console.log("user");
       getOptionByUserRefetch();
-    } else {
+    } else if (activeTab === "merchant") {
       console.log("merchant");
       handleAddedOptionState();
     }

@@ -209,10 +209,12 @@ const MediaLibrary = ({
     >
       {/* 標頭 */}
       <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">媒體庫</h2>
+        <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">
+          媒體庫
+        </h2>
         <div className="flex gap-2">
           <span className="text-sm text-gray-500 dark:text-gray-400">
-             {selectedImages.length}/{maxSelect} selected
+            {selectedImages.length}/{maxSelect} selected
           </span>
           {selectedImages.length > 0 && (
             <button
@@ -246,8 +248,12 @@ const MediaLibrary = ({
             className="hidden"
           />
           <Upload className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-400" />
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Drag and drop the image here or click to upload.</p>
-          <p className="text-xs text-gray-500 mt-1 dark:text-gray-400">Up to 10 pictures can be uploaded at the same time.</p>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Drag and drop the image here or click to upload.
+          </p>
+          <p className="text-xs text-gray-500 mt-1 dark:text-gray-400">
+            Up to 10 pictures can be uploaded at the same time.
+          </p>
           {uploadLoading && (
             <div className="mt-2">
               <div className="w-full bg-gray-200 rounded-full h-1">

@@ -11,7 +11,7 @@ const authenticateToken = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      return res.status(403).json({ message: "Token 無效或過期" });
+      return res.status(403).json({ message: "Token 無效或過期請重新登入" });
     }
     req.user = user; // Decoded user data
     next();

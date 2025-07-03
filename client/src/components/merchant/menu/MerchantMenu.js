@@ -7,13 +7,13 @@ import Loading from "@/components/common/Loading";
 import Button from "@/components/common/Button";
 import { MdDelete } from "react-icons/md";
 
-export default function MerchantMenu({ id }) {
+export default function MerchantMenu({ user, merchantId }) {
   //用物件的方式紀錄每個菜單的商品數量 ex: {menuId : 2}
   const [productCount, setProductCounts] = useState({});
 
   //根據商家ID取得菜單
-  const getMenusUrl = id
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${id}?limit=1`
+  const getMenusUrl = merchantId
+    ? `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${merchantId}?limit=1`
     : null;
 
   //getMenus API
@@ -23,7 +23,7 @@ export default function MerchantMenu({ id }) {
     refetch: menusRefetch,
   } = useFetch(getMenusUrl, {
     withCredentials: true,
-    enabled: !!id,
+    enabled: !!merchantId,
   });
 
   //Delete API
@@ -148,6 +148,7 @@ export default function MerchantMenu({ id }) {
                     <ProductList
                       menuId={menu.id}
                       onProductCountChange={productCountCallbacks[menu.id]}
+                      user={user}
                     />
                     {/* productCountCallbacks = {
   1: (count) => { ... }, // 對應 menu id = 1 的 callback

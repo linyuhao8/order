@@ -39,16 +39,7 @@ const MerchantPage = ({ user }) => {
         </div>
       ) : (
         <>
-          <div className="py-5">
-            <Button
-              variant="outline"
-              href="/merchant/dashboard/product/option-management"
-              className="ml-2"
-            >
-              Option management
-            </Button>
-          </div>
-          <MerchantMenu id={merchantId} />
+          <MerchantMenu merchantId={merchantId} user={user} />
           <MerchantsCard merchant={merchant} />
         </>
       )}

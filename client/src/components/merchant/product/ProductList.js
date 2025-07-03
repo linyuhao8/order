@@ -3,11 +3,16 @@ import React, { useEffect } from "react";
 import useFetch from "@/hooks/api/useFetch";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import Loading from "@/components/common/Loading";
+import Button from "@/components/common/Button";
+import useModal from "@/hooks/ui/useModal";
+import ProductOptionModal from "./ProductOptionModal";
 
-const ProductList = ({ menuId, onProductCountChange }) => {
+const ProductList = ({ menuId, onProductCountChange, user }) => {
   const url = menuId
     ? `${process.env.NEXT_PUBLIC_API_URL}/api/products/menu/${menuId}?limit=5`
     : null;
+  const [isEditOptionModalOpen, openEditOptionModal, closeEditOptionModal] =
+    useModal();
 
   const {
     data: products,
@@ -78,9 +83,23 @@ const ProductList = ({ menuId, onProductCountChange }) => {
               {/* 右側價格區域 */}
               <div className="flex flex-col items-end gap-3 ml-6">
                 {/* 價格標籤 */}
-                <div className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-[12px] shadow-sm">
+                <div className="inline-flex items-center rounded-md bg-primary px-3 py-1 text-[12px] shadow-sm">
                   NT$ {product.price.toLocaleString()}
                 </div>
+
+                <Button
+                  variant="outline"
+                  className="text-xs"
+                  onClick={openEditOptionModal}
+                >
+                  Product Option
+                </Button>
+                <ProductOptionModal
+                  product={product}
+                  user={user}
+                  isOpen={isEditOptionModalOpen}
+                  closeModal={closeEditOptionModal}
+                />
               </div>
             </div>
           </div>

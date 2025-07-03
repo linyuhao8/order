@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import InputField from "@/components/common/InputField";
 import Button from "@/components/common/Button";
 import useFetch from "@/hooks/api/useFetch";
-import Loading from "@/components/common/Loading";
 
-const ProductTab = ({ activeTab, merchantId }) => {
+const ProductTab = ({ merchantId }) => {
   const productCreateurl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/create`;
   const menuListUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${merchantId}`;
 
@@ -19,21 +18,18 @@ const ProductTab = ({ activeTab, merchantId }) => {
   });
 
   // POST - Create product
-  const {
-    data: createData,
-    loading: createLoading,
-    error: createError,
-    refetch: createRefetch,
-  } = useFetch(productCreateurl, {
-    withCredentials: true,
-    enabled: false,
-  });
+  const { loading: createLoading, refetch: createRefetch } = useFetch(
+    productCreateurl,
+    {
+      withCredentials: true,
+      enabled: false,
+    }
+  );
 
   // GET - MenusList
   const {
     data: menus,
     loading: menuLoading,
-    error: menuError,
     refetch: menuRefetch,
   } = useFetch(menuListUrl, {
     withCredentials: true,
@@ -57,6 +53,7 @@ const ProductTab = ({ activeTab, merchantId }) => {
       setProductForm({ name: "", description: "", price: "", menu_id: "" });
     } catch (e) {
       // 已經在 useFetch 裡 toast.error 過了
+      console.log(e);
     }
   };
   useEffect(() => {

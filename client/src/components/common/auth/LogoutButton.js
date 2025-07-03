@@ -22,6 +22,7 @@ const LogoutButton = ({ variant, size, isHome }) => {
       toast.success("Logged out successfully!");
       router.push("/login");
     } catch (error) {
+      console.log(error);
       toast.dismiss();
       toast.error("Logout failed. Please try again.");
     } finally {

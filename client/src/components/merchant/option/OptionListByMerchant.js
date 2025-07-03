@@ -42,7 +42,7 @@ const OptionListByMerchant = ({
 
   return (
     <div className="dark:bg-gray-800 shadow-md overflow-hidden rounded-lg">
-      <div className="px-4 py-5 sm:px-6">
+      <div className="px-4 py-3 sm:px-6 border-b border-gray-200">
         <h2 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
           Get Options by Merchant ID
         </h2>
@@ -73,12 +73,12 @@ const OptionListByMerchant = ({
 
       {/* 顯示選項資料 */}
       {activeMerchant && (
-        <>
+        <div className="p-5">
           <OptionGrid
             options={options}
             getOptionByMerchantRefetch={optionRefetch}
           />
-        </>
+        </div>
       )}
     </div>
   );

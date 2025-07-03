@@ -132,7 +132,9 @@ const AddOption = ({
       console.log("merchant");
       handleAddedOptionState();
     }
-    closeModal();
+    if (closeModal) {
+      closeModal();
+    }
   };
 
   useEffect(() => {
@@ -162,108 +164,99 @@ const AddOption = ({
       >
         {/* 商家下拉選單 */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Merchant <span className="text-red-500">*</span>
-          </label>
-          <select
+          <InputField
+            id="merchant_id"
             name="merchant_id"
+            type="select"
             value={optionForm.merchant_id || ""}
             onChange={handleOptionChange}
-            className="w-full p-2 text-sm border rounded-md dark:bg-gray-700 dark:text-gray-100"
+            label="Select one merchant"
+            selectPlaceholder="-- Please select a merchant --"
+            options={merchants.map((m) => ({
+              id: m.id,
+              name: m.business_name,
+            }))}
             required
-          >
-            <option value="">-- Please select a merchant --</option>
-            {merchants.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.business_name}
-              </option>
-            ))}
-          </select>
+            className="text-sm"
+          />
         </div>
 
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Name <span className="text-red-500">*</span>
-          </label>
           <InputField
+            id="name"
             type="text"
             name="name"
             value={optionForm.name}
             onChange={handleOptionChange}
+            label="Name"
+            placeholder="請輸入用戶名稱"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Description
-          </label>
-          <textarea
+          <InputField
+            id="description"
             name="description"
-            rows={2}
+            type="textarea"
             value={optionForm.description}
             onChange={handleOptionChange}
-            className="w-full p-2 text-sm border rounded-md dark:border-gray-600"
+            label="商品描述"
+            placeholder="請輸入詳細描述..."
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Type <span className="text-red-500">*</span>
-          </label>
-          <select
+          <InputField
+            id="type"
             name="type"
+            type="select"
             value={optionForm.type}
             onChange={handleOptionChange}
-            className="w-full p-2 mt-1 text-sm border rounded-md dark:bg-gray-700 dark:text-gray-100"
+            label="選擇類型"
+            selectPlaceholder="-- Select a type --"
+            options={[
+              { id: "select", name: "Select" },
+              { id: "checkbox", name: "Checkbox" },
+              { id: "text", name: "Text" },
+              { id: "number", name: "Number" },
+            ]}
             required
-          >
-            <option value="">-- Select a type --</option>
-            <option value="select">Select</option>
-            <option value="checkbox">Checkbox</option>
-            <option value="text">Text</option>
-            <option value="number">Number</option>
-          </select>
+            className="text-sm"
+          />
         </div>
-
         {shouldShowValues && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Min Select */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                min_select
-              </label>
-              <input
-                type="number"
-                name="min_select"
-                value={optionForm.min_select}
-                onChange={handleOptionChange}
-                className="w-full p-2 text-sm border rounded-md dark:bg-gray-700 dark:text-gray-100"
-                min={0}
-                max={
-                  optionForm.type === "checkbox" ? 1 : optionForm.values.length
-                }
-              />
-            </div>
+            <InputField
+              id="min_select"
+              name="min_select"
+              type="number"
+              value={optionForm.min_select}
+              onChange={handleOptionChange}
+              label="min_select"
+              min={0}
+              max={
+                optionForm.type === "checkbox" ? 1 : optionForm.values.length
+              }
+              className="text-sm"
+            />
 
             {/* Max Select */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                max_select
-              </label>
-              <input
-                type="number"
-                name="max_select"
-                value={optionForm.max_select}
-                onChange={handleOptionChange}
-                className="w-full p-2 text-sm border rounded-md dark:bg-gray-700 dark:text-gray-100"
-                min={optionForm.min_select}
-                max={
-                  optionForm.type === "checkbox" ? 1 : optionForm.values.length
-                }
-              />
-            </div>
+            <InputField
+              id="max_select"
+              name="max_select"
+              type="number"
+              value={optionForm.max_select}
+              onChange={handleOptionChange}
+              label="max_select"
+              min={optionForm.min_select}
+              max={
+                optionForm.type === "checkbox" ? 1 : optionForm.values.length
+              }
+              className="text-sm"
+            />
           </div>
         )}
 
@@ -275,70 +268,69 @@ const AddOption = ({
             {optionForm.values.map((val, index) => (
               <div
                 key={index}
-                className="grid grid-cols-12 gap-2 items-start mb-4"
+                className="flex flex-col md:flex-row md:items-end gap-4 md:gap-2 w-full border-b border-gray-200 dark:border-gray-700 py-4"
               >
                 {/* Value name */}
-                <div className="col-span-4">
-                  <label className="block text-xs text-gray-600 mb-1">
-                    Value name
-                  </label>
-                  <input
-                    type="text"
+                <div className="md:flex-1">
+                  <InputField
+                    id={`value_${index}`}
                     name="value"
+                    type="text"
                     value={val.value}
                     onChange={(e) => handleValueChange(index, e)}
+                    label="Value name"
                     placeholder="Value name"
-                    className="w-full p-2 text-sm border rounded"
+                    className="text-sm"
                   />
                 </div>
 
-                {/* extra price */}
-                <div className="col-span-2">
-                  <label className="block text-xs text-gray-600 mb-1">
-                    Extra price
-                  </label>
-                  <input
-                    type="number"
+                {/* Extra price */}
+                <div className="md:w-32">
+                  <InputField
+                    id={`extra_price_${index}`}
                     name="extra_price"
+                    type="number"
                     value={val.extra_price}
                     onChange={(e) => handleValueChange(index, e)}
+                    label="Extra price"
                     placeholder="Extra price"
-                    className="w-full p-2 text-sm border rounded"
+                    className="text-sm"
                   />
                 </div>
 
-                {/* 是否預設 */}
-                <div className="col-span-1">
-                  <label className="block text-xs text-gray-600 mb-1">
-                    Default
-                  </label>
-                  <div className="flex items-center h-[38px]">
-                    <input
-                      type="checkbox"
+                {/* Default */}
+                <div className="flex items-center md:items-end">
+                  <div>
+                    <label className="block text-xs text-gray-600 mb-1">
+                      Default
+                    </label>
+                    <InputField
+                      id={`is_default_${index}`}
                       name="is_default"
+                      type="checkbox"
                       checked={val.is_default}
                       onChange={(e) => handleValueChange(index, e)}
+                      label=""
                     />
                   </div>
                 </div>
 
-                {/* 排序 */}
-                <div className="col-span-2">
-                  <label className="block text-xs text-gray-600 mb-1">
-                    Sort order
-                  </label>
-                  <input
-                    type="number"
+                {/* Sort order */}
+                <div className="md:w-24">
+                  <InputField
+                    id={`sort_order_${index}`}
                     name="sort_order"
+                    type="number"
                     value={val.sort_order}
                     onChange={(e) => handleValueChange(index, e)}
+                    label="Sort order"
                     placeholder="Order"
-                    className="w-full p-2 text-sm border rounded"
+                    className="text-sm"
                   />
                 </div>
 
-                {/* delete */}
-                <div className="col-span-2 flex items-end">
+                {/* Delete button */}
+                <div className="flex justify-end items-end">
                   <button
                     type="button"
                     onClick={() => removeOptionValue(index)}
@@ -362,28 +354,26 @@ const AddOption = ({
         )}
 
         {optionForm.type === "number" && (
-          <div>
-            <label className="block text-sm text-gray-700 dark:text-gray-200">
-              Default Number
-            </label>
-            <input
-              type="number"
-              onChange={(e) =>
-                setOptionForm((prev) => ({
-                  ...prev,
-                  values: [
-                    {
-                      value: e.target.value,
-                      extra_price: 0,
-                      is_default: false,
-                      sort_order: 1,
-                    },
-                  ],
-                }))
-              }
-              className="p-2 border rounded w-full"
-            />
-          </div>
+          <InputField
+            id="default_number"
+            name="default_number"
+            type="number"
+            onChange={(e) =>
+              setOptionForm((prev) => ({
+                ...prev,
+                values: [
+                  {
+                    value: e.target.value,
+                    extra_price: 0,
+                    is_default: false,
+                    sort_order: 1,
+                  },
+                ],
+              }))
+            }
+            label="Default Number"
+            className="text-sm"
+          />
         )}
 
         {optionForm.type === "text" && (

@@ -1,4 +1,4 @@
-const { ProductOption, Product, Option } =
+const { ProductOption, Option, OptionValue } =
   require("../../../config/postgreSql").db; // 引入 ProductOption 模型
 const {
   createProductOptionSchema,
@@ -156,12 +156,14 @@ const getProductOptions = async (req, res) => {
       where,
       include: [
         {
-          model: Product, // 確保你有關聯定義
-          as: "products",
-        },
-        {
-          model: Option, // 確保你有關聯定義
-          as: "options",
+          model: Option,
+          as: "option",
+          include: [
+            {
+              model: OptionValue,
+              as: "option_values",
+            },
+          ],
         },
       ],
     });

@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
 
     ProductOption.belongsTo(models.Option, {
       foreignKey: "option_id",
-      as: "options",
+      as: "option",
       onDelete: "CASCADE",
     });
   };

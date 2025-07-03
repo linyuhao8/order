@@ -7,6 +7,7 @@ const {
 } = require("../../../validations/product/product_option/optionValidation");
 
 // Create a new Option
+// old disable
 async function createOption(req, res) {
   const { error } = createOptionSchema.validate(req.body, {
     abortEarly: false,

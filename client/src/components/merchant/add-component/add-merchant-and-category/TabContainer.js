@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useUser } from "@/contexts/UserContext";
 import useFetch from "@/hooks/api/useFetch";
 
 //component
 import CategoryTab from "./CategoryTab";
 import MerchantTab from "./MerchantTab";
-import Button from "@/components/common/Button";
 import Loading from "@/components/common/Loading";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import ResponsiveTabs from "@/components/common/ResponsiveTabs";

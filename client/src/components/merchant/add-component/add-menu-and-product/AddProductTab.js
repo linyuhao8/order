@@ -5,7 +5,7 @@ import InputField from "@/components/common/InputField";
 import Button from "@/components/common/Button";
 import useFetch from "@/hooks/api/useFetch";
 
-const ProductTab = ({ merchantId }) => {
+const AddProductTab = ({ merchantId }) => {
   const productCreateurl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/create`;
   const menuListUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/menus/merchant/${merchantId}`;
 
@@ -196,4 +196,4 @@ const ProductTab = ({ merchantId }) => {
   );
 };
 
-export default ProductTab;
+export default AddProductTab;

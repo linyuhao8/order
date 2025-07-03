@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import withAuth from "@/hoc/withAuth";
 //component
 import Header from "@/components/merchant/common/Header/Header";
-import AddMenu from "@/components/merchant/menu/addmenu/AddMenu";
+import AddMenu from "@/components/merchant/add-component/add-menu-and-product/AddBody";
 
 function AddMenuPage({ user }) {
   const { merchantId } = useParams();

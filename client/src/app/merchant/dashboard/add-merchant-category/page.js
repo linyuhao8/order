@@ -3,7 +3,7 @@
 //hook
 import withAuth from "@/hoc/withAuth";
 //component
-import MerchantCreateTabs from "@/components/merchant/Add-Merchant/MerchantCreateTabs";
+import MerchantCreateTabs from "@/components/merchant/add-component/add-merchant-and-category/MerchantCreateTabs";
 import Header from "@/components/merchant/common/Header/Header";
 
 function AddCategoryPage({ user }) {

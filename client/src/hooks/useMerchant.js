@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import { setMerchant, clearMerchant } from "@/lib/slices/merchantSlice";
 
 //   使用方法為
+// import { useMerchant } from "@/hooks/useMerchant";
 //   const { merchant, setCurrentMerchant, clearCurrentMerchant } =
 //     useMerchant();
 //   本hook將自動設定cookie與redux狀態

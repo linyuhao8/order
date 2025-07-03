@@ -4,14 +4,13 @@ import axios from "axios";
 
 //UI
 import Hero from "./CategoryTab/Hero";
-import CategoryName from "./CategoryTab/CategoryName";
-import CategoryDescription from "./CategoryTab/CategoryDescription";
 import CategoryList from "./CategoryTab/CategoryList";
 
 //Common Component
 import UploadImageField from "@/components/common/MediaLibrary/UploadImageField";
 import toast from "react-hot-toast";
 import Button from "@/components/common/Button";
+import InputField from "@/components/common/InputField";
 
 const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -90,10 +89,15 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
         <div className="border-t border-gray-200">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="px-4 py-5 sm:p-6">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
-                <CategoryName
-                  categoryForm={categoryForm}
-                  handleCategoryChange={handleCategoryChange}
+              <div className="">
+                <InputField
+                  type="text"
+                  name="name"
+                  id="name"
+                  label="name"
+                  required
+                  value={categoryForm.name}
+                  onChange={handleCategoryChange}
                 />
                 <UploadImageField
                   FormData={categoryForm}
@@ -106,9 +110,14 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
                   userId={userId}
                   fieldName="category_logo"
                 />
-                <CategoryDescription
-                  categoryForm={categoryForm}
-                  handleCategoryChange={handleCategoryChange}
+                <InputField
+                  id="description"
+                  name="description"
+                  type="textarea"
+                  value={categoryForm.description}
+                  onChange={handleCategoryChange}
+                  label="description"
+                  placeholder="Enter..."
                 />
               </div>
             </div>

@@ -141,16 +141,11 @@ const MerchantTab = ({ _activeTab, categories, userId }) => {
             <div className="px-4 py-5  sm:p-6">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="business_name"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    name <span className="text-red-500">*</span>
-                  </label>
                   <InputField
                     type="text"
                     name="business_name"
                     id="business_name"
+                    label="business_name"
                     required
                     value={merchantForm.business_name}
                     onChange={handleMerchantChange}
@@ -158,73 +153,42 @@ const MerchantTab = ({ _activeTab, categories, userId }) => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="category_id"
-                    className="block text-sm font-medium dark:text-gray-300 text-gray-700"
-                  >
-                    category <span className="text-red-500">*</span>
-                  </label>
-                  <div className="mt-1">
-                    <select
-                      id="category_id"
-                      name="category_id"
-                      required
-                      value={merchantForm.category_id}
-                      onChange={handleMerchantChange}
-                      className="block w-full py-1 px-3 text-gray-900 bg-white dark:text-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-sm focus:ring-amber-500"
-                    >
-                      <option
-                        className="text-black bg-white dark:text-white dark:bg-gray-800"
-                        value=""
-                      >
-                        choose
-                      </option>
-                      {categories.map((category) => (
-                        <option
-                          key={category.id}
-                          value={category.id}
-                          className="text-black bg-white dark:text-white dark:bg-gray-800"
-                        >
-                          {category.name} ({category.merchants.length})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <InputField
+                    id="category_id"
+                    name="category_id"
+                    type="select"
+                    value={merchantForm.category_id}
+                    onChange={handleMerchantChange}
+                    label="select categories"
+                    required
+                    options={categories?.map((category) => ({
+                      id: category.id,
+                      name: category.name,
+                    }))}
+                    selectPlaceholder="-- select your category --"
+                  />
                 </div>
 
                 {/* 商家描述 */}
                 <div className="sm:col-span-6">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    description
-                  </label>
-                  <div className="mt-1">
-                    <textarea
-                      id="description"
-                      name="description"
-                      rows={3}
-                      value={merchantForm.description}
-                      onChange={handleMerchantChange}
-                      className="focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md"
-                    />
-                  </div>
+                  <InputField
+                    id="description"
+                    name="description"
+                    type="textarea"
+                    value={merchantForm.description}
+                    onChange={handleMerchantChange}
+                    label="description"
+                    placeholder="Enter..."
+                  />
                 </div>
 
                 {/* 商家特色 */}
                 <div className="sm:col-span-6">
-                  <label
-                    htmlFor="feature"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    feature
-                    <span className="text-sm text-gray-400">10word</span>
-                  </label>
                   <InputField
                     type="text"
                     name="feature"
                     id="feature"
+                    label="feature"
                     value={merchantForm.feature}
                     onChange={handleMerchantChange}
                     placeholder="例：手作甜點、有插座、寵物友善..."
@@ -233,18 +197,12 @@ const MerchantTab = ({ _activeTab, categories, userId }) => {
 
                 {/* 商家地址 */}
                 <div className="sm:col-span-6">
-                  <label
-                    htmlFor="location"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    location
-                  </label>
-
                   <InputField
                     type="text"
                     name="location"
                     id="location"
                     required
+                    label="location"
                     value={merchantForm.location}
                     onChange={handleMerchantChange}
                   />

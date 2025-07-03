@@ -18,7 +18,7 @@ export default function InputField({
   rows = 4,
 }) {
   const baseInputStyle =
-    "w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-300 dark:focus:ring-orange-300 focus:border-transparent";
+    "w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 text-gray-700 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-300 dark:focus:ring-orange-300 focus:border-transparent";
 
   const checkboxRadioWrapperStyle =
     "flex items-center p-3 border border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors";
@@ -175,7 +175,6 @@ export default function InputField({
 //   ]}
 //   selectPlaceholder="-- 請選擇 Option --"
 // />
-
 // // 商家選擇範例
 // <InputField
 //   id="merchant_id"

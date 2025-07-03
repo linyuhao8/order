@@ -4,8 +4,8 @@ import { useUser } from "@/contexts/UserContext";
 import useFetch from "@/hooks/api/useFetch";
 
 //component
-import CategoryTab from "./CategoryTab";
-import MerchantTab from "./MerchantTab";
+import AddCategory from "./AddCategory";
+import AddMerchant from "./AddMerchant";
 import Loading from "@/components/common/Loading";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import ResponsiveTabs from "@/components/common/ResponsiveTabs";
@@ -44,7 +44,7 @@ const TabContainer = () => {
         renderContent={(activeTab) => {
           if (activeTab === "merchant") {
             return (
-              <MerchantTab
+              <AddMerchant
                 activeTab={activeTab}
                 categories={categories}
                 userId={userId}
@@ -52,7 +52,7 @@ const TabContainer = () => {
             );
           } else if (activeTab === "category") {
             return (
-              <CategoryTab
+              <AddCategory
                 activeTab={activeTab}
                 categories={categories}
                 getAllCategories={refetch}

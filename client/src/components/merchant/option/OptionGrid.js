@@ -8,6 +8,8 @@ const OptionGrid = ({
   options = [],
   getOptionByMerchantRefetch,
   getOptionByUserRefetch,
+  canUnbind = false,
+  getOptionByProductIdrefetch,
 }) => {
   if (!options || options.length === 0) {
     return (
@@ -25,6 +27,8 @@ const OptionGrid = ({
       </div>
     );
   }
+
+  //刪除option
   const handleDelete = async (id, name) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete merchant: ${name}?`
@@ -44,13 +48,38 @@ const OptionGrid = ({
       if (getOptionByUserRefetch) {
         getOptionByUserRefetch();
       }
+      if (getOptionByProductIdrefetch) {
+        getOptionByProductIdrefetch();
+      }
     } catch (error) {
       console.error("Error deleting", error);
       toast.error("Failed to delete");
     }
   };
+
+  //解除綁定商品中間表
+  const deleteProductOption = async (id) => {
+    try {
+      toast.loading("結除綁定中...");
+      const response = await axios.delete(
+        `http://localhost:8082/api/productoptions/${id}`,
+        { withCredentials: true }
+      );
+      toast.dismiss();
+      toast.success("解除成功");
+      if (getOptionByProductIdrefetch) {
+        getOptionByProductIdrefetch();
+      }
+      return response.data;
+    } catch (error) {
+      toast.dismiss();
+      toast.error("解除失敗");
+      console.error(error.response?.data || error.message);
+    }
+  };
+
   return (
-    <div className="border-t p-5 border-gray-200 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
       {options.map((option) => (
         <div
           key={option.id}
@@ -99,6 +128,14 @@ const OptionGrid = ({
                 </ul>
 
                 <div className="text-[10px] text-gray-400">{option.id}</div>
+                {canUnbind ? (
+                  <Button
+                    variant="outline"
+                    onClick={() => deleteProductOption(option._productOptionId)}
+                  >
+                    結除綁定此商品
+                  </Button>
+                ) : null}
               </div>
 
               {/* Delete */}

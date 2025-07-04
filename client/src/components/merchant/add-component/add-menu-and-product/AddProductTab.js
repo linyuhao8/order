@@ -52,7 +52,14 @@ const AddProductTab = ({ merchantId }) => {
     try {
       e.preventDefault();
       await createRefetch({ method: "POST", body: productForm });
-      setProductForm({ name: "", description: "", price: "", menu_id: "" });
+      setProductForm({
+        name: "",
+        description: "",
+        price: "",
+        menu_id: "",
+        is_active: false,
+        cost_price: "",
+      });
     } catch (e) {
       // 已經在 useFetch 裡 toast.error 過了
       console.log(e);
@@ -114,7 +121,6 @@ const AddProductTab = ({ merchantId }) => {
                       })
                     }
                     label="active"
-                    required
                   />
                 </div>
 

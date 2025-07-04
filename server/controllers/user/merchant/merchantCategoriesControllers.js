@@ -1,4 +1,4 @@
-const { MCategory, MerchantCategory, Merchant, Image } =
+const { MerchantCategoryMain, MerchantCategory, Merchant, Image } =
   require("../../../config/postgreSql").db;
 const {
   createCategorySchema,
@@ -19,11 +19,11 @@ const createCategory = async (req, res) => {
   }
 
   try {
-    const { name, description, merchant_ids, img, img_id } = req.body;
+    const { name, description, merchant_ids, image_id } = req.body;
 
-    if (img_id && typeof img_id === "number") {
+    if (image_id) {
       const existingImg = await Image.findOne({
-        where: { id: merchant_logo_id },
+        where: { id: image_id },
       });
 
       if (!existingImg) {
@@ -35,7 +35,7 @@ const createCategory = async (req, res) => {
     }
 
     // 檢查類別名稱是否已存在
-    const existingCategory = await MCategory.findOne({
+    const existingCategory = await MerchantCategoryMain.findOne({
       where: { name },
     });
 
@@ -47,10 +47,10 @@ const createCategory = async (req, res) => {
     }
 
     // 創建新的類別
-    const category = await MCategory.create({
+    const category = await MerchantCategoryMain.create({
       name,
       description,
-      img_id: img_id,
+      image_id: image_id,
     });
 
     // 如果有提供 `merchant_ids`，則自動關聯商家
@@ -71,7 +71,7 @@ const createCategory = async (req, res) => {
 // **2️⃣ 取得所有類別 (包含商家)**
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await MCategory.findAll({
+    const categories = await MerchantCategoryMain.findAll({
       include: [
         {
           model: Merchant,
@@ -96,7 +96,7 @@ const getCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const category = await MCategory.findByPk(id, {
+    const category = await MerchantCategoryMain.findByPk(id, {
       include: [
         { model: Merchant, as: "merchants", through: { attributes: [] } },
         {
@@ -131,18 +131,18 @@ const updateCategory = async (req, res) => {
   }
   try {
     const { id } = req.params;
-    const { name, description, img, merchant_ids, img_id } = req.body;
+    const { name, description, image_id, merchant_ids } = req.body;
 
-    const category = await MCategory.findByPk(id);
+    const category = await MerchantCategoryMain.findByPk(id);
     if (!category) {
       return res
         .status(404)
         .json({ success: false, message: "Category not found" });
     }
     // 如果提供了 img_id，確保它是有效的
-    if (img_id && typeof img_id === "number") {
+    if (image_id) {
       const existingImg = await Image.findOne({
-        where: { id: merchant_logo_id },
+        where: { id: image_id },
       });
 
       if (!existingImg) {
@@ -152,7 +152,7 @@ const updateCategory = async (req, res) => {
         });
       }
     }
-    await category.update({ name, description, img, img_id: img_id });
+    await category.update({ name, description, image_id });
 
     // **同步更新 MerchantCategory**
     if (merchant_ids) {
@@ -179,7 +179,7 @@ const deleteCategory = async (req, res) => {
     const { id } = req.params;
 
     await MerchantCategory.destroy({ where: { category_id: id } });
-    const deleted = await MCategory.destroy({ where: { id } });
+    const deleted = await MerchantCategoryMain.destroy({ where: { id } });
 
     if (!deleted) {
       return res
@@ -264,7 +264,7 @@ const getCategoriesByMerchant = async (req, res) => {
       where: { merchant_id },
       include: [
         {
-          model: MCategory,
+          model: MerchantCategoryMain,
           as: "m_category",
           attributes: ["id", "name", "description", "img"],
         },

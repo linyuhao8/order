@@ -49,10 +49,11 @@ db.MerchantCategory = require("../models/user/Merchant/MerchantCategory")(
   sequelize,
   Sequelize.DataTypes
 );
-db.MCategory = require("../models/user/Merchant/MCategory")(
-  sequelize,
-  Sequelize.DataTypes
-);
+db.MerchantCategoryMain =
+  require("../models/user/Merchant/MerchantCategoryMain")(
+    sequelize,
+    Sequelize.DataTypes
+  );
 db.Admin = require("../models/user/AdminModels")(
   sequelize,
   Sequelize.DataTypes

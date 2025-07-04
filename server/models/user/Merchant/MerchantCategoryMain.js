@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const MCategory = sequelize.define(
-    "MCategory",
+  const MerchantCategoryMain = sequelize.define(
+    "MerchantCategoryMain",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -17,30 +17,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      img: {
-        type: DataTypes.STRING, // 若未轉成 Image 關聯前的舊欄位
-        allowNull: true,
-      },
-      img_id: {
+      image_id: {
         type: DataTypes.UUID,
         allowNull: true,
         references: {
           model: "images",
           key: "id",
         },
-        onDelete: "SET NULL", // 建議放這裡以防 migration 不一致
+        onDelete: "SET NULL",
         onUpdate: "CASCADE",
       },
     },
     {
-      tableName: "m_categories",
+      tableName: "merchant_categories_main",
       timestamps: true,
     }
   );
 
-  MCategory.associate = (models) => {
-    // 多對多：MCategory <--> Merchant
-    MCategory.belongsToMany(models.Merchant, {
+  MerchantCategoryMain.associate = (models) => {
+    // 多對多關聯 Merchant <-> MerchantCategoryMain
+    MerchantCategoryMain.belongsToMany(models.Merchant, {
       through: models.MerchantCategory,
       foreignKey: "category_id",
       otherKey: "merchant_id",
@@ -49,14 +45,14 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
 
-    // 一對一：MCategory --> Image
-    MCategory.belongsTo(models.Image, {
-      foreignKey: "img_id",
+    // 單張圖片關聯
+    MerchantCategoryMain.belongsTo(models.Image, {
+      foreignKey: "image_id",
       as: "image",
       onDelete: "SET NULL",
       onUpdate: "CASCADE",
     });
   };
 
-  return MCategory;
+  return MerchantCategoryMain;
 };

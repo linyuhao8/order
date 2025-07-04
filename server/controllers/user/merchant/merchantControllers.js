@@ -1,4 +1,4 @@
-const { Merchant, User, Image, MCategory } =
+const { Merchant, User, Image, MerchantCategoryMain } =
   require("../../../config/postgreSql").db;
 const {
   createMerchantValidation,
@@ -91,7 +91,7 @@ const getAllMerchants = async (req, res) => {
       include: [
         { model: Image, as: "image" },
         { model: Image, as: "merchant_logo" },
-        { model: MCategory, as: "categories" },
+        { model: MerchantCategoryMain, as: "categories" },
       ],
     });
     if (!merchants || merchants.length === 0) {
@@ -113,7 +113,7 @@ const getMerchantById = async (req, res) => {
       include: [
         { model: Image, as: "image" },
         { model: Image, as: "merchant_logo" },
-        { model: MCategory, as: "categories" },
+        { model: MerchantCategoryMain, as: "categories" },
       ],
     });
 
@@ -271,7 +271,7 @@ const getAllMerchantByUserId = async (req, res) => {
         },
         { model: Image, as: "image" },
         { model: Image, as: "merchant_logo" },
-        { model: MCategory, as: "categories" },
+        { model: MerchantCategoryMain, as: "categories" },
       ],
     });
     if (merchant.length > 0) {

@@ -7,15 +7,12 @@ const createCategorySchema = Joi.object({
     "string.empty": "分類名稱不能為空",
   }),
   description: Joi.string().allow("").optional(),
-  img: Joi.string().uri().allow(null, "").optional().messages({
-    "string.uri": "圖片 URL 格式不正確",
-  }),
-  img_id: Joi.string()
+  image_id: Joi.string()
     .guid({ version: "uuidv4" })
     .allow(null, "")
     .optional()
     .messages({
-      "string.guid": "img_id 必須是有效的 UUID",
+      "string.guid": "image_id 必須是有效的 UUID",
     }),
 });
 
@@ -23,13 +20,12 @@ const createCategorySchema = Joi.object({
 const updateCategorySchema = Joi.object({
   name: Joi.string().trim().optional(),
   description: Joi.string().allow("").optional(),
-  img: Joi.string().uri().allow(null, "").optional(),
-  img_id: Joi.string()
+  image_id: Joi.string()
     .guid({ version: "uuidv4" })
     .allow(null, "")
     .optional()
     .messages({
-      "string.guid": "img_id 必須是有效的 UUID",
+      "string.guid": "image_id 必須是有效的 UUID",
     }),
 });
 

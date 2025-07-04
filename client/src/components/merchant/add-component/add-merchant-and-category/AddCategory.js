@@ -31,7 +31,6 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
       }));
     }
   };
-
   const handleCategoryChange = (e) => {
     const { name, value } = e.target;
 
@@ -47,14 +46,13 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
 
     const { name, description, category_logo } = categoryForm;
     const imageId = category_logo?.[0]?.id || null;
-
     try {
       const res = await axios.post(
         `${API_URL}/api/merchant-categorys/`,
         {
           name,
           description,
-          img_id: imageId,
+          image_id: imageId,
         },
         {
           withCredentials: true,
@@ -66,7 +64,7 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
         setCategoryForm({
           name: "",
           description: "",
-          category_logo: null,
+          category_logo: [],
         });
         getAllCategories();
       } else {
@@ -87,7 +85,7 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
         <Hero />
         <div className="border-t border-gray-200">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleCategorySubmit}>
             <div className="px-4 py-5 sm:p-6">
               <div className="">
                 <InputField
@@ -128,8 +126,7 @@ const CategoryTab = ({ _activeTab, categories, getAllCategories, userId }) => {
 
             <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-400  text-right sm:px-6">
               <Button
-                onClick={handleCategorySubmit}
-                type="button"
+                type="submit"
                 disabled={isLoading}
                 variant="outline"
                 size="lg"

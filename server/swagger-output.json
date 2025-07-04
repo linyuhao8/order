@@ -22,14 +22,14 @@
     },
     {
       "name": "Image",
-      "description": "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace"
+      "description": "1.belongto(User),hasMany(MerchantCategoryMain),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace"
     },
     {
       "name": "MerchantCategory",
-      "description": "1.belongto(Merchant), belongsTo(MCategory) 2.merchant_id , category_id"
+      "description": "1.belongto(Merchant), belongsTo(MerchantCategoryMain) 2.merchant_id , category_id"
     },
     {
-      "name": "MCategory",
+      "name": "MerchantCategoryMain",
       "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img(abandoned), description , img_id"
     },
     {
@@ -691,7 +691,7 @@
     "/api/merchant-categorys/": {
       "post": {
         "tags": [
-          "MCategory"
+          "MerchantCategoryMain"
         ],
         "summary": "建立類別",
         "description": "",
@@ -711,11 +711,7 @@
                   "type": "string",
                   "example": "新說明"
                 },
-                "img": {
-                  "type": "string",
-                  "example": "https://example.com/new-image.jpg"
-                },
-                "img_id": {
+                "image_id": {
                   "type": "string",
                   "example": "uuid"
                 }
@@ -743,7 +739,7 @@
       },
       "get": {
         "tags": [
-          "MCategory"
+          "MerchantCategoryMain"
         ],
         "summary": "取得所有類別",
         "description": "",
@@ -766,7 +762,7 @@
     "/api/merchant-categorys/{id}": {
       "get": {
         "tags": [
-          "MCategory"
+          "MerchantCategoryMain"
         ],
         "summary": "取得單一類別",
         "description": "",
@@ -799,7 +795,7 @@
       },
       "put": {
         "tags": [
-          "MCategory"
+          "MerchantCategoryMain"
         ],
         "summary": "更新類別",
         "description": "",
@@ -825,11 +821,7 @@
                   "type": "string",
                   "example": "新說明"
                 },
-                "img": {
-                  "type": "string",
-                  "example": "https://example.com/new-image.jpg"
-                },
-                "img_id": {
+                "image_id": {
                   "type": "string",
                   "example": "uuid"
                 }
@@ -860,7 +852,7 @@
       },
       "delete": {
         "tags": [
-          "MCategory"
+          "MerchantCategoryMain"
         ],
         "summary": "刪除類別",
         "description": "",

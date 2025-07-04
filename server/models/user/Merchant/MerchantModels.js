@@ -73,7 +73,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE", // Ensures that when a Merchant is deleted, all associated ProductOptions will be deleted
       onUpdate: "CASCADE",
     });
-    Merchant.belongsToMany(models.MCategory, {
+    Merchant.belongsToMany(models.MerchantCategoryMain, {
       through: models.MerchantCategory,
       foreignKey: "merchant_id",
       otherKey: "category_id",

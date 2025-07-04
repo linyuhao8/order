@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-    MerchantCategory.belongsTo(models.MCategory, {
+    MerchantCategory.belongsTo(models.MerchantCategoryMain, {
       foreignKey: "category_id",
       as: "m_category",
       onDelete: "CASCADE",

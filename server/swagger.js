@@ -25,17 +25,17 @@ const doc = {
     {
       name: "Image",
       description:
-        "1.belongto(User),hasMany(MCategory),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace",
+        "1.belongto(User),hasMany(MerchantCategoryMain),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace",
     },
     {
       name: "MerchantCategory",
       description:
-        "1.belongto(Merchant), belongsTo(MCategory) 2.merchant_id , category_id",
+        "1.belongto(Merchant), belongsTo(MerchantCategoryMain) 2.merchant_id , category_id",
     },
     {
-      name: "MCategory",
+      name: "MerchantCategoryMain",
       description:
-        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img(abandoned), description , img_id",
+        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , description , image_id(uuid)",
     },
     {
       name: "Menu",

@@ -4,7 +4,7 @@ const categoryController = require("../../../controllers/user/merchant/merchantC
 
 router.post(
   "/",
-  // #swagger.tags = ['MCategory']
+  // #swagger.tags = ['MerchantCategoryMain']
   // #swagger.summary = '建立類別'
   /*  
       #swagger.parameters['body'] = {
@@ -13,8 +13,7 @@ router.post(
         schema: {
           "name": "新名稱",
           "description": "新說明",
-          "img": "https://example.com/new-image.jpg",
-          "img_id": "uuid"
+          "image_id": "uuid"
         }
       } */
 
@@ -23,14 +22,14 @@ router.post(
 
 router.get(
   "/",
-  // #swagger.tags = ['MCategory']
+  // #swagger.tags = ['MerchantCategoryMain']
   // #swagger.summary = '取得所有類別'
   categoryController.getAllCategories
 );
 
 router.get(
   "/:id",
-  // #swagger.tags = ['MCategory']
+  // #swagger.tags = ['MerchantCategoryMain']
   // #swagger.summary = '取得單一類別'
   /*  #swagger.parameters['id'] = {
         in: 'path',
@@ -43,7 +42,7 @@ router.get(
 
 router.put(
   "/:id",
-  // #swagger.tags = ['MCategory']
+  // #swagger.tags = ['MerchantCategoryMain']
   // #swagger.summary = '更新類別'
   /*  
       #swagger.parameters['body'] = {
@@ -52,8 +51,7 @@ router.put(
         schema: {
           "name": "新名稱",
           "description": "新說明",
-          "img": "https://example.com/new-image.jpg",
-          "img_id": "uuid"
+          "image_id": "uuid"
         }
       } */
   categoryController.updateCategory
@@ -61,7 +59,7 @@ router.put(
 
 router.delete(
   "/:id",
-  // #swagger.tags = ['MCategory']
+  // #swagger.tags = ['MerchantCategoryMain']
   // #swagger.summary = '刪除類別'
   /*  #swagger.parameters['id'] = {
         in: 'path',

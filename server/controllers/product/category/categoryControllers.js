@@ -4,7 +4,7 @@ const {
   createCategorySchema,
   updateCategorySchema,
 } = require("../../../validations/product/category/categoryValidation");
-const productCategorySchema = require("../../../validations/product/category/produtCategoryValidation");
+const productCategorySchema = require("../../../validations/product/category/productCategoryValidation");
 
 // 1️⃣ 創建分類
 const createCategory = async (req, res) => {

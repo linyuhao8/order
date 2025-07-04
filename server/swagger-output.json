@@ -41,8 +41,12 @@
       "description": "1.belongsto(Menu), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id"
     },
     {
+      "name": "ProductImage",
+      "description": "中介表：Product and Image relation table。1. BelongsTo(Product), BelongsTo(Image) 2. 欄位：product_id(UUID), image_id(UUID), sort_order(int), is_main(boolean, default: false), created_at(timestamptz), updated_at(timestamptz)"
+    },
+    {
       "name": "ProductOption",
-      "description": "中介表：Product 與 Option 的關聯表。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at"
+      "description": "中介表：Product and Option relation table。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at"
     },
     {
       "name": "Option",
@@ -1692,6 +1696,197 @@
         "parameters": [
           {
             "name": "merchant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/product-image/": {
+      "get": {
+        "tags": [
+          "ProductImage"
+        ],
+        "summary": "get All Image",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductImage"
+        ],
+        "summary": "bing product img",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_id": {
+                  "example": "any"
+                },
+                "image_id": {
+                  "example": "any"
+                },
+                "sort_order": {
+                  "example": "any"
+                },
+                "is_main": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/product-image/product/{productId}": {
+      "get": {
+        "tags": [
+          "ProductImage"
+        ],
+        "summary": "get all images by propduct id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/product-image/{productId}/{imageId}": {
+      "put": {
+        "tags": [
+          "ProductImage"
+        ],
+        "summary": "update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sort_order": {
+                  "example": "any"
+                },
+                "is_main": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductImage"
+        ],
+        "summary": "delete",
+        "description": "",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageId",
             "in": "path",
             "required": true,
             "type": "string"

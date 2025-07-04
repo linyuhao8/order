@@ -48,9 +48,14 @@ const doc = {
         "1.belongsto(Menu), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id",
     },
     {
+      name: "ProductImage",
+      description:
+        "中介表：Product and Image relation table。1. BelongsTo(Product), BelongsTo(Image) 2. 欄位：product_id(UUID), image_id(UUID), sort_order(int), is_main(boolean, default: false), created_at(timestamptz), updated_at(timestamptz)",
+    },
+    {
       name: "ProductOption",
       description:
-        "中介表：Product 與 Option 的關聯表。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at",
+        "中介表：Product and Option relation table。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at",
     },
     {
       name: "Option",

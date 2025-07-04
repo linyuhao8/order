@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const O_category = sequelize.define(
-    "O_Category",
+  const OptionCategoryMain = sequelize.define(
+    "OptionCategoryMain",
     {
       id: {
         type: DataTypes.UUID,
@@ -18,15 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "o_categories",
+      tableName: "option_categories_main",
       timestamps: true,
     }
   );
 
-  O_category.associate = (models) => {
-    O_category.belongsToMany(models.Option, {
+  OptionCategoryMain.associate = (models) => {
+    OptionCategoryMain.belongsToMany(models.Option, {
       through: models.OptionCategory,
-      foreignKey: "o_category_id",
+      foreignKey: "option_categories_main_id",
       otherKey: "option_id",
       as: "options",
       onDelete: "CASCADE",
@@ -34,5 +34,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  return O_category;
+  return OptionCategoryMain;
 };

@@ -1,36 +1,38 @@
-const { O_Category } = require("../../../../config/postgreSql").db;
+const { OptionCategoryMain, Sequelize } =
+  require("../../../../config/postgreSql").db;
+const { Op } = Sequelize;
 
-async function createOCategory(req, res) {
+async function createOptionCategoryMain(req, res) {
   try {
     const { name, description } = req.body;
     if (!name) {
       return res.status(400).json({ message: "name 是必填欄位" });
     }
 
-    const exist = await O_Category.findOne({ where: { name } });
+    const exist = await OptionCategoryMain.findOne({ where: { name } });
     if (exist) {
       return res.status(409).json({ message: "分類名稱已存在" });
     }
 
-    const newCategory = await O_Category.create({ name, description });
+    const newCategory = await OptionCategoryMain.create({ name, description });
     return res.status(201).json(newCategory);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 }
 
-async function getAllOCategories(req, res) {
+async function getAllOptionCategoryMain(req, res) {
   try {
-    const categories = await O_Category.findAll();
+    const categories = await OptionCategoryMain.findAll();
     return res.status(200).json(categories);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 }
 
-async function getOCategoryById(req, res) {
+async function getOptionCategoryMainById(req, res) {
   try {
-    const category = await O_Category.findByPk(req.params.id);
+    const category = await OptionCategoryMain.findByPk(req.params.id);
     if (!category) {
       return res.status(404).json({ message: "找不到分類" });
     }
@@ -40,17 +42,17 @@ async function getOCategoryById(req, res) {
   }
 }
 
-async function updateOCategory(req, res) {
+async function updateOptionCategoryMain(req, res) {
   try {
-    const category = await O_Category.findByPk(req.params.id);
+    const category = await OptionCategoryMain.findByPk(req.params.id);
     if (!category) {
       return res.status(404).json({ message: "找不到分類" });
     }
     const { name, description } = req.body;
 
     if (name) {
-      const exist = await O_Category.findOne({
-        where: { name, id: { [require("sequelize").Op.ne]: req.params.id } },
+      const exist = await OptionCategoryMain.findOne({
+        where: { name, id: { [Op.ne]: req.params.id } },
       });
       if (exist) {
         return res.status(409).json({ message: "分類名稱已存在" });
@@ -64,9 +66,9 @@ async function updateOCategory(req, res) {
   }
 }
 
-async function deleteOCategory(req, res) {
+async function deleteOptionCategoryMain(req, res) {
   try {
-    const category = await O_Category.findByPk(req.params.id);
+    const category = await OptionCategoryMain.findByPk(req.params.id);
     if (!category) {
       return res.status(404).json({ message: "找不到分類" });
     }
@@ -78,9 +80,9 @@ async function deleteOCategory(req, res) {
 }
 
 module.exports = {
-  createOCategory,
-  getAllOCategories,
-  getOCategoryById,
-  updateOCategory,
-  deleteOCategory,
+  createOptionCategoryMain,
+  getAllOptionCategoryMain,
+  getOptionCategoryMainById,
+  updateOptionCategoryMain,
+  deleteOptionCategoryMain,
 };

@@ -30,7 +30,7 @@
     },
     {
       "name": "MerchantCategoryMain",
-      "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , img(abandoned), description , img_id"
+      "description": "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , description , image_id(uuid)"
     },
     {
       "name": "Menu",
@@ -66,11 +66,11 @@
     },
     {
       "name": "Option_Category",
-      "description": "中介表：Option 與 O_Category 的關聯表。1. BelongsTo(Option), BelongsTo(O_Category) 2. 欄位：id, option_id, o_category_id, created_at, updated_at"
+      "description": "中介表：Option 與 OptionCategoryMain 的關聯表。1. BelongsTo(Option), BelongsTo(OptionCategoryMain) 2. 欄位：id, option_id, OptionCategoryMain_id, created_at, updated_at"
     },
     {
-      "name": "O_Category",
-      "description": "Option 分類標籤表，用於分類 Option。1. HasMany(OptionCategory) 2. 欄位：id, name, description, created_at, updated_at"
+      "name": "OptionCategoryMain",
+      "description": "Option 分類主表表，用於分類 Option。1. HasMany(OptionCategory) 2. 欄位：id, name, description, created_at, updated_at"
     }
   ],
   "schemes": [
@@ -1269,9 +1269,6 @@
           "403": {
             "description": "Forbidden"
           },
-          "404": {
-            "description": "Not Found"
-          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -1302,9 +1299,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1903,7 +1897,7 @@
         }
       }
     },
-    "/api/categorys/product-categories-main": {
+    "/api/product-categorys/product-categories-main": {
       "post": {
         "tags": [
           "ProductCategoryMain"
@@ -1973,7 +1967,7 @@
         }
       }
     },
-    "/api/categorys/product-categories-main/{id}": {
+    "/api/product-categorys/product-categories-main/{id}": {
       "put": {
         "tags": [
           "ProductCategoryMain"
@@ -2060,7 +2054,7 @@
         }
       }
     },
-    "/api/categorys/product-categories": {
+    "/api/product-categorys/product-categories": {
       "post": {
         "tags": [
           "ProductCategory"
@@ -2147,7 +2141,7 @@
         }
       }
     },
-    "/api/categorys/products/{productId}/categories": {
+    "/api/product-categorys/products/{productId}/categories": {
       "get": {
         "tags": [
           "ProductCategory"
@@ -2181,7 +2175,7 @@
         }
       }
     },
-    "/api/productoptions/create": {
+    "/api/product-options/create": {
       "post": {
         "tags": [
           "ProductOption"
@@ -2230,7 +2224,7 @@
         }
       }
     },
-    "/api/productoptions/all": {
+    "/api/product-options/all": {
       "get": {
         "tags": [
           "ProductOption"
@@ -2253,7 +2247,7 @@
         }
       }
     },
-    "/api/productoptions": {
+    "/api/product-options": {
       "get": {
         "tags": [
           "ProductOption"
@@ -2291,7 +2285,7 @@
         }
       }
     },
-    "/api/productoptions/{id}": {
+    "/api/product-options/{id}": {
       "get": {
         "tags": [
           "ProductOption"
@@ -2646,7 +2640,7 @@
         }
       }
     },
-    "/api/optionvalues/create": {
+    "/api/option-values/create": {
       "post": {
         "tags": [
           "OptionValue"
@@ -2698,7 +2692,7 @@
         }
       }
     },
-    "/api/optionvalues/all": {
+    "/api/option-values/all": {
       "get": {
         "tags": [
           "OptionValue"
@@ -2721,7 +2715,7 @@
         }
       }
     },
-    "/api/optionvalues/{id}": {
+    "/api/option-values/{id}": {
       "get": {
         "tags": [
           "OptionValue"
@@ -2859,7 +2853,7 @@
                 "option_id": {
                   "example": "any"
                 },
-                "o_category_id": {
+                "option_category_main_id": {
                   "example": "any"
                 }
               }
@@ -2964,7 +2958,7 @@
                 "option_id": {
                   "example": "any"
                 },
-                "o_category_id": {
+                "option_category_main_id": {
                   "example": "any"
                 }
               }
@@ -3021,10 +3015,10 @@
         }
       }
     },
-    "/api/o-category/": {
+    "/api/option-category-main/": {
       "post": {
         "tags": [
-          "O_Category"
+          "OptionCategoryMain"
         ],
         "description": "",
         "parameters": [
@@ -3067,7 +3061,7 @@
       },
       "get": {
         "tags": [
-          "O_Category"
+          "OptionCategoryMain"
         ],
         "description": "",
         "responses": {
@@ -3086,10 +3080,10 @@
         }
       }
     },
-    "/api/o-category/{id}": {
+    "/api/option-category-main/{id}": {
       "get": {
         "tags": [
-          "O_Category"
+          "OptionCategoryMain"
         ],
         "description": "",
         "parameters": [
@@ -3120,7 +3114,7 @@
       },
       "put": {
         "tags": [
-          "O_Category"
+          "OptionCategoryMain"
         ],
         "description": "",
         "parameters": [
@@ -3169,7 +3163,7 @@
       },
       "delete": {
         "tags": [
-          "O_Category"
+          "OptionCategoryMain"
         ],
         "description": "",
         "parameters": [

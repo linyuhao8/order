@@ -92,10 +92,11 @@ db.OptionValue = require("../models/product/product_option/optionValueModel")(
   sequelize,
   Sequelize.DataTypes
 );
-db.O_Category = require("../models/product/product_option/category/O_Category")(
-  sequelize,
-  Sequelize.DataTypes
-);
+db.OptionCategoryMain =
+  require("../models/product/product_option/category/optionCategoryMain")(
+    sequelize,
+    Sequelize.DataTypes
+  );
 db.OptionCategory =
   require("../models/product/product_option/category/optionCategory")(
     sequelize,

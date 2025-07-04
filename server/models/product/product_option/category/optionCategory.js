@@ -2,6 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const OptionCategory = sequelize.define(
     "OptionCategory",
     {
+      // 可以考慮移除 id，因為中介表通常用複合主鍵，但這裡保留 UUID 作為 PK 也沒問題
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -17,11 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      o_category_id: {
+      option_categories_main_id: {
+        // 這邊改成對應新的資料表名稱欄位
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: "o_categories",
+          model: "option_categories_main", // 新表名
           key: "id",
         },
         onDelete: "CASCADE",
@@ -35,8 +37,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   OptionCategory.associate = (models) => {
-    // OptionCategory 是 Option 與 O_category 的中間表
-
     OptionCategory.belongsTo(models.Option, {
       foreignKey: "option_id",
       as: "option",
@@ -44,9 +44,10 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
 
-    OptionCategory.belongsTo(models.O_Category, {
-      foreignKey: "o_category_id",
-      as: "o_category",
+    OptionCategory.belongsTo(models.OptionCategoryMain, {
+      // 這裡改成新的 model 名稱
+      foreignKey: "option_categories_main_id",
+      as: "option_category_main", // 這個名稱你可以自由定義，保持語意清楚即可
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });

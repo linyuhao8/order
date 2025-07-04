@@ -31,7 +31,7 @@ const ProductOptionRoutes = require("./routes/product/product_option/productOpti
 const optionRoutes = require("./routes/product/product_option/optionRoutes");
 const optionValueRoutes = require("./routes/product/product_option/optionValueRoutes");
 const optionCategoryRoutes = require("./routes/product/product_option/category/optonCategoryRoutes");
-const oCategoryRoutes = require("./routes/product/product_option/category/O_Category");
+const optionCategoryMainRoutes = require("./routes/product/product_option/category/optionCategoryMain");
 //Image
 const imageRoutes = require("./routes/imageRoutes");
 
@@ -61,13 +61,17 @@ app.use("/api/products", authenticateToken, productRoutes);
 //Product Images
 app.use("/api/product-image", authenticateToken, ProductImageRoutes);
 //Porudct Category
-app.use("/api/categorys", authenticateToken, categoryRoutes);
+app.use("/api/product-categorys", authenticateToken, categoryRoutes);
 //Product Option
-app.use("/api/productoptions", authenticateToken, ProductOptionRoutes);
+app.use("/api/product-options", authenticateToken, ProductOptionRoutes);
 app.use("/api/options", authenticateToken, optionRoutes);
-app.use("/api/optionvalues", authenticateToken, optionValueRoutes);
+app.use("/api/option-values", authenticateToken, optionValueRoutes);
 app.use("/api/option-category", authenticateToken, optionCategoryRoutes);
-app.use("/api/o-category", authenticateToken, oCategoryRoutes);
+app.use(
+  "/api/option-category-main",
+  authenticateToken,
+  optionCategoryMainRoutes
+);
 //Img upload
 app.use("/api/images", authenticateToken, imageRoutes);
 

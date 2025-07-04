@@ -69,7 +69,9 @@ export default function InputField({
             {Icon && (
               <Icon className="w-4 h-4 mx-3 text-gray-500 dark:text-gray-400" />
             )}
-            <span className="text-gray-700 dark:text-gray-300">{label}</span>
+            <span className="ml-2 text-gray-700 dark:text-gray-300">
+              {label}
+            </span>
           </label>
         );
 

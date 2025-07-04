@@ -20,7 +20,8 @@ const createProduct = async (req, res) => {
   }
   try {
     //get data from req.body
-    const { name, description, price, menu_id } = req.body;
+    const { name, description, price, menu_id, is_active, cost_price } =
+      req.body;
     //checl menu_id exist or not
     const menu = await Menu.findByPk(menu_id);
     if (!menu) {
@@ -32,6 +33,8 @@ const createProduct = async (req, res) => {
       description,
       price,
       menu_id,
+      is_active,
+      cost_price,
     });
     return res.status(201).json(newProduct);
   } catch (error) {
@@ -104,20 +107,29 @@ const updateProduct = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const { name, description, price, menu_id } = req.body;
+    const { name, description, price, menu_id, is_active, cost_price } =
+      req.body;
 
     const product = await Product.findByPk(id);
     if (!product) {
       return res.status(404).json({ message: "找不到該產品" });
     }
-    const menu = await Menu.findByPk(menu_id);
-    if (!menu) {
-      return res.status(400).json({ message: "找不到該菜單" });
+
+    // 如果有給 menu_id，再驗證該 menu 是否存在
+    if (menu_id) {
+      const menu = await Menu.findByPk(menu_id);
+      if (!menu) {
+        return res.status(400).json({ message: "找不到該菜單" });
+      }
+      product.menu_id = menu_id;
     }
-    product.name = name || product.name;
-    product.description = description || product.description;
-    product.price = price || product.price;
-    product.menu_id = menu_id || product.menu_id;
+
+    // 更新欄位（使用 nullish coalescing operator ?? 可避免 0、false 被跳過）
+    product.name = name ?? product.name;
+    product.description = description ?? product.description;
+    product.price = price ?? product.price;
+    product.is_active = is_active ?? product.is_active;
+    product.cost_price = cost_price ?? product.cost_price;
 
     await product.save();
     return res.status(200).json(product);

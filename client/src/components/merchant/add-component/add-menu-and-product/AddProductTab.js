@@ -15,6 +15,8 @@ const AddProductTab = ({ merchantId }) => {
     description: "",
     price: "",
     menu_id: "",
+    is_active: true,
+    cost_price: 0,
   });
 
   // POST - Create product
@@ -87,19 +89,32 @@ const AddProductTab = ({ merchantId }) => {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
                 {/* name */}
                 <div className="sm:col-span-3">
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                  >
-                    name <span className="text-red-500">*</span>
-                  </label>
                   <InputField
                     type="text"
                     name="name"
                     id="name"
+                    label="name"
                     required
                     value={productForm.name}
                     onChange={handleProductChange}
+                  />
+                </div>
+
+                {/* is_active */}
+                <div className="sm:col-span-6">
+                  <InputField
+                    id="active"
+                    name="active"
+                    type="checkbox"
+                    checked={productForm.is_active}
+                    onChange={(e) =>
+                      setProductForm({
+                        ...productForm,
+                        is_active: e.target.checked,
+                      })
+                    }
+                    label="active"
+                    required
                   />
                 </div>
 
@@ -147,6 +162,24 @@ const AddProductTab = ({ merchantId }) => {
                     id="price"
                     required
                     value={productForm.price}
+                    onChange={handleProductChange}
+                  />
+                </div>
+
+                {/* cost_pricing */}
+                <div className="sm:col-span-6">
+                  <label
+                    htmlFor="cost"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                  >
+                    Cost Price <span className="text-red-500">*</span>
+                  </label>
+                  <InputField
+                    type="number"
+                    name="cost_price"
+                    id="cost_price"
+                    required
+                    value={productForm.cost_price}
                     onChange={handleProductChange}
                   />
                 </div>

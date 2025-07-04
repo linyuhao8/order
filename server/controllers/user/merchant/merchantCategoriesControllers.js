@@ -139,7 +139,7 @@ const updateCategory = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Category not found" });
     }
-    // 如果提供了 img_id，確保它是有效的
+    // 如果提供了 image_id，確保它是有效的
     if (image_id) {
       const existingImg = await Image.findOne({
         where: { id: image_id },

@@ -15,7 +15,9 @@ router.post(
            "name": "肉燥便當",
            "description": "",
            "price": "100",
-           "menu_id": ""
+           "menu_id": "",
+           "is_active":true,
+           "cost_price": 20
 }
     } */
   productController.createProduct
@@ -45,12 +47,14 @@ router.put(
   // #swagger.summary = 'modify product'
   /*  #swagger.parameters['body'] = {
             in: 'body',
-            description: 'modify product',
+            description: 'add product',
             schema: {
            "name": "肉燥便當",
            "description": "",
-           "price": "80",
-           "menu_id": ""
+           "price": "100",
+           "menu_id": "",
+           "is_active":true,
+           "cost_price": 20
 }
     } */
   productController.updateProduct

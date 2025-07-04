@@ -78,6 +78,26 @@ const ProductList = ({ menuId, onProductCountChange, user }) => {
                   )}
                 </div>
                 <div className="text-[10px]">{product.id}</div>
+                {/* is_active */}
+                <div className="text-[12px]">
+                  {product.is_active ? (
+                    <>
+                      <span className="inline-block w-1 h-1 rounded-full bg-green-500 mr-1"></span>
+                      商品啟用
+                    </>
+                  ) : (
+                    <>
+                      <span className="inline-block w-1 h-1 rounded-full bg-red-500 mr-1"></span>
+                      商品禁用
+                    </>
+                  )}
+                </div>
+                <div className="text-[12px]">
+                  成本:
+                  {product.cost_price != null
+                    ? `$${product.cost_price}`
+                    : "未設定"}
+                </div>
               </div>
 
               {/* 右側價格區域 */}

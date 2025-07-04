@@ -1459,6 +1459,14 @@
                 "menu_id": {
                   "type": "string",
                   "example": ""
+                },
+                "is_active": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "cost_price": {
+                  "type": "number",
+                  "example": 20
                 }
               }
             }
@@ -1594,7 +1602,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "modify product",
+            "description": "add product",
             "schema": {
               "type": "object",
               "properties": {
@@ -1608,11 +1616,19 @@
                 },
                 "price": {
                   "type": "string",
-                  "example": "80"
+                  "example": "100"
                 },
                 "menu_id": {
                   "type": "string",
                   "example": ""
+                },
+                "is_active": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "cost_price": {
+                  "type": "number",
+                  "example": 20
                 }
               }
             }

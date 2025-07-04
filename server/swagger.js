@@ -11,7 +11,7 @@ const doc = {
     {
       name: "User",
       description:
-        "1.hasOne(Admin),hasMany(Merchant),hasMany(Image) 2.id, name, email, password, phoneNumber, address, role",
+        "1.hasOne(Admin),hasMany(Merchant),hasMany(Image) 2.id, name, email, password, phoneNumber, address, role[customer, merchant, admin]",
     },
     {
       name: "Admin",
@@ -45,12 +45,7 @@ const doc = {
     {
       name: "Product",
       description:
-        "1.belongsto(Menu), hasMany(ProductImg), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id",
-    },
-    {
-      name: "ProductImg",
-      description:
-        "1.belongsto(Product) 2.id, product_id, image_url, title, description",
+        "1.belongsto(Menu), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id",
     },
     {
       name: "ProductOption",

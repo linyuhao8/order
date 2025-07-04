@@ -1,6 +1,5 @@
 const Product = require("../../config/postgreSql").db.Product;
 const Menu = require("../../config/postgreSql").db.Menu;
-const ProductImg = require("../../config/postgreSql").db.ProductImg;
 const {
   createProductSchema,
   updateProductSchema,
@@ -158,22 +157,18 @@ const getMerchantDetails = async (req, res) => {
           model: Product,
           as: "products", // 關聯的產品
           //連同img categories feature
-          include: [
-            {
-              model: ProductImg,
-              as: "product_imgs", // 產品圖片
-            },
-            //     {
-            //       model: ProductCategory,
-            //       as: "productCategories", // 產品分類
-            //       attributes: ["name"], // 只返回分類名稱
-            //     },
-            //     {
-            //       model: ProductFeature,
-            //       as: "productFeatures", // 產品特徵
-            //       attributes: ["feature"], // 只返回特徵
-            //     },
-          ],
+          //include: [
+          //     {
+          //       model: ProductCategory,
+          //       as: "productCategories", // 產品分類
+          //       attributes: ["name"], // 只返回分類名稱
+          //     },
+          //     {
+          //       model: ProductFeature,
+          //       as: "productFeatures", // 產品特徵
+          //       attributes: ["feature"], // 只返回特徵
+          //     },
+          //],
         },
       ],
     });

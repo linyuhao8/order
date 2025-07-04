@@ -46,13 +46,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-    // Product 與 ProductImg 建立 一對多 關聯 (一個 Product 可能有多張圖片)
-    Product.hasMany(models.ProductImg, {
-      foreignKey: "product_id", // 外鍵對應到 ProductImg 表中的 product_id
-      as: "product_imgs", // 在關聯查詢時，這個關係將被命名為 "images"
-      onDelete: "CASCADE", // 當 Product 被刪除時，相關的 ProductImg 也會被刪除
-      onUpdate: "CASCADE",
-    });
 
     // Product 與 Category 建立 多對多 關聯 (一個 Product 可能屬於多個 Category)
     Product.belongsToMany(models.Category, {

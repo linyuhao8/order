@@ -22,7 +22,6 @@ const merchantCategoryRoutes = require("./routes/user/merchant/merchantCategoryR
 //Product
 const menuRoutes = require("./routes/product/menuRoutes");
 const productRoutes = require("./routes/product/productRoutes");
-const productImageRoutes = require("./routes/product/productImgRoutes");
 //Product Category
 const categoryRoutes = require("./routes/product/category/categoryRoutes");
 //Product Option
@@ -57,7 +56,6 @@ app.use("/api/admins", verifyAdmin, adminRoutes);
 //Product
 app.use("/api/menus", authenticateToken, menuRoutes);
 app.use("/api/products", authenticateToken, productRoutes);
-app.use("/api/productimgs", authenticateToken, productImageRoutes);
 //Porudct Category
 app.use("/api/categorys", authenticateToken, categoryRoutes);
 //Product Option

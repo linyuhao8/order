@@ -66,10 +66,6 @@ db.Product = require("../models/product/ProductModels")(
   sequelize,
   Sequelize.DataTypes
 );
-db.ProductImg = require("../models/product/ProductImgModels")(
-  sequelize,
-  Sequelize.DataTypes
-);
 //Product Category
 db.Category = require("../models/product/category/CategoryModels")(
   sequelize,

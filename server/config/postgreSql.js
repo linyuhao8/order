@@ -67,12 +67,13 @@ db.Product = require("../models/product/ProductModels")(
   Sequelize.DataTypes
 );
 //Product Category
-db.Category = require("../models/product/category/CategoryModels")(
-  sequelize,
-  Sequelize.DataTypes
-);
+db.ProductCategoryMain =
+  require("../models/product/category/ProductCategoryMainModels")(
+    sequelize,
+    Sequelize.DataTypes
+  );
 db.ProductCategory =
-  require("../models/product/category/ProdcutCategoryModels")(
+  require("../models/product/category/ProductCategoryModels")(
     sequelize,
     Sequelize.DataTypes
   );

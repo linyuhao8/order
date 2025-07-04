@@ -2,28 +2,28 @@ const express = require("express");
 const router = express.Router();
 const categoryController = require("../../../controllers/product/category/categoryControllers");
 
-// 分類 API
+// 分類 API mix join table and main table
 router.post(
-  "/p-categories",
-  // #swagger.tags = ['P_Category']
+  "/product-categories-main",
+  // #swagger.tags = ['ProductCategoryMain']
   // #swagger.summary = 'Add Category'
   categoryController.createCategory
 );
 router.put(
-  "/p-categories/:id",
-  // #swagger.tags = ['P_Category']
+  "/product-categories-main/:id",
+  // #swagger.tags = ['ProductCategoryMain']
   // #swagger.summary = 'modify Category'
   categoryController.updateCategory
 );
 router.delete(
-  "/p-categories/:id",
-  // #swagger.tags = ['P_Category']
+  "/product-categories-main/:id",
+  // #swagger.tags = ['ProductCategoryMain']
   // #swagger.summary = 'Delete Category'
   categoryController.deleteCategory
 );
 router.get(
-  "/p-categories",
-  // #swagger.tags = ['P_Category']
+  "/product-categories-main",
+  // #swagger.tags = ['ProductCategoryMain']
   // #swagger.summary = 'Get All Category'
   categoryController.getAllCategories
 );

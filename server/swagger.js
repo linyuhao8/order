@@ -5,7 +5,7 @@ const doc = {
   info: {
     title: "My API",
     description:
-      "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql.",
+      "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql. 這邊文檔命名都是大寫為後端js Model的name",
   },
   tags: [
     {
@@ -65,12 +65,12 @@ const doc = {
     {
       name: "ProductCategory",
       description:
-        "1.belongto(Product), belongsTo(Category) 2.product_id, category_id",
+        "1.belongto(Product), belongsTo(ProductCategoryMain) 2.product_id, category_id",
     },
     {
-      name: "P_Category",
+      name: "ProductCategoryMain",
       description:
-        "1.belongtoMany(ProductCategory) 2.id, name, description, img",
+        "1.belongtoMany(ProductCategory) 2.id, name, description, image_id(uuid), timespace",
     },
     {
       name: "Option_Category",

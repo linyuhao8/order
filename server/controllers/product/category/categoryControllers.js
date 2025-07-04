@@ -1,4 +1,4 @@
-const { Category, Product, ProductCategory } =
+const { ProductCategoryMain, Product, ProductCategory } =
   require("../../../config/postgreSql").db;
 const {
   createCategorySchema,
@@ -19,7 +19,7 @@ const createCategory = async (req, res) => {
   }
   try {
     const { name, description, img } = req.body;
-    const [category, created] = await Category.findOrCreate({
+    const [category, created] = await ProductCategoryMain.findOrCreate({
       where: { name }, // 查找條件
       defaults: { description, img }, // 若找不到，則用這些值創建
     });
@@ -47,7 +47,7 @@ const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, img } = req.body;
-    const category = await Category.findByPk(id);
+    const category = await ProductCategoryMain.findByPk(id);
 
     if (!category) return res.status(404).json({ error: "分類不存在" });
 
@@ -62,7 +62,7 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.findByPk(id);
+    const category = await ProductCategoryMain.findByPk(id);
 
     if (!category) return res.status(404).json({ error: "分類不存在" });
 
@@ -76,7 +76,7 @@ const deleteCategory = async (req, res) => {
 // 4️⃣ 獲取所有分類
 const getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.findAll();
+    const categories = await ProductCategoryMain.findAll();
     if (categories.length == 0) {
       return res.status(400).json({ message: "沒有找到分類" });
     }
@@ -102,7 +102,7 @@ const addCategoryToProduct = async (req, res) => {
 
     // 檢查產品和分類是否存在
     const product = await Product.findByPk(product_id);
-    const category = await Category.findByPk(category_id);
+    const category = await ProductCategoryMain.findByPk(category_id);
 
     if (!product || !category) {
       return res.status(404).json({ error: "產品或分類不存在" });

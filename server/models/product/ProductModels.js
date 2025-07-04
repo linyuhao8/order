@@ -42,13 +42,13 @@ module.exports = (sequelize, DataTypes) => {
     // 設定 Product 與 Menu 的一對多關聯 (Product 會有一個 menu_id 指向 Menu)
     Product.belongsTo(models.Menu, {
       foreignKey: "menu_id", // 在 Product 模型中，使用 "menu_id" 作為外鍵
-      as: "products", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
+      as: "menu", // 在關聯中使用 "menu" 作為關聯的別名，方便在查詢時使用
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
 
     // Product 與 Category 建立 多對多 關聯 (一個 Product 可能屬於多個 Category)
-    Product.belongsToMany(models.Category, {
+    Product.belongsToMany(models.ProductCategoryMain, {
       through: models.ProductCategory, // 透過中間表 ProductCategory 建立多對多關係
       foreignKey: "product_id", // 這裡的外鍵指向 Product 表
       otherKey: "category_id", // 對應的另一個外鍵指向 Category 表

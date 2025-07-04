@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "My API",
-    "description": "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql.",
+    "description": "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql. 這邊文檔命名都是大寫為後端js Model的name",
     "version": "1.0.0"
   },
   "host": "localhost:8082",
@@ -54,11 +54,11 @@
     },
     {
       "name": "ProductCategory",
-      "description": "1.belongto(Product), belongsTo(Category) 2.product_id, category_id"
+      "description": "1.belongto(Product), belongsTo(ProductCategoryMain) 2.product_id, category_id"
     },
     {
-      "name": "P_Category",
-      "description": "1.belongtoMany(ProductCategory) 2.id, name, description, img"
+      "name": "ProductCategoryMain",
+      "description": "1.belongtoMany(ProductCategory) 2.id, name, description, image_id(uuid), timespace"
     },
     {
       "name": "Option_Category",
@@ -1716,10 +1716,10 @@
         }
       }
     },
-    "/api/categorys/p-categories": {
+    "/api/categorys/product-categories-main": {
       "post": {
         "tags": [
-          "P_Category"
+          "ProductCategoryMain"
         ],
         "summary": "Add Category",
         "description": "",
@@ -1763,7 +1763,7 @@
       },
       "get": {
         "tags": [
-          "P_Category"
+          "ProductCategoryMain"
         ],
         "summary": "Get All Category",
         "description": "",
@@ -1786,10 +1786,10 @@
         }
       }
     },
-    "/api/categorys/p-categories/{id}": {
+    "/api/categorys/product-categories-main/{id}": {
       "put": {
         "tags": [
-          "P_Category"
+          "ProductCategoryMain"
         ],
         "summary": "modify Category",
         "description": "",
@@ -1842,7 +1842,7 @@
       },
       "delete": {
         "tags": [
-          "P_Category"
+          "ProductCategoryMain"
         ],
         "summary": "Delete Category",
         "description": "",

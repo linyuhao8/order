@@ -84,16 +84,22 @@ export default function MerchantMenu({ user, merchantId }) {
 
       {menus?.length === 0 ? (
         /* 空狀態 */
-        <div className="flex flex-col items-center justify-center py-12 rounded-lg border border-dashed border-border bg-muted/30">
+        <div className="flex flex-col items-center justify-center py-12 rounded-lg border border-dashed border-border bg-muted/30 mb-5">
           <div className="rounded-full bg-muted p-3 mb-3">
             <div className="text-3xl">📋</div>
           </div>
           <h4 className="text-base font-medium text-foreground mb-1">
             no menu.
           </h4>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-3">
             Please create your first menu.
           </p>
+          <Button
+            variant="outline"
+            href={`/merchant/dashboard/${merchantId}/add-menu`}
+          >
+            Add Menu
+          </Button>
         </div>
       ) : (
         /* 菜單列表 */

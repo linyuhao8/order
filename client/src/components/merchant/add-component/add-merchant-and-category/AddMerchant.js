@@ -6,13 +6,15 @@ import axios from "axios";
 
 import InputField from "@/components/common/InputField";
 import UploadImageField from "@/components/common/MediaLibrary/UploadImageField";
-import { useRouter } from "next/navigation";
 import Button from "@/components/common/Button";
+import { useMerchant } from "@/hooks/useMerchant";
+import { useRouter } from "next/navigation";
 
 const MerchantTab = ({ _activeTab, categories, userId }) => {
+  const router = useRouter();
+  const { setCurrentMerchant } = useMerchant();
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   // 商家表單狀態
   const [merchantForm, setMerchantForm] = useState({
     user_id: "",
@@ -107,9 +109,9 @@ const MerchantTab = ({ _activeTab, categories, userId }) => {
         toast.error("商家分類關聯建立失敗");
         return;
       }
-
+      setCurrentMerchant(merchantRes.data);
       toast.success("商家建立成功！");
-      router.push("/merchant/dashboard/select");
+      router.push("/merchant/dashboard");
     } catch (error) {
       console.error("❌ 商家建立失敗:", error);
       toast.error(

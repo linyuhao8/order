@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 // Component
 import Header from "@/components/merchant/common/Header/Header";
 import Button from "@/components/common/Button";
-import MerchantsCard from "@/components/merchant/select/MerchantsCard";
+import MerchantsCard from "@/components/merchant/merchant/MerchantsCard";
 import MerchantMenu from "@/components/merchant/menu/MerchantMenu";
 import Loading from "@/components/common/Loading";
 

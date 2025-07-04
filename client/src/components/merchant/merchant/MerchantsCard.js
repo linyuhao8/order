@@ -17,8 +17,11 @@ import { BiCategory } from "react-icons/bi";
 import { FiTrendingUp } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
-const MerchantsCard = ({ merchant, fetchMerchants }) => {
+import { useMerchant } from "@/hooks/useMerchant";
+
+const MerchantsCard = ({ merchant }) => {
   const router = useRouter();
+  const { clearCurrentMerchant } = useMerchant();
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete merchant: ${merchant.business_name}?`
@@ -30,14 +33,11 @@ const MerchantsCard = ({ merchant, fetchMerchants }) => {
         `${process.env.NEXT_PUBLIC_API_URL}/api/merchants/${merchant.id}`,
         { withCredentials: true }
       );
+      //清理cookie and redux
+      clearCurrentMerchant("order-merchant");
       toast.success("Merchant deleted successfully!");
       // ✅ 判斷是否有傳入 fetchMerchants（來自商家列表頁）
-      if (typeof fetchMerchants === "function") {
-        fetchMerchants();
-      } else {
-        // ❌ 沒有 fetchMerchants，可能是從單一商家頁面進來
-        router.push("/merchant/dashboard/select");
-      }
+      router.push("/merchant/dashboard/");
     } catch (error) {
       console.error("Error deleting merchant:", error);
       toast.error("Failed to delete merchant.");

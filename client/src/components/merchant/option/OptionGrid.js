@@ -62,7 +62,7 @@ const OptionGrid = ({
     try {
       toast.loading("結除綁定中...");
       const response = await axios.delete(
-        `http://localhost:8082/api/productoptions/${id}`,
+        `http://localhost:8082/api/product-options/${id}`,
         { withCredentials: true }
       );
       toast.dismiss();

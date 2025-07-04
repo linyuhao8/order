@@ -11,7 +11,7 @@ const ProductOptionModal = ({ user, isOpen, closeModal, product }) => {
   const [options, setOptions] = useState([]);
 
   const getOptionByProductIdUrl = product?.id
-    ? `http://localhost:8082/api/productoptions?product_id=${product.id}`
+    ? `http://localhost:8082/api/product-options?product_id=${product.id}`
     : null;
 
   const { data, loading, error, refetch } = useFetch(getOptionByProductIdUrl, {

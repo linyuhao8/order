@@ -31,9 +31,6 @@ const createMenu = async (req, res) => {
 const getAllMenus = async (req, res) => {
   try {
     const menus = await Menu.findAll();
-    if (menus.length === 0) {
-      return res.status(404).json({ message: "找不到菜單" });
-    }
     return res.status(200).json(menus);
   } catch (error) {
     console.error(error);
@@ -52,11 +49,6 @@ const getMenusByMerchant = async (req, res) => {
         merchant_id: merchant_id, // 過濾條件，查找該商家的菜單
       },
     });
-
-    if (menus.length === 0) {
-      return res.status(404).json({ message: "找不到菜單" });
-    }
-
     return res.status(200).json(menus);
   } catch (error) {
     console.error(error);

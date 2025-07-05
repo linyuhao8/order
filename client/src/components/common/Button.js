@@ -1,5 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
+import { FiLoader } from "react-icons/fi";
 
 const Button = ({
   href,
@@ -11,6 +12,7 @@ const Button = ({
   iconPosition = "left",
   className = "",
   disabled = false,
+  disabledText = "loading",
   ...props
 }) => {
   const baseStyles = "gap-1 font-medium transition cursor-pointer";
@@ -35,6 +37,7 @@ const Button = ({
       "text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white flex flex-nowrap items-center gap-2",
     ghost:
       "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800",
+    full: "w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-medium py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl",
   };
 
   // size
@@ -50,13 +53,19 @@ const Button = ({
     "opacity-50 cursor-not-allowed": disabled,
   });
 
-  const content = (
-    <>
-      {iconPosition === "left" && Icon && <Icon />}
-      {children}
-      {iconPosition === "right" && Icon && <Icon />}
-    </>
-  );
+  const content =
+    disabled && disabledText ? (
+      <span className="flex items-center justify-center gap-2">
+        <FiLoader className="animate-spin" />
+        {disabledText}
+      </span>
+    ) : (
+      <>
+        {iconPosition === "left" && Icon && <Icon />}
+        {children}
+        {iconPosition === "right" && Icon && <Icon />}
+      </>
+    );
 
   return href ? (
     <Link href={href} className={classes} {...props}>

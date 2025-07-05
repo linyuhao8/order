@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import InputField from "@/components/common/InputField";
 import { Package, User, Building } from "lucide-react";
 import { useMerchant } from "@/hooks/useMerchant";
+import Button from "@/components/common/Button";
 
 const BindProductOption = ({
   filterType: defaultFilterType = "user_id",
@@ -149,22 +150,15 @@ const BindProductOption = ({
                   placeholder="請輸入數字"
                 />
               </div>
-
               {/* Submit Button */}
-              <button
+              <Button
+                variant="full"
                 onClick={handleSubmit}
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                disabledText="Loading"
               >
-                {loading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    綁定中...
-                  </div>
-                ) : (
-                  "綁定選項"
-                )}
-              </button>
+                綁定
+              </Button>
             </div>
           </div>
         </div>

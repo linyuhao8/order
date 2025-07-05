@@ -11,83 +11,123 @@ const doc = {
     {
       name: "User",
       description:
-        "1.hasOne(Admin),hasMany(Merchant),hasMany(Image) 2.id, name, email, password, phoneNumber, address, role[customer, merchant, admin]",
+        "Model: User (Sequelize), Table: users (db table)\n" +
+        "1. 關聯：hasOne(Admin), hasMany(Merchant), hasMany(Image)\n" +
+        "2. 欄位：id(UUID), name, email, password, phoneNumber, address(text), role(enum: customer, merchant, admin), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Admin",
-      description: "1.belongsto(User) 2.id, user_id",
+      description:
+        "Model: Admin (Sequelize), Table: admins (db table)\n" +
+        "1. 關聯：belongsTo(User)\n" +
+        "2. 欄位：id(UUID), user_id(UUID), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Merchant",
       description:
-        "1.belongsto(User),hasMany(Menu),hasMany(ProductOption),hasMany(MerchantCategory),belongtoMany(ProductCategory),belongto(Image) 2.id, user_id, business_name, description, feature, merchant_logo(abandoned), location, image_id , business_hours",
+        "Model: Merchant (Sequelize), Table: merchants (db table)\n" +
+        "1. 關聯：belongsTo(User), hasMany(Menu), hasMany(ProductOption), hasMany(MerchantCategory), belongsToMany(MerchantCategoryMain through MerchantCategory), belongsTo(Image)\n" +
+        "2. 欄位：id(UUID), user_id(UUID), business_name, description, feature(text), merchant_logo(abandoned), location(json or text), image_id(UUID), business_hours(json), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Image",
       description:
-        "1.belongto(User),hasMany(MerchantCategoryMain),hasMany(Merchant) 2.id, filename, url, user_id, width, height, size, mime_type,timespace",
+        "Model: Image (Sequelize), Table: images (db table)\n" +
+        "1. 關聯：belongsTo(User), hasMany(MerchantCategoryMain), hasMany(Merchant)\n" +
+        "2. 欄位：id(UUID), filename, url, user_id(UUID), width(int), height(int), size(int), mime_type(string), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "MerchantCategory",
       description:
-        "1.belongto(Merchant), belongsTo(MerchantCategoryMain) 2.merchant_id , category_id",
+        "Model: MerchantCategory (Sequelize), Table: merchant_categories (db table)\n" +
+        "中介表：Merchant 與 MerchantCategoryMain 的多對多關聯表\n" +
+        "1. 關聯：belongsTo(Merchant), belongsTo(MerchantCategoryMain)\n" +
+        "2. 欄位：id(UUID), merchant_id(UUID), category_id(UUID)",
     },
     {
       name: "MerchantCategoryMain",
       description:
-        "1.belongtoMany(ProductCategory),belongto(Image) 2.id, name , description , image_id(uuid)",
+        "Model: MerchantCategoryMain (Sequelize), Table: merchant_category_mains (db table)\n" +
+        "1. 關聯：belongsToMany(Merchant through MerchantCategory), belongsTo(Image)\n" +
+        "2. 欄位：id(UUID), name, description, image_id(UUID), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Menu",
       description:
-        "1.belongsto(Merchant),hasMany(Product) 2.id, name, description, merchat_id",
+        "Model: Menu (Sequelize), Table: menus (db table)\n" +
+        "1. 關聯：belongsTo(Merchant), hasMany(Product)\n" +
+        "2. 欄位：id(UUID), name, description, merchant_id(UUID), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Product",
       description:
-        "1.belongsto(Menu), belongsToMany(ProductCategory), belongsToMany(ProductOption) 2.id, name, description, price, menu_id",
+        "Model: Product (Sequelize), Table: products (db table)\n" +
+        "1. 關聯：belongsTo(Menu), belongsToMany(ProductCategoryMain through ProductCategory), belongsToMany(Option through ProductOption)\n" +
+        "2. 欄位：id(UUID), name, description, price(float), menu_id(UUID), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "ProductImage",
       description:
-        "中介表：Product and Image relation table。1. BelongsTo(Product), BelongsTo(Image) 2. 欄位：product_id(UUID), image_id(UUID), sort_order(int), is_main(boolean, default: false), created_at(timestamptz), updated_at(timestamptz)",
+        "Model: ProductImage (Sequelize), Table: product_images (db table)\n" +
+        "中介表：Product 與 Image 的多對多關聯表\n" +
+        "1. 關聯：belongsTo(Product), belongsTo(Image)\n" +
+        "2. 欄位：id(UUID), product_id(UUID), image_id(UUID), sort_order(int), is_main(boolean, default: false), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "ProductOption",
       description:
-        "中介表：Product and Option relation table。1. BelongsTo(Product), BelongsTo(Option) 2. 欄位：id, product_id, option_id, required(boolean), sort_order(int), created_at, updated_at",
+        "Model: ProductOption (Sequelize), Table: product_options (db table)\n" +
+        "中介表：Product 與 Option 的多對多關聯表\n" +
+        "1. 關聯：belongsTo(Product), belongsTo(Option)\n" +
+        "2. 欄位：id(UUID), product_id(UUID), option_id(UUID), required(boolean), sort_order(int), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "Option",
       description:
-        "商品選項定義。1. HasMany(OptionValue), BelongsToMany(Product through ProductOption), HasMany(OptionCategory) 2. 欄位：id, name, type(enum: select, checkbox, text, number), description(text), min_select(int), max_select(int), user_id(UUID), merchant_id(UUID), is_global(boolean), created_at, updated_at",
+        "Model: Option (Sequelize), Table: options (db table)\n" +
+        "商品選項主表\n" +
+        "1. 關聯：hasMany(OptionValue), belongsToMany(Product through ProductOption), belongsToMany(OptionCategoryMain through OptionCategory)\n" +
+        "2. 欄位：id(UUID), name, type(enum: select, checkbox, text, number), description(text), min_select(int), max_select(int), user_id(UUID), merchant_id(UUID), is_global(boolean), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "OptionValue",
       description:
-        "Option 對應的具體值（選項值）。1. BelongsTo(Option) 2. 欄位：id, option_id, values(string), extra_price(float), is_default(boolean), sort_order(int), created_at, updated_at",
+        "Model: OptionValue (Sequelize), Table: option_values (db table)\n" +
+        "1. 關聯：belongsTo(Option)\n" +
+        "2. 欄位：id(UUID), option_id(UUID), value(string), extra_price(float), is_default(boolean), sort_order(int), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
       name: "ProductCategory",
       description:
-        "1.belongto(Product), belongsTo(ProductCategoryMain) 2.product_id, category_id",
+        "Model: ProductCategory (Sequelize), Table: product_categories (db table)\n" +
+        "中介表：Product 與 ProductCategoryMain 的多對多關聯\n" +
+        "1. 關聯：belongsTo(Product), belongsTo(ProductCategoryMain)\n" +
+        "2. 欄位：id(UUID), product_id(UUID), category_id(UUID)",
     },
     {
       name: "ProductCategoryMain",
       description:
-        "1.belongtoMany(ProductCategory) 2.id, name, description, image_id(uuid), timespace",
+        "Model: ProductCategoryMain (Sequelize), Table: product_category_mains (db table)\n" +
+        "1. 關聯：belongsToMany(Product through ProductCategory)\n" +
+        "2. 欄位：id(UUID), name, description, image_id(UUID), created_at(timestamptz), updated_at(timestamptz)",
     },
     {
-      name: "Option_Category",
+      name: "OptionCategory",
       description:
-        "中介表：Option 與 OptionCategoryMain 的關聯表。1. BelongsTo(Option), BelongsTo(OptionCategoryMain) 2. 欄位：id, option_id, OptionCategoryMain_id, created_at, updated_at",
+        "Model: OptionCategory (Sequelize), Table: option_categories (db table)\n" +
+        "中介表：Option 與 OptionCategoryMain 的多對多關聯\n" +
+        "1. 關聯：belongsTo(Option), belongsTo(OptionCategoryMain)\n" +
+        "2. 欄位：id(UUID), option_id(UUID), option_category_main_id(UUID)",
     },
     {
       name: "OptionCategoryMain",
       description:
-        "Option 分類主表表，用於分類 Option。1. HasMany(OptionCategory) 2. 欄位：id, name, description, created_at, updated_at",
+        "Model: OptionCategoryMain (Sequelize), Table: option_category_mains (db table)\n" +
+        "1. 關聯：hasMany(OptionCategory)\n" +
+        "2. 欄位：id(UUID), name, description, created_at(timestamptz), updated_at(timestamptz)",
     },
   ],
+
   host: `localhost:${process.env.SERVER_PORT_ENV}`,
 };
 

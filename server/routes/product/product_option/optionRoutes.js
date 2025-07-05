@@ -9,6 +9,13 @@ router.post(
   // #swagger.summary = 'Add Option'
   optionController.createOptionWithValues
 );
+
+router.post(
+  "/create-option",
+  // #swagger.tags = ['Option']
+  // #swagger.summary = 'Add Option'
+  optionController.createOption
+);
 router.get(
   "/all",
   // #swagger.tags = ['Option']

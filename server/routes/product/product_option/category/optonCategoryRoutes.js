@@ -5,35 +5,35 @@ const optionCategoryController = require("../../../../controllers/product/produc
 // 新增 OptionCategory
 router.post(
   "/",
-  // #swagger.tags = ['Option_Category']
+  // #swagger.tags = ['OptionCategory']
   optionCategoryController.createOptionCategory
 );
 
 // 取得所有 OptionCategory
 router.get(
   "/",
-  // #swagger.tags = ['Option_Category']
+  // #swagger.tags = ['OptionCategory']
   optionCategoryController.getAllOptionCategories
 );
 
 // 取得指定 ID 的 OptionCategory
 router.get(
   "/:id",
-  // #swagger.tags = ['Option_Category']
+  // #swagger.tags = ['OptionCategory']
   optionCategoryController.getOptionCategoryById
 );
 
 // 更新 OptionCategory
 router.put(
   "/:id",
-  // #swagger.tags = ['Option_Category']
+  // #swagger.tags = ['OptionCategory']
   optionCategoryController.updateOptionCategory
 );
 
 // 刪除 OptionCategory
 router.delete(
   "/:id",
-  // #swagger.tags = ['Option_Category']
+  // #swagger.tags = ['OptionCategory']
   optionCategoryController.deleteOptionCategory
 );
 

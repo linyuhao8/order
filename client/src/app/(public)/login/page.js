@@ -10,14 +10,13 @@ import useAuth from "@/hooks/auth/useAuth";
 
 //toast
 import toast from "react-hot-toast";
-
+import Button from "@/components/common/Button";
 //components
 import Title from "@/components/public/login/Title";
 import Input from "@/components/public/login/Input";
 import Forgot from "@/components/public/login/Forgot";
 import Register from "@/components/public/login/Register";
 import SocialLogin from "@/components/public/login/SocialLogin";
-import SubmitButton from "@/components/public/login/SubmitButton";
 import Navbar from "@/components/public/Navbar";
 
 //axios
@@ -108,7 +107,14 @@ export default function Login() {
                 setPassword={setPassword}
               />
               <Forgot />
-              <SubmitButton loading={loading} />
+              <Button
+                variant="full"
+                disabled={loading}
+                disabledText="login..."
+                type="submit"
+              >
+                Login
+              </Button>
               <SocialLogin />
               <Register />
             </form>

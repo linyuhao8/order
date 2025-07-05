@@ -20,7 +20,7 @@ async function createOptionValue(req, res) {
   try {
     const {
       option_id,
-      values,
+      value,
       extra_price = 0,
       is_default = false,
       sort_order = null,
@@ -33,7 +33,7 @@ async function createOptionValue(req, res) {
 
     const newOptionValue = await OptionValue.create({
       option_id,
-      values,
+      value,
       extra_price,
       is_default,
       sort_order,
@@ -105,10 +105,10 @@ async function updateOptionValue(req, res) {
       return res.status(404).json({ message: "找不到此 OptionValue" });
     }
 
-    const { values, extra_price, is_default, sort_order } = req.body;
+    const { value, extra_price, is_default, sort_order } = req.body;
 
     await optionValue.update({
-      values,
+      value,
       extra_price,
       is_default,
       sort_order,

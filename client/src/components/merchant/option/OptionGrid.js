@@ -79,79 +79,123 @@ const OptionGrid = ({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 items-start">
       {options.map((option) => (
         <div
           key={option.id}
-          className="h-full group relative rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-50 dark:border-gray-700"
+          className="group relative rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900  hover:shadow-md transition-all"
         >
-          <div className="p-5">
-            <div className="flex items-start justify-between">
-              {/* left content */}
-              <div className="flex-1 space-y-3">
-                {/* option name */}
-                <h3 className="text-sm text-gray-600 dark:text-gray-300 font-semibold leading-none tracking-tight group-hover:text-primary transition-colors duration-200">
+          <div className="p-5 space-y-4">
+            {/* Header */}
+            <div className="flex justify-between items-center">
+              <div className="flex-1 space-y-1">
+                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100 group-hover:text-primary transition">
                   {option.name} ({option.type})
                 </h3>
 
-                {/* description */}
-                <p className="text-[10px] text-gray-500 text-muted-foreground leading-relaxed">
-                  {option.description?.slice(0, 30) || "not thing"}
-                </p>
+                {/* Description */}
+                {option.description ? (
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {option.description.slice(0, 30)}
+                  </p>
+                ) : (
+                  <p className="text-[12px] text-gray-400">暫時無說明</p>
+                )}
+              </div>
 
-                {/* Price labels (if there are preset prices) */}
-                {option.option_values?.some((v) => v.extra_price > 0) && (
-                  <div className="inline-flex text-[12px] bg-gray-600 text-white px-3 py-1 rounded-sm">
-                    Price increase options available
+              {/* Delete Button */}
+              <Button
+                variant="square"
+                onClick={() => handleDelete(option.id, option.name)}
+              >
+                <MdDelete />
+              </Button>
+            </div>
+
+            {/* Attributes */}
+            <div className="space-y-1 text-xs text-gray-600 dark:text-gray-300">
+              <div className="flex gap-2">
+                {option._required && (
+                  <div className="flex items-center gap-2">
+                    <span className="w-1 h-1 bg-green-500 rounded-full" />
+                    required
                   </div>
                 )}
 
-                {/* Sub-Option Value */}
-                <ul className="list-disc pl-4 space-y-1 text-[12px] text-gray-700 dark:text-gray-300">
-                  {option.option_values?.length > 0 ? (
-                    option.option_values
-                      .slice()
-                      .sort((a, b) => a.sort_order - b.sort_order)
-                      .map((value) => (
-                        <li key={value.id}>
-                          {value.value}
-                          {value.extra_price > 0 &&
-                            `（+${value.extra_price} TWD）`}
-                          <span className="text-[10px]">
-                            {value.is_default && " default"}
-                          </span>
-                        </li>
-                      ))
-                  ) : (
-                    <li className="text-gray-400">No option value</li>
-                  )}
-                </ul>
-
-                <div className="text-[10px] text-gray-400">{option.id}</div>
-                {canUnbind ? (
-                  <Button
-                    variant="outline"
-                    onClick={() => deleteProductOption(option._productOptionId)}
-                  >
-                    結除綁定此商品
-                  </Button>
-                ) : null}
+                {option._sort_order && (
+                  <div className="flex items-center gap-2">
+                    <span className="w-1 h-1 bg-green-500 rounded-full" />
+                    sort: {option._sort_order}
+                  </div>
+                )}
               </div>
 
-              {/* Delete */}
-              <div className="flex flex-col items-end gap-2">
-                <Button
-                  variant="square"
-                  onClick={() => handleDelete(option.id, option.name)}
-                >
-                  <MdDelete />
-                </Button>
-              </div>
+              {option.max_select && option.min_select && (
+                <div className="flex flex-col">
+                  <span>max select: {option.max_select}</span>
+                  <span>max select: {option.min_select}</span>
+                </div>
+              )}
             </div>
-          </div>
 
-          {/* 裝飾線 */}
-          <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Extra Price Indicator */}
+            {option.option_values?.some((v) => v.extra_price > 0) && (
+              <div className="inline-block text-xs bg-yellow-500 text-white px-2 py-1 rounded">
+                有加價選項
+              </div>
+            )}
+
+            {/* Option Values */}
+            <div className="flex flex-wrap gap-2 text-sm text-gray-700 dark:text-gray-200">
+              {option.option_values?.length > 0 ? (
+                option.option_values
+                  .slice()
+                  .sort((a, b) => a.sort_order - b.sort_order)
+                  .map((value) => (
+                    <div
+                      key={value.id}
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-sm border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition text-xs"
+                    >
+                      <span>{value.value}</span>
+
+                      {value.extra_price > 0 && (
+                        <span className="text-yellow-600 dark:text-yellow-400">
+                          +{value.extra_price} TWD
+                        </span>
+                      )}
+
+                      {value.is_default && (
+                        <span className="text-primary text-[10px]">
+                          default
+                        </span>
+                      )}
+
+                      {value.sort_order !== undefined && (
+                        <span className="text-[10px] text-gray-400">
+                          sort: {value.sort_order}
+                        </span>
+                      )}
+                    </div>
+                  ))
+              ) : (
+                <div className="text-gray-400 text-xs">尚無選項值</div>
+              )}
+            </div>
+
+            {/* ID + Unbind */}
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] text-gray-400">ID: {option.id}</span>
+            </div>
+            {canUnbind && (
+              <Button
+                variant="outline"
+                className="text-xs px-2 py-1"
+                onClick={() => deleteProductOption(option._productOptionId)}
+              >
+                解除綁定
+              </Button>
+            )}
+          </div>
         </div>
       ))}
     </div>

@@ -34,12 +34,7 @@ const MerchantSelectorModal = ({ isModalOpen, closeModal, user }) => {
 
   const handleMerchantSelect = (merchant) => {
     if (!merchant?.id) return;
-    const simplifiedMerchant = {
-      id: merchant.id,
-      business_name: merchant.business_name,
-      merchant_logo: merchant.merchant_logo,
-    };
-    setCurrentMerchant(simplifiedMerchant);
+    setCurrentMerchant(merchant);
     closeModal();
     router.push("/merchant/dashboard");
   };

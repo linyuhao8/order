@@ -7,14 +7,59 @@ import MerchantSelectorModal from "./MerchantSelectorModal";
 import { useMerchant } from "@/hooks/useMerchant";
 import { MdStorefront } from "react-icons/md";
 import Image from "next/image";
+import useFetch from "@/hooks/api/useFetch";
+import { useEffect } from "react";
 
-const Header = ({ name, user, status = "active" }) => {
+const Header = ({ name, user }) => {
   const [isModalOpen, openModal, closeModal] = useModal();
   const handleOpen = () => {
     openModal();
   };
-  const { merchant, _setCurrentMerchant, _clearCurrentMerchant } =
-    useMerchant();
+
+  const { merchant, setCurrentMerchant } = useMerchant();
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8082";
+  const putMerchantUrl = merchant?.id
+    ? `${baseUrl}/api/merchants/${merchant.id}`
+    : null;
+  const { refetch: putMerchant } = useFetch(putMerchantUrl, {
+    withCredentials: true,
+    enabled: false,
+  });
+
+  useEffect(() => {
+    console.log(merchant);
+  }, [merchant]);
+  const handleToggleStatus = async () => {
+    if (!merchant) return;
+
+    // 準備 payload：只挑要送的欄位
+    const payload = {
+      user_id: merchant.user_id,
+      business_name: merchant.business_name,
+      description: merchant.description,
+      feature: merchant.feature,
+      location: merchant.location,
+      image_id: merchant.image_id,
+      merchant_logo_id: merchant.merchant_logo_id,
+      business_hours: merchant.business_hours,
+      is_active: !merchant.is_active, // ✅ 根據現有狀態反轉
+    };
+
+    try {
+      await putMerchant({
+        method: "PUT",
+        body: payload,
+      });
+
+      // ✅ 更新本地狀態（setCurrentMerchant）放這裡，確保真的成功才改
+      setCurrentMerchant({
+        ...merchant,
+        ...payload, // 用 payload 覆蓋更新過的欄位
+      });
+    } catch (error) {}
+  };
+
   return (
     <>
       {/* 背景裝飾 */}
@@ -61,26 +106,29 @@ const Header = ({ name, user, status = "active" }) => {
           {/* 右側控制區域 */}
           <div className="flex flex-wrap items-center gap-3">
             {/* 狀態指示器 */}
-            <div className="flex items-center space-x-2">
+            <button
+              className="flex items-center space-x-2"
+              onClick={() => handleToggleStatus()}
+            >
               <div
                 className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
-                  status === "active"
+                  merchant?.is_active
                     ? "bg-gradient-to-r from-emerald-100 to-green-100 text-emerald-700 border border-emerald-200"
                     : "bg-gradient-to-r from-red-100 to-rose-100 text-red-700 border border-red-200"
                 }`}
               >
                 <div
                   className={`absolute left-2 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full ${
-                    status === "active"
+                    merchant?.is_active
                       ? "bg-emerald-500 animate-pulse"
                       : "bg-red-500"
                   }`}
                 ></div>
                 <span className="ml-3">
-                  {status === "active" ? "In Business" : "At Rest"}
+                  {merchant?.is_active ? "In Business" : "At Rest"}
                 </span>
               </div>
-            </div>
+            </button>
 
             {/* 商家選擇按鈕 */}
             <Button variant="outline" onClick={handleOpen}>

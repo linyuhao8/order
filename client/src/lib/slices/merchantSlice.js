@@ -7,16 +7,49 @@ const merchantSlice = createSlice({
   initialState: { data: null },
   reducers: {
     setMerchant: (state, action) => {
-      const { id, business_name, merchant_logo } = action.payload;
+      const {
+        id,
+        user_id,
+        business_name,
+        description,
+        merchant_logo_id,
+        feature,
+        location,
+        business_hours,
+        is_active,
+        image_id,
+      } = action.payload;
 
-      const merchantData = JSON.stringify({ id, business_name, merchant_logo });
+      const merchantData = JSON.stringify({
+        id,
+        user_id,
+        business_name,
+        description,
+        merchant_logo_id,
+        feature,
+        location,
+        business_hours,
+        is_active,
+        image_id,
+      });
 
       setCookie("order-merchant", merchantData, {
         maxAge: 60 * 60 * 24 * 7,
         path: "/",
       });
 
-      state.data = { id, business_name, merchant_logo };
+      state.data = {
+        id,
+        user_id,
+        business_name,
+        description,
+        merchant_logo_id,
+        feature,
+        location,
+        business_hours,
+        is_active,
+        image_id,
+      };
     },
     clearMerchant: (state) => {
       deleteCookie("order-merchant", { path: "/" });

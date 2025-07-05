@@ -27,6 +27,7 @@ const createMerchant = async (req, res) => {
       merchant_logo_id,
       image_id,
       business_hours,
+      is_active,
     } = req.body;
 
     // **手動檢查 user_id 是否存在**
@@ -70,6 +71,7 @@ const createMerchant = async (req, res) => {
       location,
       image_id,
       business_hours,
+      is_active,
     });
 
     //將role轉成merchat
@@ -150,6 +152,7 @@ const updateMerchant = async (req, res) => {
       location,
       image_id,
       business_hours,
+      is_active,
     } = req.body;
 
     if (user_id) {
@@ -203,6 +206,7 @@ const updateMerchant = async (req, res) => {
       location,
       image_id,
       business_hours,
+      is_active,
     });
 
     return res.status(200).json({ message: "商家資料更新成功" });

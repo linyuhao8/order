@@ -25,11 +25,7 @@ const MerchantList = ({ user }) => {
       ) : (
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-2">
           {merchants.map((merchant) => (
-            <MerchantsCard
-              key={merchant.id}
-              merchant={merchant}
-              fetchMerchants={fetchMerchants}
-            />
+            <MerchantsCard key={merchant.id} merchant={merchant} />
           ))}
         </div>
       )}

@@ -99,7 +99,7 @@ const OptionGrid = ({
                     {option.description.slice(0, 30)}
                   </p>
                 ) : (
-                  <p className="text-[12px] text-gray-400">暫時無說明</p>
+                  <p className="text-[12px] text-gray-400">No description</p>
                 )}
               </div>
 
@@ -115,33 +115,37 @@ const OptionGrid = ({
             {/* Attributes */}
             <div className="space-y-1 text-xs text-gray-600 dark:text-gray-300">
               <div className="flex gap-2">
-                {option._required && (
-                  <div className="flex items-center gap-2">
-                    <span className="w-1 h-1 bg-green-500 rounded-full" />
-                    required
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`w-1 h-1 rounded-full ${
+                      option.required ? "bg-red-500" : "bg-orange-400"
+                    }`}
+                  />
+                  <span
+                    className={
+                      option.required ? "text-red-600" : "text-gray-500"
+                    }
+                  >
+                    {option.required ? "required" : "no required"}
+                  </span>
+                </div>
 
-                {option._sort_order && (
-                  <div className="flex items-center gap-2">
-                    <span className="w-1 h-1 bg-green-500 rounded-full" />
-                    sort: {option._sort_order}
-                  </div>
-                )}
+                <div className="flex items-center gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full" />
+                  sort: {option._sort_order}
+                </div>
               </div>
 
-              {option.max_select && option.min_select && (
-                <div className="flex flex-col">
-                  <span>max select: {option.max_select}</span>
-                  <span>max select: {option.min_select}</span>
-                </div>
-              )}
+              <div className="flex flex-row gap-2">
+                <span>max select: {option.max_select}</span>
+                <span>max select: {option.min_select}</span>
+              </div>
             </div>
 
             {/* Extra Price Indicator */}
             {option.option_values?.some((v) => v.extra_price > 0) && (
               <div className="inline-block text-xs bg-yellow-500 text-white px-2 py-1 rounded">
-                有加價選項
+                Price Increase Options
               </div>
             )}
 
@@ -178,7 +182,7 @@ const OptionGrid = ({
                     </div>
                   ))
               ) : (
-                <div className="text-gray-400 text-xs">尚無選項值</div>
+                <div className="text-gray-400 text-xs">No option value yet</div>
               )}
             </div>
 
@@ -192,7 +196,7 @@ const OptionGrid = ({
                 className="text-xs px-2 py-1"
                 onClick={() => deleteProductOption(option._productOptionId)}
               >
-                解除綁定
+                Unbinding
               </Button>
             )}
           </div>

@@ -189,8 +189,8 @@ const AddOption = ({
             name="name"
             value={optionForm.name}
             onChange={handleOptionChange}
-            label="Name"
-            placeholder="請輸入用戶名稱"
+            label="name"
+            placeholder="enter name"
             required
           />
         </div>
@@ -202,8 +202,8 @@ const AddOption = ({
             type="textarea"
             value={optionForm.description}
             onChange={handleOptionChange}
-            label="商品描述"
-            placeholder="請輸入詳細描述..."
+            label="description"
+            placeholder="enter description..."
           />
         </div>
 
@@ -214,7 +214,7 @@ const AddOption = ({
             type="select"
             value={optionForm.type}
             onChange={handleOptionChange}
-            label="選擇類型"
+            label="choose"
             selectPlaceholder="-- Select a type --"
             options={[
               { id: "select", name: "Select" },
@@ -383,8 +383,13 @@ const AddOption = ({
         )}
 
         <div className="text-right">
-          <Button type="submit" disabled={loading} variant="default" size="lg">
-            {loading ? "Submitting..." : "Submit Option"}
+          <Button
+            type="submit"
+            disabled={loading}
+            variant="full"
+            disabledText="Submitting..."
+          >
+            Submit Option
           </Button>
         </div>
       </form>

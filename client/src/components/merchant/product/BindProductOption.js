@@ -49,7 +49,7 @@ const BindProductOption = ({
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:8082/api/product-options/create",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/product-options/create`,
         {
           product_id: productId,
           option_id: selectedOptionId,

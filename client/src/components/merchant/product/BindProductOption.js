@@ -26,7 +26,7 @@ const BindProductOption = ({
     if (!filterValue) return;
     const fetchOptions = async () => {
       try {
-        const url = `http://localhost:8082/api/options/all?${filterType}=${filterValue}`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/options/all?${filterType}=${filterValue}`;
         const res = await axios.get(url, { withCredentials: true });
         setOptions(res.data.data || []);
       } catch (err) {

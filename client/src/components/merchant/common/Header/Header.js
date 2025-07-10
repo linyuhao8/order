@@ -57,7 +57,9 @@ const Header = ({ name, user }) => {
         ...merchant,
         ...payload, // 用 payload 覆蓋更新過的欄位
       });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

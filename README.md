@@ -245,7 +245,7 @@ npm run dev
 # Server
 cd ../server
 npm install
-npm run swagger.js
+npm run swagger
 node server.js
 # if you have nodemen , npm start
 ```

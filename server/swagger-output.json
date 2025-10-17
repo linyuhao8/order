@@ -5,7 +5,7 @@
     "description": "This project database using TPT (Table-per-Type) design, because of the complexity of the data structure, from the User has been extended down to use syquelize as a communication with postgreSql. 這邊文檔命名都是大寫為後端js Model的name",
     "version": "1.0.0"
   },
-  "host": "localhost:8082",
+  "host": "localhost:8080",
   "basePath": "/",
   "tags": [
     {
